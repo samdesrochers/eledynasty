@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{77E19BC2-E42E-4669-B4F6-8F8A50AAEE6B}</ProjectGuid>
+    <ProjectTypeGuids>{69878862-DA7D-4DC6-B0A1-50D8FAB4242F};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>INF4000</RootNamespace>
+    <AssemblyName>INF4000</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Sce.PlayStation.Core" />
+    <Reference Include="Sce.PlayStation.HighLevel.GameEngine2D" />
+    <Reference Include="Sce.PlayStation.HighLevel.UI" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppMain.cs" />
+    <Compile Include="Classes\Scenes\MenuScene.cs" />
+    <Compile Include="Classes\Scenes\TitleScene.cs" />
+    <Compile Include="Classes\Map\Tile.cs" />
+    <Compile Include="Classes\Map\Map.cs" />
+    <Compile Include="Classes\Misc\Constants.cs" />
+    <Compile Include="Classes\Scenes\GameScene.cs" />
+    <Compile Include="Classes\GameObjects\Cursor.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ShaderProgram Include="shaders\Simple.fcg" />
+    <ShaderProgram Include="shaders\Simple.vcg" />
+  </ItemGroup>
+  <ItemGroup>
+    <PsmMetadata Include="app.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Sce\Sce.Psm.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Audio\" />
+    <Folder Include="Assets\" />
+    <Folder Include="Assets\Title\" />
+    <Folder Include="Classes\" />
+    <Folder Include="Classes\Map\" />
+    <Folder Include="Classes\Scenes\" />
+    <Folder Include="Classes\Misc\" />
+    <Folder Include="MapFiles\" />
+    <Folder Include="Assets\Tiles\" />
+    <Folder Include="Classes\GameObjects\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Audio\menu.mp3" />
+    <Content Include="Assets\Title\title.png" />
+    <Content Include="MapFiles\defaultMap.txt" />
+    <Content Include="Assets\Tiles\tilesMap1.png" />
+  </ItemGroup>
+</Project>

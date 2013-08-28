@@ -1,0 +1,9 @@
+shaders/Simple.cgx
+app.exe
+Sce.PlayStation.HighLevel.GameEngine2D.dll
+System.Core.dll
+Sce.PlayStation.HighLevel.UI.dll
+Audio/menu.mp3
+Assets/Title/title.png
+MapFiles/defaultMap.txt
+Assets/Tiles/tilesMap1.png
