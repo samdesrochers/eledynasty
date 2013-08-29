@@ -46,6 +46,8 @@
     <Compile Include="Classes\Misc\Constants.cs" />
     <Compile Include="Classes\Scenes\GameScene.cs" />
     <Compile Include="Classes\GameObjects\Cursor.cs" />
+    <Compile Include="Classes\GameObjects\Unit.cs" />
+    <Compile Include="Classes\GameObjects\Farmer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />

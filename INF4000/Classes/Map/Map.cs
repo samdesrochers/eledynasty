@@ -13,11 +13,11 @@ namespace INF4000
 {
 	public class Map
 	{		
-		public static Tile[,] Tiles;
+		public Tile[,] Tiles;
 	
-		public static string Name;
-		public static int Width;
-		public static int Height;
+		public string Name;
+		public int Width;
+		public int Height;
 		
 		private Texture2D _Texture;
 		private TextureInfo _TexInfo;
@@ -68,9 +68,12 @@ namespace INF4000
 				Vector2i index = new Vector2i (0, 0);
 				t.TextureInfo = _TexInfo;		
 			
-				switch (t.TileType) {
+				switch (t.TerrainType) {
 				case Constants.TILE_TYPE_GRASS_MIDDLE:
 					index = new Vector2i (1, 3);
+					break;
+				case Constants.TILE_TYPE_WATER_MIDDLE:
+					index = new Vector2i (3, 0);
 					break;
 				case Constants.TILE_TYPE_BUILD_FORT:
 					index = new Vector2i (2, 3);
@@ -78,9 +81,6 @@ namespace INF4000
 				case Constants.TILE_TYPE_BUILD_FARM:
 					index = new Vector2i (3, 3);
 					break;
-				case Constants.TILE_TYPE_WATER_MIDDLE:
-					index = new Vector2i (3, 0);
-					break;					
 				}
 					
 				t.CreateSpriteTile(index);
@@ -126,20 +126,29 @@ namespace INF4000
 		
 		private Tile ExtractTileFromString (string info, int posx, int posy)
 		{
-			int isBuilding;
+			int reserved;
 			int tileType;
 			int tileUnit;
 			int tileOwner;
 			int turns;
+			int moves;
+			int lifePoints;
 			
-			Int32.TryParse (info.Substring (0, 1), out isBuilding);
-			Int32.TryParse (info.Substring (1, 2), out tileType);
-			Int32.TryParse (info.Substring (3, 2), out tileUnit);
-			Int32.TryParse (info.Substring (5, 1), out tileOwner);
-			Int32.TryParse (info.Substring (6, 2), out turns);
-	
-			return new Tile (isBuilding, tileType, tileUnit, tileOwner, turns, posx, posy);
+			Int32.TryParse (info.Substring (0, 2), out tileType);
+			Int32.TryParse (info.Substring (2, 2), out tileUnit);
+			Int32.TryParse (info.Substring (4, 1), out tileOwner);
+			Int32.TryParse (info.Substring (5, 1), out turns);
+			Int32.TryParse (info.Substring (6, 2), out moves);
+			Int32.TryParse (info.Substring (8, 2), out lifePoints);
+			
+//			Unit unit = new Unit();
+//			if(tileUnit != 10)
+//				unit = Unit.Create(tileUnit, moves, lifePoints);
+			
+			return new Tile (tileType, tileOwner, turns, posx, posy);
 		}
+		
+		
 		
 		public bool SaveMapToFile (string fileName)
 		{

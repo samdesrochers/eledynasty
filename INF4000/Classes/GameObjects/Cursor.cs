@@ -33,25 +33,25 @@ namespace INF4000
 		{
 			if(SelectedTile.WorldPosition.X > 0)
 			{
-				Tile newSelectedTile = Map.Tiles[SelectedTile.WorldPosition.Y, SelectedTile.WorldPosition.X - 1];
+				Tile newSelectedTile = GameScene.Instance.CurrentMap.Tiles[SelectedTile.WorldPosition.Y, SelectedTile.WorldPosition.X - 1];
 				SelectedTile = newSelectedTile;
 			}
 		}
 		
 		public void NavigateUp()
 		{
-			if(SelectedTile.WorldPosition.Y < Map.Height - 1)
+			if(SelectedTile.WorldPosition.Y < GameScene.Instance.CurrentMap.Height - 1)
 			{
-				Tile newSelectedTile = Map.Tiles[SelectedTile.WorldPosition.Y + 1, SelectedTile.WorldPosition.X];
+				Tile newSelectedTile = GameScene.Instance.CurrentMap.Tiles[SelectedTile.WorldPosition.Y + 1, SelectedTile.WorldPosition.X];
 				SelectedTile = newSelectedTile;
 			}
 		}
 		
 		public void NavigateRight()
 		{
-			if(SelectedTile.WorldPosition.X < Map.Width - 1)
+			if(SelectedTile.WorldPosition.X < GameScene.Instance.CurrentMap.Width - 1)
 			{
-				Tile newSelectedTile = Map.Tiles[SelectedTile.WorldPosition.Y, SelectedTile.WorldPosition.X + 1];
+				Tile newSelectedTile = GameScene.Instance.CurrentMap.Tiles[SelectedTile.WorldPosition.Y, SelectedTile.WorldPosition.X + 1];
 				SelectedTile = newSelectedTile;
 			}
 		}
@@ -60,7 +60,7 @@ namespace INF4000
 		{
 			if(SelectedTile.WorldPosition.Y > 0)
 			{
-				Tile newSelectedTile = Map.Tiles[SelectedTile.WorldPosition.Y - 1, SelectedTile.WorldPosition.X];
+				Tile newSelectedTile = GameScene.Instance.CurrentMap.Tiles[SelectedTile.WorldPosition.Y - 1, SelectedTile.WorldPosition.X];
 				SelectedTile = newSelectedTile;
 			}
 		}

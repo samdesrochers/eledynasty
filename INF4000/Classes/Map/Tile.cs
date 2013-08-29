@@ -10,27 +10,20 @@ namespace INF4000
 {
 	public class Tile : SpriteUV
 	{
-		public bool IsTileBuilding;
-		public int TileType;
-		public int TileUnit;
+		public int BuildingType;
+		public int TerrainType;
+		public Unit CurrentUnit;
 		public int TileOwner;
 		public int BuildingTurnsToProduce;
+		public int TerrainModifier;
+		
 		public Vector2i WorldPosition;
 		public SpriteTile SpriteTile;
 		
-		public Tile (int isBuilding, int type, int unit, int owner, int turns, int posX, int posY)
-		{
-			if(isBuilding == 0)
-				IsTileBuilding = false;
-			else
-				IsTileBuilding = true;
-			
-			TileType = type;
-			TileUnit = unit;
+		public Tile (int terrain, int owner, int turns, int posX, int posY)
+		{	
+			TerrainType = terrain;			
 			TileOwner = owner;
-
-			if(IsTileBuilding)
-				BuildingTurnsToProduce = turns;
 			
 			// Set size, rotation and position
 			Quad.S = new Vector2(Constants.TILE_SIZE, Constants.TILE_SIZE);

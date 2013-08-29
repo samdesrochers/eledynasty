@@ -1,12 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\Scenes\GameScene.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\GameObjects\Cursor.cs">
     <Files>
       <File FileName="INF4000\Classes\Map\Tile.cs" Line="38" Column="45" />
-      <File FileName="INF4000\Classes\Map\Map.cs" Line="84" Column="6" />
-      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="33" Column="4" />
-      <File FileName="INF4000\Classes\GameObjects\Cursor.cs" Line="27" Column="4" />
+      <File FileName="INF4000\Classes\Map\Map.cs" Line="138" Column="19" />
+      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="25" Column="20" />
+      <File FileName="INF4000\Classes\GameObjects\Cursor.cs" Line="34" Column="40" />
       <File FileName="c:\Users\Sam\Documents\Projects\INF4000\INF4000\Classes\Scenes\MenuScene.cs" Line="68" Column="1" />
+      <File FileName="INF4000\Classes\GameObjects\Unit.cs" Line="31" Column="28" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

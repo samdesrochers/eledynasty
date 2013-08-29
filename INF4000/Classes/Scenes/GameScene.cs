@@ -9,12 +9,20 @@ namespace INF4000
 {
 	public class GameScene : Scene
 	{
-		private Map CurrentMap;
+		private static GameScene _Instance;
+		public static GameScene Instance
+		{
+			get
+			{
+				if(_Instance == null)
+				{
+					_Instance = new GameScene();
+				}
+				return _Instance;
+			}
+		}
 		
-		//private SoundPlayer _SoundPlayer;
-		//private Sound _Sound;
-		
-		private Vector2 LastTouch;
+		public Map CurrentMap;
               
 		public GameScene ()
 		{
@@ -94,45 +102,37 @@ namespace INF4000
 			{
 				CurrentMap.Cursor.NavigateUp();
 				CurrentMap.Cursor.NavigateRight();
-				UpdateCameraPositionByCursor();
 			}
 			else if(Input2.GamePad.GetData(0).Up.Release && Input2.GamePad.GetData(0).Right.Release) // Up + Left
 			{
 				CurrentMap.Cursor.NavigateUp();
 				CurrentMap.Cursor.NavigateLeft();
-				UpdateCameraPositionByCursor();
 			}
 			else if(Input2.GamePad.GetData(0).Down.Release && Input2.GamePad.GetData(0).Right.Release) // Down + Right
 			{
 				CurrentMap.Cursor.NavigateDown();
 				CurrentMap.Cursor.NavigateRight();
-				UpdateCameraPositionByCursor();
 			}
 			else if(Input2.GamePad.GetData(0).Down.Release && Input2.GamePad.GetData(0).Right.Release) // Down + Left
 			{
 				CurrentMap.Cursor.NavigateDown();
 				CurrentMap.Cursor.NavigateLeft();
-				UpdateCameraPositionByCursor();
 			}
 			else if(Input2.GamePad.GetData(0).Right.Release)
 			{
 				CurrentMap.Cursor.NavigateRight();
-				UpdateCameraPositionByCursor();
 			}
 			else if(Input2.GamePad.GetData(0).Left.Release)
 			{
 				CurrentMap.Cursor.NavigateLeft();
-				UpdateCameraPositionByCursor();
 			}
 			else if(Input2.GamePad.GetData(0).Up.Release)
 			{
 				CurrentMap.Cursor.NavigateUp();
-				UpdateCameraPositionByCursor();
 			}
 			else if(Input2.GamePad.GetData(0).Down.Release)
 			{
 				CurrentMap.Cursor.NavigateDown();
-				UpdateCameraPositionByCursor();
 			}
 			
 			CurrentMap.Cursor.Update();
