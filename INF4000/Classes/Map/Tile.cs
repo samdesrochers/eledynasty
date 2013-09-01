@@ -43,6 +43,13 @@ namespace INF4000
 			// Update SpriteTile's position
 			SpriteTile.Position = this.Position;			
 		}
+		
+		public bool HasUnit()
+		{
+			if(CurrentUnit != null)
+				return true;
+			return false;
+		}
 	}
 }
 

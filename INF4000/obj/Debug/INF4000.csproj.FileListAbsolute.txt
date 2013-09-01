@@ -25,7 +25,6 @@ C:\Users\Sam\Documents\Projects\INF4000\INF4000\obj\Debug\shaders\shaders\Simple
 C:\Users\Sam\Documents\Projects\INF4000\INF4000\obj\Debug\convertedpdb\app.exe.mdb
 C:\Users\Sam\Documents\Projects\INF4000\INF4000\obj\Debug\app.exe
 C:\Users\Sam\Documents\Projects\INF4000\INF4000\obj\Debug\app.pdb
-C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\obj\Debug\shaders\shaders\Simple.cgx
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-unsigned\Application\app.info
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-unsigned\Application\shaders\Simple.cgx
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-unsigned\Application\app.exe
@@ -49,6 +48,7 @@ C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-signed\Application\MapFiles\defaultMap.txt
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-signed\Application\Assets\Tiles\tilesMap1.png
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000.psdp
+C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\obj\Debug\shaders\shaders\Simple.cgx
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\obj\Debug\convertedpdb\app.exe.mdb
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\obj\Debug\app.exe
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\obj\Debug\app.pdb

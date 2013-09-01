@@ -23,10 +23,16 @@ namespace INF4000
 			WorldPosition = SelectedTile.WorldPosition;
 		}
 		
+		public override void Draw ()
+		{
+			base.Draw ();
+		}
+		
 		public void Update()
 		{
 			SpriteTile.Position = SelectedTile.Position;
 			Position = SelectedTile.Position;
+			WorldPosition = SelectedTile.WorldPosition;
 		}
 		
 		public void NavigateLeft()

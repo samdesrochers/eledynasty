@@ -1,23 +1,37 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\GameObjects\Cursor.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\Scenes\GameScene.cs">
     <Files>
-      <File FileName="INF4000\Classes\Map\Tile.cs" Line="38" Column="45" />
-      <File FileName="INF4000\Classes\Map\Map.cs" Line="138" Column="19" />
-      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="25" Column="20" />
-      <File FileName="INF4000\Classes\GameObjects\Cursor.cs" Line="34" Column="40" />
-      <File FileName="c:\Users\Sam\Documents\Projects\INF4000\INF4000\Classes\Scenes\MenuScene.cs" Line="68" Column="1" />
-      <File FileName="INF4000\Classes\GameObjects\Unit.cs" Line="31" Column="28" />
+      <File FileName="INF4000\Classes\Map\Map.cs" Line="24" Column="3" />
+      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="52" Column="1" />
+      <File FileName="INF4000\Classes\GameObjects\Unit.cs" Line="54" Column="77" />
+      <File FileName="INF4000\Classes\GameObjects\Player.cs" Line="38" Column="4" />
+      <File FileName="INF4000\Classes\GameObjects\HumanPlayer.cs" Line="11" Column="32" />
+      <File FileName="INF4000\Classes\Misc\Utilities.cs" Line="13" Column="40" />
+      <File FileName="INF4000\Classes\GameObjects\Cursor.cs" Line="7" Column="1" />
+      <File FileName="INF4000\Classes\Misc\Path.cs" Line="55" Column="5" />
+      <File FileName="INF4000\Classes\Misc\Constants.cs" Line="93" Column="41" />
+      <File FileName="INF4000\Classes\GameObjects\Farmer.cs" Line="17" Column="48" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="C:\Users\Sam\Documents\Projects\INF4000\INF4000\Classes\Map\Map.cs" line="39" />
       <Breakpoint file="C:\Users\Sam\Documents\Projects\INF4000\INF4000\Classes\Map\Map.cs" line="38" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Misc\AssetsManager.cs" line="36" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Misc\Path.cs" line="65" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Unit.cs" line="38" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Unit.cs" line="36" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
     <Watch file="INF4000\Classes\Map\Map.cs" line="62" offsetX="685" offsetY="1037" expression="_Tiles" liveUpdate="False" />
     <Watch file="INF4000\Classes\Map\Map.cs" line="62" offsetX="685" offsetY="1037" expression="_Tiles" liveUpdate="False" />
+    <Watch file="INF4000\Classes\Misc\Utilities.cs" line="12" offsetX="693" offsetY="187" expression="Instance" liveUpdate="False" />
+    <Watch file="INF4000\Classes\Misc\Utilities.cs" line="13" offsetX="397" offsetY="204" expression="desiredPlayer" liveUpdate="False" />
+    <Watch file="INF4000\Classes\Scenes\GameScene.cs" line="119" offsetX="445" offsetY="1972" expression="ActivePlayer" liveUpdate="False" />
+    <Watch file="INF4000\Classes\Scenes\GameScene.cs" line="122" offsetX="693" offsetY="2023" expression="ActivePlayer" liveUpdate="False" />
+    <Watch file="INF4000\Classes\Scenes\GameScene.cs" line="110" offsetX="557" offsetY="1819" expression="DebugInfo" liveUpdate="False" />
+    <Watch file="INF4000\Classes\Misc\Path.cs" line="18" offsetX="405" offsetY="289" expression="Sequence" liveUpdate="False" />
   </MonoDevelop.Ide.DebuggingService.PinnedWatches>
 </Properties>

@@ -7,6 +7,10 @@ namespace INF4000
 		// General - Tile Size
 		public const int TILE_SIZE = 64;
 		
+		// General - Game States
+		public const int STATE_SELECT_IDLE 		= 0;
+		public const int STATE_SELECT_ACTIVE 	= 1;
+		
 		/*******************************
 		 * 	TERRAIN CONSTANTS
 		 * *****************************/
@@ -80,6 +84,15 @@ namespace INF4000
 		public const int UNIT_MOVE_KNIGHT 	= 9;
 		public const int UNIT_MOVE_WIZARD 	= 5;
 
+		/*******************************
+		 * 	PATH CONSTANTS
+		 * *****************************/
+		public const string PATH_LEFT 	= "LEFT";
+		public const string PATH_UP 	= "UP";
+		public const string PATH_RIGHT 	= "RIGHT";
+		public const string PATH_DOWN 	= "DOWN";
+		public const int PATH_TICKS 	= 8;
+		public const int PATH_STEP 		= 8;
 		
 	}
 }

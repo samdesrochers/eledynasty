@@ -10,7 +10,11 @@ namespace INF4000
 {
 	public class Unit : SpriteUV
 	{
-		public int Team; // Changera
+		public int MOVE_DISTANCE_TICK = Constants.PATH_STEP;
+		
+		public string OwnerName;
+		public string Identifier;
+		public int Type;
 		
 		public int LifePoints;
 		public int Move_MaxRadius;
@@ -21,21 +25,49 @@ namespace INF4000
 		public Vector2i WorldPosition;
 		public SpriteTile SpriteTile;
 		
-		public void Update(){}
+		public Path Path;
 		
-		public void MoveTo(Tile tile){}
+		public bool IsSelected;
+		
+		public void Update()
+		{
+			Path.Update();
+			
+			if(Path.Sequence.Count > 0)
+			{
+				string movement = Path.Sequence.Peek();
+			
+				if(movement == Constants.PATH_LEFT)
+				{
+					this.Position = new Vector2(Position.X - MOVE_DISTANCE_TICK, Position.Y);
+				}
+				else if(movement == Constants.PATH_RIGHT)
+				{
+					this.Position = new Vector2(Position.X + MOVE_DISTANCE_TICK, Position.Y);
+				}
+				else if(movement == Constants.PATH_UP)
+				{
+					this.Position = new Vector2(Position.X, Position.Y + MOVE_DISTANCE_TICK);
+				}
+				else if(movement == Constants.PATH_DOWN)
+				{
+					this.Position = new Vector2(Position.X, Position.Y - MOVE_DISTANCE_TICK);
+				}
+				SpriteTile.Position = this.Position;
+				GameScene.Instance.DebugHelp.Text = this.Position.ToString();
+			}
+		}
+		
 		public void Attack(Unit unit){}
 		
 		public void EndTurn(){}
 		
-		public static Unit Create(int tileUnit, int moves, int lifePoints)
+		public static Unit CreateByType(int type, int moves, int lifePoints, int posX, int posY)
 		{
-			Unit unit = new Unit();
-			switch(tileUnit)
+			switch(type)
 			{
 				case Constants.UNIT_TYPE_FARMER:
-					unit = new Farmer(moves, lifePoints);
-					break;
+					return new Farmer(moves, lifePoints, posX, posY);
 				case Constants.UNIT_TYPE_SWORD:
 					break;
 				case Constants.UNIT_TYPE_ARCHER:
@@ -45,11 +77,28 @@ namespace INF4000
 				case Constants.UNIT_TYPE_WIZARD:
 					break;
 				default:
-					unit = new Farmer(moves, lifePoints);
-					break;
+					return new Farmer(moves, lifePoints, posX, posY);
 			}
+			return null;
+		}
+		
+		public void CreateSpriteTile(Vector2i index)
+		{
+			SpriteTile = new SpriteTile(this.TextureInfo, index);
+			SpriteTile.Quad = this.Quad;
+			SpriteTile.Position = this.Position;
+		}
+		
+		public void AssignUnitToTile(object sender, EventArgs args)
+    	{
+       		// Adjust new WorldPosition
+			this.WorldPosition = new Vector2i((int) this.Position.X/Constants.TILE_SIZE, (int)this.Position.Y/Constants.TILE_SIZE);
 			
-			return unit;
+			// Set the unit to the new tile it is hovering
+			Utilities.AssignUnitToTileByPosition(WorldPosition, this);
+			
+			// Remove event so it doesn't loop 
+			this.Path.PathCompleted -= AssignUnitToTile;
 		}
 	}
 }

@@ -48,6 +48,12 @@
     <Compile Include="Classes\GameObjects\Cursor.cs" />
     <Compile Include="Classes\GameObjects\Unit.cs" />
     <Compile Include="Classes\GameObjects\Farmer.cs" />
+    <Compile Include="Classes\GameObjects\Player.cs" />
+    <Compile Include="Classes\GameObjects\HumanPlayer.cs" />
+    <Compile Include="Classes\Misc\Utilities.cs" />
+    <Compile Include="Classes\Misc\AssetsManager.cs" />
+    <Compile Include="Classes\Misc\DebugHelper.cs" />
+    <Compile Include="Classes\Misc\Path.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
