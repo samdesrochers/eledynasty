@@ -14,6 +14,10 @@ namespace INF4000
 		public SpriteTile SpriteTile;
 		public Vector2i WorldPosition;
 		
+		public Texture2D Texture;
+		
+		private const string AssetsPath = "/Application/Assets/Items/gameItems.png";
+		
 		public Cursor (Tile tile)
 		{
 			SelectedTile = tile;
@@ -21,11 +25,20 @@ namespace INF4000
 			Quad.S = new Vector2(Constants.TILE_SIZE, Constants.TILE_SIZE);
 			Position = SelectedTile.Position;
 			WorldPosition = SelectedTile.WorldPosition;
+			
+			this.LoadGraphics(new Vector2i(1,1));
 		}
 		
-		public override void Draw ()
+		public void LoadGraphics(Vector2i index)
 		{
-			base.Draw ();
+			// Create the actual texture object and specify its size
+			Texture = new Texture2D (AssetsPath, false);
+			this.TextureInfo = new TextureInfo (Texture, new Vector2i (2, 2));
+			
+			// Assign part of that texture as SpriteTile for the object
+			SpriteTile = new SpriteTile(this.TextureInfo, index);
+			SpriteTile.Quad = this.Quad;
+			SpriteTile.Position = this.Position;
 		}
 		
 		public void Update()
@@ -71,12 +84,17 @@ namespace INF4000
 			}
 		}
 		
-		public void CreateSpriteTile(Vector2i index)
+		#region Animations
+		public void TintToWhite(float dt)
 		{
-			SpriteTile = new SpriteTile(this.TextureInfo, index);
-			SpriteTile.Quad = this.Quad;
-			SpriteTile.Position = this.Position;
+			SpriteTile.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.White, 1f), dt));
 		}
+		
+		public void TintToBlue(float dt)
+		{
+			SpriteTile.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.LightBlue, 1f), dt));
+		}
+		#endregion
 	}
 }
 

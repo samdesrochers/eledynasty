@@ -19,6 +19,8 @@ namespace INF4000
 				this._ActiveUnit.IsSelected = true; 
 			}
 		}
+		
+		public Tile ActiveTile;
 		// Add Building list here
 		
 		public bool HasMovableUnits()

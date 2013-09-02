@@ -13,7 +13,7 @@ namespace INF4000
 		public Farmer (int moves, int lifePoints, int posX, int posY)
 		{
 			IsSelected = false;
-			this.Identifier = "Farmer";
+			this.Label = "Farmer";
 			this.Path = new Path();
 			
 			this.Type = Constants.UNIT_TYPE_FARMER;
@@ -26,8 +26,10 @@ namespace INF4000
 			// Set size, rotation and position
 			Quad.S = new Vector2(Constants.TILE_SIZE, Constants.TILE_SIZE);
 			Position = new Vector2(posX * Constants.TILE_SIZE, posY * Constants.TILE_SIZE);			
-			WorldPosition = new Vector2i(posX, posY);		
-		}
+			WorldPosition = new Vector2i(posX, posY);
+			
+			MovePointsDisplay = new TextImage(this.Move_RadiusLeft.ToString(), this.Position);
+		}		
 	}
 }
 

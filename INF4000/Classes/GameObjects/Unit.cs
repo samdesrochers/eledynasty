@@ -13,7 +13,7 @@ namespace INF4000
 		public int MOVE_DISTANCE_TICK = Constants.PATH_STEP;
 		
 		public string OwnerName;
-		public string Identifier;
+		public string Label;
 		public int Type;
 		
 		public int LifePoints;
@@ -23,7 +23,12 @@ namespace INF4000
 		public int Armor;		
 		
 		public Vector2i WorldPosition;
+		
+		public Texture2D Texture;
 		public SpriteTile SpriteTile;
+		public TextImage MovePointsDisplay;
+		
+		private const string AssetsPath = "/Application/Assets/Units/units.png";
 		
 		public Path Path;
 		
@@ -32,6 +37,7 @@ namespace INF4000
 		public void Update()
 		{
 			Path.Update();
+			MovePointsDisplay.AssignRelativePosition(this.Position);
 			
 			if(Path.Sequence.Count > 0)
 			{
@@ -53,6 +59,7 @@ namespace INF4000
 				{
 					this.Position = new Vector2(Position.X, Position.Y - MOVE_DISTANCE_TICK);
 				}
+				
 				SpriteTile.Position = this.Position;
 				GameScene.Instance.DebugHelp.Text = this.Position.ToString();
 			}
@@ -82,11 +89,34 @@ namespace INF4000
 			return null;
 		}
 		
-		public void CreateSpriteTile(Vector2i index)
+		public void LoadGraphics()
 		{
+			// Create the actual texture object and specify its size
+			Texture = new Texture2D (AssetsPath, false);
+			this.TextureInfo = new TextureInfo (Texture, new Vector2i (2, 2));
+			
+			Vector2i index = new Vector2i(0,0);
+			switch (this.Type) {
+					case Constants.UNIT_TYPE_FARMER:
+						index = new Vector2i (0, 1);
+						break;
+					case Constants.UNIT_TYPE_SWORD:
+						index = new Vector2i (3, 0);
+						break;
+					case Constants.UNIT_TYPE_ARCHER:
+						index = new Vector2i (0, 0);
+						break;
+					case Constants.UNIT_TYPE_KNIGHT:
+						index = new Vector2i (1, 1);
+						break;
+				}
+			
+			// Create the tile sprite for specific unit type
 			SpriteTile = new SpriteTile(this.TextureInfo, index);
 			SpriteTile.Quad = this.Quad;
 			SpriteTile.Position = this.Position;
+			
+			MovePointsDisplay = new TextImage("10", this.Position);
 		}
 		
 		public void AssignUnitToTile(object sender, EventArgs args)

@@ -31,7 +31,7 @@ namespace INF4000
 			WorldPosition = new Vector2i(posX, posY);
 		}
 		
-		public void CreateSpriteTile(Vector2i index)
+		public void LoadGraphics(Vector2i index)
 		{
 			SpriteTile = new SpriteTile(this.TextureInfo, index);
 			SpriteTile.Quad = this.Quad;

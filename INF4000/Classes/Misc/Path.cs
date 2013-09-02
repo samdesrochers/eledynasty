@@ -9,7 +9,7 @@ namespace INF4000
 		public Queue<string> Sequence;
 		
 		const int TickPerStep = Constants.PATH_TICKS; // arbitrary value
-		const int MovePerStep = Constants.PATH_STEP;  // 16*4 = 64 pixels to move per step
+		const int MovePerStep = Constants.PATH_STEP;  // 8*8 = 64 pixels to move per step
 
 		int currentTick = TickPerStep;
 		
@@ -55,8 +55,7 @@ namespace INF4000
 		public void Update()
 		{
 			if(Sequence.Count > 0 && IsActive)
-			{			
-				
+			{					
 				if(currentTick == 0)
 				{
 					Sequence.Dequeue();

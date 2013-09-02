@@ -11,25 +11,22 @@ namespace INF4000
 	public class GameScene : Scene
 	{
 		private static GameScene _Instance;
-		public static GameScene Instance
-		{
-			get
-			{
-				if(_Instance == null)
-				{
-					_Instance = new GameScene();
+
+		public static GameScene Instance {
+			get {
+				if (_Instance == null) {
+					_Instance = new GameScene ();
 				}
 				return _Instance;
 			}
 		}
 		
 		public int CurrentState = 0;
-		
 		public Map CurrentMap;
 		public Player ActivePlayer;
+		public Cursor Cursor;
 		public int ActivePlayerIndex;
 		public List<Player> Players;
-		
 		public DebugHelper DebugHelp;
 		
 		public GameScene ()
@@ -38,25 +35,34 @@ namespace INF4000
 			this.CurrentState = Constants.STATE_SELECT_IDLE;
 			this.Camera.SetViewFromViewport ();
 			
-			// Create the Players
-			Players = new List<Player>();
-			Player player1 = new HumanPlayer("SAM");
-			player1.IsActive = true;
-			Players.Add(player1);
+			Director.Instance.GL.SetBlendMode (BlendMode.PremultipliedAlpha);
 			
-			Player player2 = new HumanPlayer("GINO");
-			Players.Add(player2);	
+			// Create the Players
+			Players = new List<Player> ();
+			Player player1 = new HumanPlayer ("SAM");
+			player1.IsActive = true;
+			Players.Add (player1);
+			
+			Player player2 = new HumanPlayer ("GINO");
+			Players.Add (player2);	
 			
 			// Create the selected Map and its assets
-			CurrentMap = new Map(@"/Application/MapFiles/defaultMap.txt");   
-			this.AddChild(CurrentMap._SpriteList);
+			CurrentMap = new Map (@"/Application/MapFiles/defaultMap.txt");   
+			this.AddChild (CurrentMap.SpriteList);		
+						
+			// Create Cursor
+			Cursor = new Cursor (CurrentMap.Tiles [3, 3]);
+			this.AddChild (Cursor.SpriteTile);			
+			
+			// Add the units assets to the Main SpriteList
+			Utilities.LoadAllSpritesFromPlayer (Players, this);
 			
 			// Select the initial Active Player
-			ActivePlayer = SelectActivePlayer();
+			ActivePlayer = SelectActivePlayer ();
 			
-			// Create the Assets manager
-			DebugHelp = new DebugHelper("");
-			this.AddChild(DebugHelp);
+			// Add Debug help text
+			DebugHelp = new DebugHelper ("");
+			this.AddChild (DebugHelp);
 			
 			//Now load the sound fx and create a player
 			//_Sound = new Sound ("/Application/audio/pongblip.wav");
@@ -66,44 +72,37 @@ namespace INF4000
 
 		public override void Update (float dt)
 		{
-			base.Update (dt);    			
+			base.Update (dt);    						
+			UpdateCameraPosition ();
 			
-			UpdateCameraPosition();
-			
-			if(ActivePlayer is HumanPlayer)
-			{
-				UpdateCursorPosition();	
-				CheckUserInput();
+			if (ActivePlayer is HumanPlayer) {
+				UpdateCursorPosition ();	
+				CheckUserInput ();
 			}
-			
-			UpdateUnits();
-				
-			UpdateMap();
-			
-			CheckIsGameOver();
-			
-			ExecuteTurn();
+		
+			UpdateUnits ();			
+			UpdateMap ();	
+			CheckIsGameOver ();		
+			ExecuteTurn ();
 					
 			// Game Loop Instance : Select Active Player,Is Game Over?, Are Units with move still avail?, Move Cursor-Select Uni,t Do Concrete Actions (Move or Attack), End Turn.
 		}
 		
 		#region Game Loop Methods
-		private bool CheckIsGameOver()
+		private bool CheckIsGameOver ()
 		{
-			foreach (Player p in this.Players)
-			{
-				if(p.Units.Count == 0)
+			foreach (Player p in this.Players) {
+				if (p.Units.Count == 0)
 					return true;
 			}
 			return false;
 		}
 		
-		private Player SelectActivePlayer()
+		private Player SelectActivePlayer ()
 		{
 			int index = 0;
-			foreach (Player p in this.Players)
-			{
-				if(p.IsActive){
+			foreach (Player p in this.Players) {
+				if (p.IsActive) {
 					ActivePlayerIndex = index;
 					return p;
 				}
@@ -112,65 +111,60 @@ namespace INF4000
 			return null;
 		}
 			
-		private void ExecuteTurn()
-		{			
-			///////////////// UNIT TEST
-			if(Input2.GamePad.GetData(0).Triangle.Release)
-			{			
-				ActivePlayer = Players[(ActivePlayerIndex + 1)%Players.Count];
-				ActivePlayerIndex++;
+		private void ExecuteTurn ()
+		{						
+			if (!ActivePlayer.HasMovableUnits ()) {
 				
-				DebugHelp.Text = ActivePlayer.Name;				
-			}
-			///////////////////////////
-			
-			if(!ActivePlayer.HasMovableUnits())
-			{
-				//Switch to next player
-				ActivePlayer = Players[(ActivePlayerIndex + 1)%Players.Count];
+				// Switch to next player when no more units available to move
+				ActivePlayer = Players [(ActivePlayerIndex + 1) % Players.Count];
 				ActivePlayerIndex++;
 			}
 		}
-		
-		private void CheckUserInput()
+	
+		private void CheckUserInput ()
 		{
-			if(this.CurrentState == Constants.STATE_SELECT_IDLE) // No units selected at the moment
-			{
-				if(Input2.GamePad.GetData(0).Cross.Release) // User selects a Tile (with or without Unit) and Presses "X"
-				{
-					Unit selectedUnit = CurrentMap.SelectUnitFromTile(CurrentMap.Cursor.WorldPosition);
+			if (this.CurrentState == Constants.STATE_SELECT_IDLE) { // No units selected at the moment
+				
+				if (Input2.GamePad.GetData (0).Cross.Release) { // User selects a Tile (with or without Unit) and Presses "X"
+					Unit selectedUnit = CurrentMap.SelectUnitFromTile (Cursor.WorldPosition);
 					
-					if(selectedUnit != null) // Actual Unit was found on tile
-					{
+					if (selectedUnit != null) { // Actual Unit was found on tile
 						CurrentState = Constants.STATE_SELECT_ACTIVE;
 						ActivePlayer.ActiveUnit = selectedUnit;
-						DebugHelp.Text = selectedUnit.Identifier + " of " + ActivePlayer.Name + " is selected";
-						// Draw "Radius"
+						ActivePlayer.ActiveTile = CurrentMap.SelectTileFromPosition (Cursor.WorldPosition);
+						DebugHelp.Text = selectedUnit.Label + " of " + ActivePlayer.Name + " is selected";
+						
+						// Change Cursor's color
+						Cursor.TintToBlue (0.5f);
 					}
 				}
-			} 
-			else if(this.CurrentState == Constants.STATE_SELECT_ACTIVE)
-			{
+			} else if (this.CurrentState == Constants.STATE_SELECT_ACTIVE) {
+				
 				// User selects a destination Tile and Presses "X"
-				if(Input2.GamePad.GetData(0).Cross.Release) 
-				{
-					Path path = new Path();
-					path.BuildSequenceToDestination(ActivePlayer.ActiveUnit.WorldPosition, CurrentMap.Cursor.WorldPosition);
+				if (Input2.GamePad.GetData (0).Cross.Release) {
+					Path path = new Path ();
+					path.BuildSequenceToDestination (ActivePlayer.ActiveUnit.WorldPosition, Cursor.WorldPosition);
 					path.PathCompleted += ActivePlayer.ActiveUnit.AssignUnitToTile;
 					ActivePlayer.ActiveUnit.Path = path;
 					
+					// Remove unit from previous tile
+					ActivePlayer.ActiveTile.CurrentUnit = null;
+					
 					CurrentState = Constants.STATE_SELECT_IDLE;
-					ActivePlayer.UnselectAllUnits();
+					ActivePlayer.UnselectAllUnits ();
 					DebugHelp.Text = "Unselected all units";
 					
+					Cursor.TintToWhite (0.5f);
 				}
 				
 				// User Presses "O"
-				if(Input2.GamePad.GetData(0).Circle.Release) 
-				{
+				if (Input2.GamePad.GetData (0).Circle.Release) {
 					CurrentState = Constants.STATE_SELECT_IDLE;
-					ActivePlayer.UnselectAllUnits();
+					ActivePlayer.UnselectAllUnits ();
 					DebugHelp.Text = "Unselected all units";
+					
+					// Reset Cursor's Color
+					Cursor.TintToWhite (0.5f);
 				}
 			}
 		}
@@ -178,7 +172,7 @@ namespace INF4000
 		#endregion
 		
 		#region Update Methods
-		private void UpdateCameraPosition()
+		private void UpdateCameraPosition ()
 		{	
 			Camera2D camera = this.Camera as Camera2D;
 			
@@ -187,25 +181,23 @@ namespace INF4000
 			camera.Center = new Vector2 (camera.Center.X + 5 * data.AnalogRightX, camera.Center.Y - 5 * data.AnalogRightY);
 			
 			// Adjust Camera according to Touch Input
-			foreach (var touchData in Touch.GetData(0)) 
-			{
-	            if (touchData.Status == TouchStatus.Down || touchData.Status == TouchStatus.Move) 
-				{
-	                float pointX = touchData.X * 15;
-	                float pointY = touchData.Y * 15;									
+			foreach (var touchData in Touch.GetData(0)) {
+				if (touchData.Status == TouchStatus.Down || touchData.Status == TouchStatus.Move) {
+					float pointX = touchData.X * 15;
+					float pointY = touchData.Y * 15;									
 					camera.Center = new Vector2 (camera.Center.X + pointX, camera.Center.Y - pointY);
 					//LastTouch = new Vector2(pointX, pointY);
-	            }
-        	}
+				}
+			}
 		}
 		
-		private void UpdateCameraPositionByCursor()
+		private void UpdateCameraPositionByCursor ()
 		{
 			Camera2D camera = this.Camera as Camera2D;
-			camera.Center = new Vector2 (CurrentMap.Cursor.Position.X, CurrentMap.Cursor.Position.Y);
+			camera.Center = new Vector2 (Cursor.Position.X, Cursor.Position.Y);
 		}
 		
-		private void UpdateCursorPosition()
+		private void UpdateCursorPosition ()
 		{
 			// "On" Section
 //			if(Input2.GamePad.GetData(0).Right.On)
@@ -230,58 +222,41 @@ namespace INF4000
 //			}
 			
 			// "Release" Section		
-			if(Input2.GamePad.GetData(0).Up.Release && Input2.GamePad.GetData(0).Right.Release) // Up + Right
-			{
-				CurrentMap.Cursor.NavigateUp();
-				CurrentMap.Cursor.NavigateRight();
-			}
-			else if(Input2.GamePad.GetData(0).Up.Release && Input2.GamePad.GetData(0).Right.Release) // Up + Left
-			{
-				CurrentMap.Cursor.NavigateUp();
-				CurrentMap.Cursor.NavigateLeft();
-			}
-			else if(Input2.GamePad.GetData(0).Down.Release && Input2.GamePad.GetData(0).Right.Release) // Down + Right
-			{
-				CurrentMap.Cursor.NavigateDown();
-				CurrentMap.Cursor.NavigateRight();
-			}
-			else if(Input2.GamePad.GetData(0).Down.Release && Input2.GamePad.GetData(0).Right.Release) // Down + Left
-			{
-				CurrentMap.Cursor.NavigateDown();
-				CurrentMap.Cursor.NavigateLeft();
-			}
-			else if(Input2.GamePad.GetData(0).Right.Release)
-			{
-				CurrentMap.Cursor.NavigateRight();
-			}
-			else if(Input2.GamePad.GetData(0).Left.Release)
-			{
-				CurrentMap.Cursor.NavigateLeft();
-			}
-			else if(Input2.GamePad.GetData(0).Up.Release)
-			{
-				CurrentMap.Cursor.NavigateUp();
-			}
-			else if(Input2.GamePad.GetData(0).Down.Release)
-			{
-				CurrentMap.Cursor.NavigateDown();
+			if (Input2.GamePad.GetData (0).Up.Release && Input2.GamePad.GetData (0).Right.Release) { // Up + Right
+				Cursor.NavigateUp ();
+				Cursor.NavigateRight ();
+			} else if (Input2.GamePad.GetData (0).Up.Release && Input2.GamePad.GetData (0).Right.Release) { // Up + Left
+				Cursor.NavigateUp ();
+				Cursor.NavigateLeft ();
+			} else if (Input2.GamePad.GetData (0).Down.Release && Input2.GamePad.GetData (0).Right.Release) { // Down + Right
+				Cursor.NavigateDown ();
+				Cursor.NavigateRight ();
+			} else if (Input2.GamePad.GetData (0).Down.Release && Input2.GamePad.GetData (0).Right.Release) { // Down + Left
+				Cursor.NavigateDown ();
+				Cursor.NavigateLeft ();
+			} else if (Input2.GamePad.GetData (0).Right.Release) {
+				Cursor.NavigateRight ();
+			} else if (Input2.GamePad.GetData (0).Left.Release) {
+				Cursor.NavigateLeft ();
+			} else if (Input2.GamePad.GetData (0).Up.Release) {
+				Cursor.NavigateUp ();
+			} else if (Input2.GamePad.GetData (0).Down.Release) {
+				Cursor.NavigateDown ();
 			}
 			
-			CurrentMap.Cursor.Update();
+			Cursor.Update ();
 		}
 		
-		private void UpdateMap()
+		private void UpdateMap ()
 		{
-			CurrentMap.Update();
+			CurrentMap.Update ();
 		}
 		
-		private void UpdateUnits()
+		private void UpdateUnits ()
 		{
-			foreach(Player p in Players)
-			{
-				foreach(Unit u in p.Units)
-				{
-					u.Update();
+			foreach (Player p in Players) {
+				foreach (Unit u in p.Units) {
+					u.Update ();
 				}
 			}
 		}

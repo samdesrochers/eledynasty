@@ -14,14 +14,17 @@ namespace INF4000
 	public class Map
 	{		
 		public Tile[,] Tiles;
+		
 		public string Name;
 		public int Width;
 		public int Height;
+		
 		private Texture2D _Texture;
 		private TextureInfo _TexInfo;
-		public SpriteList _SpriteList;
-		public Cursor Cursor;
-		private const string AssetsPath = "/Application/Assets/Tiles/tilesMap1.png";
+		
+		public SpriteList SpriteList;
+
+		private const string AssetsPath = "/Application/Assets/Tiles/tilesMap.png";
 		
 		public Map (string mapFilePath)
 		{
@@ -29,8 +32,7 @@ namespace INF4000
 				if (!LoadMapFromFile (mapFilePath)) {
 					Console.WriteLine ("Error reading Map file");
 				}
-				
-				Cursor = new Cursor (Tiles [7, 3]);			
+		
 				LoadGraphics ();
 				
 			} catch (Exception e) {
@@ -50,7 +52,7 @@ namespace INF4000
 				t.Update ();
 		}
 		
-		private void AssignSpriteToTiles ()
+		private void LoadTerrainGraphics ()
 		{			
 			Vector2i index = new Vector2i (0, 0);
 			
@@ -59,44 +61,23 @@ namespace INF4000
 				t.TextureInfo = _TexInfo;		
 			
 				switch (t.TerrainType) {
-				case Constants.TILE_TYPE_GRASS_MIDDLE:
-					index = new Vector2i (1, 3);
-					break;
-				case Constants.TILE_TYPE_WATER_MIDDLE:
-					index = new Vector2i (3, 0);
-					break;
-				case Constants.TILE_TYPE_BUILD_FORT:
-					index = new Vector2i (2, 3);
-					break;
-				case Constants.TILE_TYPE_BUILD_FARM:
-					index = new Vector2i (3, 3);
-					break;
+					case Constants.TILE_TYPE_GRASS_MIDDLE:
+						index = new Vector2i (1, 0);
+						break;
+					case Constants.TILE_TYPE_WATER_MIDDLE:
+						index = new Vector2i (3, 0);
+						break;
+					case Constants.TILE_TYPE_BUILD_FORT:
+						index = new Vector2i (0, 0);
+						break;
+					case Constants.TILE_TYPE_BUILD_FARM:
+						index = new Vector2i (1, 1);
+						break;
 				}
 					
-				t.CreateSpriteTile (index);
-				_SpriteList.AddChild (t.SpriteTile);
+				t.LoadGraphics (index);
+				SpriteList.AddChild (t.SpriteTile);
 			}
-			
-			// Generate Units Sprites -- WILL BE MOVED!!!!!!!!!!!!!!!!!!!!
-			foreach(Player p in GameScene.Instance.Players)
-			{
-				foreach(Unit u in p.Units)
-				{
-					u.TextureInfo = _TexInfo;
-					switch (u.Type) {
-						case Constants.UNIT_TYPE_FARMER:
-							index = new Vector2i (0, 3);
-							break;
-					}
-					u.CreateSpriteTile (index);
-					_SpriteList.AddChild (u.SpriteTile);
-				}
-			}
-			
-			// Create Cursor's texture and add it to the SpriteList -- WILL BE MOVED!!!!!!!!!!!!!!!!!!!!
-			Cursor.TextureInfo = _TexInfo;
-			Cursor.CreateSpriteTile (new Vector2i (0, 3));
-			_SpriteList.AddChild (Cursor.SpriteTile);
 		}
 		
 		#region Load Methods
@@ -123,7 +104,7 @@ namespace INF4000
 			for (int i = 0; i < Height; i++) {
 				for (int j = 0; j < Width; j++) {
 					string tileDefinition = MapTextFileContent [tileCounter];
-					Tiles [i, j] = ExtractTileFromString (tileDefinition, j, i);
+					Tiles [i, j] = ExtractTileInfo (tileDefinition, j, i);
 					tileCounter++;
 				}
 			}
@@ -135,17 +116,16 @@ namespace INF4000
 		{
 			// Load textures map
 			_Texture = new Texture2D (AssetsPath, false);
-			_TexInfo = new TextureInfo (_Texture, new Vector2i (4, 4));
+			_TexInfo = new TextureInfo (_Texture, new Vector2i (2, 2));
 				
 			// Create and fill SpriteList
-			_SpriteList = new SpriteList (_TexInfo);
-			_SpriteList.EnableLocalTransform = true;				
+			SpriteList = new SpriteList (_TexInfo);
 				
-			AssignSpriteToTiles ();
+			LoadTerrainGraphics ();
 		}
 		#endregion
 		
-		private Tile ExtractTileFromString (string info, int posx, int posy)
+		private Tile ExtractTileInfo (string info, int posx, int posy)
 		{
 			int tileType;
 			int tileUnit;
@@ -171,6 +151,7 @@ namespace INF4000
 				lifePoints -= 10;	// Ex : Input : 12 HP = 2 real HP (1 is simply a buffer)
 				
 				Unit unit = Unit.CreateByType(tileUnit, moves, lifePoints, posx, posy);
+				unit.LoadGraphics();
 				tile.CurrentUnit = unit;
 				
 				// Assign the new unit to the correct Player
@@ -194,6 +175,16 @@ namespace INF4000
 				{
 					return t.CurrentUnit;
 				}
+			}
+			return null;
+		}
+		
+		public Tile SelectTileFromPosition(Vector2i index)
+		{
+			if(index.X >= 0 && index.Y >= 0)
+			{
+				Tile t = Tiles[index.Y, index.X];
+				return t;		
 			}
 			return null;
 		}
