@@ -16,6 +16,7 @@ namespace INF4000
 		public int TileOwner;
 		public int BuildingTurnsToProduce;
 		public int TerrainModifier;
+		public int TintWeight;
 		
 		public Vector2i WorldPosition;
 		public SpriteTile SpriteTile;
@@ -31,7 +32,7 @@ namespace INF4000
 			WorldPosition = new Vector2i(posX, posY);
 		}
 		
-		public void LoadGraphics(Vector2i index)
+		public void AssignGraphics(Vector2i index)
 		{
 			SpriteTile = new SpriteTile(this.TextureInfo, index);
 			SpriteTile.Quad = this.Quad;
@@ -49,6 +50,17 @@ namespace INF4000
 			if(CurrentUnit != null)
 				return true;
 			return false;
+		}
+		
+		public void TintToBlue()
+		{
+			SpriteTile.Color = new Vector4(0.2f,0.2f,0.2f,0.2f);
+			//SpriteTile.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.Red, 0.3f), 0.25f));
+		}
+		
+		public void TintBackToNormal()
+		{
+			SpriteTile.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.White, 1f), 0.25f));
 		}
 	}
 }

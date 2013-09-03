@@ -34,7 +34,7 @@ namespace INF4000
 		
 		public bool IsSelected;
 		
-		public void Update()
+		public virtual void Update()
 		{
 			Path.Update();
 			MovePointsDisplay.AssignRelativePosition(this.Position);
@@ -129,6 +129,16 @@ namespace INF4000
 			
 			// Remove event so it doesn't loop 
 			this.Path.PathCompleted -= AssignUnitToTile;
+		}
+		
+		public void TintToWhite(float dt)
+		{
+			SpriteTile.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.White, 1f), dt));
+		}
+		
+		public void TintToBlue(float dt)
+		{
+			SpriteTile.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.LightBlue, 1f), dt));
 		}
 	}
 }

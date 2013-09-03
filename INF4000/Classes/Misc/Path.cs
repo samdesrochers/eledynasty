@@ -22,7 +22,7 @@ namespace INF4000
 			IsActive = false;
 		}
 		
-		public void BuildSequenceToDestination(Vector2i origin, Vector2i destination)
+		public void BuildMoveTo(Vector2i origin, Vector2i destination)
 		{
 			Vector2i finalPos = origin; 
 			while(destination.X != finalPos.X || destination.Y != finalPos.Y)
@@ -50,6 +50,25 @@ namespace INF4000
 				}
 			}
 			IsActive = true;
+		}
+		
+		public int GetDestinationAction(Vector2i pos)
+		{
+			Tile dest = GameScene.Instance.CurrentMap.SelectTileFromPosition(pos);
+			
+			// If tile is empty, move is necessarliy valid
+			if(dest.CurrentUnit == null)
+				return Constants.ACTION_MOVE;
+			
+			// User is trying to move unit on another of his own unit
+			if(dest.CurrentUnit != null && dest.CurrentUnit.OwnerName == GameScene.Instance.ActivePlayer.Name)
+				return Constants.ACTION_CANCEL;
+			
+			// User is trying to attack enemy unit
+			if(dest.CurrentUnit != null && dest.CurrentUnit.OwnerName != GameScene.Instance.ActivePlayer.Name)
+				return Constants.ACTION_ATTACK;
+			
+			return Constants.ACTION_CANCEL;
 		}
 		
 		public void Update()

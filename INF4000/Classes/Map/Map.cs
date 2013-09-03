@@ -14,6 +14,7 @@ namespace INF4000
 	public class Map
 	{		
 		public Tile[,] Tiles;
+		public List<Tile> TintedTiles;
 		
 		public string Name;
 		public int Width;
@@ -75,7 +76,7 @@ namespace INF4000
 						break;
 				}
 					
-				t.LoadGraphics (index);
+				t.AssignGraphics (index);
 				SpriteList.AddChild (t.SpriteTile);
 			}
 		}
@@ -173,6 +174,7 @@ namespace INF4000
 				Tile t = Tiles[index.Y, index.X];
 				if(t != null && t.CurrentUnit != null && t.CurrentUnit.OwnerName == GameScene.Instance.ActivePlayer.Name)
 				{
+					TintAdjacentTilesByRadius(t, t.CurrentUnit.Move_RadiusLeft);
 					return t.CurrentUnit;
 				}
 			}
@@ -191,6 +193,49 @@ namespace INF4000
 		#endregion		
 			
 		#region Utilities
+		private void TintAdjacentTilesByRadius(Tile initialTile, int radius)
+		{
+			TintedTiles = new List<Tile>(); // MOVE THIS GARB TO PATH.CS
+			
+			// ALGO DE FOU
+			Vector2i initPos = initialTile.WorldPosition;
+			
+			for(int i = 0; i < 2*radius + 1; i++)
+			{
+				Vector2i tilePos = new Vector2i(initPos.X, initPos.Y + radius - i);
+				if(tilePos.X >= 0 && tilePos.Y >= 0)
+				{
+					Tile t = Tiles[tilePos.X, tilePos.Y];
+					
+					if(i < radius)
+						t.TintWeight = i;
+//					else
+//						t.TintWeight = 
+					TintedTiles.Add(t);
+				}
+			}
+			
+			foreach(Tile t in TintedTiles)
+			{
+				Vector2i ipos = t.WorldPosition;
+				for(int i = 0; i <= t.TintWeight*2; i++)
+				{
+					int posx = ipos.X - t.TintWeight;
+					Tile toTint = Tiles[posx, ipos.Y];
+					toTint.TintToBlue();
+				}
+			}
+		}
+		
+		private void UnTintAllTiles()
+		{
+			foreach(Tile t in TintedTiles)
+			{
+				t.TintWeight = 0;
+				t.TintBackToNormal();
+			}
+		}
+		
 		private static bool StartsWithDelimiter (string s)
 		{
 			return s.StartsWith ("#");

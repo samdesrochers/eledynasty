@@ -20,8 +20,8 @@ namespace INF4000
 			this.LifePoints = System.Math.Min(Constants.UNIT_HP_FARMER, lifePoints);
 			this.AttackDamage = Constants.UNIT_AD_FARMER;
 			this.Armor = Constants.UNIT_AD_FARMER;
-			this.Move_MaxRadius = Constants.UNIT_MOVE_FARMER;
-			this.Move_RadiusLeft = Move_MaxRadius;
+			this.Move_MaxRadius = 3;
+			this.Move_RadiusLeft = 3;
 			
 			// Set size, rotation and position
 			Quad.S = new Vector2(Constants.TILE_SIZE, Constants.TILE_SIZE);
@@ -29,7 +29,12 @@ namespace INF4000
 			WorldPosition = new Vector2i(posX, posY);
 			
 			MovePointsDisplay = new TextImage(this.Move_RadiusLeft.ToString(), this.Position);
-		}		
+		}	
+		
+		public override void Update()
+		{
+			base.Update();
+		}
 	}
 }
 

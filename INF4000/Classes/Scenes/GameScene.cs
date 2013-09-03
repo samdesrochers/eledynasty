@@ -113,12 +113,12 @@ namespace INF4000
 			
 		private void ExecuteTurn ()
 		{						
-			if (!ActivePlayer.HasMovableUnits ()) {
-				
-				// Switch to next player when no more units available to move
-				ActivePlayer = Players [(ActivePlayerIndex + 1) % Players.Count];
-				ActivePlayerIndex++;
-			}
+//			if (!ActivePlayer.HasMovableUnits ()) {
+//				
+//				// Switch to next player when no more units available to move
+//				ActivePlayer = Players [(ActivePlayerIndex + 1) % Players.Count];
+//				ActivePlayerIndex++;
+//			}
 		}
 	
 		private void CheckUserInput ()
@@ -135,6 +135,8 @@ namespace INF4000
 						DebugHelp.Text = selectedUnit.Label + " of " + ActivePlayer.Name + " is selected";
 						
 						// Change Cursor's color
+						ActivePlayer.ActiveUnit.TintToBlue(0.5f);
+						ActivePlayer.ActiveTile.TintToBlue();
 						Cursor.TintToBlue (0.5f);
 					}
 				}
@@ -143,16 +145,29 @@ namespace INF4000
 				// User selects a destination Tile and Presses "X"
 				if (Input2.GamePad.GetData (0).Cross.Release) {
 					Path path = new Path ();
-					path.BuildSequenceToDestination (ActivePlayer.ActiveUnit.WorldPosition, Cursor.WorldPosition);
-					path.PathCompleted += ActivePlayer.ActiveUnit.AssignUnitToTile;
-					ActivePlayer.ActiveUnit.Path = path;
 					
-					// Remove unit from previous tile
-					ActivePlayer.ActiveTile.CurrentUnit = null;
+					int action = path.GetDestinationAction(Cursor.WorldPosition);
 					
-					CurrentState = Constants.STATE_SELECT_IDLE;
-					ActivePlayer.UnselectAllUnits ();
-					DebugHelp.Text = "Unselected all units";
+					if(action == Constants.ACTION_MOVE)
+					{
+						path.BuildMoveTo (ActivePlayer.ActiveUnit.WorldPosition, Cursor.WorldPosition);
+						path.PathCompleted += ActivePlayer.ActiveUnit.AssignUnitToTile;
+						ActivePlayer.ActiveUnit.Path = path;
+						
+						// Remove unit from previous tile
+						ActivePlayer.ActiveTile.CurrentUnit = null;
+					
+						CurrentState = Constants.STATE_SELECT_IDLE;
+						ActivePlayer.UnselectAllUnits ();
+						DebugHelp.Text = "Unselected all units";
+						
+					} 
+					else if(action == Constants.ACTION_CANCEL)
+					{
+						CurrentState = Constants.STATE_SELECT_IDLE;
+						ActivePlayer.UnselectAllUnits ();
+						DebugHelp.Text = "Unselected all units";
+					}
 					
 					Cursor.TintToWhite (0.5f);
 				}
@@ -245,6 +260,7 @@ namespace INF4000
 			}
 			
 			Cursor.Update ();
+			this.UpdateCameraPositionByCursor();
 		}
 		
 		private void UpdateMap ()

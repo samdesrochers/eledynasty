@@ -94,6 +94,14 @@ namespace INF4000
 		public const int PATH_TICKS 	= 8;
 		public const int PATH_STEP 		= 8;
 		
+		// Actions - Different actions possible for a turn
+		public const int ACTION_CANCEL 	= 0;
+		public const int ACTION_MOVE 	= 1;
+		public const int ACTION_ATTACK 	= 2;
+		public const int ACTION_CAPTURE = 3;
+
+		
+		
 	}
 }
 
