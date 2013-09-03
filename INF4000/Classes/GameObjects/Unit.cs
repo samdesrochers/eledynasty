@@ -28,7 +28,7 @@ namespace INF4000
 		public SpriteTile SpriteTile;
 		public TextImage MovePointsDisplay;
 		
-		private const string AssetsPath = "/Application/Assets/Units/units.png";
+		private const string AssetsName = "/Application/Assets/Units/units.png";
 		
 		public Path Path;
 		
@@ -92,7 +92,7 @@ namespace INF4000
 		public void LoadGraphics()
 		{
 			// Create the actual texture object and specify its size
-			Texture = new Texture2D (AssetsPath, false);
+			Texture = new Texture2D (AssetsName, false);
 			this.TextureInfo = new TextureInfo (Texture, new Vector2i (2, 2));
 			
 			Vector2i index = new Vector2i(0,0);
@@ -131,14 +131,14 @@ namespace INF4000
 			this.Path.PathCompleted -= AssignUnitToTile;
 		}
 		
-		public void TintToWhite(float dt)
+		public void TintToWhite()
 		{
-			SpriteTile.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.White, 1f), dt));
+			SpriteTile.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.White, 1f), 0.3f));
 		}
 		
-		public void TintToBlue(float dt)
+		public void TintToBlue()
 		{
-			SpriteTile.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.LightBlue, 1f), dt));
+			SpriteTile.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.Lime, 1f), 0.3f));
 		}
 	}
 }

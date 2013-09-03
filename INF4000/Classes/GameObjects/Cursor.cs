@@ -25,7 +25,7 @@ namespace INF4000
 			Quad.S = new Vector2(Constants.TILE_SIZE, Constants.TILE_SIZE);
 			Position = SelectedTile.Position;
 			WorldPosition = SelectedTile.WorldPosition;
-			
+						
 			this.LoadGraphics(new Vector2i(1,1));
 		}
 		
@@ -40,7 +40,7 @@ namespace INF4000
 			SpriteTile.Quad = this.Quad;
 			SpriteTile.Position = this.Position;
 		}
-		
+
 		public void Update()
 		{
 			SpriteTile.Position = SelectedTile.Position;

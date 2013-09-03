@@ -51,9 +51,9 @@
     <Compile Include="Classes\GameObjects\Player.cs" />
     <Compile Include="Classes\GameObjects\HumanPlayer.cs" />
     <Compile Include="Classes\Misc\Utilities.cs" />
-    <Compile Include="Classes\Misc\DebugHelper.cs" />
-    <Compile Include="Classes\Misc\Path.cs" />
     <Compile Include="Imaging\TextImage.cs" />
+    <Compile Include="Classes\GameUtilities\Path.cs" />
+    <Compile Include="Classes\GameUtilities\DebugHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -78,6 +78,7 @@
     <Folder Include="Assets\Items\" />
     <Folder Include="Assets\Units\" />
     <Folder Include="Assets\fonts\" />
+    <Folder Include="Classes\GameUtilities\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Audio\menu.mp3" />

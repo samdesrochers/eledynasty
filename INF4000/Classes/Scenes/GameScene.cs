@@ -48,7 +48,11 @@ namespace INF4000
 			
 			// Create the selected Map and its assets
 			CurrentMap = new Map (@"/Application/MapFiles/defaultMap.txt");   
-			this.AddChild (CurrentMap.SpriteList);		
+			//this.AddChild (CurrentMap.SpriteList);
+			foreach(SpriteTile s in CurrentMap.Sprites)
+			{
+				this.AddChild(s);
+			}
 						
 			// Create Cursor
 			Cursor = new Cursor (CurrentMap.Tiles [3, 3]);
@@ -123,65 +127,92 @@ namespace INF4000
 	
 		private void CheckUserInput ()
 		{
-			if (this.CurrentState == Constants.STATE_SELECT_IDLE) { // No units selected at the moment
-				
-				if (Input2.GamePad.GetData (0).Cross.Release) { // User selects a Tile (with or without Unit) and Presses "X"
-					Unit selectedUnit = CurrentMap.SelectUnitFromTile (Cursor.WorldPosition);
-					
-					if (selectedUnit != null) { // Actual Unit was found on tile
-						CurrentState = Constants.STATE_SELECT_ACTIVE;
-						ActivePlayer.ActiveUnit = selectedUnit;
-						ActivePlayer.ActiveTile = CurrentMap.SelectTileFromPosition (Cursor.WorldPosition);
-						DebugHelp.Text = selectedUnit.Label + " of " + ActivePlayer.Name + " is selected";
-						
-						// Change Cursor's color
-						ActivePlayer.ActiveUnit.TintToBlue(0.5f);
-						ActivePlayer.ActiveTile.TintToBlue();
-						Cursor.TintToBlue (0.5f);
-					}
-				}
-			} else if (this.CurrentState == Constants.STATE_SELECT_ACTIVE) {
+			if (this.CurrentState == Constants.STATE_SELECT_IDLE) { // "X" Pressed, No units selected at the moment
+				CrossPressed_LastStateIdle();
+			} 
+			else if (this.CurrentState == Constants.STATE_SELECT_ACTIVE) {
 				
 				// User selects a destination Tile and Presses "X"
 				if (Input2.GamePad.GetData (0).Cross.Release) {
-					Path path = new Path ();
-					
-					int action = path.GetDestinationAction(Cursor.WorldPosition);
-					
-					if(action == Constants.ACTION_MOVE)
-					{
-						path.BuildMoveTo (ActivePlayer.ActiveUnit.WorldPosition, Cursor.WorldPosition);
-						path.PathCompleted += ActivePlayer.ActiveUnit.AssignUnitToTile;
-						ActivePlayer.ActiveUnit.Path = path;
-						
-						// Remove unit from previous tile
-						ActivePlayer.ActiveTile.CurrentUnit = null;
-					
-						CurrentState = Constants.STATE_SELECT_IDLE;
-						ActivePlayer.UnselectAllUnits ();
-						DebugHelp.Text = "Unselected all units";
-						
-					} 
-					else if(action == Constants.ACTION_CANCEL)
-					{
-						CurrentState = Constants.STATE_SELECT_IDLE;
-						ActivePlayer.UnselectAllUnits ();
-						DebugHelp.Text = "Unselected all units";
-					}
-					
-					Cursor.TintToWhite (0.5f);
+					CrossPressed_LastStateActive();
 				}
 				
 				// User Presses "O"
 				if (Input2.GamePad.GetData (0).Circle.Release) {
-					CurrentState = Constants.STATE_SELECT_IDLE;
-					ActivePlayer.UnselectAllUnits ();
-					DebugHelp.Text = "Unselected all units";
-					
-					// Reset Cursor's Color
-					Cursor.TintToWhite (0.5f);
+					CirclePressed_LastStateActive();
 				}
 			}
+		}
+		
+		private void CrossPressed_LastStateIdle ()
+		{
+			if (Input2.GamePad.GetData (0).Cross.Release) 
+			{ 
+				Unit selectedUnit = CurrentMap.SelectUnitFromTile (Cursor.WorldPosition);
+					
+				if (selectedUnit != null)  // Actual Unit was found on tile
+				{
+					CurrentState = Constants.STATE_SELECT_ACTIVE;
+					ActivePlayer.ActiveUnit = selectedUnit;
+					ActivePlayer.ActiveTile = CurrentMap.SelectTileFromPosition (Cursor.WorldPosition);
+						
+					DebugHelp.Text = selectedUnit.Label + " of " + ActivePlayer.Name + " is selected";
+						
+					// Change Cursor's color
+					Cursor.TintToBlue (0.5f);
+					ActivePlayer.ActiveUnit.TintToBlue();
+				}
+			}	
+		}
+		
+		private void CrossPressed_LastStateActive()
+		{
+			Path path = new Path ();				
+			int action = path.GetDestinationAction (Cursor.WorldPosition);
+					
+			if (action == Constants.ACTION_MOVE) {
+				// Build Unit Path for move action
+				path.BuildMoveToSequence (ActivePlayer.ActiveUnit.WorldPosition, Cursor.WorldPosition);
+				path.PathCompleted += ActivePlayer.ActiveUnit.AssignUnitToTile;
+				ActivePlayer.ActiveUnit.Path = path;
+						
+				// Remove unit from previous tile
+				ActivePlayer.ActiveTile.CurrentUnit = null;
+					
+				CurrentState = Constants.STATE_SELECT_IDLE;
+						
+				// Unselect unit and remove tint from tiles
+				ActivePlayer.UnselectAllUnits ();
+				CurrentMap.UnTintAllTiles ();
+				DebugHelp.Text = "Unselected all units";
+						
+			} else if (action == Constants.ACTION_CANCEL) {
+				CurrentState = Constants.STATE_SELECT_IDLE;
+						
+				// Unselect unit and remove tint from tiles
+				ActivePlayer.UnselectAllUnits ();
+				CurrentMap.UnTintAllTiles ();
+						
+				DebugHelp.Text = "Unselected all units";
+			}
+
+			Cursor.TintToWhite (0.5f);
+			ActivePlayer.ActiveUnit.TintToWhite();
+		}
+		
+		private void CirclePressed_LastStateActive()
+		{
+			CurrentState = Constants.STATE_SELECT_IDLE;
+					
+			// Unselect unit and remove tint from tiles
+			ActivePlayer.UnselectAllUnits ();
+			CurrentMap.UnTintAllTiles();
+			
+			DebugHelp.Text = "Unselected all units";
+			
+			// Reset Cursor's Color
+			Cursor.TintToWhite (0.5f);
+			ActivePlayer.ActiveUnit.TintToWhite();
 		}
 		
 		#endregion

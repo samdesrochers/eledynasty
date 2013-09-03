@@ -14,7 +14,7 @@ namespace INF4000
 	public class Map
 	{		
 		public Tile[,] Tiles;
-		public List<Tile> TintedTiles;
+		public List<Tile> ValidTiles;
 		
 		public string Name;
 		public int Width;
@@ -23,7 +23,8 @@ namespace INF4000
 		private Texture2D _Texture;
 		private TextureInfo _TexInfo;
 		
-		public SpriteList SpriteList;
+		//public SpriteList SpriteList;
+		public List<SpriteTile> Sprites;
 
 		private const string AssetsPath = "/Application/Assets/Tiles/tilesMap.png";
 		
@@ -77,7 +78,8 @@ namespace INF4000
 				}
 					
 				t.AssignGraphics (index);
-				SpriteList.AddChild (t.SpriteTile);
+				//SpriteList.AddChild (t.SpriteTile);
+				Sprites.Add(t.SpriteTile);
 			}
 		}
 		
@@ -120,7 +122,8 @@ namespace INF4000
 			_TexInfo = new TextureInfo (_Texture, new Vector2i (2, 2));
 				
 			// Create and fill SpriteList
-			SpriteList = new SpriteList (_TexInfo);
+			//SpriteList = new SpriteList (_TexInfo);
+			Sprites = new List<SpriteTile>();
 				
 			LoadTerrainGraphics ();
 		}
@@ -195,41 +198,46 @@ namespace INF4000
 		#region Utilities
 		private void TintAdjacentTilesByRadius(Tile initialTile, int radius)
 		{
-			TintedTiles = new List<Tile>(); // MOVE THIS GARB TO PATH.CS
-			
-			// ALGO DE FOU
+			ValidTiles = new List<Tile>();
 			Vector2i initPos = initialTile.WorldPosition;
 			
 			for(int i = 0; i < 2*radius + 1; i++)
 			{
-				Vector2i tilePos = new Vector2i(initPos.X, initPos.Y + radius - i);
-				if(tilePos.X >= 0 && tilePos.Y >= 0)
+				Vector2i p0 = new Vector2i(initPos.Y + radius - i, initPos.X);
+				if(p0.X >= 0 && p0.Y >= 0 && p0.X < Height && p0.Y < Width)
 				{
-					Tile t = Tiles[tilePos.X, tilePos.Y];
+					Tile t = Tiles[p0.X, p0.Y];
 					
-					if(i < radius)
+					if(i <= radius)
 						t.TintWeight = i;
-//					else
-//						t.TintWeight = 
-					TintedTiles.Add(t);
+					else
+						t.TintWeight = 2*radius - i;
+					ValidTiles.Add(t);
 				}
 			}
 			
-			foreach(Tile t in TintedTiles)
+			List<Tile> missingTiles = new List<Tile>();
+			foreach(Tile t in ValidTiles)
 			{
-				Vector2i ipos = t.WorldPosition;
+				Vector2i linkPos = t.WorldPosition;
 				for(int i = 0; i <= t.TintWeight*2; i++)
 				{
-					int posx = ipos.X - t.TintWeight;
-					Tile toTint = Tiles[posx, ipos.Y];
-					toTint.TintToBlue();
+					int p1 = linkPos.X - t.TintWeight + i; // X and Y inverted for Tiles[]
+					if(p1 >= 0 && p1 < Width && linkPos.Y < Height && linkPos.Y >= 0)
+					{
+						Tile toTint = Tiles[linkPos.Y, p1];
+						toTint.Tint();
+						missingTiles.Add(toTint);
+					}
 				}
 			}
+			foreach(Tile mt in missingTiles)
+				ValidTiles.Add(mt);
 		}
-		
-		private void UnTintAllTiles()
+	
+		public void UnTintAllTiles()
 		{
-			foreach(Tile t in TintedTiles)
+			foreach(Tile t in ValidTiles)
 			{
 				t.TintWeight = 0;
 				t.TintBackToNormal();

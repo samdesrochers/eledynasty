@@ -52,15 +52,14 @@ namespace INF4000
 			return false;
 		}
 		
-		public void TintToBlue()
-		{
-			SpriteTile.Color = new Vector4(0.2f,0.2f,0.2f,0.2f);
-			//SpriteTile.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.Red, 0.3f), 0.25f));
+		public void Tint()
+		{		
+			SpriteTile.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.Grey50, 1f), 0.3f));
 		}
 		
 		public void TintBackToNormal()
 		{
-			SpriteTile.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.White, 1f), 0.25f));
+			SpriteTile.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.White, 1f), 0.3f));
 		}
 	}
 }

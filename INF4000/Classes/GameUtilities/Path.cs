@@ -22,7 +22,7 @@ namespace INF4000
 			IsActive = false;
 		}
 		
-		public void BuildMoveTo(Vector2i origin, Vector2i destination)
+		public void BuildMoveToSequence(Vector2i origin, Vector2i destination)
 		{
 			Vector2i finalPos = origin; 
 			while(destination.X != finalPos.X || destination.Y != finalPos.Y)
