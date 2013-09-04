@@ -85,14 +85,14 @@ namespace INF4000
 		}
 		
 		#region Animations
-		public void TintToWhite(float dt)
+		public void TintToWhite()
 		{
-			SpriteTile.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.White, 1f), dt));
+			SpriteTile.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.White, 1f), 0.3f));
 		}
 		
-		public void TintToBlue(float dt)
+		public void TintToBlue()
 		{
-			SpriteTile.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.LightBlue, 1f), dt));
+			SpriteTile.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.LightBlue, 1f), 0.3f));
 		}
 		#endregion
 	}

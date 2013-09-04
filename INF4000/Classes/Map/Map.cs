@@ -14,17 +14,16 @@ namespace INF4000
 	public class Map
 	{		
 		public Tile[,] Tiles;
-		public List<Tile> ValidTiles;
+		public List<Tile> ActiveTiles;
 		
 		public string Name;
 		public int Width;
 		public int Height;
 		
-		private Texture2D _Texture;
-		private TextureInfo _TexInfo;
+		public Texture2D Texture;
+		public TextureInfo TexInfo;
 		
-		//public SpriteList SpriteList;
-		public List<SpriteTile> Sprites;
+		public SpriteList SpriteList;
 
 		private const string AssetsPath = "/Application/Assets/Tiles/tilesMap.png";
 		
@@ -56,30 +55,34 @@ namespace INF4000
 		
 		private void LoadTerrainGraphics ()
 		{			
-			Vector2i index = new Vector2i (0, 0);
+			Vector2i idleIndex = new Vector2i (0, 0);
+			Vector2i activeIndex = new Vector2i (0, 0);
 			
 			// Generate Tiles Sprites 
 			foreach (Tile t in Tiles) {			
-				t.TextureInfo = _TexInfo;		
+				t.TextureInfo = TexInfo;		
 			
 				switch (t.TerrainType) {
 					case Constants.TILE_TYPE_GRASS_MIDDLE:
-						index = new Vector2i (1, 0);
+						idleIndex = new Vector2i (1, 2);
+						activeIndex = new Vector2i(3, 0);
 						break;
 					case Constants.TILE_TYPE_WATER_MIDDLE:
-						index = new Vector2i (3, 0);
+						idleIndex = new Vector2i (3, 0);
+						activeIndex = new Vector2i(3, 0);
 						break;
 					case Constants.TILE_TYPE_BUILD_FORT:
-						index = new Vector2i (0, 0);
+						idleIndex = new Vector2i (0, 2);
+						activeIndex = new Vector2i(2, 0);
 						break;
 					case Constants.TILE_TYPE_BUILD_FARM:
-						index = new Vector2i (1, 1);
+						idleIndex = new Vector2i (1, 3);
+						activeIndex = new Vector2i(3, 1);
 						break;
 				}
 					
-				t.AssignGraphics (index);
-				//SpriteList.AddChild (t.SpriteTile);
-				Sprites.Add(t.SpriteTile);
+				t.AssignGraphics (idleIndex, activeIndex);
+				SpriteList.AddChild (t.SpriteTile);
 			}
 		}
 		
@@ -118,13 +121,11 @@ namespace INF4000
 		public void LoadGraphics ()
 		{
 			// Load textures map
-			_Texture = new Texture2D (AssetsPath, false);
-			_TexInfo = new TextureInfo (_Texture, new Vector2i (2, 2));
+			Texture = new Texture2D (AssetsPath, false);
+			TexInfo = new TextureInfo (Texture, new Vector2i (4, 4));
 				
 			// Create and fill SpriteList
-			//SpriteList = new SpriteList (_TexInfo);
-			Sprites = new List<SpriteTile>();
-				
+			SpriteList = new SpriteList (TexInfo);				
 			LoadTerrainGraphics ();
 		}
 		#endregion
@@ -146,7 +147,7 @@ namespace INF4000
 			Int32.TryParse (info.Substring (8, 2), out lifePoints);
 			
 			// Create Tile according to extracted information
-			Tile tile = new Tile (tileType, tileOwner, turns, posx, posy);
+			Tile tile = new Tile (tileType, tileOwner, posx, posy);
 			
 			// Create Unit according to extracted information
 			if (tileUnit != 10) {
@@ -177,7 +178,7 @@ namespace INF4000
 				Tile t = Tiles[index.Y, index.X];
 				if(t != null && t.CurrentUnit != null && t.CurrentUnit.OwnerName == GameScene.Instance.ActivePlayer.Name)
 				{
-					TintAdjacentTilesByRadius(t, t.CurrentUnit.Move_RadiusLeft);
+					SelectActiveTiles(t, t.CurrentUnit.Move_RadiusLeft);
 					return t.CurrentUnit;
 				}
 			}
@@ -188,7 +189,7 @@ namespace INF4000
 		{
 			if(index.X >= 0 && index.Y >= 0)
 			{
-				Tile t = Tiles[index.Y, index.X];
+				Tile t = Tiles[index.Y, index.X];				
 				return t;		
 			}
 			return null;
@@ -196,9 +197,9 @@ namespace INF4000
 		#endregion		
 			
 		#region Utilities
-		private void TintAdjacentTilesByRadius(Tile initialTile, int radius)
+		private void SelectActiveTiles(Tile initialTile, int radius)
 		{
-			ValidTiles = new List<Tile>();
+			ActiveTiles = new List<Tile>();
 			Vector2i initPos = initialTile.WorldPosition;
 			
 			for(int i = 0; i < 2*radius + 1; i++)
@@ -212,12 +213,12 @@ namespace INF4000
 						t.TintWeight = i;
 					else
 						t.TintWeight = 2*radius - i;
-					ValidTiles.Add(t);
+					ActiveTiles.Add(t);
 				}
 			}
 			
-			List<Tile> missingTiles = new List<Tile>();
-			foreach(Tile t in ValidTiles)
+			List<Tile> selectedTiles = new List<Tile>();
+			foreach(Tile t in ActiveTiles)
 			{
 				Vector2i linkPos = t.WorldPosition;
 				for(int i = 0; i <= t.TintWeight*2; i++)
@@ -226,21 +227,24 @@ namespace INF4000
 					if(p1 >= 0 && p1 < Width && linkPos.Y < Height && linkPos.Y >= 0)
 					{
 						Tile toTint = Tiles[linkPos.Y, p1];
-						toTint.Tint();
-						missingTiles.Add(toTint);
+						selectedTiles.Add(toTint);
 					}
 				}
 			}
-			foreach(Tile mt in missingTiles)
-				ValidTiles.Add(mt);
+			
+			foreach(Tile mt in selectedTiles)
+				ActiveTiles.Add(mt);
+			
+			foreach(Tile at in ActiveTiles)
+				at.SetActive(true);
 		}
 	
 		public void UnTintAllTiles()
 		{
-			foreach(Tile t in ValidTiles)
+			foreach(Tile t in ActiveTiles)
 			{
 				t.TintWeight = 0;
-				t.TintBackToNormal();
+				t.SetActive(false);
 			}
 		}
 		
@@ -251,8 +255,8 @@ namespace INF4000
 		
 		~Map ()
 		{
-			_Texture.Dispose ();
-			_TexInfo.Dispose ();
+			Texture.Dispose ();
+			TexInfo.Dispose ();
 		}
 		#endregion
 	}

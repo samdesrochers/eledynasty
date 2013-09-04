@@ -84,10 +84,10 @@
     <Content Include="Audio\menu.mp3" />
     <Content Include="Assets\Title\title.png" />
     <Content Include="MapFiles\defaultMap.txt" />
-    <Content Include="Assets\Tiles\tilesMap.png" />
     <Content Include="Assets\fonts\font.ttf" />
     <Content Include="Assets\fonts\pixfont.ttf" />
     <Content Include="Assets\Units\units.png" />
     <Content Include="Assets\Items\gameItems.png" />
+    <Content Include="Assets\Tiles\tilesMap.png" />
   </ItemGroup>
 </Project>

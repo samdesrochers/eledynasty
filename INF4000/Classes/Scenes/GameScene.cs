@@ -48,11 +48,7 @@ namespace INF4000
 			
 			// Create the selected Map and its assets
 			CurrentMap = new Map (@"/Application/MapFiles/defaultMap.txt");   
-			//this.AddChild (CurrentMap.SpriteList);
-			foreach(SpriteTile s in CurrentMap.Sprites)
-			{
-				this.AddChild(s);
-			}
+			this.AddChild (CurrentMap.SpriteList);
 						
 			// Create Cursor
 			Cursor = new Cursor (CurrentMap.Tiles [3, 3]);
@@ -79,7 +75,8 @@ namespace INF4000
 			base.Update (dt);    						
 			UpdateCameraPosition ();
 			
-			if (ActivePlayer is HumanPlayer) {
+			if (ActivePlayer is HumanPlayer) 
+			{
 				UpdateCursorPosition ();	
 				CheckUserInput ();
 			}
@@ -127,18 +124,21 @@ namespace INF4000
 	
 		private void CheckUserInput ()
 		{
-			if (this.CurrentState == Constants.STATE_SELECT_IDLE) { // "X" Pressed, No units selected at the moment
+			if (this.CurrentState == Constants.STATE_SELECT_IDLE) // "X" Pressed, No units selected at the moment
+			{ 
 				CrossPressed_LastStateIdle();
 			} 
-			else if (this.CurrentState == Constants.STATE_SELECT_ACTIVE) {
-				
+			else if (this.CurrentState == Constants.STATE_SELECT_ACTIVE) 
+			{				
 				// User selects a destination Tile and Presses "X"
-				if (Input2.GamePad.GetData (0).Cross.Release) {
+				if (Input2.GamePad.GetData (0).Cross.Release) 
+				{
 					CrossPressed_LastStateActive();
 				}
 				
 				// User Presses "O"
-				if (Input2.GamePad.GetData (0).Circle.Release) {
+				if (Input2.GamePad.GetData (0).Circle.Release) 
+				{
 					CirclePressed_LastStateActive();
 				}
 			}
@@ -159,7 +159,7 @@ namespace INF4000
 					DebugHelp.Text = selectedUnit.Label + " of " + ActivePlayer.Name + " is selected";
 						
 					// Change Cursor's color
-					Cursor.TintToBlue (0.5f);
+					Cursor.TintToBlue();
 					ActivePlayer.ActiveUnit.TintToBlue();
 				}
 			}	
@@ -171,6 +171,7 @@ namespace INF4000
 			int action = path.GetDestinationAction (Cursor.WorldPosition);
 					
 			if (action == Constants.ACTION_MOVE) {
+				
 				// Build Unit Path for move action
 				path.BuildMoveToSequence (ActivePlayer.ActiveUnit.WorldPosition, Cursor.WorldPosition);
 				path.PathCompleted += ActivePlayer.ActiveUnit.AssignUnitToTile;
@@ -196,7 +197,7 @@ namespace INF4000
 				DebugHelp.Text = "Unselected all units";
 			}
 
-			Cursor.TintToWhite (0.5f);
+			Cursor.TintToWhite();
 			ActivePlayer.ActiveUnit.TintToWhite();
 		}
 		
@@ -211,7 +212,7 @@ namespace INF4000
 			DebugHelp.Text = "Unselected all units";
 			
 			// Reset Cursor's Color
-			Cursor.TintToWhite (0.5f);
+			Cursor.TintToWhite();
 			ActivePlayer.ActiveUnit.TintToWhite();
 		}
 		

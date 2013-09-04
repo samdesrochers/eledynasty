@@ -21,7 +21,10 @@ namespace INF4000
 		public Vector2i WorldPosition;
 		public SpriteTile SpriteTile;
 		
-		public Tile (int terrain, int owner, int turns, int posX, int posY)
+		public Vector2i IdleStateIndex;
+		public Vector2i ActiveStateIndex;
+		
+		public Tile (int terrain, int owner, int posX, int posY)
 		{	
 			TerrainType = terrain;			
 			TileOwner = owner;
@@ -32,9 +35,12 @@ namespace INF4000
 			WorldPosition = new Vector2i(posX, posY);
 		}
 		
-		public void AssignGraphics(Vector2i index)
+		public void AssignGraphics(Vector2i idleIndex, Vector2i activeIndex)
 		{
-			SpriteTile = new SpriteTile(this.TextureInfo, index);
+			IdleStateIndex = idleIndex;
+			ActiveStateIndex = activeIndex;
+			
+			SpriteTile = new SpriteTile(this.TextureInfo, IdleStateIndex);
 			SpriteTile.Quad = this.Quad;
 			SpriteTile.Position = this.Position;
 		}
@@ -52,14 +58,12 @@ namespace INF4000
 			return false;
 		}
 		
-		public void Tint()
-		{		
-			SpriteTile.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.Grey50, 1f), 0.3f));
-		}
-		
-		public void TintBackToNormal()
-		{
-			SpriteTile.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.White, 1f), 0.3f));
+		public void SetActive(bool active)
+		{	
+			if(active)
+				SpriteTile.TileIndex2D = ActiveStateIndex;
+			else
+				SpriteTile.TileIndex2D = IdleStateIndex;
 		}
 	}
 }
