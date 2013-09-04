@@ -25,7 +25,8 @@ namespace INF4000
 		public Vector2i WorldPosition;
 		
 		public Texture2D Texture;
-		public SpriteTile SpriteTile;
+		public SpriteTile UnitSprite;
+		public SpriteTile UnitHP;
 		public TextImage MovePointsDisplay;
 		
 		private const string AssetsName = "/Application/Assets/Units/units.png";
@@ -60,7 +61,7 @@ namespace INF4000
 					this.Position = new Vector2(Position.X, Position.Y - MOVE_DISTANCE_TICK);
 				}
 				
-				SpriteTile.Position = this.Position;
+				UnitSprite.Position = this.Position;
 				GameScene.Instance.DebugHelp.Text = this.Position.ToString();
 			}
 		}
@@ -112,11 +113,11 @@ namespace INF4000
 				}
 			
 			// Create the tile sprite for specific unit type
-			SpriteTile = new SpriteTile(this.TextureInfo, index);
-			SpriteTile.Quad = this.Quad;
-			SpriteTile.Position = this.Position;
-			
-			MovePointsDisplay = new TextImage("10", this.Position);
+			UnitSprite = new SpriteTile(this.TextureInfo, index);
+			UnitSprite.Quad = this.Quad;
+			UnitSprite.Position = this.Position;
+					
+			MovePointsDisplay = new TextImage("", this.Position);
 		}
 		
 		public void AssignUnitToTile(object sender, EventArgs args)
@@ -133,12 +134,12 @@ namespace INF4000
 		
 		public void TintToWhite()
 		{
-			SpriteTile.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.White, 1f), 0.3f));
+			UnitSprite.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.White, 1f), 0.3f));
 		}
 		
 		public void TintToBlue()
 		{
-			SpriteTile.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.Lime, 1f), 0.3f));
+			UnitSprite.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.Lime, 1f), 0.3f));
 		}
 	}
 }

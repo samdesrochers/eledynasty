@@ -89,5 +89,6 @@
     <Content Include="Assets\Units\units.png" />
     <Content Include="Assets\Items\gameItems.png" />
     <Content Include="Assets\Tiles\tilesMap.png" />
+    <Content Include="Assets\fonts\fontsheet.png" />
   </ItemGroup>
 </Project>

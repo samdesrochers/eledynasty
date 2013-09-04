@@ -27,6 +27,10 @@ namespace INF4000
 		
 		private Font Font;
 		
+		public SpriteTile UnitHP;
+		private const string AssetsName = "/Application/Assets/fonts/fontsheet.png";
+		
+		
 		public TextImage (string text, Vector2 initialPosition)
 		{
 			IsHidden = false;
@@ -34,22 +38,17 @@ namespace INF4000
 			
 			try
 			{
-				Font = new Font("/Application/Assets/Fonts/font.ttf", 18, FontStyle.Bold);
+				Quad.S = new Vector2(Constants.TEXT_SIZE, Constants.TEXT_SIZE);
 				
-				Image img = new Image (ImageMode.Rgba, new ImageSize (50, 50), new ImageColor (255, 255, 255, 0));
-				img.DrawText (_Text, new ImageColor (0, 0, 0, 255), Font, new ImagePosition (0, 0));
-	  
-				Texture2D texture = new Texture2D (50, 50, false, PixelFormat.Rgba);
-				texture.SetPixels (0, img.ToBuffer ());
-				img.Dispose ();                                  
-	   
-				TextureInfo ti = new TextureInfo ();
-				ti.Texture = texture;
-	
-				this.TextureInfo = ti;
-	   
-				this.Quad.S = ti.TextureSizef;	
-				this.Position = new Vector2(initialPosition.X + 40,initialPosition.Y - 100);	
+				Texture2D tex = new Texture2D (AssetsName, false);
+				this.TextureInfo = new TextureInfo (tex, new Vector2i (10, 1));
+				
+				// Assign part of that texture as SpriteTile for the object
+				UnitHP = new SpriteTile(this.TextureInfo, new Vector2i(3, 0));
+				
+				UnitHP.Quad = this.Quad;			
+				UnitHP.Position = initialPosition;
+				UnitHP.Scale = new Vector2(0.75f, 0.75f);
 			} 
 			catch(Exception e)
 			{
@@ -89,7 +88,8 @@ namespace INF4000
 		
 		public void AssignRelativePosition(Vector2 pos)
 		{
-			this.Position = new Vector2(pos.X + 38, pos.Y - 21);
+			this.Position = new Vector2(pos.X + 40, pos.Y - 8);
+			UnitHP.Position = this.Position;
 		}
 	}
 }

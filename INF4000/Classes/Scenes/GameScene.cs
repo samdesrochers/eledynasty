@@ -48,14 +48,14 @@ namespace INF4000
 			
 			// Create the selected Map and its assets
 			CurrentMap = new Map (@"/Application/MapFiles/defaultMap.txt");   
-			this.AddChild (CurrentMap.SpriteList);
-						
-			// Create Cursor
-			Cursor = new Cursor (CurrentMap.Tiles [3, 3]);
-			this.AddChild (Cursor.SpriteTile);			
+			this.AddChild (CurrentMap.SpriteList);	
 			
 			// Add the units assets to the Main SpriteList
 			Utilities.LoadAllSpritesFromPlayer (Players, this);
+			
+			// Create Cursor
+			Cursor = new Cursor (CurrentMap.Tiles [3, 3]);
+			this.AddChild (Cursor.SpriteTile);		
 			
 			// Select the initial Active Player
 			ActivePlayer = SelectActivePlayer ();

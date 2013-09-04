@@ -6,6 +6,7 @@ namespace INF4000
 	{
 		// General - Tile Size
 		public const int TILE_SIZE = 64;
+		public const int TEXT_SIZE = 32;
 		
 		// General - Game States
 		public const int STATE_SELECT_IDLE 		= 0;

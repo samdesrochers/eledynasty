@@ -34,10 +34,12 @@ namespace INF4000
 			{
 				foreach(Unit u in p.Units)
 				{
-					parent.AddChild(u.SpriteTile);
+					parent.AddChild(u.UnitSprite);
 					
 					if(u.MovePointsDisplay.TextureInfo != null)
-						parent.AddChild(u.MovePointsDisplay);
+					{
+						parent.AddChild(u.MovePointsDisplay.UnitHP);
+					}
 				}
 			}
 		}
