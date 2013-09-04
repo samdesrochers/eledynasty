@@ -36,9 +36,9 @@ namespace INF4000
 				{
 					parent.AddChild(u.UnitSprite);
 					
-					if(u.MovePointsDisplay.TextureInfo != null)
+					if(u.HealthDisplay.TextureInfo != null)
 					{
-						parent.AddChild(u.MovePointsDisplay.UnitHP);
+						parent.AddChild(u.HealthDisplay.UnitHP);
 					}
 				}
 			}

@@ -27,7 +27,7 @@ namespace INF4000
 		public Texture2D Texture;
 		public SpriteTile UnitSprite;
 		public SpriteTile UnitHP;
-		public TextImage MovePointsDisplay;
+		public TextImage HealthDisplay;
 		
 		private const string AssetsName = "/Application/Assets/Units/units.png";
 		
@@ -38,7 +38,7 @@ namespace INF4000
 		public virtual void Update()
 		{
 			Path.Update();
-			MovePointsDisplay.AssignRelativePosition(this.Position);
+			HealthDisplay.UpdatePosition(this.Position);
 			
 			if(Path.Sequence.Count > 0)
 			{
@@ -62,6 +62,8 @@ namespace INF4000
 				}
 				
 				UnitSprite.Position = this.Position;
+				
+				// TEMP
 				GameScene.Instance.DebugHelp.Text = this.Position.ToString();
 			}
 		}
@@ -117,7 +119,7 @@ namespace INF4000
 			UnitSprite.Quad = this.Quad;
 			UnitSprite.Position = this.Position;
 					
-			MovePointsDisplay = new TextImage("", this.Position);
+			HealthDisplay = new TextImage(this.Position);
 		}
 		
 		public void AssignUnitToTile(object sender, EventArgs args)
