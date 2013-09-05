@@ -30,7 +30,7 @@ namespace INF4000
 		public List<Player> Players;
 		public DebugHelper DebugHelp;
 		
-		private Sce.PlayStation.HighLevel.UI.Scene _uiScene;
+		public GameUI UI;
 		
 		public GameScene ()
 		{
@@ -65,20 +65,8 @@ namespace INF4000
 			DebugHelp = new DebugHelper ("");
 			this.AddChild (DebugHelp);
 			
-			// UI -----------------------------------------------------------------------
-			Sce.PlayStation.HighLevel.UI.Panel dialog = new Panel();
-            dialog.Width = 200;
-            dialog.Height = 100;
-			
-			ImageBox ib = new ImageBox();
-            ib.Width = dialog.Width;
-            ib.Image = new ImageAsset("/Application/Assets/fonts/fontsheet.png",false);
-            ib.Height = dialog.Height;
-            ib.SetPosition(0.0f,0.0f);
-			dialog.AddChildLast(ib);
-			_uiScene = new Sce.PlayStation.HighLevel.UI.Scene();
-            _uiScene.RootWidget.AddChildLast(dialog);
-            UISystem.SetScene(_uiScene);
+			UI = new GameUI();
+			UI.ActivePlayerIcon.Image = ActivePlayer.Icon;
 			
 			//Now load the sound fx and create a player
 			//_Sound = new Sound ("/Application/audio/pongblip.wav");
@@ -107,11 +95,33 @@ namespace INF4000
 			UpdateMap ();	
 			CheckIsGameOver ();		
 			ExecuteTurn ();
+			
+			if(CheckIfTurnIsOver())
+			{
+				// Turn is done, switch to next player
+				SwitchToNextPlayer();
+			}
 					
 			// Game Loop Instance : Select Active Player,Is Game Over?, Are Units with move still avail?, Move Cursor-Select Uni,t Do Concrete Actions (Move or Attack), End Turn.
 		}
 		
 		#region Game Loop Methods
+		private void SwitchToNextPlayer()
+		{
+			// Finish current player's turn
+			ActivePlayer.ResetUnits();
+			
+			// Switch Player
+			ActivePlayerIndex++;		
+			ActivePlayer = Players [ ActivePlayerIndex % Players.Count ];
+			
+			// Move Cursor to new player's first unit
+			Cursor.MoveToTileByWorldPosition(ActivePlayer.Units[0].WorldPosition);
+			UpdateCameraPositionByCursor();
+			
+			// Assign New UI Values (image, FocusPoints, place Cursor on first Unit found, etc.)
+		}
+		
 		private bool CheckIsGameOver ()
 		{
 			foreach (Player p in this.Players) {
@@ -135,15 +145,26 @@ namespace INF4000
 		}
 			
 		private void ExecuteTurn ()
-		{						
-//			if (!ActivePlayer.HasMovableUnits ()) {
-//				
-//				// Switch to next player when no more units available to move
-//				ActivePlayer = Players [(ActivePlayerIndex + 1) % Players.Count];
-//				ActivePlayerIndex++;
-//			}
+		{
+			DebugHelp.Text = ActivePlayer.Name;
 		}
-	
+		
+		private bool CheckIfTurnIsOver()
+		{
+			if(!ActivePlayer.HasMovableUnits())
+				return true;
+			
+			return false;
+		}
+		
+		public void EndActivePlayerTurn(object sender, TouchEventArgs e)
+		{
+			UI.Button_EndTurn.Visible = false;
+			Console.WriteLine("WHATUP");
+		}
+		#endregion
+		
+		#region User Input
 		private void CheckUserInput ()
 		{
 			if (this.CurrentState == Constants.STATE_SELECT_IDLE) // "X" Pressed, No units selected at the moment
@@ -183,8 +204,6 @@ namespace INF4000
 					CurrentState = Constants.STATE_SELECT_ACTIVE;
 					ActivePlayer.ActiveUnit = selectedUnit;
 					ActivePlayer.ActiveTile = CurrentMap.SelectTileFromPosition (Cursor.WorldPosition);
-						
-					DebugHelp.Text = selectedUnit.Label + " of " + ActivePlayer.Name + " is selected";
 				}
 			}	
 		}
@@ -198,7 +217,7 @@ namespace INF4000
 				
 				// Build Unit Path for move action
 				path.BuildMoveToSequence (ActivePlayer.ActiveUnit.WorldPosition, Cursor.WorldPosition);
-				path.PathCompleted += ActivePlayer.ActiveUnit.AssignUnitToTile;
+				path.PathCompleted += ActivePlayer.ActiveUnit.Unit_PathCompleted;
 				ActivePlayer.ActiveUnit.Path = path;
 						
 				// Remove unit from previous tile
@@ -210,7 +229,6 @@ namespace INF4000
 				ActivePlayer.ActiveUnit.Unselect();
 				ActivePlayer.ActiveUnit = null;
 				CurrentMap.UnTintAllTiles ();
-				DebugHelp.Text = "Unselected all units";
 						
 			} else if (action == Constants.ACTION_CANCEL) {
 				CurrentState = Constants.STATE_SELECT_IDLE;
@@ -219,8 +237,6 @@ namespace INF4000
 				ActivePlayer.ActiveUnit.Unselect ();
 				ActivePlayer.ActiveUnit = null;
 				CurrentMap.UnTintAllTiles ();
-						
-				DebugHelp.Text = "Unselected all units";
 			}
 
 			Cursor.TintToWhite();
@@ -234,8 +250,6 @@ namespace INF4000
 			ActivePlayer.ActiveUnit.Unselect ();
 			ActivePlayer.ActiveUnit = null;
 			CurrentMap.UnTintAllTiles();
-			
-			DebugHelp.Text = "Unselected all units";
 		}
 		
 		#endregion
@@ -249,14 +263,15 @@ namespace INF4000
 			GamePadData data = GamePad.GetData (0);
 			camera.Center = new Vector2 (camera.Center.X + 5 * data.AnalogRightX, camera.Center.Y - 5 * data.AnalogRightY);
 			
-			// Adjust Camera according to Touch Input
+			/*/ *******************************************************(Conflicts with UI)
+			// Adjust Camera according to Touch Input 
 			foreach (var touchData in Touch.GetData(0)) {
 				if (touchData.Status == TouchStatus.Down || touchData.Status == TouchStatus.Move) {
 					float pointX = touchData.X * 15;
 					float pointY = touchData.Y * 15;									
 					camera.Center = new Vector2 (camera.Center.X + pointX, camera.Center.Y - pointY);
 				}
-			}
+			}*/
 		}
 		
 		public void UpdateCameraPositionByCursor ()

@@ -17,9 +17,12 @@ namespace INF4000
 			if(unit == null)
 				return;
 			
-			Player desiredPlayer = GameScene.Instance.Players[playerIndex - 1];
-			unit.OwnerName = desiredPlayer.Name;
-			desiredPlayer.Units.Add(unit);
+			if(playerIndex > 0)
+			{
+				Player desiredPlayer = GameScene.Instance.Players[playerIndex - 1];
+				unit.OwnerName = desiredPlayer.Name;
+				desiredPlayer.Units.Add(unit);
+			}
 		}
 		
 		public static void AssignUnitToTileByPosition(Vector2i unitPos, Unit unit)

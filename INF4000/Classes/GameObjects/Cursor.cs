@@ -48,6 +48,14 @@ namespace INF4000
 			WorldPosition = SelectedTile.WorldPosition;
 		}
 		
+		public void MoveToTileByWorldPosition(Vector2i newPos)
+		{
+			Tile t = GameScene.Instance.CurrentMap.Tiles[newPos.Y, newPos.X];
+			this.SelectedTile = t;
+			
+			this.Update();
+		}
+		
 		public void NavigateLeft()
 		{
 			if(SelectedTile.WorldPosition.X > 0)

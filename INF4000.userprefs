@@ -1,25 +1,24 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\Misc\Utilities.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\Scenes\GameScene.cs">
     <Files>
-      <File FileName="INF4000\Classes\Map\Tile.cs" Line="38" Column="45" />
-      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="189" Column="27" />
-      <File FileName="INF4000\Classes\GameObjects\Unit.cs" Line="133" Column="1" />
-      <File FileName="INF4000\Classes\Misc\Utilities.cs" Line="49" Column="4" />
-      <File FileName="INF4000\Classes\Misc\Constants.cs" Line="91" Column="44" />
-      <File FileName="INF4000\Classes\GameUtilities\Path.cs" Line="60" Column="8" />
-      <File FileName="INF4000\Classes\GameObjects\Farmer.cs" Line="17" Column="27" />
-      <File FileName="INF4000\Classes\GameObjects\Player.cs" Line="19" Column="5" />
-      <File FileName="INF4000\Classes\Map\Map.cs" Line="180" Column="78" />
-      <File FileName="INF4000\MapFiles\defaultMap.txt" Line="45" Column="11" />
-      <File FileName="INF4000\Classes\GameObjects\Cursor.cs" Line="14" Column="32" />
+      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="116" Column="14" />
+      <File FileName="INF4000\Classes\GameObjects\Player.cs" Line="58" Column="12" />
+      <File FileName="INF4000\Classes\Map\Map.cs" Line="163" Column="30" />
+      <File FileName="INF4000\Classes\Misc\Utilities.cs" Line="19" Column="4" />
+      <File FileName="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Unit.cs" Line="127" Column="25" />
+      <File FileName="INF4000\Classes\GameUtilities\Path.cs" Line="12" Column="27" />
+      <File FileName="INF4000\Classes\GameObjects\Farmer.cs" Line="25" Column="1" />
+      <File FileName="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\AppMain.cs" Line="25" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="C:\Users\Sam\Documents\Projects\INF4000\INF4000\Classes\Map\Map.cs" line="39" />
       <Breakpoint file="C:\Users\Sam\Documents\Projects\INF4000\INF4000\Classes\Map\Map.cs" line="38" />
-      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="189" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="113" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="102" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="116" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
@@ -30,5 +29,7 @@
     <Watch file="INF4000\Classes\Misc\Utilities.cs" line="72" offsetX="1285" offsetY="1207" expression="Cursor" liveUpdate="False" />
     <Watch file="INF4000\Classes\Misc\Utilities.cs" line="72" offsetX="1285" offsetY="1207" expression="SelectedTile" liveUpdate="False" />
     <Watch file="INF4000\Classes\Misc\Utilities.cs" line="71" offsetX="685" offsetY="1190" expression="nextUnit" liveUpdate="False" />
+    <Watch file="INF4000\Classes\Scenes\GameScene.cs" line="146" offsetX="445" offsetY="2431" expression="ActivePlayer" liveUpdate="False" />
+    <Watch file="INF4000\Classes\GameObjects\Player.cs" line="42" offsetX="453" offsetY="697" expression="u" liveUpdate="False" />
   </MonoDevelop.Ide.DebuggingService.PinnedWatches>
 </Properties>

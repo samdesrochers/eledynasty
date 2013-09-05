@@ -31,16 +31,15 @@ namespace INF4000
 		private const string AssetsName = "/Application/Assets/Units/units.png";
 		
 		public Path Path;
-		protected Vector2 LastPosition;
 		
 		public bool IsSelected;
+		public bool IsActive;
 				
 		public void Attack(Unit unit){}	
 		
 		// Called at the end of a turn to restore various values
-		public void EndTurn()
+		public void Reset()
 		{
-			this.LastPosition = this.Position;
 			Unselect();
 			Move_RadiusLeft = Move_MaxRadius;
 		}
@@ -102,6 +101,7 @@ namespace INF4000
 			
 			if(Path.Sequence.Count > 0)
 			{
+				IsActive = true;
 				string movement = Path.Sequence.Peek();
 			
 				if(movement == Constants.PATH_LEFT)
@@ -115,33 +115,30 @@ namespace INF4000
 				
 				UnitSprite.Position = this.Position;
 				
-				// Last move differed, substract a move point to the radius
-				if(Position.X - LastPosition.X >= Constants.TILE_SIZE || LastPosition.X - Position.X >= Constants.TILE_SIZE ||
-				   Position.Y - LastPosition.Y >= Constants.TILE_SIZE || LastPosition.Y - Position.Y >= Constants.TILE_SIZE)
+				// Check if this path current's step is "completed". If so, remove a MovePoint and reset the path counter
+				Path.distanceMoved += Constants.PATH_STEP;
+				if(Path.distanceMoved == Constants.PATH_STEP * Constants.PATH_TICKS)
 				{
+					Path.distanceMoved = 0;
 					this.Move_RadiusLeft --;
-					this.LastPosition = this.Position;
 				}
-				
-				// TEMP
-				GameScene.Instance.DebugHelp.Text = this.Position.ToString();
 			}
 			
 			if(this.Move_RadiusLeft == 0)
-				SetInactive();
+				SetInactive();		
 		}
 
-		public void AssignUnitToTile(object sender, EventArgs args)
+		public void Unit_PathCompleted(object sender, EventArgs args)
     	{
        		// Adjust new WorldPosition
 			this.WorldPosition = new Vector2i((int) this.Position.X/Constants.TILE_SIZE, (int)this.Position.Y/Constants.TILE_SIZE);
-			this.LastPosition = this.Position;
+			this.IsActive = false;
 			
 			// Set the unit to the new tile it is hovering
 			Utilities.AssignUnitToTileByPosition(WorldPosition, this);
 			
 			// Remove event so it doesn't loop 
-			this.Path.PathCompleted -= AssignUnitToTile;
+			this.Path.PathCompleted -= Unit_PathCompleted;
 		}
 		
 		#region Utilities
@@ -161,12 +158,13 @@ namespace INF4000
 		
 		public void SetInactive()
 		{
+			IsActive = false;
 			UnitSprite.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.Grey30, 1f), 0.3f));
 		}
 		
 		public bool IsMovable()
 		{
-			if(this.Move_MaxRadius > 0)
+			if(this.Move_RadiusLeft > 0)
 				return true;
 			
 			return false;

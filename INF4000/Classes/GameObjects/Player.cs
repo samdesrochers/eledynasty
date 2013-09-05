@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Sce.PlayStation.HighLevel.UI;
 
 namespace INF4000
 {
@@ -8,6 +9,10 @@ namespace INF4000
 		public List<Unit> Units;
 		public string Name;
 		public bool IsActive;
+		public bool IsHuman;
+		public ImageAsset Icon;
+		
+		public int FocusPoints;
 		
 		private Unit _ActiveUnit;
 		public Unit ActiveUnit
@@ -30,17 +35,29 @@ namespace INF4000
 			if(Units.Count == 0)
 				return false;
 			
-			int nb_units = Units.Count - 1;
+			int nb_units = Units.Count;
 			int nb_units_no_move = 0;
 			foreach(Unit u in Units)
 			{
-				if(!u.IsMovable())
+				if(!u.IsMovable() && !u.IsActive)
 				{
 					nb_units_no_move++;
 				}
 			}		
 			
-			return nb_units == nb_units_no_move;
+			if(nb_units == nb_units_no_move)
+				return false;
+			
+			return true;
+		}
+		
+		public void ResetUnits()
+		{
+			foreach(Unit u in Units)
+			{
+				u.Reset();
+			}	
+			
 		}
 	}
 }

@@ -54,6 +54,7 @@
     <Compile Include="Classes\GameUtilities\Path.cs" />
     <Compile Include="Classes\GameUtilities\DebugHelper.cs" />
     <Compile Include="Imaging\TextSprite.cs" />
+    <Compile Include="Classes\GameUtilities\GameUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -79,6 +80,7 @@
     <Folder Include="Assets\Units\" />
     <Folder Include="Assets\fonts\" />
     <Folder Include="Classes\GameUtilities\" />
+    <Folder Include="Assets\Players\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Audio\menu.mp3" />
@@ -90,5 +92,6 @@
     <Content Include="Assets\Items\gameItems.png" />
     <Content Include="Assets\Tiles\tilesMap.png" />
     <Content Include="Assets\fonts\fontsheet.png" />
+    <Content Include="Assets\Players\araki.png" />
   </ItemGroup>
 </Project>

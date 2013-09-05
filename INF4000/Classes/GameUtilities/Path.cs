@@ -15,11 +15,13 @@ namespace INF4000
 		
 		public event EventHandler PathCompleted;
 		public bool IsActive;
+		public int distanceMoved;
 		
 		public Path()
 		{
 			Sequence = new Queue<string>();
 			IsActive = false;
+			distanceMoved = 0;
 		}
 		
 		public void BuildMoveToSequence(Vector2i origin, Vector2i destination)
