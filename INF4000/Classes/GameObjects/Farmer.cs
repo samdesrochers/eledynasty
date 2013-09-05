@@ -28,13 +28,8 @@ namespace INF4000
 			Position = new Vector2(posX * Constants.TILE_SIZE, posY * Constants.TILE_SIZE);			
 			WorldPosition = new Vector2i(posX, posY);
 			
-			HealthDisplay = new TextImage(this.Position);
+			HealthDisplay = new TextSprite(this.Position);
 		}	
-		
-		public override void Update()
-		{
-			base.Update();
-		}
 	}
 }
 

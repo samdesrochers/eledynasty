@@ -53,8 +53,12 @@ namespace INF4000
 		}
 		
 		public int GetDestinationAction(Vector2i pos)
-		{
+		{			
 			Tile dest = GameScene.Instance.CurrentMap.SelectTileFromPosition(pos);
+			
+			// If tile not in active tiles abort
+			if(!GameScene.Instance.CurrentMap.ActiveTiles.Contains(dest))
+				return Constants.ACTION_CANCEL;		
 			
 			// If tile is empty, move is necessarliy valid
 			if(dest.CurrentUnit == null)

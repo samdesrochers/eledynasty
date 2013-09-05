@@ -26,51 +26,24 @@ namespace INF4000
 		
 		public Texture2D Texture;
 		public SpriteTile UnitSprite;
-		public SpriteTile UnitHP;
-		public TextImage HealthDisplay;
+		public TextSprite HealthDisplay;
 		
 		private const string AssetsName = "/Application/Assets/Units/units.png";
 		
 		public Path Path;
+		protected Vector2 LastPosition;
 		
 		public bool IsSelected;
+				
+		public void Attack(Unit unit){}	
 		
-		public virtual void Update()
+		// Called at the end of a turn to restore various values
+		public void EndTurn()
 		{
-			Path.Update();
-			HealthDisplay.UpdatePosition(this.Position);
-			
-			if(Path.Sequence.Count > 0)
-			{
-				string movement = Path.Sequence.Peek();
-			
-				if(movement == Constants.PATH_LEFT)
-				{
-					this.Position = new Vector2(Position.X - MOVE_DISTANCE_TICK, Position.Y);
-				}
-				else if(movement == Constants.PATH_RIGHT)
-				{
-					this.Position = new Vector2(Position.X + MOVE_DISTANCE_TICK, Position.Y);
-				}
-				else if(movement == Constants.PATH_UP)
-				{
-					this.Position = new Vector2(Position.X, Position.Y + MOVE_DISTANCE_TICK);
-				}
-				else if(movement == Constants.PATH_DOWN)
-				{
-					this.Position = new Vector2(Position.X, Position.Y - MOVE_DISTANCE_TICK);
-				}
-				
-				UnitSprite.Position = this.Position;
-				
-				// TEMP
-				GameScene.Instance.DebugHelp.Text = this.Position.ToString();
-			}
+			this.LastPosition = this.Position;
+			Unselect();
+			Move_RadiusLeft = Move_MaxRadius;
 		}
-		
-		public void Attack(Unit unit){}
-		
-		public void EndTurn(){}
 		
 		public static Unit CreateByType(int type, int moves, int lifePoints, int posX, int posY)
 		{
@@ -119,13 +92,50 @@ namespace INF4000
 			UnitSprite.Quad = this.Quad;
 			UnitSprite.Position = this.Position;
 					
-			HealthDisplay = new TextImage(this.Position);
+			HealthDisplay = new TextSprite(this.Position);
 		}
 		
+		public void Update()
+		{
+			Path.Update();
+			HealthDisplay.UpdatePosition(this.Position);
+			
+			if(Path.Sequence.Count > 0)
+			{
+				string movement = Path.Sequence.Peek();
+			
+				if(movement == Constants.PATH_LEFT)
+					this.Position = new Vector2(Position.X - MOVE_DISTANCE_TICK, Position.Y);
+				else if(movement == Constants.PATH_RIGHT)
+					this.Position = new Vector2(Position.X + MOVE_DISTANCE_TICK, Position.Y);
+				else if(movement == Constants.PATH_UP)
+					this.Position = new Vector2(Position.X, Position.Y + MOVE_DISTANCE_TICK);
+				else if(movement == Constants.PATH_DOWN)
+					this.Position = new Vector2(Position.X, Position.Y - MOVE_DISTANCE_TICK);
+				
+				UnitSprite.Position = this.Position;
+				
+				// Last move differed, substract a move point to the radius
+				if(Position.X - LastPosition.X >= Constants.TILE_SIZE || LastPosition.X - Position.X >= Constants.TILE_SIZE ||
+				   Position.Y - LastPosition.Y >= Constants.TILE_SIZE || LastPosition.Y - Position.Y >= Constants.TILE_SIZE)
+				{
+					this.Move_RadiusLeft --;
+					this.LastPosition = this.Position;
+				}
+				
+				// TEMP
+				GameScene.Instance.DebugHelp.Text = this.Position.ToString();
+			}
+			
+			if(this.Move_RadiusLeft == 0)
+				SetInactive();
+		}
+
 		public void AssignUnitToTile(object sender, EventArgs args)
     	{
        		// Adjust new WorldPosition
 			this.WorldPosition = new Vector2i((int) this.Position.X/Constants.TILE_SIZE, (int)this.Position.Y/Constants.TILE_SIZE);
+			this.LastPosition = this.Position;
 			
 			// Set the unit to the new tile it is hovering
 			Utilities.AssignUnitToTileByPosition(WorldPosition, this);
@@ -134,15 +144,26 @@ namespace INF4000
 			this.Path.PathCompleted -= AssignUnitToTile;
 		}
 		
-		public void TintToWhite()
+		#region Utilities
+		public void Unselect()
 		{
+			IsSelected = false;
 			UnitSprite.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.White, 1f), 0.3f));
 		}
 		
-		public void TintToBlue()
+		public void Select()
 		{
+			// Change Selected Unit and Cursor's color
+			IsSelected = true;
+			GameScene.Instance.Cursor.TintToBlue();
 			UnitSprite.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.Lime, 1f), 0.3f));
 		}
+		
+		public void SetInactive()
+		{
+			UnitSprite.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.Grey30, 1f), 0.3f));
+		}
+		#endregion
 	}
 }
 

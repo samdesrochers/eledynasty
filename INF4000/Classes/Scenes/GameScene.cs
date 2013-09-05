@@ -142,6 +142,12 @@ namespace INF4000
 					CirclePressed_LastStateActive();
 				}
 			}
+			
+			// Right Bumper Pressed
+			if (Input2.GamePad.GetData (0).R.Release) 
+			{ 
+				Utilities.CycleThroughUnits();
+			}
 		}
 		
 		private void CrossPressed_LastStateIdle ()
@@ -157,10 +163,6 @@ namespace INF4000
 					ActivePlayer.ActiveTile = CurrentMap.SelectTileFromPosition (Cursor.WorldPosition);
 						
 					DebugHelp.Text = selectedUnit.Label + " of " + ActivePlayer.Name + " is selected";
-						
-					// Change Cursor's color
-					Cursor.TintToBlue();
-					ActivePlayer.ActiveUnit.TintToBlue();
 				}
 			}	
 		}
@@ -183,7 +185,8 @@ namespace INF4000
 				CurrentState = Constants.STATE_SELECT_IDLE;
 						
 				// Unselect unit and remove tint from tiles
-				ActivePlayer.UnselectAllUnits ();
+				ActivePlayer.ActiveUnit.Unselect();
+				ActivePlayer.ActiveUnit = null;
 				CurrentMap.UnTintAllTiles ();
 				DebugHelp.Text = "Unselected all units";
 						
@@ -191,14 +194,14 @@ namespace INF4000
 				CurrentState = Constants.STATE_SELECT_IDLE;
 						
 				// Unselect unit and remove tint from tiles
-				ActivePlayer.UnselectAllUnits ();
+				ActivePlayer.ActiveUnit.Unselect ();
+				ActivePlayer.ActiveUnit = null;
 				CurrentMap.UnTintAllTiles ();
 						
 				DebugHelp.Text = "Unselected all units";
 			}
 
 			Cursor.TintToWhite();
-			ActivePlayer.ActiveUnit.TintToWhite();
 		}
 		
 		private void CirclePressed_LastStateActive()
@@ -206,14 +209,11 @@ namespace INF4000
 			CurrentState = Constants.STATE_SELECT_IDLE;
 					
 			// Unselect unit and remove tint from tiles
-			ActivePlayer.UnselectAllUnits ();
+			ActivePlayer.ActiveUnit.Unselect ();
+			ActivePlayer.ActiveUnit = null;
 			CurrentMap.UnTintAllTiles();
 			
 			DebugHelp.Text = "Unselected all units";
-			
-			// Reset Cursor's Color
-			Cursor.TintToWhite();
-			ActivePlayer.ActiveUnit.TintToWhite();
 		}
 		
 		#endregion
@@ -233,12 +233,11 @@ namespace INF4000
 					float pointX = touchData.X * 15;
 					float pointY = touchData.Y * 15;									
 					camera.Center = new Vector2 (camera.Center.X + pointX, camera.Center.Y - pointY);
-					//LastTouch = new Vector2(pointX, pointY);
 				}
 			}
 		}
 		
-		private void UpdateCameraPositionByCursor ()
+		public void UpdateCameraPositionByCursor ()
 		{
 			Camera2D camera = this.Camera as Camera2D;
 			camera.Center = new Vector2 (Cursor.Position.X, Cursor.Position.Y);

@@ -176,9 +176,12 @@ namespace INF4000
 			if(index.X >= 0 && index.Y >= 0)
 			{
 				Tile t = Tiles[index.Y, index.X];
-				if(t != null && t.CurrentUnit != null && t.CurrentUnit.OwnerName == GameScene.Instance.ActivePlayer.Name)
+				
+				// All conditions to know that a unit is selectable and movable this turn
+				if(t != null && t.CurrentUnit != null && t.CurrentUnit.OwnerName == GameScene.Instance.ActivePlayer.Name && t.CurrentUnit.Move_RadiusLeft > 0)
 				{
 					SelectActiveTiles(t, t.CurrentUnit.Move_RadiusLeft);
+					t.CurrentUnit.Select();
 					return t.CurrentUnit;
 				}
 			}

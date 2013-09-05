@@ -9,32 +9,17 @@ using Sce.PlayStation.Core.Imaging;
 
 namespace INF4000
 {
-	public class TextImage : SpriteUV
-	{
-		public bool IsHidden;
-		
-		private string _Text;
-		public string Text
+	public class TextSprite : SpriteUV
+	{				
+		public TextSprite()
 		{
-			get { return _Text; }
-			set { _Text = value; }
 		}
 		
-		public TextImage()
+		public SpriteTile Sprite;
+		private const string AssetsName = "/Application/Assets/fonts/fontsheet.png";	
+		
+		public TextSprite (Vector2 initialPosition)
 		{
-			IsHidden = true;
-		}
-		
-		private Font Font;
-		
-		public SpriteTile UnitHP;
-		private const string AssetsName = "/Application/Assets/fonts/fontsheet.png";
-		
-		
-		public TextImage (Vector2 initialPosition)
-		{
-			IsHidden = false;
-			
 			try
 			{
 				Quad.S = new Vector2(Constants.TEXT_SIZE, Constants.TEXT_SIZE);
@@ -43,11 +28,11 @@ namespace INF4000
 				this.TextureInfo = new TextureInfo (tex, new Vector2i (10, 1));
 				
 				// Assign part of that texture as SpriteTile for the object
-				UnitHP = new SpriteTile(this.TextureInfo, new Vector2i(3, 0));
+				Sprite = new SpriteTile(this.TextureInfo, new Vector2i(3, 0));
 				
-				UnitHP.Quad = this.Quad;			
-				UnitHP.Position = initialPosition;
-				UnitHP.Scale = new Vector2(0.75f, 0.75f);
+				Sprite.Quad = this.Quad;			
+				Sprite.Position = initialPosition;
+				Sprite.Scale = new Vector2(0.75f, 0.75f);
 			} 
 			catch(Exception e)
 			{
@@ -58,7 +43,7 @@ namespace INF4000
 		public void UpdatePosition(Vector2 pos)
 		{
 			this.Position = new Vector2(pos.X + 40, pos.Y - 8);
-			UnitHP.Position = this.Position;
+			Sprite.Position = this.Position;
 		}
 	}
 }

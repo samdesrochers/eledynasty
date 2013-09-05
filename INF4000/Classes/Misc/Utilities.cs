@@ -38,10 +38,15 @@ namespace INF4000
 					
 					if(u.HealthDisplay.TextureInfo != null)
 					{
-						parent.AddChild(u.HealthDisplay.UnitHP);
+						parent.AddChild(u.HealthDisplay.Sprite);
 					}
 				}
 			}
+		}
+		
+		public static void CycleThroughUnits()
+		{
+			
 		}
 	}
 }

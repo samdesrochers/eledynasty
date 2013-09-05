@@ -88,6 +88,7 @@ namespace INF4000
 		/*******************************
 		 * 	PATH CONSTANTS
 		 * *****************************/
+		public const string PATH_NONE   = "NONE";
 		public const string PATH_LEFT 	= "LEFT";
 		public const string PATH_UP 	= "UP";
 		public const string PATH_RIGHT 	= "RIGHT";

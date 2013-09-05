@@ -15,8 +15,10 @@ namespace INF4000
 			get { return _ActiveUnit; } 
 			set
 			{
-				_ActiveUnit = value; 
-				this._ActiveUnit.IsSelected = true; 
+				_ActiveUnit = value;
+				
+				if(_ActiveUnit != null)
+					this._ActiveUnit.IsSelected = true; 
 			}
 		}
 		
@@ -39,14 +41,6 @@ namespace INF4000
 			}		
 			
 			return nb_units == nb_units_no_move;
-		}
-		
-		public void UnselectAllUnits()
-		{
-			foreach(Unit u in Units)
-			{
-				u.IsSelected = false;
-			}
 		}
 	}
 }
