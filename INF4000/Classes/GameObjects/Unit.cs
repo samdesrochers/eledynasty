@@ -163,6 +163,14 @@ namespace INF4000
 		{
 			UnitSprite.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.Grey30, 1f), 0.3f));
 		}
+		
+		public bool IsMovable()
+		{
+			if(this.Move_MaxRadius > 0)
+				return true;
+			
+			return false;
+		}
 		#endregion
 	}
 }

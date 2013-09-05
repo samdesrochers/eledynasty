@@ -34,7 +34,7 @@ namespace INF4000
 			int nb_units_no_move = 0;
 			foreach(Unit u in Units)
 			{
-				if(u.Move_RadiusLeft == 0)
+				if(!u.IsMovable())
 				{
 					nb_units_no_move++;
 				}

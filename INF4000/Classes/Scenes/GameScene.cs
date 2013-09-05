@@ -5,10 +5,11 @@ using Sce.PlayStation.HighLevel.GameEngine2D;
 using Sce.PlayStation.HighLevel.GameEngine2D.Base;
 using Sce.PlayStation.Core.Audio;
 using Sce.PlayStation.Core.Input;
+using Sce.PlayStation.HighLevel.UI;
 
 namespace INF4000
 {
-	public class GameScene : Scene
+	public class GameScene : Sce.PlayStation.HighLevel.GameEngine2D.Scene
 	{
 		private static GameScene _Instance;
 
@@ -29,14 +30,14 @@ namespace INF4000
 		public List<Player> Players;
 		public DebugHelper DebugHelp;
 		
+		private Sce.PlayStation.HighLevel.UI.Scene _uiScene;
+		
 		public GameScene ()
 		{
 			_Instance = this;
 			this.CurrentState = Constants.STATE_SELECT_IDLE;
 			this.Camera.SetViewFromViewport ();
-			
-			Director.Instance.GL.SetBlendMode (BlendMode.PremultipliedAlpha);
-			
+						
 			// Create the Players
 			Players = new List<Player> ();
 			Player player1 = new HumanPlayer ("SAM");
@@ -64,15 +65,36 @@ namespace INF4000
 			DebugHelp = new DebugHelper ("");
 			this.AddChild (DebugHelp);
 			
+			// UI -----------------------------------------------------------------------
+			Sce.PlayStation.HighLevel.UI.Panel dialog = new Panel();
+            dialog.Width = 200;
+            dialog.Height = 100;
+			
+			ImageBox ib = new ImageBox();
+            ib.Width = dialog.Width;
+            ib.Image = new ImageAsset("/Application/Assets/fonts/fontsheet.png",false);
+            ib.Height = dialog.Height;
+            ib.SetPosition(0.0f,0.0f);
+			dialog.AddChildLast(ib);
+			_uiScene = new Sce.PlayStation.HighLevel.UI.Scene();
+            _uiScene.RootWidget.AddChildLast(dialog);
+            UISystem.SetScene(_uiScene);
+			
 			//Now load the sound fx and create a player
 			//_Sound = new Sound ("/Application/audio/pongblip.wav");
 			//_SoundPlayer = _Sound.CreatePlayer ();
 			Scheduler.Instance.ScheduleUpdateForTarget (this, 0, false);
 		}
+		
+		public override void Draw ()
+        {
+            base.Draw();
+            UISystem.Render ();
+        }
 
 		public override void Update (float dt)
 		{
-			base.Update (dt);    						
+			base.Update (dt);
 			UpdateCameraPosition ();
 			
 			if (ActivePlayer is HumanPlayer) 
