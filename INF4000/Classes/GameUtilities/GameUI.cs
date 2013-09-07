@@ -13,6 +13,10 @@ namespace INF4000
 		public Panel MainPanel;
 		
 		public ImageBox ActivePlayerIcon;
+		
+		public Label Label_TurnSwitchMessage;
+		public Label Label_TurnSwitchPlayerName;
+		
 		public Button Button_EndTurn;
 		
 		public GameUI ()
@@ -34,15 +38,47 @@ namespace INF4000
             Button_EndTurn.Width = 150;
             Button_EndTurn.Height = 60;
             Button_EndTurn.Alpha = 0.8f;
-			Button_EndTurn.TextFont = new UIFont(FontAlias.System, 25, FontStyle.Regular);
+			Button_EndTurn.TextFont = AssetsManager.Instance.PixelFont;
             Button_EndTurn.SetPosition(800, 480);
             Button_EndTurn.TouchEventReceived += GameScene.Instance.EndActivePlayerTurn;
 			
+			Label_TurnSwitchMessage = new Label();
+			Label_TurnSwitchMessage.Text = "Turn " + GameScene.Instance.CurrentTurnCount;
+			Label_TurnSwitchMessage.Width = 300;
+			Label_TurnSwitchMessage.Height = 100;
+			Label_TurnSwitchMessage.SetPosition(400, 100);
+			Label_TurnSwitchMessage.Font = AssetsManager.Instance.XenoFont;
+			Label_TurnSwitchMessage.Visible = false;
+			
+			MainPanel.AddChildLast(Label_TurnSwitchMessage);
 			MainPanel.AddChildLast(Button_EndTurn);
 			MainPanel.AddChildLast(ActivePlayerIcon);
 			_UIScene = new Sce.PlayStation.HighLevel.UI.Scene();
             _UIScene.RootWidget.AddChildLast(MainPanel);
             UISystem.SetScene(_UIScene);
+		}
+		
+		public void SetSwitchitngTurn()
+		{
+			Label_TurnSwitchMessage.Visible = true;
+			Label_TurnSwitchMessage.Text = "Turn " + GameScene.Instance.CurrentTurnCount;
+			Button_EndTurn.Visible = false;
+		}
+		
+		public void SetPlaying()
+		{
+			Label_TurnSwitchMessage.Visible = false;
+			Button_EndTurn.Visible = true;
+		}
+		
+		public void SetPause()
+		{
+			
+		}
+		
+		public void SetGameOver()
+		{
+			
 		}
 	}
 }

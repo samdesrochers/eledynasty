@@ -35,7 +35,7 @@ namespace INF4000
             Button_Play.Height = 100;
             Button_Play.Alpha = 0.8f;
 			Button_Play.TextFont = new UIFont(FontAlias.System, 25, FontStyle.Regular);
-            Button_Play.SetPosition(dialog.Width/2 - Button_Play.Width/2, 200.0f);
+            Button_Play.SetPosition(dialog.Width/2 - Button_Play.Width/2, 300.0f);
             Button_Play.TouchEventReceived += (sender, e) => 
 			{
                 Director.Instance.ReplaceScene(new GameScene());
@@ -47,7 +47,7 @@ namespace INF4000
             Button_Title.Width = 500;
             Button_Title.Height = 50;
             Button_Title.Alpha = 0.8f;
-            Button_Title.SetPosition(dialog.Width/2 - Button_Play.Width/2, 350.0f);
+            Button_Title.SetPosition(dialog.Width/2 - Button_Play.Width/2, 450.0f);
             Button_Title.TouchEventReceived += (sender, e) => 
 			{
             	Director.Instance.ReplaceScene(new TitleScene());

@@ -8,9 +8,9 @@ namespace INF4000
 {
 	public class HumanPlayer : Player
 	{
-		public HumanPlayer (string name)
+		public HumanPlayer ()
 		{
-			this.Name = name;
+			this.Name = "";
 			this.Units = new System.Collections.Generic.List<Unit>();
 			this.IsActive = false;
 			this.IsHuman = true;

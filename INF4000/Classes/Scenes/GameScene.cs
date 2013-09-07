@@ -11,8 +11,8 @@ namespace INF4000
 {
 	public class GameScene : Sce.PlayStation.HighLevel.GameEngine2D.Scene
 	{
+		// Singleton Class
 		private static GameScene _Instance;
-
 		public static GameScene Instance {
 			get {
 				if (_Instance == null) {
@@ -22,29 +22,44 @@ namespace INF4000
 			}
 		}
 		
-		public int CurrentState = 0;
-		public Map CurrentMap;
-		public Player ActivePlayer;
-		public Cursor Cursor;
-		public int ActivePlayerIndex;
-		public List<Player> Players;
-		public DebugHelper DebugHelp;
-		
+		/*******************************
+		 * FIELDS
+		 *******************************/
 		public GameUI UI;
+		
+		public int CurrentGlobalState;
+		public int CurrentGameState;
+		
+		public Map CurrentMap;
+		public Cursor Cursor;
+		
+		public Player ActivePlayer;
+		public int ActivePlayerIndex;	
+		
+		public List<Player> Players;
+		public TextImage TextImage; // Debug text
+		
+		private float SwitchTurnTime;
+		public int CurrentTurnCount = 1;
 		
 		public GameScene ()
 		{
 			_Instance = this;
-			this.CurrentState = Constants.STATE_SELECT_IDLE;
+			this.CurrentGlobalState = Constants.GLOBAL_STATE_SWITCHING_TURN;
+			this.CurrentGameState = Constants.GAME_STATE_SELECT_IDLE;
+			
 			this.Camera.SetViewFromViewport ();
+			
+			// Load the Assets
+			AssetsManager.Instance.LoadAssets();
 						
 			// Create the Players
 			Players = new List<Player> ();
-			Player player1 = new HumanPlayer ("SAM");
+			Player player1 = new HumanPlayer ();
 			player1.IsActive = true;
 			Players.Add (player1);
 			
-			Player player2 = new HumanPlayer ("GINO");
+			Player player2 = new HumanPlayer ();
 			Players.Add (player2);	
 			
 			// Create the selected Map and its assets
@@ -62,11 +77,14 @@ namespace INF4000
 			ActivePlayer = SelectActivePlayer ();
 			
 			// Add Debug help text
-			DebugHelp = new DebugHelper ("");
-			this.AddChild (DebugHelp);
+			TextImage = new TextImage ("", new Vector2(30,30));
+			this.AddChild (TextImage);
 			
 			UI = new GameUI();
 			UI.ActivePlayerIcon.Image = ActivePlayer.Icon;
+			
+			SwitchTurnTime = 0.0f;	
+			CurrentTurnCount = 1;
 			
 			//Now load the sound fx and create a player
 			//_Sound = new Sound ("/Application/audio/pongblip.wav");
@@ -83,6 +101,26 @@ namespace INF4000
 		public override void Update (float dt)
 		{
 			base.Update (dt);
+			switch(this.CurrentGlobalState)
+			{
+				case Constants.GLOBAL_STATE_PLAYING_TURN:
+					UpdateGameRunning();
+					break;
+				case Constants.GLOBAL_STATE_SWITCHING_TURN:
+					UpdateGameSwitchingTurn(dt);
+					break;
+				case Constants.GLOBAL_STATE_PAUSE:
+					//UpdateGameRunning();
+					break;
+				case Constants.GLOBAL_STATE_GAMEOVER:
+					//UpdateGameRunning();
+					break;
+			}
+		}
+		
+		#region Update Methods
+		private void UpdateGameRunning()
+		{
 			UpdateCameraPosition ();
 			
 			if (ActivePlayer is HumanPlayer) 
@@ -100,161 +138,22 @@ namespace INF4000
 			{
 				// Turn is done, switch to next player
 				SwitchToNextPlayer();
-			}
-					
-			// Game Loop Instance : Select Active Player,Is Game Over?, Are Units with move still avail?, Move Cursor-Select Uni,t Do Concrete Actions (Move or Attack), End Turn.
-		}
-		
-		#region Game Loop Methods
-		private void SwitchToNextPlayer()
-		{
-			// Finish current player's turn
-			ActivePlayer.ResetUnits();
-			
-			// Switch Player
-			ActivePlayerIndex++;		
-			ActivePlayer = Players [ ActivePlayerIndex % Players.Count ];
-			
-			// Move Cursor to new player's first unit
-			Cursor.MoveToTileByWorldPosition(ActivePlayer.Units[0].WorldPosition);
-			UpdateCameraPositionByCursor();
-			
-			// Assign New UI Values (image, FocusPoints, place Cursor on first Unit found, etc.)
-		}
-		
-		private bool CheckIsGameOver ()
-		{
-			foreach (Player p in this.Players) {
-				if (p.Units.Count == 0)
-					return true;
-			}
-			return false;
-		}
-		
-		private Player SelectActivePlayer ()
-		{
-			int index = 0;
-			foreach (Player p in this.Players) {
-				if (p.IsActive) {
-					ActivePlayerIndex = index;
-					return p;
-				}
-				ActivePlayerIndex++;
-			}
-			return null;
-		}
-			
-		private void ExecuteTurn ()
-		{
-			DebugHelp.Text = ActivePlayer.Name;
-		}
-		
-		private bool CheckIfTurnIsOver()
-		{
-			if(!ActivePlayer.HasMovableUnits())
-				return true;
-			
-			return false;
-		}
-		
-		public void EndActivePlayerTurn(object sender, TouchEventArgs e)
-		{
-			UI.Button_EndTurn.Visible = false;
-			Console.WriteLine("WHATUP");
-		}
-		#endregion
-		
-		#region User Input
-		private void CheckUserInput ()
-		{
-			if (this.CurrentState == Constants.STATE_SELECT_IDLE) // "X" Pressed, No units selected at the moment
-			{ 
-				CrossPressed_LastStateIdle();
-			} 
-			else if (this.CurrentState == Constants.STATE_SELECT_ACTIVE) 
-			{				
-				// User selects a destination Tile and Presses "X"
-				if (Input2.GamePad.GetData (0).Cross.Release) 
-				{
-					CrossPressed_LastStateActive();
-				}
-				
-				// User Presses "O"
-				if (Input2.GamePad.GetData (0).Circle.Release) 
-				{
-					CirclePressed_LastStateActive();
-				}
-			}
-			
-			// Right Bumper Pressed
-			if (Input2.GamePad.GetData (0).R.Release) 
-			{ 
-				Utilities.CycleThroughUnits();
-			}
-		}
-		
-		private void CrossPressed_LastStateIdle ()
-		{
-			if (Input2.GamePad.GetData (0).Cross.Release) 
-			{ 
-				Unit selectedUnit = CurrentMap.SelectUnitFromTile (Cursor.WorldPosition);
-					
-				if (selectedUnit != null)  // Actual Unit was found on tile
-				{
-					CurrentState = Constants.STATE_SELECT_ACTIVE;
-					ActivePlayer.ActiveUnit = selectedUnit;
-					ActivePlayer.ActiveTile = CurrentMap.SelectTileFromPosition (Cursor.WorldPosition);
-				}
 			}	
 		}
 		
-		private void CrossPressed_LastStateActive()
+		private void UpdateGameSwitchingTurn(float dt)
 		{
-			Path path = new Path ();				
-			int action = path.GetDestinationAction (Cursor.WorldPosition);
-					
-			if (action == Constants.ACTION_MOVE) {
-				
-				// Build Unit Path for move action
-				path.BuildMoveToSequence (ActivePlayer.ActiveUnit.WorldPosition, Cursor.WorldPosition);
-				path.PathCompleted += ActivePlayer.ActiveUnit.Unit_PathCompleted;
-				ActivePlayer.ActiveUnit.Path = path;
-						
-				// Remove unit from previous tile
-				ActivePlayer.ActiveTile.CurrentUnit = null;
-					
-				CurrentState = Constants.STATE_SELECT_IDLE;
-						
-				// Unselect unit and remove tint from tiles
-				ActivePlayer.ActiveUnit.Unselect();
-				ActivePlayer.ActiveUnit = null;
-				CurrentMap.UnTintAllTiles ();
-						
-			} else if (action == Constants.ACTION_CANCEL) {
-				CurrentState = Constants.STATE_SELECT_IDLE;
-						
-				// Unselect unit and remove tint from tiles
-				ActivePlayer.ActiveUnit.Unselect ();
-				ActivePlayer.ActiveUnit = null;
-				CurrentMap.UnTintAllTiles ();
+			SwitchTurnTime += dt;		
+			
+			UI.SetSwitchitngTurn();
+			if(SwitchTurnTime >= 3.0f || Input2.GamePad0.Cross.Release) // wait 2 seconds before switching turn
+			{
+				CurrentGlobalState = Constants.GLOBAL_STATE_PLAYING_TURN;
+				UI.SetPlaying();
+				SwitchTurnTime = 0.0f;
 			}
-
-			Cursor.TintToWhite();
 		}
 		
-		private void CirclePressed_LastStateActive()
-		{
-			CurrentState = Constants.STATE_SELECT_IDLE;
-					
-			// Unselect unit and remove tint from tiles
-			ActivePlayer.ActiveUnit.Unselect ();
-			ActivePlayer.ActiveUnit = null;
-			CurrentMap.UnTintAllTiles();
-		}
-		
-		#endregion
-		
-		#region Update Methods
 		private void UpdateCameraPosition ()
 		{	
 			Camera2D camera = this.Camera as Camera2D;
@@ -262,16 +161,6 @@ namespace INF4000
 			// Adjust Camera accoring to Right Analog Stick
 			GamePadData data = GamePad.GetData (0);
 			camera.Center = new Vector2 (camera.Center.X + 5 * data.AnalogRightX, camera.Center.Y - 5 * data.AnalogRightY);
-			
-			/*/ *******************************************************(Conflicts with UI)
-			// Adjust Camera according to Touch Input 
-			foreach (var touchData in Touch.GetData(0)) {
-				if (touchData.Status == TouchStatus.Down || touchData.Status == TouchStatus.Move) {
-					float pointX = touchData.X * 15;
-					float pointY = touchData.Y * 15;									
-					camera.Center = new Vector2 (camera.Center.X + pointX, camera.Center.Y - pointY);
-				}
-			}*/
 		}
 		
 		public void UpdateCameraPositionByCursor ()
@@ -344,6 +233,159 @@ namespace INF4000
 				}
 			}
 		}
+		#endregion
+		
+		#region Game Loop Methods
+		private void SwitchToNextPlayer()
+		{
+			// Finish current player's turn
+			ActivePlayer.ResetUnits();
+			
+			// Switch Player and add a turn to the counter
+			ActivePlayerIndex++;		
+			ActivePlayer = Players [ ActivePlayerIndex % Players.Count ];
+			CurrentTurnCount ++;
+			
+			// Move Cursor to new player's first unit
+			Cursor.MoveToTileByWorldPosition(ActivePlayer.Units[0].WorldPosition);
+			UpdateCameraPositionByCursor();
+			
+			CurrentGlobalState = Constants.GLOBAL_STATE_SWITCHING_TURN;
+		}
+		
+		private bool CheckIsGameOver ()
+		{
+			foreach (Player p in this.Players) {
+				if (p.Units.Count == 0)
+					return true;
+			}
+			return false;
+		}
+		
+		private Player SelectActivePlayer ()
+		{
+			int index = 0;
+			foreach (Player p in this.Players) {
+				if (p.IsActive) {
+					ActivePlayerIndex = index;
+					return p;
+				}
+				ActivePlayerIndex++;
+			}
+			return null;
+		}
+			
+		private void ExecuteTurn ()
+		{
+			TextImage.Text = ActivePlayer.Name;
+		}
+		
+		private bool CheckIfTurnIsOver()
+		{
+			if(!ActivePlayer.HasMovableUnits())
+				return true;
+			
+			return false;
+		}
+		
+		public void EndActivePlayerTurn(object sender, TouchEventArgs e)
+		{
+			if(CurrentGlobalState == Constants.GLOBAL_STATE_PLAYING_TURN)
+			{
+				UI.Button_EndTurn.Visible = false;
+				SwitchToNextPlayer();
+			}
+		}
+		#endregion
+		
+		#region User Input
+		private void CheckUserInput ()
+		{
+			if (this.CurrentGameState == Constants.GAME_STATE_SELECT_IDLE) // "X" Pressed, No units selected at the moment
+			{ 
+				CrossPressed_LastStateIdle();
+			} 
+			else if (this.CurrentGameState == Constants.GAME_STATE_SELECT_ACTIVE) 
+			{				
+				// User selects a destination Tile and Presses "X"
+				if (Input2.GamePad.GetData (0).Cross.Release) 
+				{
+					CrossPressed_LastStateActive();
+				}
+				
+				// User Presses "O"
+				if (Input2.GamePad.GetData (0).Circle.Release) 
+				{
+					CirclePressed_LastStateActive();
+				}
+			}
+			
+			// Right Bumper Pressed
+			if (Input2.GamePad.GetData (0).R.Release) 
+			{ 
+				Utilities.CycleThroughUnits();
+			}
+		}
+		
+		private void CrossPressed_LastStateIdle ()
+		{
+			if (Input2.GamePad.GetData (0).Cross.Release) 
+			{ 
+				Unit selectedUnit = CurrentMap.SelectUnitFromTile (Cursor.WorldPosition);
+					
+				if (selectedUnit != null)  // Actual Unit was found on tile
+				{
+					CurrentGameState = Constants.GAME_STATE_SELECT_ACTIVE;
+					ActivePlayer.ActiveUnit = selectedUnit;
+					ActivePlayer.ActiveTile = CurrentMap.SelectTileFromPosition (Cursor.WorldPosition);
+				}
+			}	
+		}
+		
+		private void CrossPressed_LastStateActive()
+		{
+			Path path = new Path ();				
+			int action = path.GetDestinationAction (Cursor.WorldPosition);
+					
+			if (action == Constants.ACTION_MOVE) {
+				
+				// Build Unit Path for move action
+				path.BuildMoveToSequence (ActivePlayer.ActiveUnit.WorldPosition, Cursor.WorldPosition);
+				path.PathCompleted += ActivePlayer.ActiveUnit.Unit_PathCompleted;
+				ActivePlayer.ActiveUnit.Path = path;
+						
+				// Remove unit from previous tile
+				ActivePlayer.ActiveTile.CurrentUnit = null;
+					
+				CurrentGameState = Constants.GAME_STATE_SELECT_IDLE;
+						
+				// Unselect unit and remove tint from tiles
+				ActivePlayer.ActiveUnit.Unselect();
+				ActivePlayer.ActiveUnit = null;
+				CurrentMap.UnTintAllTiles ();
+						
+			} else if (action == Constants.ACTION_CANCEL) {
+				CurrentGameState = Constants.GAME_STATE_SELECT_IDLE;
+						
+				// Unselect unit and remove tint from tiles
+				ActivePlayer.ActiveUnit.Unselect ();
+				ActivePlayer.ActiveUnit = null;
+				CurrentMap.UnTintAllTiles ();
+			}
+
+			Cursor.TintToWhite();
+		}
+		
+		private void CirclePressed_LastStateActive()
+		{
+			CurrentGameState = Constants.GAME_STATE_SELECT_IDLE;
+					
+			// Unselect unit and remove tint from tiles
+			ActivePlayer.ActiveUnit.Unselect ();
+			ActivePlayer.ActiveUnit = null;
+			CurrentMap.UnTintAllTiles();
+		}
+		
 		#endregion
 		
 		#region Utilities

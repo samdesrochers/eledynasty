@@ -19,13 +19,9 @@ namespace INF4000
 		public string Name;
 		public int Width;
 		public int Height;
-		
-		public Texture2D Texture;
-		public TextureInfo TexInfo;
-		
-		public SpriteList SpriteList;
 
-		private const string AssetsPath = "/Application/Assets/Tiles/tilesMap.png";
+		public TextureInfo TexInfo;	
+		public SpriteList SpriteList;
 		
 		public Map (string mapFilePath)
 		{
@@ -59,7 +55,8 @@ namespace INF4000
 			Vector2i activeIndex = new Vector2i (0, 0);
 			
 			// Generate Tiles Sprites 
-			foreach (Tile t in Tiles) {			
+			foreach (Tile t in Tiles) 
+			{			
 				t.TextureInfo = TexInfo;		
 			
 				switch (t.TerrainType) {
@@ -94,13 +91,17 @@ namespace INF4000
 				return false;
 			}
 				
-			// Extract Name, Width and Heigh of Map
+			// Extract MapName, Width and Heigh of Map
 			Name = MapTextFileContent [0];
 			Int32.TryParse (MapTextFileContent [1], out Width);
 			Int32.TryParse (MapTextFileContent [2], out Height);
 			
+			// Get Players Name for this level
+			GameScene.Instance.Players[0].Name = MapTextFileContent [3];
+			GameScene.Instance.Players[1].Name = MapTextFileContent [4];
+			
 			// Clean Map strings list to keep tiles only
-			MapTextFileContent.RemoveRange (0, 3);
+			MapTextFileContent.RemoveRange (0, 5);
 			MapTextFileContent.RemoveAll (StartsWithDelimiter);
 			
 			// Generate the Tiles Map
@@ -121,8 +122,7 @@ namespace INF4000
 		public void LoadGraphics ()
 		{
 			// Load textures map
-			Texture = new Texture2D (AssetsPath, false);
-			TexInfo = new TextureInfo (Texture, new Vector2i (4, 4));
+			TexInfo = AssetsManager.Instance.TerrainTextureInfo;
 				
 			// Create and fill SpriteList
 			SpriteList = new SpriteList (TexInfo);				
@@ -200,7 +200,7 @@ namespace INF4000
 		#endregion		
 			
 		#region Utilities
-		private void SelectActiveTiles(Tile initialTile, int radius)
+		private void SelectActiveTiles(Tile initialTile, int radius) // OBSOLETE
 		{
 			ActiveTiles = new List<Tile>();
 			Vector2i initPos = initialTile.WorldPosition;
@@ -258,7 +258,6 @@ namespace INF4000
 		
 		~Map ()
 		{
-			Texture.Dispose ();
 			TexInfo.Dispose ();
 		}
 		#endregion

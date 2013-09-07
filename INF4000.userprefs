@@ -2,23 +2,20 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\Scenes\GameScene.cs">
     <Files>
-      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="116" Column="14" />
-      <File FileName="INF4000\Classes\GameObjects\Player.cs" Line="58" Column="12" />
-      <File FileName="INF4000\Classes\Map\Map.cs" Line="163" Column="30" />
-      <File FileName="INF4000\Classes\Misc\Utilities.cs" Line="19" Column="4" />
-      <File FileName="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Unit.cs" Line="127" Column="25" />
-      <File FileName="INF4000\Classes\GameUtilities\Path.cs" Line="12" Column="27" />
-      <File FileName="INF4000\Classes\GameObjects\Farmer.cs" Line="25" Column="1" />
-      <File FileName="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\AppMain.cs" Line="25" Column="4" />
+      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="143" Column="3" />
+      <File FileName="INF4000\Classes\Map\Map.cs" Line="154" Column="1" />
+      <File FileName="INF4000\Classes\GameUtilities\GameUI.cs" Line="50" Column="1" />
+      <File FileName="INF4000\Classes\Scenes\TitleScene.cs" Line="30" Column="95" />
+      <File FileName="INF4000\Assets\AssetsManager.cs" Line="38" Column="19" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="C:\Users\Sam\Documents\Projects\INF4000\INF4000\Classes\Map\Map.cs" line="39" />
       <Breakpoint file="C:\Users\Sam\Documents\Projects\INF4000\INF4000\Classes\Map\Map.cs" line="38" />
-      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="113" />
-      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="102" />
-      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="116" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Map\Map.cs" line="115" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Unit.cs" line="91" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameUtilities\TextImage.cs" line="36" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>

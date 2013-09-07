@@ -8,9 +8,15 @@ namespace INF4000
 		public const int TILE_SIZE = 64;
 		public const int TEXT_SIZE = 32;
 		
-		// General - Game States
-		public const int STATE_SELECT_IDLE 		= 0;
-		public const int STATE_SELECT_ACTIVE 	= 1;
+		// General - In Game States
+		public const int GAME_STATE_SELECT_IDLE 		= 0;
+		public const int GAME_STATE_SELECT_ACTIVE 		= 1;
+		
+		// General - Global States
+		public const int GLOBAL_STATE_PLAYING_TURN 		= 0;
+		public const int GLOBAL_STATE_SWITCHING_TURN 	= 1;
+		public const int GLOBAL_STATE_GAMEOVER 			= 2;
+		public const int GLOBAL_STATE_PAUSE 				= 3;
 		
 		/*******************************
 		 * 	TERRAIN CONSTANTS

@@ -4,12 +4,11 @@ Sce.PlayStation.HighLevel.GameEngine2D.dll
 System.Core.dll
 Sce.PlayStation.HighLevel.UI.dll
 Audio/menu.mp3
-Assets/Title/title.png
 MapFiles/defaultMap.txt
-Assets/fonts/font.ttf
-Assets/fonts/pixfont.ttf
 Assets/Units/units.png
 Assets/Items/gameItems.png
 Assets/Tiles/tilesMap.png
-Assets/fonts/fontsheet.png
+Assets/fonts/half_bold_pixel-7.ttf
+Assets/Title/title.png
+Assets/fonts/Xenogears_font.ttf
 Assets/Players/araki.png

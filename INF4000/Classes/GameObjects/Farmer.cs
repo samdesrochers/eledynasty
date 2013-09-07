@@ -28,7 +28,7 @@ namespace INF4000
 			Position = new Vector2(posX * Constants.TILE_SIZE, posY * Constants.TILE_SIZE);			
 			WorldPosition = new Vector2i(posX, posY);
 			
-			HealthDisplay = new TextSprite(this.Position);
+			HealthDisplay = new TextImage(Move_RadiusLeft.ToString(), this.Position);
 		}	
 	}
 }

@@ -41,7 +41,7 @@ namespace INF4000
 					
 					if(u.HealthDisplay.TextureInfo != null)
 					{
-						parent.AddChild(u.HealthDisplay.Sprite);
+						parent.AddChild(u.HealthDisplay);
 					}
 				}
 			}

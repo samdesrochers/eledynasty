@@ -27,8 +27,7 @@ namespace INF4000
 			titleScreen.Scale = titleSize;
 			
 			titleScreen.Pivot = new Vector2 (0.5f, 0.5f);
-			titleScreen.Position = new Vector2 (Director.Instance.GL.Context.GetViewport ().Width / 2,
-			                                  Director.Instance.GL.Context.GetViewport ().Height / 2);
+			titleScreen.Position = new Vector2 (Director.Instance.GL.Context.GetViewport ().Width / 2, Director.Instance.GL.Context.GetViewport ().Height / 2);
 			this.AddChild (titleScreen);
 			
 			// Fancy "fade-in" animation

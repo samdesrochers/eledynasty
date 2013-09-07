@@ -10,6 +10,9 @@ namespace INF4000
 {
 	public class Unit : SpriteUV
 	{
+		/***********************************
+		 *  FIELDS
+		 ***********************************/
 		public int MOVE_DISTANCE_TICK = Constants.PATH_STEP;
 		
 		public string OwnerName;
@@ -24,17 +27,18 @@ namespace INF4000
 		
 		public Vector2i WorldPosition;
 		
-		public Texture2D Texture;
 		public SpriteTile UnitSprite;
-		public TextSprite HealthDisplay;
-		
-		private const string AssetsName = "/Application/Assets/Units/units.png";
+		public TextImage HealthDisplay;
 		
 		public Path Path;
 		
 		public bool IsSelected;
 		public bool IsActive;
 				
+		/***********************************
+		 *  METHODS
+		 ***********************************/
+		
 		public void Attack(Unit unit){}	
 		
 		// Called at the end of a turn to restore various values
@@ -42,6 +46,7 @@ namespace INF4000
 		{
 			Unselect();
 			Move_RadiusLeft = Move_MaxRadius;
+			HealthDisplay.Text = Move_RadiusLeft.ToString();
 		}
 		
 		public static Unit CreateByType(int type, int moves, int lifePoints, int posX, int posY)
@@ -65,11 +70,7 @@ namespace INF4000
 		}
 		
 		public void LoadGraphics()
-		{
-			// Create the actual texture object and specify its size
-			Texture = new Texture2D (AssetsName, false);
-			this.TextureInfo = new TextureInfo (Texture, new Vector2i (2, 2));
-			
+		{			
 			Vector2i index = new Vector2i(0,0);
 			switch (this.Type) {
 					case Constants.UNIT_TYPE_FARMER:
@@ -87,11 +88,11 @@ namespace INF4000
 				}
 			
 			// Create the tile sprite for specific unit type
-			UnitSprite = new SpriteTile(this.TextureInfo, index);
+			UnitSprite = new SpriteTile(AssetsManager.Instance.UnitsTextureInfo, index);
 			UnitSprite.Quad = this.Quad;
 			UnitSprite.Position = this.Position;
 					
-			HealthDisplay = new TextSprite(this.Position);
+			HealthDisplay = new TextImage(Move_MaxRadius.ToString(), this.Position);
 		}
 		
 		public void Update()
@@ -121,6 +122,7 @@ namespace INF4000
 				{
 					Path.distanceMoved = 0;
 					this.Move_RadiusLeft --;
+					HealthDisplay.Text = Move_RadiusLeft.ToString();
 				}
 			}
 			

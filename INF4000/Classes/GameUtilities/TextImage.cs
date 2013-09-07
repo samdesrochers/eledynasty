@@ -9,33 +9,37 @@ using Sce.PlayStation.Core.Imaging;
 
 namespace INF4000
 {
-	public class DebugHelper : SpriteUV
+	public class TextImage : SpriteUV
 	{
 		public bool IsHidden;
 		
-		private string _DebugText;
+		private string _Text;
 		public string Text
 		{
-			get { return _DebugText; }
+			get { return _Text; }
 			set 
 			{ 
-				_DebugText = value; 
+				_Text = value; 
 				this.UpdateText();
 			}
 		}
 		
-		public DebugHelper()
+		public TextImage()
 		{
 			IsHidden = true;
 		}
 		
-		public DebugHelper (string text)
+		public Font font;
+		
+		public TextImage (string text, Vector2 pos)
 		{
 			IsHidden = false;
-			_DebugText = text;
+			_Text = text;
+			
+			font = AssetsManager.Instance.PixelFont;
 			
 			Image img = new Image (ImageMode.Rgba, new ImageSize (300, 40), new ImageColor (255, 0, 0, 0));
-			img.DrawText (_DebugText, new ImageColor (255, 0, 0, 255), new Font (FontAlias.System, 24, FontStyle.Regular), new ImagePosition (0, 0));
+			img.DrawText (_Text, new ImageColor (255, 255, 255, 255), font, new ImagePosition (0, 0));
   
 			Texture2D texture = new Texture2D (300, 40, false, PixelFormat.Rgba);
 			texture.SetPixels (0, img.ToBuffer ());
@@ -48,13 +52,13 @@ namespace INF4000
    
 			this.Quad.S = ti.TextureSizef;
 			//this.CenterSprite();		
-			this.Position = new Vector2(100,40);				
+			this.Position = new Vector2(pos.X, pos.Y);				
 		}
 		
-		public void UpdateText()
+		private void UpdateText()
 		{
 			Image img = new Image (ImageMode.Rgba, new ImageSize (300, 40), new ImageColor (255, 0, 0, 0));
-			img.DrawText (_DebugText, new ImageColor (255, 0, 0, 255), new Font (FontAlias.System, 24, FontStyle.Regular), new ImagePosition (0, 0));
+			img.DrawText (_Text, new ImageColor (255, 255, 255, 255), font, new ImagePosition (0, 0));
   
 			Texture2D texture = new Texture2D (300, 40, false, PixelFormat.Rgba);
 			texture.SetPixels (0, img.ToBuffer ());
@@ -64,6 +68,11 @@ namespace INF4000
 			ti.Texture = texture;
 
 			this.TextureInfo = ti;
+		}
+		
+		public void UpdatePosition(Vector2 pos)
+		{
+			this.Position = new Vector2(pos.X + 30, pos.Y - 20);
 		}
 	}
 }

@@ -52,9 +52,9 @@
     <Compile Include="Classes\GameObjects\HumanPlayer.cs" />
     <Compile Include="Classes\Misc\Utilities.cs" />
     <Compile Include="Classes\GameUtilities\Path.cs" />
-    <Compile Include="Classes\GameUtilities\DebugHelper.cs" />
-    <Compile Include="Imaging\TextSprite.cs" />
     <Compile Include="Classes\GameUtilities\GameUI.cs" />
+    <Compile Include="Classes\GameUtilities\TextImage.cs" />
+    <Compile Include="Assets\AssetsManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -75,7 +75,6 @@
     <Folder Include="MapFiles\" />
     <Folder Include="Assets\Tiles\" />
     <Folder Include="Classes\GameObjects\" />
-    <Folder Include="Imaging\" />
     <Folder Include="Assets\Items\" />
     <Folder Include="Assets\Units\" />
     <Folder Include="Assets\fonts\" />
@@ -84,14 +83,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Audio\menu.mp3" />
-    <Content Include="Assets\Title\title.png" />
     <Content Include="MapFiles\defaultMap.txt" />
-    <Content Include="Assets\fonts\font.ttf" />
-    <Content Include="Assets\fonts\pixfont.ttf" />
     <Content Include="Assets\Units\units.png" />
     <Content Include="Assets\Items\gameItems.png" />
     <Content Include="Assets\Tiles\tilesMap.png" />
-    <Content Include="Assets\fonts\fontsheet.png" />
+    <Content Include="Assets\fonts\half_bold_pixel-7.ttf" />
+    <Content Include="Assets\Title\title.png" />
+    <Content Include="Assets\fonts\Xenogears_font.ttf" />
     <Content Include="Assets\Players\araki.png" />
   </ItemGroup>
 </Project>
