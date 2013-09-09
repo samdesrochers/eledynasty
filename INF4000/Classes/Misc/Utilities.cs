@@ -12,6 +12,8 @@ namespace INF4000
 {
 	public static class Utilities
 	{
+		
+		#region Unit Methods
 		public static void AssignUnitToPlayer(Unit unit, int playerIndex)
 		{
 			if(unit == null)
@@ -29,6 +31,33 @@ namespace INF4000
 		{					
 			Tile t = GameScene.Instance.CurrentMap.Tiles[unitPos.Y, unitPos.X];
 			t.CurrentUnit = unit;		
+		}
+		
+		public static void AssignMovePathToActiveUnit()
+		{
+			// Build Unit Path for move action
+			GameScene.Instance.ActivePlayer.ActiveUnit.Path = new Path();
+			GameScene.Instance.ActivePlayer.ActiveUnit.MoveTo(GameScene.Instance.Cursor.WorldPosition);				
+		}
+		
+		public static void FinalizeMoveAction()
+		{
+			GameScene.Instance.ActivePlayer.ActiveUnit.FinalizeMove();
+			
+			// Remove unit from previous tile
+			GameScene.Instance.ActivePlayer.ActiveTile.CurrentUnit = null;
+					
+			// Unselect unit and remove tint from tiles
+			GameScene.Instance.ActivePlayer.ActiveUnit.Unselect();
+			GameScene.Instance.ActivePlayer.ActiveUnit = null;
+			GameScene.Instance.CurrentMap.UnTintAllTiles ();
+		}
+		#endregion
+		
+		public static void ShowActionPanel()
+		{
+			GameScene.Instance.UI.ActionPanel.SetActive(true);
+			GameScene.Instance.UI.ActionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL);
 		}
 		
 		public static void LoadAllSpritesFromPlayer(List<Player> players, Node parent)

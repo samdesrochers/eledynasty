@@ -55,6 +55,8 @@
     <Compile Include="Classes\GameUtilities\GameUI.cs" />
     <Compile Include="Classes\GameUtilities\TextImage.cs" />
     <Compile Include="Assets\AssetsManager.cs" />
+    <Compile Include="Classes\GameUtilities\ActionItem.cs" />
+    <Compile Include="Classes\GameUtilities\ActionPanel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -80,6 +82,7 @@
     <Folder Include="Assets\fonts\" />
     <Folder Include="Classes\GameUtilities\" />
     <Folder Include="Assets\Players\" />
+    <Folder Include="Assets\UI\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Audio\menu.mp3" />
@@ -91,5 +94,7 @@
     <Content Include="Assets\Title\title.png" />
     <Content Include="Assets\fonts\Xenogears_font.ttf" />
     <Content Include="Assets\Players\araki.png" />
+    <Content Include="Assets\UI\turnswitch_bg.png" />
+    <Content Include="Assets\UI\arrow_panel.png" />
   </ItemGroup>
 </Project>

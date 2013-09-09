@@ -129,18 +129,43 @@ namespace INF4000
 			if(this.Move_RadiusLeft == 0)
 				SetInactive();		
 		}
-
+		
+		public void MoveTo(Vector2i destination)
+		{
+			this.Path.BuildMoveToSequence (this.WorldPosition, destination);
+			this.Path.PathCompleted += Unit_PathCompleted;	
+		}
+		
 		public void Unit_PathCompleted(object sender, EventArgs args)
     	{
        		// Adjust new WorldPosition
 			this.WorldPosition = new Vector2i((int) this.Position.X/Constants.TILE_SIZE, (int)this.Position.Y/Constants.TILE_SIZE);
-			this.IsActive = false;
 			
-			// Set the unit to the new tile it is hovering
-			Utilities.AssignUnitToTileByPosition(WorldPosition, this);
+			//Move is completed, pop the Action Panel
+			Utilities.ShowActionPanel();
 			
 			// Remove event so it doesn't loop 
 			this.Path.PathCompleted -= Unit_PathCompleted;
+		}
+		
+		public void FinalizeMove()
+		{
+			// Set the unit to the new tile it is hovering
+			Utilities.AssignUnitToTileByPosition(WorldPosition, this);
+			IsActive = false;
+		}
+		
+		public void RevertMove()
+		{
+			IsActive = true;
+			Select();
+			
+			Move_RadiusLeft = Path.RadiusUsed;
+			HealthDisplay.Text = Move_RadiusLeft.ToString();
+			
+			this.Position = new Vector2(Path.Origin.X * 64, Path.Origin.Y * 64);
+			UnitSprite.Position = this.Position;
+			this.WorldPosition = Path.Origin;
 		}
 		
 		#region Utilities

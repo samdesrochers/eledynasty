@@ -1,4 +1,5 @@
 using System;
+using Sce.PlayStation.Core;
 using System.Collections.Generic;
 using Sce.PlayStation.HighLevel.GameEngine2D.Base;
 
@@ -16,6 +17,8 @@ namespace INF4000
 		public event EventHandler PathCompleted;
 		public bool IsActive;
 		public int distanceMoved;
+		public int RadiusUsed;
+		public Vector2i Origin;
 		
 		public Path()
 		{
@@ -26,6 +29,7 @@ namespace INF4000
 		
 		public void BuildMoveToSequence(Vector2i origin, Vector2i destination)
 		{
+			Origin = origin;
 			Vector2i finalPos = origin; 
 			while(destination.X != finalPos.X || destination.Y != finalPos.Y)
 			{
@@ -51,6 +55,7 @@ namespace INF4000
 					finalPos = new Vector2i(finalPos.X, finalPos.Y - 1);
 				}
 			}
+			RadiusUsed = Sequence.Count;
 			IsActive = true;
 		}
 		

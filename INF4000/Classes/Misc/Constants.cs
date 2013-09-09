@@ -9,14 +9,15 @@ namespace INF4000
 		public const int TEXT_SIZE = 32;
 		
 		// General - In Game States
-		public const int GAME_STATE_SELECT_IDLE 		= 0;
-		public const int GAME_STATE_SELECT_ACTIVE 		= 1;
+		public const int GAME_STATE_SELECTION_INACTIVE 		= 0;
+		public const int GAME_STATE_SELECTION_ACTIVE 		= 1;
+		public const int GAME_STATE_ACTIONPANEL_ACTIVE 		= 2;
 		
 		// General - Global States
 		public const int GLOBAL_STATE_PLAYING_TURN 		= 0;
 		public const int GLOBAL_STATE_SWITCHING_TURN 	= 1;
 		public const int GLOBAL_STATE_GAMEOVER 			= 2;
-		public const int GLOBAL_STATE_PAUSE 				= 3;
+		public const int GLOBAL_STATE_PAUSE 			= 3;
 		
 		/*******************************
 		 * 	TERRAIN CONSTANTS
@@ -107,9 +108,19 @@ namespace INF4000
 		public const int ACTION_MOVE 	= 1;
 		public const int ACTION_ATTACK 	= 2;
 		public const int ACTION_CAPTURE = 3;
-
 		
+		/*******************************
+		 * 	UI CONSTANTS
+		 * *****************************/
+		public const int UI_ELEMENT_ACTIONBOX_WIDTH 	= 200;
+		public const int UI_ELEMENT_ACTIONBOX_HEIGHT 	= 125;
 		
+		public const int UI_ELEMENT_CONFIG_WAIT_CANCEL			= 0;
+		public const int UI_ELEMENT_CONFIG_WAIT_CANCEL_ATTACK	= 1;
+	
+		public const int UI_ELEMENT_ACTION_TYPE_WAIT = 0;
+		public const int UI_ELEMENT_ACTION_TYPE_CANCEL = 1;
+		public const int UI_ELEMENT_ACTION_TYPE_ATTACK = 2;
 	}
 }
 

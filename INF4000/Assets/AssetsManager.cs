@@ -6,6 +6,7 @@ using Sce.PlayStation.Core.Audio;
 using Sce.PlayStation.Core.Input;
 using Sce.PlayStation.Core.Graphics;
 using Sce.PlayStation.Core.Imaging;
+using Sce.PlayStation.HighLevel.UI;
 
 namespace INF4000
 {
@@ -33,6 +34,9 @@ namespace INF4000
 		public Texture2D TerrainTexture;
 		public TextureInfo TerrainTextureInfo;
 		
+		public ImageAsset Image_TurnSwitch_BG;
+		public ImageAsset Image_Player_1_Icon;
+		
 		public AssetsManager ()
 		{
 			Loaded = false;
@@ -54,6 +58,10 @@ namespace INF4000
 					// Terrain Textures
 					TerrainTexture = new Texture2D ("/Application/Assets/Tiles/tilesMap.png", false);
 					TerrainTextureInfo = new TextureInfo (TerrainTexture, new Vector2i (4, 4));
+					
+					// UI Elements
+					Image_TurnSwitch_BG = new ImageAsset("/Application/Assets/UI/turnswitch_bg.png",false);
+					Image_Player_1_Icon = new ImageAsset("/Application/Assets/Players/araki.png",false);
 					
 					Loaded = true;
 				} 

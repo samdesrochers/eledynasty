@@ -15,7 +15,7 @@ namespace INF4000
 			this.IsActive = false;
 			this.IsHuman = true;
 			this.FocusPoints = 5;
-			Icon = new ImageAsset("/Application/Assets/Players/araki.png",false);
+			Icon = AssetsManager.Instance.Image_Player_1_Icon;
 		}
 	}
 }
