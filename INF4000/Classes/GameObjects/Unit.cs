@@ -160,7 +160,7 @@ namespace INF4000
 			IsActive = true;
 			Select();
 			
-			Move_RadiusLeft = Path.RadiusUsed;
+			Move_RadiusLeft += Path.RadiusUsed;
 			HealthDisplay.Text = Move_RadiusLeft.ToString();
 			
 			this.Position = new Vector2(Path.Origin.X * 64, Path.Origin.Y * 64);

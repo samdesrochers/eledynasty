@@ -152,7 +152,7 @@ namespace INF4000
 		{
 			SwitchTurnTime += dt;			
 			UI.AnimateSwitchitngTurn(dt);
-			
+
 			if(SwitchTurnTime >= 2.0f || Input2.GamePad0.Cross.Release) // wait 2 seconds before switching turn
 			{
 				CurrentGlobalState = Constants.GLOBAL_STATE_PLAYING_TURN;
@@ -163,17 +163,31 @@ namespace INF4000
 		
 		private void UpdateCameraPosition ()
 		{	
-			Camera2D camera = this.Camera as Camera2D;
-			
-			// Adjust Camera accoring to Right Analog Stick
-			GamePadData data = GamePad.GetData (0);
-			camera.Center = new Vector2 (camera.Center.X + 5 * data.AnalogRightX, camera.Center.Y - 5 * data.AnalogRightY);
+//			Camera2D camera = this.Camera as Camera2D;
+//			
+//			// Adjust Camera accoring to Right Analog Stick
+//			GamePadData data = GamePad.GetData (0);
+//			Vector2 pos = camera.Center;
+//			
+//			if(pos.X >= 960/2 && pos.X <= CurrentMap.Width * 64 - (960/2) + 64) {
+//				camera.Center = new Vector2 (camera.Center.X + 5 * data.AnalogRightX, camera.Center.Y - 5 * data.AnalogRightY);
+//			} else {
+//				camera.Center = new Vector2 (camera.Center.X, camera.Center.Y - 5 * data.AnalogRightY);
+//			}		
 		}
 		
 		public void UpdateCameraPositionByCursor ()
 		{
 			Camera2D camera = this.Camera as Camera2D;
-			camera.Center = new Vector2 (Cursor.Position.X, Cursor.Position.Y);
+			Vector2 pos = Cursor.Position;
+
+			if(pos.X >= 960/2 && pos.X <= CurrentMap.Width * 64 - (960/2) + 64) {
+				camera.Center = new Vector2 (Cursor.Position.X - 32, camera.Center.Y);
+			} 
+			
+			if(pos.Y >= 544/2 && pos.Y <= CurrentMap.Height * 64 - (544/2) + 64) {
+				camera.Center = new Vector2 (camera.Center.X, Cursor.Position.Y  - 32);
+			} 
 		}
 		
 		private void UpdateCursorPosition ()
@@ -405,6 +419,7 @@ namespace INF4000
 			if (action == Constants.ACTION_MOVE) {		
 				
 				// Prepare the Action Panel with Move and Cancel actions only
+				GameScene.Instance.UI.ActionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL);
 				CurrentGameState = Constants.GAME_STATE_ACTIONPANEL_ACTIVE;
 				Utilities.AssignMovePathToActiveUnit(); // Concrete move action
 						

@@ -96,5 +96,9 @@
     <Content Include="Assets\Players\araki.png" />
     <Content Include="Assets\UI\turnswitch_bg.png" />
     <Content Include="Assets\UI\arrow_panel.png" />
+    <Content Include="Assets\UI\attack_icon.png" />
+    <Content Include="Assets\UI\back_icon.png" />
+    <Content Include="Assets\UI\panel_bg.png" />
+    <Content Include="Assets\UI\wait_icon.png" />
   </ItemGroup>
 </Project>

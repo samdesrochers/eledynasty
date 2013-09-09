@@ -39,9 +39,9 @@ namespace INF4000
 			Vector2 pos_move = new Vector2(Position.X , Position.Y + 40);
 			Vector2 pos_cancel = new Vector2(Position.X, Position.Y + 75);
 			
-			AttackItem = new ActionItem("ATTACK", pos_att, Constants.UI_ELEMENT_ACTION_TYPE_ATTACK);
-			MoveItem = new ActionItem("WAIT ", pos_move, Constants.UI_ELEMENT_ACTION_TYPE_WAIT);
-			CancelItem = new ActionItem("CANCEL", pos_cancel, Constants.UI_ELEMENT_ACTION_TYPE_CANCEL);
+			AttackItem = new ActionItem("ATTACK", pos_att, Constants.UI_ELEMENT_ACTION_TYPE_ATTACK, AssetsManager.Instance.Image_Panel_Attack_Icon);
+			MoveItem = new ActionItem("WAIT ", pos_move, Constants.UI_ELEMENT_ACTION_TYPE_WAIT, AssetsManager.Instance.Image_Panel_Wait_Icon);
+			CancelItem = new ActionItem("CANCEL", pos_cancel, Constants.UI_ELEMENT_ACTION_TYPE_CANCEL, AssetsManager.Instance.Image_Panel_Cancel_Icon);
 			
 			ActionItems = new List<ActionItem>();
 			ActionItems.Add(MoveItem);
@@ -53,7 +53,7 @@ namespace INF4000
 			Image_Background.Width = Constants.UI_ELEMENT_ACTIONBOX_WIDTH;
 			Image_Background.Height = Constants.UI_ELEMENT_ACTIONBOX_HEIGHT;
 			Image_Background.SetPosition(this.Position.X, this.Position.Y);
-			Image_Background.Image = AssetsManager.Instance.Image_TurnSwitch_BG;			
+			Image_Background.Image = AssetsManager.Instance.Image_Panel_BG;			
 			Image_Background.Visible = true;
 
 			
@@ -161,7 +161,7 @@ namespace INF4000
 			foreach(ActionItem a in ActionItems)
 			{			
 				if(SelectedIndex == count)
-					a.Text_Action.TextColor = new UIColor(0,1,0,1);
+					a.Text_Action.TextColor = new UIColor(1, 0.7f, 0, 1);
 				
 				count ++;
 			}

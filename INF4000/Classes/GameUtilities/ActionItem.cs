@@ -18,7 +18,7 @@ namespace INF4000
 		public bool IsActive;
 		public int Action;
 		
-		public ActionItem (string text, Vector2 pos, int action)
+		public ActionItem (string text, Vector2 pos, int action, ImageAsset image)
 		{
 			IsActive = false;
 			Position = pos;
@@ -31,10 +31,10 @@ namespace INF4000
             ActionPanel.Width = Constants.UI_ELEMENT_ACTIONBOX_WIDTH;
 			
 			Image_Action = new ImageBox();
-			Image_Action.Width = Constants.TILE_SIZE/2;
-			Image_Action.Height = Constants.TILE_SIZE/2;
-			Image_Action.SetPosition(150, -5);
-			Image_Action.Image = AssetsManager.Instance.Image_TurnSwitch_BG;			
+			Image_Action.Width = 10 + Constants.TILE_SIZE/2;
+			Image_Action.Height = 10 + Constants.TILE_SIZE/2;
+			Image_Action.SetPosition(140, -10);
+			Image_Action.Image = image;
 			Image_Action.Visible = true;
 		
 			Text_Action = new Label();

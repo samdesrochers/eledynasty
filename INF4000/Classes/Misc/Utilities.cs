@@ -57,7 +57,6 @@ namespace INF4000
 		public static void ShowActionPanel()
 		{
 			GameScene.Instance.UI.ActionPanel.SetActive(true);
-			GameScene.Instance.UI.ActionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL);
 		}
 		
 		public static void LoadAllSpritesFromPlayer(List<Player> players, Node parent)
