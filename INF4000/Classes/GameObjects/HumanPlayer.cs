@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Sce.PlayStation.Core;
 using Sce.PlayStation.Core.Graphics;
 using Sce.PlayStation.Core.Imaging;
@@ -15,7 +16,9 @@ namespace INF4000
 			this.IsActive = false;
 			this.IsHuman = true;
 			this.FocusPoints = 5;
-			Icon = AssetsManager.Instance.Image_Player_1_Icon;
+			
+			this.TargetUnits = new List<Unit>();
+			this.Icon = AssetsManager.Instance.Image_Player_1_Icon;
 		}
 	}
 }

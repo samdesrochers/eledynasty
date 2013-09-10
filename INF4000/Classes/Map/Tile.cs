@@ -24,6 +24,7 @@ namespace INF4000
 		
 		public Vector2i IdleStateIndex;
 		public Vector2i ActiveStateIndex;
+		public Vector2i TargetStateIndex;
 		
 		public List<Vector2i> AdjacentPosition;
 		public Vector2i Adjacent_Left_Pos;
@@ -42,10 +43,11 @@ namespace INF4000
 			WorldPosition = new Vector2i(posX, posY);
 		}
 		
-		public void AssignGraphics(Vector2i idleIndex, Vector2i activeIndex)
+		public void AssignGraphics(Vector2i idleIndex, Vector2i activeIndex, Vector2i targetIndex)
 		{
 			IdleStateIndex = idleIndex;
 			ActiveStateIndex = activeIndex;
+			TargetStateIndex = targetIndex;
 			
 			SpriteTile = new SpriteTile(this.TextureInfo, IdleStateIndex);
 			SpriteTile.Quad = this.Quad;
@@ -69,6 +71,14 @@ namespace INF4000
 		{	
 			if(active)
 				SpriteTile.TileIndex2D = ActiveStateIndex;
+			else
+				SpriteTile.TileIndex2D = IdleStateIndex;
+		}
+		
+		public void SetTargeted(bool target)
+		{	
+			if(target)
+				SpriteTile.TileIndex2D = TargetStateIndex;
 			else
 				SpriteTile.TileIndex2D = IdleStateIndex;
 		}

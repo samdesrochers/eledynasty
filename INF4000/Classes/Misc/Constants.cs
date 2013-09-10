@@ -9,15 +9,16 @@ namespace INF4000
 		public const int TEXT_SIZE = 32;
 		
 		// General - In Game States
-		public const int GAME_STATE_SELECTION_INACTIVE 		= 0;
-		public const int GAME_STATE_SELECTION_ACTIVE 		= 1;
-		public const int GAME_STATE_ACTIONPANEL_ACTIVE 		= 2;
+		public const int GAME_STATE_SELECTION_INACTIVE 		= 50;
+		public const int GAME_STATE_SELECTION_ACTIVE 		= 51;
+		public const int GAME_STATE_ACTIONPANEL_ACTIVE 		= 52;
+		public const int GAME_STATE_ATTACKPANEL_ACTIVE 		= 53;
 		
 		// General - Global States
-		public const int GLOBAL_STATE_PLAYING_TURN 		= 0;
-		public const int GLOBAL_STATE_SWITCHING_TURN 	= 1;
-		public const int GLOBAL_STATE_GAMEOVER 			= 2;
-		public const int GLOBAL_STATE_PAUSE 			= 3;
+		public const int GLOBAL_STATE_PLAYING_TURN 		= 10;
+		public const int GLOBAL_STATE_SWITCHING_TURN 	= 11;
+		public const int GLOBAL_STATE_GAMEOVER 			= 12;
+		public const int GLOBAL_STATE_PAUSE 			= 13;
 		
 		/*******************************
 		 * 	TERRAIN CONSTANTS

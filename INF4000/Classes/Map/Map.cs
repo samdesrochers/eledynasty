@@ -53,6 +53,7 @@ namespace INF4000
 		{			
 			Vector2i idleIndex = new Vector2i (0, 0);
 			Vector2i activeIndex = new Vector2i (0, 0);
+			Vector2i targetIndex = new Vector2i (0, 0);
 			
 			// Generate Tiles Sprites 
 			foreach (Tile t in Tiles) 
@@ -63,22 +64,26 @@ namespace INF4000
 					case Constants.TILE_TYPE_GRASS_MIDDLE:
 						idleIndex = new Vector2i (1, 2);
 						activeIndex = new Vector2i(3, 0);
+						targetIndex = new Vector2i(1, 0);
 						break;
 					case Constants.TILE_TYPE_WATER_MIDDLE:
 						idleIndex = new Vector2i (3, 0);
 						activeIndex = new Vector2i(3, 0);
+						targetIndex = new Vector2i(1, 0);
 						break;
 					case Constants.TILE_TYPE_BUILD_FORT:
 						idleIndex = new Vector2i (0, 2);
 						activeIndex = new Vector2i(2, 0);
+						targetIndex = new Vector2i(0, 0);
 						break;
 					case Constants.TILE_TYPE_BUILD_FARM:
 						idleIndex = new Vector2i (1, 3);
 						activeIndex = new Vector2i(3, 1);
+						targetIndex = new Vector2i(0, 1);
 						break;
 				}
 					
-				t.AssignGraphics (idleIndex, activeIndex);
+				t.AssignGraphics (idleIndex, activeIndex, targetIndex);
 				SpriteList.AddChild (t.SpriteTile);
 			}
 		}
@@ -243,6 +248,21 @@ namespace INF4000
 			
 			foreach(Tile at in ActiveTiles)
 				at.SetActive(true);
+		}
+		
+		public void SetTargetedTiles(Tile origin)
+		{
+			foreach(Vector2i v in origin.AdjacentPosition){
+				if(this.GetTile(v) != null)
+				{
+					Tile t = this.GetTile(v);
+					if(t.CurrentUnit != null && t.CurrentUnit.OwnerName != GameScene.Instance.ActivePlayer.Name)
+					{
+						GameScene.Instance.ActivePlayer.TargetUnits.Add(t.CurrentUnit);
+						t.SetTargeted(true);
+					}
+				}
+			}
 		}
 		
 		public Tile GetTile(Vector2i worldPos)

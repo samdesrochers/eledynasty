@@ -123,15 +123,15 @@ namespace INF4000
 		private void UpdateGameRunning()
 		{
 			UpdateCameraPosition ();
-			
+			TextImage.Text = CurrentGameState.ToString();
 			if (ActivePlayer is HumanPlayer) 
 			{
-				if(UI.ActionPanel.IsActive())
-				{
-					UpdatePanelSelection();
-				} else {
+				if(CurrentGameState == Constants.GAME_STATE_ACTIONPANEL_ACTIVE)
+					UpdateActionPanelSelection();
+				else if(CurrentGameState == Constants.GAME_STATE_ATTACKPANEL_ACTIVE)
+					UpdateAttackPanelSelection();
+				else 
 					UpdateCursorPosition ();
-				}
 					
 				CheckUserInput ();
 			}
@@ -241,12 +241,21 @@ namespace INF4000
 			this.UpdateCameraPositionByCursor();
 		}
 		
-		private void UpdatePanelSelection()
+		private void UpdateActionPanelSelection()
 		{
 			if (Input2.GamePad.GetData (0).Up.Release) {
 				UI.ActionPanel.FocusNextItemUp();
 			} else if(Input2.GamePad.GetData (0).Down.Release) {
 				UI.ActionPanel.FocusNextItemDown();
+			}
+		}
+		
+		private void UpdateAttackPanelSelection()
+		{
+			if (Input2.GamePad.GetData (0).Up.Release || Input2.GamePad.GetData (0).Right.Release) {
+				Utilities.CycleEnemyUnitsRight();
+			} else if(Input2.GamePad.GetData (0).Down.Release || Input2.GamePad.GetData (0).Left.Release) {
+				Utilities.CycleEnemyUnitsRight();
 			}
 		}
 		
@@ -321,7 +330,7 @@ namespace INF4000
 			
 		private void ExecuteTurn ()
 		{
-			TextImage.Text = ActivePlayer.Name;
+			//TextImage.Text = ActivePlayer.Name;
 		}
 		
 		private bool CheckIfTurnIsOver()
@@ -366,15 +375,29 @@ namespace INF4000
 			else if(this.CurrentGameState == Constants.GAME_STATE_ACTIONPANEL_ACTIVE)
 			{
 				// User selects an option in the Action panel Presses "X"
-				if (Input2.GamePad.GetData (0).Cross.Release) 
+				if (Input2.GamePad.GetData (0).Cross.Release && UI.ActionPanel.IsActive()) 
 				{
 					CrossPressed_LastStateActionPanelActive();
 				}
 				
 				// User Presses "O"
-				if (Input2.GamePad.GetData (0).Circle.Release) 
+				if (Input2.GamePad.GetData (0).Circle.Release && UI.ActionPanel.IsActive()) 
 				{
 					CirclePressed_LastStateActionPanelActive();
+				}
+			}
+			else if(this.CurrentGameState == Constants.GAME_STATE_ATTACKPANEL_ACTIVE)
+			{
+				// User selects an option in the Action panel Presses "X"
+				if (Input2.GamePad.GetData (0).Cross.Release) 
+				{
+					CrossPressed_LastStateAttackPanelActive();
+				}
+				
+				// User Presses "O"
+				if (Input2.GamePad.GetData (0).Circle.Release) 
+				{
+					CirclePressed_LastStateAttackPanelActive();
 				}
 			}
 			
@@ -397,6 +420,7 @@ namespace INF4000
 			}
 		}
 		
+		#region Cross Pressed Actions
 		private void CrossPressed_LastStateIdle ()
 		{
 			if (Input2.GamePad.GetData (0).Cross.Release) 
@@ -408,6 +432,7 @@ namespace INF4000
 					CurrentGameState = Constants.GAME_STATE_SELECTION_ACTIVE;
 					ActivePlayer.ActiveUnit = selectedUnit;
 					ActivePlayer.ActiveTile = CurrentMap.SelectTileFromPosition (Cursor.WorldPosition);
+					Cursor.TintToBlue();
 				}
 			}	
 		}
@@ -475,7 +500,15 @@ namespace INF4000
 				}
 				else // Unit just moved and wants to attack 
 				{
+					//Prepare Attack Panel
+					CurrentGameState = Constants.GAME_STATE_ATTACKPANEL_ACTIVE;
 					
+					ActivePlayer.TargetUnits.Clear();
+					CurrentMap.SetTargetedTiles(Cursor.SelectedTile);
+					ActivePlayer.AssignTarget(0); // Sets first unit in array as target
+						
+					Cursor.MoveToTileByWorldPosition(ActivePlayer.TargetUnit.WorldPosition);
+					Cursor.TintToRed();
 				}
 			}
 			else if(UIAction == Constants.UI_ELEMENT_ACTION_TYPE_WAIT) // WAIT Button pressed
@@ -517,6 +550,14 @@ namespace INF4000
 			}
 		}
 		
+		private void CrossPressed_LastStateAttackPanelActive()
+		{
+			
+		}
+		
+		#endregion
+		
+		#region Circle Pressed Actions
 		private void CirclePressed_LastStateActive()
 		{
 			CurrentGameState = Constants.GAME_STATE_SELECTION_INACTIVE;
@@ -538,6 +579,15 @@ namespace INF4000
 			ActivePlayer.ActiveUnit.RevertMove();
 			Cursor.MoveToTileByWorldPosition(ActivePlayer.ActiveUnit.WorldPosition);
 		}
+		
+		private void CirclePressed_LastStateAttackPanelActive()
+		{
+			CurrentGameState = Constants.GAME_STATE_ACTIONPANEL_ACTIVE;
+			CurrentMap.SelectUnitFromTile(ActivePlayer.ActiveUnit.WorldPosition);
+			Cursor.MoveToTileByWorldPosition(ActivePlayer.ActiveUnit.WorldPosition);
+			Cursor.TintToBlue();
+		}
+		#endregion
 		
 		#endregion
 		

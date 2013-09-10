@@ -102,6 +102,11 @@ namespace INF4000
 		{
 			SpriteTile.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.LightBlue, 1f), 0.3f));
 		}
+		
+		public void TintToRed()
+		{
+			SpriteTile.RunAction(new TintTo(Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.SetAlpha(Colors.Red, 1f), 0.3f));
+		}
 		#endregion
 	}
 }

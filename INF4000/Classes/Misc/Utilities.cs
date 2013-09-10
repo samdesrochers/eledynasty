@@ -7,6 +7,7 @@ using Sce.PlayStation.Core.Imaging;
 
 using Sce.PlayStation.HighLevel.GameEngine2D;
 using Sce.PlayStation.HighLevel.GameEngine2D.Base;
+using Sce.PlayStation.HighLevel.UI;
 
 namespace INF4000
 {
@@ -71,6 +72,11 @@ namespace INF4000
 			GameScene.Instance.UI.ActionPanel.SetActive(true);
 		}
 		
+		public static void ShowAttackPanel()
+		{
+			GameScene.Instance.UI.ActionPanel.SetActive(true);
+		}
+		
 		public static void LoadAllSpritesFromPlayer(List<Player> players, Node parent)
 		{
 			foreach(Player p in players)
@@ -91,6 +97,30 @@ namespace INF4000
 		{
 			
 		}
+		
+		#region Attack Methods
+		public static void CycleEnemyUnitsRight()
+		{
+			Unit u = GameScene.Instance.ActivePlayer.TargetUnit;
+			int idx = GameScene.Instance.ActivePlayer.TargetUnits.IndexOf(u);
+			
+			int nextIdx = (idx + 1) %  GameScene.Instance.ActivePlayer.TargetUnits.Count;
+			u = GameScene.Instance.ActivePlayer.TargetUnits[nextIdx];
+			GameScene.Instance.ActivePlayer.TargetUnit = u;
+			GameScene.Instance.Cursor.MoveToTileByWorldPosition(u.WorldPosition);
+		}
+		
+		public static void CycleEnemyUnitsLeft()
+		{
+			Unit u = GameScene.Instance.ActivePlayer.TargetUnit;
+			int idx = GameScene.Instance.ActivePlayer.TargetUnits.IndexOf(u);
+			
+			int nextIdx = System.Math.Abs((idx - 1) %  GameScene.Instance.ActivePlayer.TargetUnits.Count);
+			u = GameScene.Instance.ActivePlayer.TargetUnits[nextIdx];
+			GameScene.Instance.ActivePlayer.TargetUnit = u;
+			GameScene.Instance.Cursor.MoveToTileByWorldPosition(u.WorldPosition);
+		}
+		#endregion
 	}
 }
 

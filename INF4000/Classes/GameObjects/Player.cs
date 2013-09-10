@@ -29,6 +29,8 @@ namespace INF4000
 		}
 		
 		public Tile ActiveTile;
+		public List<Unit> TargetUnits;
+		public Unit TargetUnit;
 		// Add Building list here
 		
 		public bool HasMovableUnits()
@@ -58,7 +60,15 @@ namespace INF4000
 			{
 				u.Reset();
 			}	
+		}
+		
+		public void AssignTarget(int index)
+		{
+			if(index >= TargetUnits.Count)
+				return;
 			
+			Unit u = TargetUnits[index];
+			this.TargetUnit = u;
 		}
 	}
 }
