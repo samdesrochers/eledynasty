@@ -13,6 +13,7 @@ namespace INF4000
 		public ImageAsset Icon;
 		
 		public int FocusPoints;
+		public int LastAction;
 		
 		private Unit _ActiveUnit;
 		public Unit ActiveUnit

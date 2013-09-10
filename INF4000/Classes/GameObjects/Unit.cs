@@ -124,10 +124,7 @@ namespace INF4000
 					this.Move_RadiusLeft --;
 					HealthDisplay.Text = Move_RadiusLeft.ToString();
 				}
-			}
-			
-			if(this.Move_RadiusLeft == 0)
-				SetInactive();		
+			}		
 		}
 		
 		public void MoveTo(Vector2i destination)
@@ -152,7 +149,14 @@ namespace INF4000
 		{
 			// Set the unit to the new tile it is hovering
 			Utilities.AssignUnitToTileByPosition(WorldPosition, this);
-			IsActive = false;
+			
+			GameScene.Instance.Cursor.TintToWhite();
+			GameScene.Instance.CurrentMap.UnTintAllTiles ();
+			
+			Unselect();
+			
+			if(this.Move_RadiusLeft == 0)
+				SetInactive();
 		}
 		
 		public void RevertMove()
@@ -166,6 +170,17 @@ namespace INF4000
 			this.Position = new Vector2(Path.Origin.X * 64, Path.Origin.Y * 64);
 			UnitSprite.Position = this.Position;
 			this.WorldPosition = Path.Origin;
+		}
+		
+		public void Sleep()
+		{
+			Move_RadiusLeft = 0;
+			HealthDisplay.Text = Move_RadiusLeft.ToString ();
+			Unselect();
+			SetInactive();
+			
+			GameScene.Instance.Cursor.TintToWhite();
+			GameScene.Instance.CurrentMap.UnTintAllTiles ();
 		}
 		
 		#region Utilities

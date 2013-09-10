@@ -59,24 +59,31 @@ namespace INF4000
 			IsActive = true;
 		}
 		
-		public int GetDestinationAction(Vector2i pos)
+		public int GetDestinationAction(Vector2i pos, Vector2i origin)
 		{			
 			Tile dest = GameScene.Instance.CurrentMap.SelectTileFromPosition(pos);
 			
 			// If tile not in active tiles abort
 			if(!GameScene.Instance.CurrentMap.ActiveTiles.Contains(dest))
-				return Constants.ACTION_CANCEL;		
-			
-			// If tile is empty, move is necessarliy valid
-			if(dest.CurrentUnit == null)
-				return Constants.ACTION_MOVE;
-			
+				return Constants.ACTION_CANCEL;
+
 			// User is trying to move unit on another of his own unit
-			if(dest.CurrentUnit != null && dest.CurrentUnit.OwnerName == GameScene.Instance.ActivePlayer.Name)
+			else if(dest.CurrentUnit != null && dest.CurrentUnit.OwnerName == GameScene.Instance.ActivePlayer.Name && pos != origin)
 				return Constants.ACTION_CANCEL;
 			
+			// Same unit as origin unit, either sleep, attack or cancel choice
+			else if(dest.CurrentUnit != null && dest.CurrentUnit.OwnerName == GameScene.Instance.ActivePlayer.Name && pos == origin && !Utilities.CanUnitAttackFromDestination(dest))
+				return Constants.ACTION_SLEEP;
+			
+			else if(dest.CurrentUnit != null && dest.CurrentUnit.OwnerName == GameScene.Instance.ActivePlayer.Name && pos == origin && Utilities.CanUnitAttackFromDestination(dest))
+				return Constants.ACTION_NOMOVE_ATTACK;
+			
+			// If tile is empty, move is necessarliy valid
+			else if(dest.CurrentUnit == null && !Utilities.CanUnitAttackFromDestination(dest))
+				return Constants.ACTION_MOVE;
+			
 			// User is trying to attack enemy unit
-			if(dest.CurrentUnit != null && dest.CurrentUnit.OwnerName != GameScene.Instance.ActivePlayer.Name)
+			else if(dest.CurrentUnit == null && Utilities.CanUnitAttackFromDestination(dest))
 				return Constants.ACTION_ATTACK;
 			
 			return Constants.ACTION_CANCEL;

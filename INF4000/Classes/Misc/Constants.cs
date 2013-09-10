@@ -108,6 +108,8 @@ namespace INF4000
 		public const int ACTION_MOVE 	= 1;
 		public const int ACTION_ATTACK 	= 2;
 		public const int ACTION_CAPTURE = 3;
+		public const int ACTION_SLEEP = 4;
+		public const int ACTION_NOMOVE_ATTACK = 5;
 		
 		/*******************************
 		 * 	UI CONSTANTS

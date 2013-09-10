@@ -33,10 +33,10 @@ namespace INF4000
 			t.CurrentUnit = unit;		
 		}
 		
-		public static void AssignMovePathToActiveUnit()
+		public static void AssignMovePathToActiveUnit(Path path)
 		{
 			// Build Unit Path for move action
-			GameScene.Instance.ActivePlayer.ActiveUnit.Path = new Path();
+			GameScene.Instance.ActivePlayer.ActiveUnit.Path = path;
 			GameScene.Instance.ActivePlayer.ActiveUnit.MoveTo(GameScene.Instance.Cursor.WorldPosition);				
 		}
 		
@@ -48,11 +48,23 @@ namespace INF4000
 			GameScene.Instance.ActivePlayer.ActiveTile.CurrentUnit = null;
 					
 			// Unselect unit and remove tint from tiles
-			GameScene.Instance.ActivePlayer.ActiveUnit.Unselect();
 			GameScene.Instance.ActivePlayer.ActiveUnit = null;
-			GameScene.Instance.CurrentMap.UnTintAllTiles ();
+			
 		}
 		#endregion
+		
+		public static bool CanUnitAttackFromDestination(Tile tile)
+		{
+			foreach(Vector2i v in tile.AdjacentPosition){
+				if(GameScene.Instance.CurrentMap.GetTile(v) != null)
+				{
+					Tile t = GameScene.Instance.CurrentMap.GetTile(v);
+					if(t.CurrentUnit != null && t.CurrentUnit.OwnerName != GameScene.Instance.ActivePlayer.Name)
+						return true;
+				}
+			}
+			return false;
+		}
 		
 		public static void ShowActionPanel()
 		{

@@ -278,6 +278,7 @@ namespace INF4000
 				CurrentMap.UnTintAllTiles();
 			}
 			ActivePlayer.ActiveUnit = null;
+			ActivePlayer.LastAction = -1; //void last action
 			
 			// Switch Player and add a turn to the counter
 			ActivePlayerIndex++;		
@@ -414,14 +415,15 @@ namespace INF4000
 		private void CrossPressed_LastStateSelectionActive()
 		{
 			Path path = new Path ();				
-			int action = path.GetDestinationAction (Cursor.WorldPosition);
-					
+			int action = path.GetDestinationAction (Cursor.WorldPosition, ActivePlayer.ActiveUnit.WorldPosition);
+			ActivePlayer.LastAction = action;
+			
 			if (action == Constants.ACTION_MOVE) {		
 				
 				// Prepare the Action Panel with Move and Cancel actions only
 				GameScene.Instance.UI.ActionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL);
 				CurrentGameState = Constants.GAME_STATE_ACTIONPANEL_ACTIVE;
-				Utilities.AssignMovePathToActiveUnit(); // Concrete move action
+				Utilities.AssignMovePathToActiveUnit(path); // Concrete move action
 						
 			} else if (action == Constants.ACTION_CANCEL) {
 				
@@ -431,35 +433,87 @@ namespace INF4000
 				ActivePlayer.ActiveUnit.Unselect ();
 				ActivePlayer.ActiveUnit = null;
 				CurrentMap.UnTintAllTiles ();
+				Cursor.TintToWhite();
+				
+			} else if (action == Constants.ACTION_ATTACK) {
+				
+				// Prepare the Action Panel with Move Attack and Cancel actions 
+				GameScene.Instance.UI.ActionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_ATTACK);
+				CurrentGameState = Constants.GAME_STATE_ACTIONPANEL_ACTIVE;
+				Utilities.AssignMovePathToActiveUnit(path); // Concrete move action
+				
+			} else if (action == Constants.ACTION_SLEEP) {
+				
+				// Prepare the Action Panel with Move Attack and Cancel actions 
+				GameScene.Instance.UI.ActionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL);
+				CurrentGameState = Constants.GAME_STATE_ACTIONPANEL_ACTIVE;
+				
+				// Show Panel
+				Utilities.ShowActionPanel();
+				
+			} else if (action == Constants.ACTION_NOMOVE_ATTACK) {
+				
+				// Prepare the Action Panel with Move Attack and Cancel actions 
+				GameScene.Instance.UI.ActionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_ATTACK);
+				CurrentGameState = Constants.GAME_STATE_ACTIONPANEL_ACTIVE;
+				
+				// Show Panel
+				Utilities.ShowActionPanel();
 			}
-
-			Cursor.TintToWhite();
 		}
 		
 		private void CrossPressed_LastStateActionPanelActive()
 		{
-			int action = UI.ActionPanel.GetSelectedAction();
+			int UIAction = UI.ActionPanel.GetSelectedAction();
 			
-			if(action == Constants.UI_ELEMENT_ACTION_TYPE_ATTACK)
+			if(UIAction == Constants.UI_ELEMENT_ACTION_TYPE_ATTACK) // ATTACK Button pressed
 			{
+				// Unit is attackin from its original position
+				if(ActivePlayer.LastAction == Constants.ACTION_NOMOVE_ATTACK)
+				{
+					
+				}
+				else // Unit just moved and wants to attack 
+				{
+					
+				}
+			}
+			else if(UIAction == Constants.UI_ELEMENT_ACTION_TYPE_WAIT) // WAIT Button pressed
+			{
+				if(ActivePlayer.LastAction == Constants.ACTION_SLEEP || ActivePlayer.LastAction == Constants.ACTION_NOMOVE_ATTACK)
+				{
+					// Player is sleeping this unit, inactive state, close UI, sleep unit
+					CurrentGameState = Constants.GAME_STATE_SELECTION_INACTIVE;
+					UI.ActionPanel.SetActive(false);
+					
+					ActivePlayer.ActiveUnit.Sleep();
+					ActivePlayer.ActiveUnit = null;
+				}
+				else
+				{
+					// Unit is moved concretly, finalize the action and hide panel
+					CurrentGameState = Constants.GAME_STATE_SELECTION_INACTIVE;
+					UI.ActionPanel.SetActive(false);
+					Utilities.FinalizeMoveAction();
+				}
 				
 			}
-			else if(action == Constants.UI_ELEMENT_ACTION_TYPE_WAIT)
+			else if(UIAction == Constants.UI_ELEMENT_ACTION_TYPE_CANCEL) // CANCEL button pressed
 			{
-				// Unit is moved concretly, finalize the action and hide panel
-				CurrentGameState = Constants.GAME_STATE_SELECTION_INACTIVE;
-				UI.ActionPanel.SetActive(false);
-				Utilities.FinalizeMoveAction();
-				
-			}
-			else if(action == Constants.UI_ELEMENT_ACTION_TYPE_CANCEL)
-			{
-				// Move is canceled, hide panel and reset unit to origin position
-				CurrentGameState = Constants.GAME_STATE_SELECTION_ACTIVE;
-				UI.ActionPanel.SetActive(false);
-				
-				ActivePlayer.ActiveUnit.RevertMove();
-				Cursor.MoveToTileByWorldPosition(ActivePlayer.ActiveUnit.WorldPosition);
+				if(ActivePlayer.LastAction == Constants.ACTION_SLEEP || ActivePlayer.LastAction == Constants.ACTION_NOMOVE_ATTACK)
+				{
+					UI.ActionPanel.SetActive(false);
+					CirclePressed_LastStateActive();		
+				}
+				else
+				{
+					// Move is canceled, hide panel and reset unit to origin position
+					CurrentGameState = Constants.GAME_STATE_SELECTION_ACTIVE;
+					UI.ActionPanel.SetActive(false);
+					
+					ActivePlayer.ActiveUnit.RevertMove();
+					Cursor.MoveToTileByWorldPosition(ActivePlayer.ActiveUnit.WorldPosition);
+				}
 			}
 		}
 		
@@ -468,8 +522,10 @@ namespace INF4000
 			CurrentGameState = Constants.GAME_STATE_SELECTION_INACTIVE;
 					
 			// Unselect unit and remove tint from tiles
-			ActivePlayer.ActiveUnit.Unselect ();
+			ActivePlayer.ActiveUnit.Unselect ();			
 			ActivePlayer.ActiveUnit = null;
+			
+			Cursor.TintToWhite();
 			CurrentMap.UnTintAllTiles();
 		}
 		

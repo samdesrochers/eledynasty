@@ -116,6 +116,9 @@ namespace INF4000
 				}
 			}
 			
+			foreach(Tile t in Tiles)
+				t.AssignAdjacentTiles(Tiles, Width, Height);
+			
 			return true;
 		}
 		
@@ -240,6 +243,13 @@ namespace INF4000
 			
 			foreach(Tile at in ActiveTiles)
 				at.SetActive(true);
+		}
+		
+		public Tile GetTile(Vector2i worldPos)
+		{
+			if(worldPos.X >= 0 && worldPos.Y >= 0)
+				return Tiles[worldPos.Y, worldPos.X];
+			return null;
 		}
 	
 		public void UnTintAllTiles()
