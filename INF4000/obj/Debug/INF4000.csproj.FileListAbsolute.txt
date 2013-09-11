@@ -121,3 +121,5 @@ C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-signed\Application\Assets\UI\back_icon.png
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-signed\Application\Assets\UI\panel_bg.png
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-signed\Application\Assets\UI\wait_icon.png
+C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-unsigned\Application\Assets\UI\odds_bubble.png
+C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-signed\Application\Assets\UI\odds_bubble.png

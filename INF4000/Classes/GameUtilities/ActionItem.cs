@@ -9,7 +9,7 @@ namespace INF4000
 {
 	public class ActionItem
 	{
-		public Panel ActionPanel;
+		public Panel Panel;
 		public Vector2 Position;
 		private ImageBox Image_Action;
 		public Label Text_Action;
@@ -25,10 +25,10 @@ namespace INF4000
 			Text = text;
 			this.Action = action;
 			
-			ActionPanel = new Panel();
-			ActionPanel.SetPosition(Position.X, Position.Y);		
-            ActionPanel.Height = Constants.UI_ELEMENT_ACTIONBOX_HEIGHT;
-            ActionPanel.Width = Constants.UI_ELEMENT_ACTIONBOX_WIDTH;
+			Panel = new Panel();
+			Panel.SetPosition(Position.X, Position.Y);		
+            Panel.Height = Constants.UI_ELEMENT_ACTIONBOX_HEIGHT;
+            Panel.Width = Constants.UI_ELEMENT_ACTIONBOX_WIDTH;
 			
 			Image_Action = new ImageBox();
 			Image_Action.Width = 10 + Constants.TILE_SIZE/2;
@@ -43,14 +43,14 @@ namespace INF4000
 			Text_Action.Font = AssetsManager.Instance.PixelFont;
 			Text_Action.Visible = true;
 			
-			ActionPanel.AddChildLast(Image_Action);
-			ActionPanel.AddChildLast(Text_Action);
+			Panel.AddChildLast(Image_Action);
+			Panel.AddChildLast(Text_Action);
 		}
 		
 		public void SetActive(bool active)
 		{			
 			IsActive = active;
-			ActionPanel.Visible = IsActive;
+			Panel.Visible = IsActive;
 		}
 	}
 }

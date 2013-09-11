@@ -77,6 +77,17 @@ namespace INF4000
 			GameScene.Instance.UI.ActionPanel.SetActive(true);
 		}
 		
+		public static void HideAttackPanel()
+		{
+			GameScene.Instance.UI.OddsPanel.SetVisible(false);
+		}
+		
+		public static void MoveAttackOddsPanel(Vector2 pos)
+		{
+			GameScene.Instance.UI.OddsPanel.SetPosition(new Vector2(pos.X, 544 - pos.Y));
+			GameScene.Instance.UI.OddsPanel.SetVisible(true);
+		}
+		
 		public static void LoadAllSpritesFromPlayer(List<Player> players, Node parent)
 		{
 			foreach(Player p in players)

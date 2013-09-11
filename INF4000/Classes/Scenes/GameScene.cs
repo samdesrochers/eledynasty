@@ -123,7 +123,7 @@ namespace INF4000
 		private void UpdateGameRunning()
 		{
 			UpdateCameraPosition ();
-			TextImage.Text = CurrentGameState.ToString();
+
 			if (ActivePlayer is HumanPlayer) 
 			{
 				if(CurrentGameState == Constants.GAME_STATE_ACTIONPANEL_ACTIVE)
@@ -252,11 +252,17 @@ namespace INF4000
 		
 		private void UpdateAttackPanelSelection()
 		{
-			if (Input2.GamePad.GetData (0).Up.Release || Input2.GamePad.GetData (0).Right.Release) {
+			if (Input2.GamePad.GetData (0).Up.Release || Input2.GamePad.GetData (0).Right.Release) 
+			{
 				Utilities.CycleEnemyUnitsRight();
-			} else if(Input2.GamePad.GetData (0).Down.Release || Input2.GamePad.GetData (0).Left.Release) {
+			} 
+			else if(Input2.GamePad.GetData (0).Down.Release || Input2.GamePad.GetData (0).Left.Release) 
+			{
 				Utilities.CycleEnemyUnitsRight();
 			}
+			
+			Vector2 pos = Cursor.Position;
+			Utilities.MoveAttackOddsPanel(pos);
 		}
 		
 		private void UpdateMap ()
@@ -330,7 +336,7 @@ namespace INF4000
 			
 		private void ExecuteTurn ()
 		{
-			//TextImage.Text = ActivePlayer.Name;
+			TextImage.Text = ActivePlayer.Name;
 		}
 		
 		private bool CheckIfTurnIsOver()
@@ -475,6 +481,7 @@ namespace INF4000
 				
 				// Show Panel
 				Utilities.ShowActionPanel();
+				UI.ActionPanel.MoveItem.Text_Action.Text = "SLEEP";
 				
 			} else if (action == Constants.ACTION_NOMOVE_ATTACK) {
 				
@@ -482,8 +489,9 @@ namespace INF4000
 				GameScene.Instance.UI.ActionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_ATTACK);
 				CurrentGameState = Constants.GAME_STATE_ACTIONPANEL_ACTIVE;
 				
-				// Show Panel
+				// Show Actions Panel
 				Utilities.ShowActionPanel();
+				UI.ActionPanel.MoveItem.Text_Action.Text = "SLEEP";
 			}
 		}
 		
@@ -496,11 +504,10 @@ namespace INF4000
 				// Unit is attackin from its original position
 				if(ActivePlayer.LastAction == Constants.ACTION_NOMOVE_ATTACK)
 				{
-					
+					Console.WriteLine("WTF MAN");
 				}
 				else // Unit just moved and wants to attack 
 				{
-					//Prepare Attack Panel
 					CurrentGameState = Constants.GAME_STATE_ATTACKPANEL_ACTIVE;
 					
 					ActivePlayer.TargetUnits.Clear();
@@ -509,6 +516,10 @@ namespace INF4000
 						
 					Cursor.MoveToTileByWorldPosition(ActivePlayer.TargetUnit.WorldPosition);
 					Cursor.TintToRed();
+					
+					// CALCULE LES ODDS AND SHNIZZLES (UTIL) Prepare Attack Panel
+					Vector2 pos = Cursor.Position;
+					Utilities.MoveAttackOddsPanel(pos);
 				}
 			}
 			else if(UIAction == Constants.UI_ELEMENT_ACTION_TYPE_WAIT) // WAIT Button pressed
@@ -582,10 +593,14 @@ namespace INF4000
 		
 		private void CirclePressed_LastStateAttackPanelActive()
 		{
+			// Clear targeted tiles and revert to Action Panel selection
 			CurrentGameState = Constants.GAME_STATE_ACTIONPANEL_ACTIVE;
-			CurrentMap.SelectUnitFromTile(ActivePlayer.ActiveUnit.WorldPosition);
+			CurrentMap.ResetActiveTiles();
+
 			Cursor.MoveToTileByWorldPosition(ActivePlayer.ActiveUnit.WorldPosition);
 			Cursor.TintToBlue();
+			
+			Utilities.HideAttackPanel();
 		}
 		#endregion
 		

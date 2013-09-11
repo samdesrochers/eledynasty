@@ -21,6 +21,8 @@ namespace INF4000
 		public Button Button_EndTurn;
 		public ActionPanel ActionPanel;
 		
+		public AttackOddsPanel OddsPanel;
+		
 		public GameUI ()
 		{
 			// UI -----------------
@@ -61,13 +63,15 @@ namespace INF4000
 			Label_TurnSwitchMessage.Font = AssetsManager.Instance.XenoFont;
 			Label_TurnSwitchMessage.Visible = false;
 			
-			ActionPanel = new ActionPanel(new Vector2(150, 200));
+			ActionPanel = new ActionPanel(new Vector2(10, 10));
+			OddsPanel = new AttackOddsPanel(new Vector2(50,50));
 			
 			MainPanel.AddChildLast(Image_TurnSwitchBG);
 			MainPanel.AddChildLast(Label_TurnSwitchMessage);
 			MainPanel.AddChildLast(Button_EndTurn);
 			MainPanel.AddChildLast(ActivePlayerIcon);
 			MainPanel.AddChildLast(ActionPanel.Panel);
+			MainPanel.AddChildLast(OddsPanel.Panel);
 			
 			_UIScene = new Sce.PlayStation.HighLevel.UI.Scene();
             _UIScene.RootWidget.AddChildLast(MainPanel);

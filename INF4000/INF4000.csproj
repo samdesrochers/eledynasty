@@ -57,6 +57,7 @@
     <Compile Include="Assets\AssetsManager.cs" />
     <Compile Include="Classes\GameUtilities\ActionItem.cs" />
     <Compile Include="Classes\GameUtilities\ActionPanel.cs" />
+    <Compile Include="Classes\GameUtilities\AttackOddsPanel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -100,5 +101,6 @@
     <Content Include="Assets\UI\back_icon.png" />
     <Content Include="Assets\UI\panel_bg.png" />
     <Content Include="Assets\UI\wait_icon.png" />
+    <Content Include="Assets\UI\odds_bubble.png" />
   </ItemGroup>
 </Project>

@@ -26,6 +26,7 @@ namespace INF4000
 		public bool Loaded;
 		
 		public Font PixelFont;
+		public Font PixelFont_18;
 		public Font XenoFont;
 		
 		public Texture2D UnitsTexture;
@@ -40,6 +41,7 @@ namespace INF4000
 		public ImageAsset Image_Panel_Attack_Icon;
 		public ImageAsset Image_Panel_Wait_Icon;
 		public ImageAsset Image_Panel_Cancel_Icon;
+		public ImageAsset Image_Panel_OddsBubble;
 		
 		public AssetsManager ()
 		{
@@ -53,6 +55,7 @@ namespace INF4000
 				{
 					// Fonts
 					PixelFont = new Font("/Application/Assets/fonts/half_bold_pixel-7.ttf", 24, FontStyle.Bold);
+					PixelFont_18 = new Font("/Application/Assets/fonts/half_bold_pixel-7.ttf", 18, FontStyle.Bold);
 					XenoFont = new Font("/Application/Assets/fonts/Xenogears_font.ttf", 72, FontStyle.Regular);
 					
 					//Units Textures
@@ -70,6 +73,7 @@ namespace INF4000
 					Image_Panel_Wait_Icon = new ImageAsset("/Application/Assets/UI/wait_icon.png",false);
 					Image_Panel_Attack_Icon = new ImageAsset("/Application/Assets/UI/attack_icon.png",false);
 					Image_Panel_Cancel_Icon = new ImageAsset("/Application/Assets/UI/back_icon.png",false);
+					Image_Panel_OddsBubble = new ImageAsset("/Application/Assets/UI/odds_bubble.png",false);
 					
 					Loaded = true;
 				} 

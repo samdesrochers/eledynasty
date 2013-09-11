@@ -53,7 +53,8 @@ namespace INF4000
 			Image_Background.Width = Constants.UI_ELEMENT_ACTIONBOX_WIDTH;
 			Image_Background.Height = Constants.UI_ELEMENT_ACTIONBOX_HEIGHT;
 			Image_Background.SetPosition(this.Position.X, this.Position.Y);
-			Image_Background.Image = AssetsManager.Instance.Image_Panel_BG;			
+			Image_Background.Image = AssetsManager.Instance.Image_Panel_BG;		
+			Image_Background.Alpha = 0.8f;
 			Image_Background.Visible = true;
 
 			
@@ -61,8 +62,8 @@ namespace INF4000
 			UpdateUIElementsPositions();
 			
 			Panel.AddChildLast(Image_Background);
-			Panel.AddChildLast(MoveItem.ActionPanel);
-			Panel.AddChildLast(CancelItem.ActionPanel);
+			Panel.AddChildLast(MoveItem.Panel);
+			Panel.AddChildLast(CancelItem.Panel);
 
 			Panel.Visible = false;
 		}
@@ -70,6 +71,7 @@ namespace INF4000
 		public void ResetDefault()
 		{
 			SelectedIndex = 0;
+			MoveItem.Text_Action.Text = "WAIT";
 			
 			foreach(ActionItem a in ActionItems)
 				a.Text_Action.TextColor = new UIColor(1,1,1,1);
@@ -97,7 +99,7 @@ namespace INF4000
 			if(type == Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL && Configuration != type)
 			{
 				Configuration = Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL;
-				Panel.RemoveChild(AttackItem.ActionPanel);
+				Panel.RemoveChild(AttackItem.Panel);
 				ActionItems.Remove(AttackItem);
 				ItemCount = ActionItems.Count;		
 				
@@ -107,7 +109,7 @@ namespace INF4000
 			{
 				Configuration = Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_ATTACK;
 				Panel.RemoveChild(Image_Background);
-				Panel.AddChildFirst(AttackItem.ActionPanel);
+				Panel.AddChildFirst(AttackItem.Panel);
 				Panel.AddChildFirst(Image_Background);
 				ActionItems.Insert(0, AttackItem);
 				ItemCount = ActionItems.Count;	
@@ -121,8 +123,8 @@ namespace INF4000
 		{
 			if(this.Configuration == Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL)
 			{
-				MoveItem.ActionPanel.SetPosition(MoveItem.Position.X, MoveItem.Position.Y - 25);
-				CancelItem.ActionPanel.SetPosition(CancelItem.Position.X, CancelItem.Position.Y - 25);
+				MoveItem.Panel.SetPosition(MoveItem.Position.X, MoveItem.Position.Y - 25);
+				CancelItem.Panel.SetPosition(CancelItem.Position.X, CancelItem.Position.Y - 25);
 				
 				Panel.Height -= 30;
 				Image_Background.Height -= 30;
@@ -130,8 +132,8 @@ namespace INF4000
 			}
 			else if(this.Configuration == Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_ATTACK)
 			{
-				MoveItem.ActionPanel.SetPosition(MoveItem.Position.X, MoveItem.Position.Y + 10);
-				CancelItem.ActionPanel.SetPosition(CancelItem.Position.X, CancelItem.Position.Y + 10);
+				MoveItem.Panel.SetPosition(MoveItem.Position.X, MoveItem.Position.Y + 10);
+				CancelItem.Panel.SetPosition(CancelItem.Position.X, CancelItem.Position.Y + 10);
 				
 				Panel.Height += 30;
 				Image_Background.Height += 30;

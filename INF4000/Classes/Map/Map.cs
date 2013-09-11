@@ -271,6 +271,13 @@ namespace INF4000
 				return Tiles[worldPos.Y, worldPos.X];
 			return null;
 		}
+		
+		public void ResetActiveTiles()
+		{
+			UnTintAllTiles();
+			foreach(Tile t in ActiveTiles)
+				t.SetActive(true);
+		}
 	
 		public void UnTintAllTiles()
 		{
