@@ -50,40 +50,15 @@ namespace INF4000
 		}
 		
 		private void LoadTerrainGraphics ()
-		{			
-			Vector2i idleIndex = new Vector2i (0, 0);
-			Vector2i activeIndex = new Vector2i (0, 0);
-			Vector2i targetIndex = new Vector2i (0, 0);
-			
+		{						
 			// Generate Tiles Sprites 
 			foreach (Tile t in Tiles) 
 			{			
 				t.TextureInfo = TexInfo;		
 			
-				switch (t.TerrainType) {
-					case Constants.TILE_TYPE_GRASS_MIDDLE:
-						idleIndex = new Vector2i (1, 2);
-						activeIndex = new Vector2i(3, 0);
-						targetIndex = new Vector2i(1, 0);
-						break;
-					case Constants.TILE_TYPE_WATER_MIDDLE:
-						idleIndex = new Vector2i (3, 0);
-						activeIndex = new Vector2i(3, 0);
-						targetIndex = new Vector2i(1, 0);
-						break;
-					case Constants.TILE_TYPE_BUILD_FORT:
-						idleIndex = new Vector2i (0, 2);
-						activeIndex = new Vector2i(2, 0);
-						targetIndex = new Vector2i(0, 0);
-						break;
-					case Constants.TILE_TYPE_BUILD_FARM:
-						idleIndex = new Vector2i (1, 3);
-						activeIndex = new Vector2i(3, 1);
-						targetIndex = new Vector2i(0, 1);
-						break;
-				}
+				List<Vector2i> indexes = TilesUtil.GetTileIndexesByType(t.TerrainType);
 					
-				t.AssignGraphics (idleIndex, activeIndex, targetIndex);
+				t.AssignGraphics (indexes[0], indexes[1], indexes[2]);
 				SpriteList.AddChild (t.SpriteTile);
 			}
 		}
@@ -243,6 +218,7 @@ namespace INF4000
 				}
 			}
 			
+			ActiveTiles.Clear();
 			foreach(Tile mt in selectedTiles)
 				ActiveTiles.Add(mt);
 			

@@ -7,7 +7,6 @@ Audio/menu.mp3
 MapFiles/defaultMap.txt
 Assets/Units/units.png
 Assets/Items/gameItems.png
-Assets/Tiles/tilesMap.png
 Assets/fonts/half_bold_pixel-7.ttf
 Assets/Title/title.png
 Assets/fonts/Xenogears_font.ttf
@@ -19,3 +18,4 @@ Assets/UI/back_icon.png
 Assets/UI/panel_bg.png
 Assets/UI/wait_icon.png
 Assets/UI/odds_bubble.png
+Assets/Tiles/TilesMap_Final.png

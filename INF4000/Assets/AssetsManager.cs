@@ -63,8 +63,8 @@ namespace INF4000
 					UnitsTextureInfo = new TextureInfo (UnitsTexture, new Vector2i (2, 2));
 					
 					// Terrain Textures
-					TerrainTexture = new Texture2D ("/Application/Assets/Tiles/tilesMap.png", false);
-					TerrainTextureInfo = new TextureInfo (TerrainTexture, new Vector2i (4, 4));
+					TerrainTexture = new Texture2D ("/Application/Assets/Tiles/TilesMap_Final.png", false);
+					TerrainTextureInfo = new TextureInfo (TerrainTexture, new Vector2i (8, 8));
 					
 					// UI Elements
 					Image_TurnSwitch_BG = new ImageAsset("/Application/Assets/UI/turnswitch_bg.png",false);

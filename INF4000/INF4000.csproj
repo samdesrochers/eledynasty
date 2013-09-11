@@ -58,6 +58,7 @@
     <Compile Include="Classes\GameUtilities\ActionItem.cs" />
     <Compile Include="Classes\GameUtilities\ActionPanel.cs" />
     <Compile Include="Classes\GameUtilities\AttackOddsPanel.cs" />
+    <Compile Include="Classes\Map\TilesUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -90,7 +91,6 @@
     <Content Include="MapFiles\defaultMap.txt" />
     <Content Include="Assets\Units\units.png" />
     <Content Include="Assets\Items\gameItems.png" />
-    <Content Include="Assets\Tiles\tilesMap.png" />
     <Content Include="Assets\fonts\half_bold_pixel-7.ttf" />
     <Content Include="Assets\Title\title.png" />
     <Content Include="Assets\fonts\Xenogears_font.ttf" />
@@ -102,5 +102,6 @@
     <Content Include="Assets\UI\panel_bg.png" />
     <Content Include="Assets\UI\wait_icon.png" />
     <Content Include="Assets\UI\odds_bubble.png" />
+    <Content Include="Assets\Tiles\TilesMap_Final.png" />
   </ItemGroup>
 </Project>

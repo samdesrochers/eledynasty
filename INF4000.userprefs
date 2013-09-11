@@ -1,18 +1,31 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\Scenes\GameScene.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\MapFiles\defaultMap.txt">
     <Files>
-      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="131" Column="5" />
+      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="450" Column="1" />
       <File FileName="INF4000\Classes\GameObjects\HumanPlayer.cs" Line="18" Column="54" />
-      <File FileName="INF4000\Assets\AssetsManager.cs" Line="65" Column="90" />
+      <File FileName="INF4000\Assets\AssetsManager.cs" Line="66" Column="79" />
       <File FileName="INF4000\Classes\GameUtilities\GameUI.cs" Line="69" Column="17" />
       <File FileName="INF4000\AppMain.cs" Line="1" Column="1" />
+      <File FileName="INF4000\Classes\Map\Map.cs" Line="134" Column="4" />
+      <File FileName="INF4000\Classes\Map\TilesUtil.cs" Line="50" Column="37" />
+      <File FileName="INF4000\Classes\Misc\Constants.cs" Line="32" Column="42" />
+      <File FileName="INF4000\MapFiles\defaultMap.txt" Line="396" Column="1" />
+      <File FileName="INF4000\Classes\GameUtilities\Path.cs" Line="71" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="C:\Users\Sam\Documents\Projects\INF4000\INF4000\Classes\Map\Map.cs" line="39" />
       <Breakpoint file="C:\Users\Sam\Documents\Projects\INF4000\INF4000\Classes\Map\Map.cs" line="38" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="455" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="472" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="479" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="489" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="450" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameUtilities\Path.cs" line="64" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Map\Map.cs" line="141" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Map\Map.cs" line="142" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
@@ -25,5 +38,11 @@
     <Watch file="INF4000\Classes\Misc\Utilities.cs" line="71" offsetX="685" offsetY="1190" expression="nextUnit" liveUpdate="False" />
     <Watch file="INF4000\Classes\Scenes\GameScene.cs" line="146" offsetX="445" offsetY="2431" expression="ActivePlayer" liveUpdate="False" />
     <Watch file="INF4000\Classes\GameObjects\Player.cs" line="42" offsetX="453" offsetY="697" expression="u" liveUpdate="False" />
+    <Watch file="INF4000\Classes\GameUtilities\Path.cs" line="67" offsetX="653" offsetY="1122" expression="ActiveTiles" liveUpdate="False" />
+    <Watch file="INF4000\Classes\GameUtilities\Path.cs" line="67" offsetX="653" offsetY="1122" expression="ActiveTiles" liveUpdate="False" />
+    <Watch file="INF4000\Classes\Map\Map.cs" line="196" offsetX="445" offsetY="3315" expression="t" liveUpdate="False" />
+    <Watch file="INF4000\Classes\Map\Map.cs" line="221" offsetX="429" offsetY="3740" expression="selectedTiles" liveUpdate="False" />
+    <Watch file="INF4000\Classes\Map\Map.cs" line="222" offsetX="429" offsetY="3757" expression="selectedTiles" liveUpdate="False" />
+    <Watch file="INF4000\Classes\GameUtilities\Path.cs" line="64" offsetX="725" offsetY="1071" expression="dest" liveUpdate="False" />
   </MonoDevelop.Ide.DebuggingService.PinnedWatches>
 </Properties>
