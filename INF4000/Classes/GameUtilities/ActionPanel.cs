@@ -13,10 +13,10 @@ namespace INF4000
 		public int Configuration;
 		public Panel Panel;
 		private ImageBox Image_Background;
-		private ImageBox Image_Selector;
 		
 		public List<ActionItem> ActionItems;
 		public ActionItem AttackItem;
+		public ActionItem ProduceItem;
 		public ActionItem MoveItem;
 		public ActionItem CancelItem;
 		
@@ -40,6 +40,7 @@ namespace INF4000
 			Vector2 pos_cancel = new Vector2(Position.X, Position.Y + 75);
 			
 			AttackItem = new ActionItem("ATTACK", pos_att, Constants.UI_ELEMENT_ACTION_TYPE_ATTACK, AssetsManager.Instance.Image_Panel_Attack_Icon);
+			ProduceItem = new ActionItem("PRODUCE", pos_att, Constants.UI_ELEMENT_ACTION_TYPE_PRODUCE, AssetsManager.Instance.Image_Panel_Attack_Icon);
 			MoveItem = new ActionItem("WAIT ", pos_move, Constants.UI_ELEMENT_ACTION_TYPE_WAIT, AssetsManager.Instance.Image_Panel_Wait_Icon);
 			CancelItem = new ActionItem("CANCEL", pos_cancel, Constants.UI_ELEMENT_ACTION_TYPE_CANCEL, AssetsManager.Instance.Image_Panel_Cancel_Icon);
 			
@@ -96,59 +97,159 @@ namespace INF4000
 		{
 			ResetDefault();
 			
-			if(type == Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL && Configuration != type)
+			// Clear panel
+			Panel.RemoveChild(Image_Background);
+			foreach(ActionItem a in ActionItems)
+				Panel.RemoveChild(a.Panel);
+			ActionItems.Clear();
+			
+			if(type == Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL)
 			{
-				Configuration = Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL;
-				Panel.RemoveChild(AttackItem.Panel);
-				ActionItems.Remove(AttackItem);
-				ItemCount = ActionItems.Count;		
+				Configuration = Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL;			
 				
+				Panel.AddChildLast(Image_Background);
+				Panel.AddChildLast(CancelItem.Panel);
+				Panel.AddChildLast(MoveItem.Panel);
+				
+				ActionItems.Add(MoveItem);
+				ActionItems.Add(CancelItem);
+				
+				ItemCount = ActionItems.Count;					
 				this.UpdateUIElementsPositions();
 			}
-			else if(type == Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_ATTACK && Configuration != type)
+			else if(type == Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_ATTACK)
 			{
 				Configuration = Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_ATTACK;
-				Panel.RemoveChild(Image_Background);
-				Panel.AddChildFirst(AttackItem.Panel);
-				Panel.AddChildFirst(Image_Background);
-				ActionItems.Insert(0, AttackItem);
-				ItemCount = ActionItems.Count;	
 				
+				Panel.AddChildLast(Image_Background);
+				Panel.AddChildLast(CancelItem.Panel);
+				Panel.AddChildLast(MoveItem.Panel);
+				Panel.AddChildLast(AttackItem.Panel);
+				
+				ActionItems.Add(AttackItem);
+				ActionItems.Add(MoveItem);
+				ActionItems.Add(CancelItem);
+
+				ItemCount = ActionItems.Count;					
 				this.UpdateUIElementsPositions();
 			}
+			else if(type == Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_PRODUCE_ATTACK)
+			{
+				Configuration = Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_PRODUCE_ATTACK;
+
+				Panel.AddChildLast(Image_Background);
+				Panel.AddChildLast(CancelItem.Panel);
+				Panel.AddChildLast(MoveItem.Panel);
+				Panel.AddChildLast(AttackItem.Panel);
+				Panel.AddChildLast(ProduceItem.Panel);
+				
+				ActionItems.Add(ProduceItem);
+				ActionItems.Add(AttackItem);
+				ActionItems.Add(MoveItem);
+				ActionItems.Add(CancelItem);
+				
+				ItemCount = ActionItems.Count;				
+				this.UpdateUIElementsPositions();
+			}
+			else if(type == Constants.UI_ELEMENT_CONFIG_CANCEL_PRODUCE)
+			{
+				Configuration = Constants.UI_ELEMENT_CONFIG_CANCEL_PRODUCE;
+				Panel.AddChildLast(Image_Background);
+				Panel.AddChildLast(CancelItem.Panel);
+				Panel.AddChildLast(ProduceItem.Panel);
+				
+				ActionItems.Add(ProduceItem);
+				ActionItems.Add(CancelItem);
+				
+				ItemCount = ActionItems.Count;				
+				this.UpdateUIElementsPositions();
+			}
+			
+			else if(type == Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_PRODUCE)
+			{
+				Configuration = Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_PRODUCE;
+				Panel.AddChildLast(Image_Background);
+				Panel.AddChildLast(CancelItem.Panel);
+				Panel.AddChildLast(MoveItem.Panel);
+				Panel.AddChildLast(ProduceItem.Panel);
+				
+				ActionItems.Add(ProduceItem);
+				ActionItems.Add(MoveItem);
+				ActionItems.Add(CancelItem);
+				
+				ItemCount = ActionItems.Count;				
+				this.UpdateUIElementsPositions();
+			}
+			
 			FocusByIndex();
 		}
 		
 		private void UpdateUIElementsPositions()
 		{
+			Panel.Height = Constants.UI_ELEMENT_ACTIONBOX_HEIGHT;
+			Image_Background.Height = Constants.UI_ELEMENT_ACTIONBOX_HEIGHT;
+			
+			AttackItem.Panel.SetPosition(0,0);
+			ProduceItem.Panel.SetPosition(0,0);
+			MoveItem.Panel.SetPosition(0,0);
+			CancelItem.Panel.SetPosition(0,0);
+			
+			int Y_offset = 20;
+			
 			if(this.Configuration == Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL)
 			{
-				MoveItem.Panel.SetPosition(MoveItem.Position.X, MoveItem.Position.Y - 25);
-				CancelItem.Panel.SetPosition(CancelItem.Position.X, CancelItem.Position.Y - 25);
+				MoveItem.Panel.SetPosition(10, 10 + Y_offset);
+				CancelItem.Panel.SetPosition(10, 40 + Y_offset);
 				
 				Panel.Height -= 30;
 				Image_Background.Height -= 30;
 				
 			}
-			else if(this.Configuration == Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_ATTACK)
+			else if(this.Configuration == Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_ATTACK || this.Configuration == Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_PRODUCE)
 			{
-				MoveItem.Panel.SetPosition(MoveItem.Position.X, MoveItem.Position.Y + 10);
-				CancelItem.Panel.SetPosition(CancelItem.Position.X, CancelItem.Position.Y + 10);
+				ProduceItem.Panel.SetPosition(10,10 + Y_offset);
+				AttackItem.Panel.SetPosition(10,10 + Y_offset);
+				MoveItem.Panel.SetPosition(10, 40 + Y_offset);
+				CancelItem.Panel.SetPosition(10, 70 + Y_offset);
 				
-				Panel.Height += 30;
-				Image_Background.Height += 30;
+				//Panel.Height += 30;
+				//Image_Background.Height += 30;
+			}
+			else if(this.Configuration == Constants.UI_ELEMENT_CONFIG_CANCEL_PRODUCE)
+			{
+				ProduceItem.Panel.SetPosition(10,10 + Y_offset);
+				CancelItem.Panel.SetPosition(10, 40 + Y_offset);
+				
+				Panel.Height -= 30;
+				Image_Background.Height -= 30;
+			}
+			else if(this.Configuration == Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_PRODUCE_ATTACK)
+			{
+				ProduceItem.Panel.SetPosition(10, 10 + Y_offset);
+				AttackItem.Panel.SetPosition(10,40 + Y_offset);
+				MoveItem.Panel.SetPosition(10,70 + Y_offset);
+				CancelItem.Panel.SetPosition(10, 100 + Y_offset);
+				
+				Panel.Height += 40;
+				Image_Background.Height += 40;
 			}
 		}
 		
 		public void FocusNextItemUp()
 		{
-			SelectedIndex = Math.Abs( (SelectedIndex - 1) % this.ItemCount );
-			FocusByIndex();
+			int lastIndex = SelectedIndex;
+			SelectedIndex = (SelectedIndex - 1) % this.ItemCount;
+			
+			if(SelectedIndex >= 0){
+				FocusByIndex();
+			} else {
+				SelectedIndex = lastIndex;
+			}
 		}
 		
 		public void FocusNextItemDown()
-		{
-			SelectedIndex = Math.Abs ( (SelectedIndex + 1) % this.ItemCount );
+		{		
+			SelectedIndex = (SelectedIndex + 1) % this.ItemCount;	
 			FocusByIndex();
 		}
 		

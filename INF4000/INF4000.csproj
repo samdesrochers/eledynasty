@@ -58,7 +58,10 @@
     <Compile Include="Classes\GameUtilities\ActionItem.cs" />
     <Compile Include="Classes\GameUtilities\ActionPanel.cs" />
     <Compile Include="Classes\GameUtilities\AttackOddsPanel.cs" />
-    <Compile Include="Classes\Map\TilesUtil.cs" />
+    <Compile Include="Classes\GameObjects\Building.cs" />
+    <Compile Include="Classes\Misc\BuildingUtil.cs" />
+    <Compile Include="Classes\Misc\TilesUtil.cs" />
+    <Compile Include="Classes\GameObjects\GameActions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -85,6 +88,7 @@
     <Folder Include="Classes\GameUtilities\" />
     <Folder Include="Assets\Players\" />
     <Folder Include="Assets\UI\" />
+    <Folder Include="Assets\Buildings\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Audio\menu.mp3" />
@@ -103,5 +107,6 @@
     <Content Include="Assets\UI\wait_icon.png" />
     <Content Include="Assets\UI\odds_bubble.png" />
     <Content Include="Assets\Tiles\TilesMap_Final.png" />
+    <Content Include="Assets\Buildings\build_1.png" />
   </ItemGroup>
 </Project>

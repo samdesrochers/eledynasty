@@ -12,10 +12,12 @@ namespace INF4000
 		public HumanPlayer ()
 		{
 			this.Name = "";
-			this.Units = new System.Collections.Generic.List<Unit>();
+			this.Units = new List<Unit>();
+			this.Buildings = new List<Building>();
 			this.IsActive = false;
 			this.IsHuman = true;
 			this.FocusPoints = 5;
+			this.Gold = 5;
 			
 			this.TargetUnits = new List<Unit>();
 			this.Icon = AssetsManager.Instance.Image_Player_1_Icon;

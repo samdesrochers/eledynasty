@@ -15,19 +15,6 @@ namespace INF4000
 	{
 		
 		#region Unit Methods
-		public static void AssignUnitToPlayer(Unit unit, int playerIndex)
-		{
-			if(unit == null)
-				return;
-			
-			if(playerIndex > 0)
-			{
-				Player desiredPlayer = GameScene.Instance.Players[playerIndex - 1];
-				unit.OwnerName = desiredPlayer.Name;
-				desiredPlayer.Units.Add(unit);
-			}
-		}
-		
 		public static void AssignUnitToTileByPosition(Vector2i unitPos, Unit unit)
 		{					
 			Tile t = GameScene.Instance.CurrentMap.Tiles[unitPos.Y, unitPos.X];
@@ -51,8 +38,7 @@ namespace INF4000
 			// Unselect unit and remove tint from tiles
 			GameScene.Instance.ActivePlayer.ActiveUnit = null;
 			
-		}
-		#endregion
+		}	
 		
 		public static bool CanUnitAttackFromDestination(Tile tile)
 		{
@@ -67,6 +53,33 @@ namespace INF4000
 			return false;
 		}
 		
+		public static int GetUnitActionsChoices(Vector2i pos, Building buil)
+		{
+			Tile dest = GameScene.Instance.CurrentMap.SelectTileFromPosition(pos);
+			bool canAttack = CanUnitAttackFromDestination(dest);
+			
+			// Same unit as origin unit, either sleep, attack or cancel choice
+			if(dest.CurrentUnit.OwnerName == GameScene.Instance.ActivePlayer.Name 
+			   && !canAttack && buil == null)
+				return Constants.ACTION_SLEEP;
+			
+			else if(dest.CurrentUnit.OwnerName == GameScene.Instance.ActivePlayer.Name 
+			        && canAttack && buil == null)
+				return Constants.ACTION_NOMOVE_ATTACK;
+			
+			else if(dest.CurrentUnit.OwnerName == GameScene.Instance.ActivePlayer.Name 
+			   && !canAttack && buil != null && buil.CanProduceThisTurn)
+				return Constants.ACTION_PRODUCE;
+			
+			else if(dest.CurrentUnit.OwnerName == GameScene.Instance.ActivePlayer.Name 
+			        && canAttack && buil != null && buil.CanProduceThisTurn)
+				return Constants.ACTION_PRODUCE_ATTACK;
+			
+			return Constants.ACTION_CANCEL;
+		}
+		#endregion
+		
+		#region UI Util
 		public static void ShowActionPanel()
 		{
 			GameScene.Instance.UI.ActionPanel.SetActive(true);
@@ -87,11 +100,17 @@ namespace INF4000
 			GameScene.Instance.UI.OddsPanel.SetPosition(new Vector2(pos.X, 544 - pos.Y));
 			GameScene.Instance.UI.OddsPanel.SetVisible(true);
 		}
+		#endregion
 		
 		public static void LoadAllSpritesFromPlayer(List<Player> players, Node parent)
 		{
 			foreach(Player p in players)
 			{
+				foreach(Building b in p.Buildings)
+				{
+					parent.AddChild(b.SpriteTile);
+				}
+				
 				foreach(Unit u in p.Units)
 				{
 					parent.AddChild(u.UnitSprite);
@@ -130,6 +149,34 @@ namespace INF4000
 			u = GameScene.Instance.ActivePlayer.TargetUnits[nextIdx];
 			GameScene.Instance.ActivePlayer.TargetUnit = u;
 			GameScene.Instance.Cursor.MoveToTileByWorldPosition(u.WorldPosition);
+		}
+		#endregion
+		
+		#region Player Util
+		public static void AssignUnitToPlayer(Unit unit, int playerIndex)
+		{
+			if(unit == null)
+				return;
+			
+			if(playerIndex > 0)
+			{
+				Player desiredPlayer = GameScene.Instance.Players[playerIndex - 1];
+				unit.OwnerName = desiredPlayer.Name;
+				desiredPlayer.Units.Add(unit);
+			}
+		}
+		
+		public static void AssignBuildingToPlayer(Building build, int playerIndex)
+		{
+			if(build == null)
+				return;
+			
+			if(playerIndex > 0)
+			{
+				Player desiredPlayer = GameScene.Instance.Players[playerIndex - 1];
+				build.OwnerName = desiredPlayer.Name;
+				desiredPlayer.Buildings.Add(build);
+			}
 		}
 		#endregion
 	}

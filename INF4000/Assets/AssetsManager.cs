@@ -35,6 +35,9 @@ namespace INF4000
 		public Texture2D TerrainTexture;
 		public TextureInfo TerrainTextureInfo;
 		
+		public Texture2D BuildingsTexture;
+		public TextureInfo BuildingsTextureInfo;
+		
 		public ImageAsset Image_TurnSwitch_BG;
 		public ImageAsset Image_Player_1_Icon;
 		public ImageAsset Image_Panel_BG;
@@ -65,6 +68,10 @@ namespace INF4000
 					// Terrain Textures
 					TerrainTexture = new Texture2D ("/Application/Assets/Tiles/TilesMap_Final.png", false);
 					TerrainTextureInfo = new TextureInfo (TerrainTexture, new Vector2i (8, 8));
+					
+					// Buildings Textures
+					BuildingsTexture = new Texture2D ("/Application/Assets/Buildings/build_1.png", false);
+					BuildingsTextureInfo = new TextureInfo (BuildingsTexture, new Vector2i (2, 2));
 					
 					// UI Elements
 					Image_TurnSwitch_BG = new ImageAsset("/Application/Assets/UI/turnswitch_bg.png",false);

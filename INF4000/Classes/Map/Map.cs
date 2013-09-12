@@ -144,7 +144,21 @@ namespace INF4000
 				
 				// Assign the new unit to the correct Player
 				Utilities.AssignUnitToPlayer (unit, tileOwner);
-			}			                   
+			}
+			
+			// Create Building according to extracted information
+			if (tileType >= 50 && tileType <= 60) {
+				
+				List<int> stats = BuildingUtil.GetStatsByType(tileType);
+				Vector2i index = BuildingUtil.GetTileIndexesByType(tileType, tileOwner);
+				Building build = new Building(tileType, posx, posy, stats[0], stats[1], stats[2], stats[3]);
+				build.AssignGraphics(index);
+				tile.CurrentBuilding = build;
+				
+				// Assign the new building to the correct Player (if any)
+				Utilities.AssignBuildingToPlayer (build, tileOwner);
+			}
+			
 			return tile;
 		}
 		
@@ -166,6 +180,21 @@ namespace INF4000
 					SelectActiveTiles(t, t.CurrentUnit.Move_RadiusLeft);
 					t.CurrentUnit.Select();
 					return t.CurrentUnit;
+				}
+			}
+			return null;
+		}
+		
+		public Building SelectBuildingFromTile(Vector2i index)
+		{
+			if(index.X >= 0 && index.Y >= 0)
+			{
+				Tile t = Tiles[index.Y, index.X];
+				
+				// All conditions to know that a unit is selectable and movable this turn
+				if(t != null && t.CurrentBuilding != null && t.CurrentBuilding.OwnerName == GameScene.Instance.ActivePlayer.Name && t.CurrentBuilding.CanProduceThisTurn)
+				{
+					return t.CurrentBuilding;
 				}
 			}
 			return null;

@@ -71,13 +71,6 @@ namespace INF4000
 			else if(dest.CurrentUnit != null && dest.CurrentUnit.OwnerName == GameScene.Instance.ActivePlayer.Name && pos != origin)
 				return Constants.ACTION_CANCEL;
 			
-			// Same unit as origin unit, either sleep, attack or cancel choice
-			else if(dest.CurrentUnit != null && dest.CurrentUnit.OwnerName == GameScene.Instance.ActivePlayer.Name && pos == origin && !Utilities.CanUnitAttackFromDestination(dest))
-				return Constants.ACTION_SLEEP;
-			
-			else if(dest.CurrentUnit != null && dest.CurrentUnit.OwnerName == GameScene.Instance.ActivePlayer.Name && pos == origin && Utilities.CanUnitAttackFromDestination(dest))
-				return Constants.ACTION_NOMOVE_ATTACK;
-			
 			// If tile is empty, move is necessarliy valid
 			else if(dest.CurrentUnit == null && !Utilities.CanUnitAttackFromDestination(dest))
 				return Constants.ACTION_MOVE;

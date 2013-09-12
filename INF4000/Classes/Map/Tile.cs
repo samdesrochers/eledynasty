@@ -14,6 +14,7 @@ namespace INF4000
 		public int BuildingType;
 		public int TerrainType;
 		public Unit CurrentUnit;
+		public Building CurrentBuilding;
 		public int TileOwner;
 		public int BuildingTurnsToProduce;
 		public int TerrainModifier;

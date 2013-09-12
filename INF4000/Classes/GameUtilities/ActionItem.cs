@@ -33,7 +33,7 @@ namespace INF4000
 			Image_Action = new ImageBox();
 			Image_Action.Width = 10 + Constants.TILE_SIZE/2;
 			Image_Action.Height = 10 + Constants.TILE_SIZE/2;
-			Image_Action.SetPosition(140, -10);
+			Image_Action.SetPosition(150, -10);
 			Image_Action.Image = image;
 			Image_Action.Visible = true;
 		

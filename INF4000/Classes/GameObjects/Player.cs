@@ -7,6 +7,8 @@ namespace INF4000
 	public class Player
 	{
 		public List<Unit> Units;
+		public List<Building> Buildings;
+		
 		public string Name;
 		public bool IsActive;
 		public bool IsHuman;
@@ -14,6 +16,7 @@ namespace INF4000
 		
 		public int FocusPoints;
 		public int LastAction;
+		public int Gold;
 		
 		private Unit _ActiveUnit;
 		public Unit ActiveUnit
@@ -31,7 +34,8 @@ namespace INF4000
 		public Tile ActiveTile;
 		public List<Unit> TargetUnits;
 		public Unit TargetUnit;
-		// Add Building list here
+		
+		public Building ActiveBuilding;
 		
 		public bool HasMovableUnits()
 		{

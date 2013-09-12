@@ -10,9 +10,10 @@ namespace INF4000
 		
 		// General - In Game States
 		public const int GAME_STATE_SELECTION_INACTIVE 		= 50;
-		public const int GAME_STATE_SELECTION_ACTIVE 		= 51;
-		public const int GAME_STATE_ACTIONPANEL_ACTIVE 		= 52;
-		public const int GAME_STATE_ATTACKPANEL_ACTIVE 		= 53;
+		public const int GAME_STATE_UNIT_SELECTION_ACTIVE 	= 51;
+		public const int GAME_STATE_BUIL_SELECTION_ACTIVE 	= 52;
+		public const int GAME_STATE_ACTIONPANEL_ACTIVE 		= 53;
+		public const int GAME_STATE_ATTACKPANEL_ACTIVE 		= 54;
 		
 		// General - Global States
 		public const int GLOBAL_STATE_PLAYING_TURN 		= 10;
@@ -45,13 +46,12 @@ namespace INF4000
 		 * *****************************/
 		
 		// Buildings - Types
-		public const int BUILD_NONE		= 0;
-		public const int BUILD_FORT 	= 1;
-		public const int BUILD_BARRACKS = 2;
-		public const int BUILD_FARM	 	= 3;
-		public const int BUILD_ARCHERY 	= 4;
-		public const int BUILD_STABLES	= 5;
-		public const int BUILD_WIZARD	= 6;
+		public const int BUILD_FORT 	= 50;
+		public const int BUILD_BARRACKS = 51;
+		public const int BUILD_FARM	 	= 52;
+		public const int BUILD_ARCHERY 	= 53;
+		public const int BUILD_STABLES	= 54;
+		public const int BUILD_WIZARD	= 55;
 		
 		/*******************************
 		 * 	UNIT CONSTANTS
@@ -111,6 +111,8 @@ namespace INF4000
 		public const int ACTION_CAPTURE = 3;
 		public const int ACTION_SLEEP = 4;
 		public const int ACTION_NOMOVE_ATTACK = 5;
+		public const int ACTION_PRODUCE = 6;
+		public const int ACTION_PRODUCE_ATTACK = 7;
 		
 		/*******************************
 		 * 	UI CONSTANTS
@@ -118,12 +120,16 @@ namespace INF4000
 		public const int UI_ELEMENT_ACTIONBOX_WIDTH 	= 200;
 		public const int UI_ELEMENT_ACTIONBOX_HEIGHT 	= 125;
 		
-		public const int UI_ELEMENT_CONFIG_WAIT_CANCEL			= 0;
-		public const int UI_ELEMENT_CONFIG_WAIT_CANCEL_ATTACK	= 1;
+		public const int UI_ELEMENT_CONFIG_WAIT_CANCEL					= 0;
+		public const int UI_ELEMENT_CONFIG_CANCEL_PRODUCE				= 1;
+		public const int UI_ELEMENT_CONFIG_WAIT_CANCEL_ATTACK			= 2;
+		public const int UI_ELEMENT_CONFIG_WAIT_CANCEL_PRODUCE			= 3;
+		public const int UI_ELEMENT_CONFIG_WAIT_CANCEL_PRODUCE_ATTACK	= 4;
 	
 		public const int UI_ELEMENT_ACTION_TYPE_WAIT = 0;
 		public const int UI_ELEMENT_ACTION_TYPE_CANCEL = 1;
 		public const int UI_ELEMENT_ACTION_TYPE_ATTACK = 2;
+		public const int UI_ELEMENT_ACTION_TYPE_PRODUCE = 3;
 	}
 }
 
