@@ -54,10 +54,9 @@ namespace INF4000
 			Image_Background.Width = Constants.UI_ELEMENT_ACTIONBOX_WIDTH;
 			Image_Background.Height = Constants.UI_ELEMENT_ACTIONBOX_HEIGHT;
 			Image_Background.SetPosition(this.Position.X, this.Position.Y);
-			Image_Background.Image = AssetsManager.Instance.Image_Panel_BG;		
+			Image_Background.Image = AssetsManager.Instance.Image_Action_Panel_BG;		
 			Image_Background.Alpha = 0.8f;
 			Image_Background.Visible = true;
-
 			
 			// Initial State is Move/Cancel only, adjust in consquence
 			UpdateUIElementsPositions();

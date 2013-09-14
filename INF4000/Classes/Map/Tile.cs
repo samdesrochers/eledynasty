@@ -17,7 +17,7 @@ namespace INF4000
 		public Building CurrentBuilding;
 		public int TileOwner;
 		public int BuildingTurnsToProduce;
-		public int TerrainModifier;
+		public int Defense;
 		public int TintWeight;
 		
 		public Vector2i WorldPosition;
@@ -32,6 +32,8 @@ namespace INF4000
 		public Vector2i Adjacent_Up_Pos;
 		public Vector2i Adjacent_Right_Pos;
 		public Vector2i Adjacent_Down_Pos;
+		
+		public string Label;
 
 		public Tile (int terrain, int owner, int posX, int posY)
 		{	
@@ -53,6 +55,12 @@ namespace INF4000
 			SpriteTile = new SpriteTile(this.TextureInfo, IdleStateIndex);
 			SpriteTile.Quad = this.Quad;
 			SpriteTile.Position = this.Position;
+		}
+		
+		public void AssignInfo(int defenseModifier, string info)
+		{
+			this.Defense = defenseModifier;
+			this.Label = info;
 		}
 		
 		public void Update()

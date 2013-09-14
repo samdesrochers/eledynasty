@@ -100,6 +100,16 @@ namespace INF4000
 			GameScene.Instance.UI.OddsPanel.SetPosition(new Vector2(pos.X, 544 - pos.Y));
 			GameScene.Instance.UI.OddsPanel.SetVisible(true);
 		}
+		
+		public static void ShowStatsPanel()
+		{
+			GameScene.Instance.UI.StatsPanel.Panel.Visible = true;
+		}
+		
+		public static void HideStatsPanel()
+		{
+			GameScene.Instance.UI.StatsPanel.Panel.Visible = false;
+		}
 		#endregion
 		
 		public static void LoadAllSpritesFromPlayer(List<Player> players, Node parent)

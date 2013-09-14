@@ -1,27 +1,27 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\Map\Map.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\UI\StatsPanel.cs">
     <Files>
-      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="450" Column="1" />
-      <File FileName="INF4000\Assets\AssetsManager.cs" Line="74" Column="80" />
-      <File FileName="INF4000\Classes\Map\Map.cs" Line="154" Column="35" />
-      <File FileName="INF4000\Classes\Misc\Constants.cs" Line="53" Column="37" />
-      <File FileName="INF4000\Classes\GameObjects\Building.cs" Line="29" Column="4" />
-      <File FileName="INF4000\Classes\Map\Tile.cs" Line="46" Column="1" />
-      <File FileName="INF4000\Classes\Misc\Utilities.cs" Line="151" Column="13" />
-      <File FileName="INF4000\Classes\GameObjects\Unit.cs" Line="72" Column="15" />
-      <File FileName="INF4000\Classes\Misc\TilesUtil.cs" Line="3" Column="1" />
-      <File FileName="INF4000\Classes\Misc\BuildingUtil.cs" Line="2" Column="34" />
+      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="296" Column="16" />
+      <File FileName="INF4000\Classes\Misc\Constants.cs" Line="124" Column="52" />
+      <File FileName="INF4000\Classes\UI\StatsPanel.cs" Line="112" Column="38" />
+      <File FileName="INF4000\Classes\UI\StatItem.cs" Line="37" Column="28" />
+      <File FileName="INF4000\Classes\Map\Map.cs" Line="155" Column="77" />
+      <File FileName="INF4000\Classes\Map\Tile.cs" Line="60" Column="15" />
+      <File FileName="INF4000\Classes\Misc\BuildingUtil.cs" Line="78" Column="5" />
+      <File FileName="INF4000\Classes\GameObjects\Building.cs" Line="38" Column="18" />
+      <File FileName="INF4000\Classes\Map\TilesUtil.cs" Line="90" Column="20" />
+      <File FileName="INF4000\Assets\AssetsManager.cs" Line="100" Column="1" />
+      <File FileName="INF4000\Classes\UI\GameUI.cs" Line="69" Column="50" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="C:\Users\Sam\Documents\Projects\INF4000\INF4000\Classes\Map\Map.cs" line="39" />
       <Breakpoint file="C:\Users\Sam\Documents\Projects\INF4000\INF4000\Classes\Map\Map.cs" line="38" />
-      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="472" />
-      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="479" />
-      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="489" />
-      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameUtilities\Path.cs" line="64" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="510" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\UI\StatsPanel.cs" line="71" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\UI\StatsPanel.cs" line="69" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>

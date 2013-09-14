@@ -20,6 +20,7 @@ namespace INF4000
 		public const int GLOBAL_STATE_SWITCHING_TURN 	= 11;
 		public const int GLOBAL_STATE_GAMEOVER 			= 12;
 		public const int GLOBAL_STATE_PAUSE 			= 13;
+		public const int GLOBAL_STATE_LOADING			= 14;
 		
 		/*******************************
 		 * 	TERRAIN CONSTANTS
@@ -119,12 +120,18 @@ namespace INF4000
 		 * *****************************/
 		public const int UI_ELEMENT_ACTIONBOX_WIDTH 	= 200;
 		public const int UI_ELEMENT_ACTIONBOX_HEIGHT 	= 125;
+		public const int UI_ELEMENT_STATSBOX_WIDTH 	= 70;
+		public const int UI_ELEMENT_STATSBOX_HEIGHT = 110;
 		
 		public const int UI_ELEMENT_CONFIG_WAIT_CANCEL					= 0;
 		public const int UI_ELEMENT_CONFIG_CANCEL_PRODUCE				= 1;
 		public const int UI_ELEMENT_CONFIG_WAIT_CANCEL_ATTACK			= 2;
 		public const int UI_ELEMENT_CONFIG_WAIT_CANCEL_PRODUCE			= 3;
 		public const int UI_ELEMENT_CONFIG_WAIT_CANCEL_PRODUCE_ATTACK	= 4;
+		
+		public const int UI_ELEMENT_CONFIG_STATS_UNIT					= 0;
+		public const int UI_ELEMENT_CONFIG_STATS_TERRAIN				= 1;
+		public const int UI_ELEMENT_CONFIG_STATS_BUILDING				= 2;
 	
 		public const int UI_ELEMENT_ACTION_TYPE_WAIT = 0;
 		public const int UI_ELEMENT_ACTION_TYPE_CANCEL = 1;

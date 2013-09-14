@@ -64,6 +64,20 @@ namespace INF4000
 			
 			return stats;
 		}
+		
+		public static string GetNameByType(int type)
+		{
+			string name = "";			
+			switch (type) {
+				case Constants.BUILD_FORT:
+					name = "Fortress";
+					break;
+				case Constants.BUILD_FARM:
+					name = "Farm";
+					break;
+			}			
+			return name;
+		}
 	}
 }
 

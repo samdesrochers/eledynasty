@@ -68,6 +68,37 @@ namespace INF4000
 			return indexes;
 		}
 		
+		public static Tuple<int, string> GetTileInfo(int type)
+		{
+			string name = "";
+			int defense = 1;
+			
+			switch (type) {
+				// GRASS
+				case Constants.TILE_TYPE_GRASS_MIDDLE:
+					name = "Grass";
+					defense = 1;
+					break;
+				
+				// ROAD
+				case Constants.TILE_TYPE_ROAD_VERTICAL:
+				case Constants.TILE_TYPE_ROAD_HORIZONTAL:
+				case Constants.TILE_TYPE_ROAD_VH_LEFT:
+				case Constants.TILE_TYPE_ROAD_VH_RIGHT:
+				case Constants.TILE_TYPE_ROAD_HV_LEFT:
+				case Constants.TILE_TYPE_ROAD_HV_RIGHT:
+					name = "Road";
+					defense = 2;
+					break;
+				
+				// TREES
+				
+				// MOUTAINS
+			}
+			
+			return new Tuple<int, string>(defense, name);
+		}
+		
 		// Ajouter fonction qui check le type de terrain et donne le modifier de defense ici
 	}
 }

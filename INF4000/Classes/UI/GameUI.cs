@@ -22,6 +22,7 @@ namespace INF4000
 		public ActionPanel ActionPanel;
 		
 		public AttackOddsPanel OddsPanel;
+		public StatsPanel StatsPanel;
 		
 		public GameUI ()
 		{
@@ -65,6 +66,7 @@ namespace INF4000
 			
 			ActionPanel = new ActionPanel(new Vector2(10, 10));
 			OddsPanel = new AttackOddsPanel(new Vector2(50,50));
+			StatsPanel = new StatsPanel(new Vector2(800, 20));
 			
 			MainPanel.AddChildLast(Image_TurnSwitchBG);
 			MainPanel.AddChildLast(Label_TurnSwitchMessage);
@@ -72,6 +74,7 @@ namespace INF4000
 			MainPanel.AddChildLast(ActivePlayerIcon);
 			MainPanel.AddChildLast(ActionPanel.Panel);
 			MainPanel.AddChildLast(OddsPanel.Panel);
+			MainPanel.AddChildLast(StatsPanel.Panel);
 			
 			_UIScene = new Sce.PlayStation.HighLevel.UI.Scene();
             _UIScene.RootWidget.AddChildLast(MainPanel);

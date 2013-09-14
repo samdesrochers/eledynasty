@@ -40,11 +40,21 @@ namespace INF4000
 		
 		public ImageAsset Image_TurnSwitch_BG;
 		public ImageAsset Image_Player_1_Icon;
-		public ImageAsset Image_Panel_BG;
+		public ImageAsset Image_Action_Panel_BG;
 		public ImageAsset Image_Panel_Attack_Icon;
 		public ImageAsset Image_Panel_Wait_Icon;
 		public ImageAsset Image_Panel_Cancel_Icon;
 		public ImageAsset Image_Panel_OddsBubble;
+		
+		public ImageAsset Image_Stats_Panel_BG;
+		public ImageAsset Image_Panel_Def_Icon;
+		public ImageAsset Image_Panel_Dmg_Icon;
+		public ImageAsset Image_Panel_HP_Icon;
+		
+		public ImageAsset Image_Icon_Fort;
+		public ImageAsset Image_Icon_Farm;
+		public ImageAsset Image_Icon_Grass;
+		public ImageAsset Image_Icon_Road;
 		
 		public AssetsManager ()
 		{
@@ -76,11 +86,21 @@ namespace INF4000
 					// UI Elements
 					Image_TurnSwitch_BG = new ImageAsset("/Application/Assets/UI/turnswitch_bg.png",false);
 					Image_Player_1_Icon = new ImageAsset("/Application/Assets/Players/araki.png",false);
-					Image_Panel_BG = new ImageAsset("/Application/Assets/UI/panel_bg.png",false);
+					Image_Action_Panel_BG = new ImageAsset("/Application/Assets/UI/panel_bg.png",false);
 					Image_Panel_Wait_Icon = new ImageAsset("/Application/Assets/UI/wait_icon.png",false);
 					Image_Panel_Attack_Icon = new ImageAsset("/Application/Assets/UI/attack_icon.png",false);
 					Image_Panel_Cancel_Icon = new ImageAsset("/Application/Assets/UI/back_icon.png",false);
 					Image_Panel_OddsBubble = new ImageAsset("/Application/Assets/UI/odds_bubble.png",false);
+					
+					Image_Stats_Panel_BG = new ImageAsset("/Application/Assets/UI/stats_panel.png",false);
+					Image_Panel_Def_Icon = new ImageAsset("/Application/Assets/UI/def_ico.png",false);
+					Image_Panel_Dmg_Icon = new ImageAsset("/Application/Assets/UI/dmg_ico.png",false);
+					Image_Panel_HP_Icon = new ImageAsset("/Application/Assets/UI/hp_ico.png",false);
+					
+					Image_Icon_Fort = new ImageAsset("/Application/Assets/UI/Icons/fort_ico.png",false);
+					Image_Icon_Farm = new ImageAsset("/Application/Assets/UI/Icons/farm_ico.png",false);
+					Image_Icon_Grass = new ImageAsset("/Application/Assets/UI/Icons/grass_ico.png",false);
+					Image_Icon_Road = new ImageAsset("/Application/Assets/UI/Icons/road_ico.png",false);
 					
 					Loaded = true;
 				} 

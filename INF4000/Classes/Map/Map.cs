@@ -131,6 +131,8 @@ namespace INF4000
 			
 			// Create Tile according to extracted information
 			Tile tile = new Tile (tileType, tileOwner, posx, posy);
+			Tuple<int, string> tuple = TilesUtil.GetTileInfo(tile.TerrainType);
+			tile.AssignInfo(tuple.Item1, tuple.Item2);
 			
 			// Create Unit according to extracted information
 			if (tileUnit != 10) {
@@ -151,7 +153,7 @@ namespace INF4000
 				
 				List<int> stats = BuildingUtil.GetStatsByType(tileType);
 				Vector2i index = BuildingUtil.GetTileIndexesByType(tileType, tileOwner);
-				Building build = new Building(tileType, posx, posy, stats[0], stats[1], stats[2], stats[3]);
+				Building build = new Building(tileType, posx, posy, stats[0], stats[1], stats[2], stats[3], BuildingUtil.GetNameByType(tileType));
 				build.AssignGraphics(index);
 				tile.CurrentBuilding = build;
 				

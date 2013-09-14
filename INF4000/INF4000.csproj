@@ -52,16 +52,18 @@
     <Compile Include="Classes\GameObjects\HumanPlayer.cs" />
     <Compile Include="Classes\Misc\Utilities.cs" />
     <Compile Include="Classes\GameUtilities\Path.cs" />
-    <Compile Include="Classes\GameUtilities\GameUI.cs" />
     <Compile Include="Classes\GameUtilities\TextImage.cs" />
     <Compile Include="Assets\AssetsManager.cs" />
-    <Compile Include="Classes\GameUtilities\ActionItem.cs" />
-    <Compile Include="Classes\GameUtilities\ActionPanel.cs" />
-    <Compile Include="Classes\GameUtilities\AttackOddsPanel.cs" />
     <Compile Include="Classes\GameObjects\Building.cs" />
     <Compile Include="Classes\Misc\BuildingUtil.cs" />
-    <Compile Include="Classes\Misc\TilesUtil.cs" />
     <Compile Include="Classes\GameObjects\GameActions.cs" />
+    <Compile Include="Classes\UI\ActionItem.cs" />
+    <Compile Include="Classes\UI\ActionPanel.cs" />
+    <Compile Include="Classes\UI\AttackOddsPanel.cs" />
+    <Compile Include="Classes\UI\GameUI.cs" />
+    <Compile Include="Classes\UI\StatsPanel.cs" />
+    <Compile Include="Classes\UI\StatItem.cs" />
+    <Compile Include="Classes\Map\TilesUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -89,6 +91,8 @@
     <Folder Include="Assets\Players\" />
     <Folder Include="Assets\UI\" />
     <Folder Include="Assets\Buildings\" />
+    <Folder Include="Classes\UI\" />
+    <Folder Include="Assets\UI\Icons\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Audio\menu.mp3" />
@@ -108,5 +112,13 @@
     <Content Include="Assets\UI\odds_bubble.png" />
     <Content Include="Assets\Tiles\TilesMap_Final.png" />
     <Content Include="Assets\Buildings\build_1.png" />
+    <Content Include="Assets\UI\def_ico.png" />
+    <Content Include="Assets\UI\dmg_ico.png" />
+    <Content Include="Assets\UI\hp_ico.png" />
+    <Content Include="Assets\UI\stats_panel.png" />
+    <Content Include="Assets\UI\Icons\farm_ico.png" />
+    <Content Include="Assets\UI\Icons\fort_ico.png" />
+    <Content Include="Assets\UI\Icons\grass_ico.png" />
+    <Content Include="Assets\UI\Icons\road_ico.png" />
   </ItemGroup>
 </Project>

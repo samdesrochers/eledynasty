@@ -134,10 +134,18 @@ namespace INF4000
 					UpdateCursorPosition ();
 					
 				CheckUserInput ();
+				
+				if(CurrentGameState == Constants.GAME_STATE_SELECTION_INACTIVE || CurrentGameState == Constants.GAME_STATE_ATTACKPANEL_ACTIVE){
+					Utilities.ShowStatsPanel();
+					UpdateStatsPanel();
+				} else {
+					Utilities.HideStatsPanel();
+				}
 			}
 		
 			UpdateUnits ();			
 			UpdateMap ();	
+			
 			CheckIsGameOver ();		
 			ExecuteTurn ();
 			
@@ -278,6 +286,16 @@ namespace INF4000
 				}
 			}
 		}
+		
+		private void UpdateStatsPanel()
+		{
+			Tile t = Cursor.SelectedTile;
+			if(t != null)
+			{
+				UI.StatsPanel.SetElements(t.Defense, 9, 9, t.Label, t.TerrainType);
+				UI.StatsPanel.SetConfiguration(Constants.UI_ELEMENT_CONFIG_STATS_TERRAIN);
+			}
+		}
 		#endregion
 		
 		#region Game Loop Methods
@@ -336,7 +354,7 @@ namespace INF4000
 			
 		private void ExecuteTurn ()
 		{
-			TextImage.Text = ActivePlayer.Name;
+			//TextImage.Text = ActivePlayer.Name;
 		}
 		
 		private bool CheckIfTurnIsOver()
@@ -522,8 +540,10 @@ namespace INF4000
 				{			
 					UI.ActionPanel.SetActive(false);
 					CirclePressed_LastStateActive();		
-				} else {
+				} else if(ActivePlayer.ActiveUnit != null){
 					GameActions.MoveBackToOriginSelectedUnit();
+				} else {
+					CirclePressed_LastStateProduceOnly();
 				}
 			}
 		}
@@ -569,6 +589,14 @@ namespace INF4000
 			
 			Utilities.HideAttackPanel();
 		}
+			
+		private void CirclePressed_LastStateProduceOnly()
+		{
+			CurrentGameState = Constants.GAME_STATE_SELECTION_INACTIVE;
+			UI.ActionPanel.SetActive(false);
+			Cursor.TintToWhite();
+		}
+		
 		#endregion
 		
 		#endregion

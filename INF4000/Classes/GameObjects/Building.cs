@@ -26,7 +26,7 @@ namespace INF4000
 		
 		Vector2i SpriteIndex;
 		
-		public Building (int type, int posX, int posY, int def, int goldPT, int goldProd, int prodType)
+		public Building (int type, int posX, int posY, int def, int goldPT, int goldProd, int prodType, string label)
 		{
 			Type = type;
 			
@@ -35,17 +35,18 @@ namespace INF4000
 			GoldPerTurn = goldPT;
 			GoldToProduce = goldProd;
 			ProductionType = prodType;
+			Label = label;
 			CanProduceThisTurn = true;
 			
 			// Set size, rotation and position
-			Quad.S = new Vector2(Constants.TILE_SIZE, Constants.TILE_SIZE);
+			Quad.S = new Vector2(64, 80);
 			Position = new Vector2(posX * Constants.TILE_SIZE, posY * Constants.TILE_SIZE);			
 			WorldPosition = new Vector2i(posX, posY);
 		}
 		
 		public void AssignGraphics(Vector2i index)
 		{
-			SpriteIndex = index;
+			SpriteIndex = index; 
 			
 			SpriteTile = new SpriteTile(AssetsManager.Instance.BuildingsTextureInfo, SpriteIndex);
 			SpriteTile.Quad = this.Quad;
