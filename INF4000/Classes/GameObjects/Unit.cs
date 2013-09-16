@@ -111,7 +111,7 @@ namespace INF4000
 			if(this.OwnerName != Constants.CHAR_KENJI)
 				UnitSprite.FlipU = true;
 					
-			HealthDisplay = new TextImage(LifePoints.ToString(), this.Position);
+			HealthDisplay = new TextImage(LifePoints.ToString(), new Vector2(this.Position.X + 15, this.Position.Y));
 		}
 		
 		public void ClearGraphics()
@@ -123,7 +123,7 @@ namespace INF4000
 		public void Update()
 		{
 			Path.Update();
-			HealthDisplay.UpdatePosition(this.Position);
+			HealthDisplay.UpdatePosition(new Vector2(this.Position.X + 15, this.Position.Y));
 			
 			if(Path.Sequence.Count > 0)
 			{
@@ -157,6 +157,13 @@ namespace INF4000
 			this.Path.PathCompleted += Unit_PathCompleted;	
 		}
 		
+		public void MoveToAfterWin(Vector2i destination)
+		{
+			this.Path = new Path();
+			this.Path.BuildMoveToSequence (this.WorldPosition, destination);
+			this.Path.PathCompleted += Unit_PathCompletedAfterWin;	
+		}
+		
 		public void Unit_PathCompleted(object sender, EventArgs args)
     	{
        		// Adjust new WorldPosition
@@ -167,6 +174,23 @@ namespace INF4000
 			
 			// Remove event so it doesn't loop 
 			this.Path.PathCompleted -= Unit_PathCompleted;
+		}
+		
+		public void Unit_PathCompletedAfterWin(object sender, EventArgs args)
+    	{
+       		// Adjust new WorldPosition
+			this.WorldPosition = new Vector2i((int) this.Position.X/Constants.TILE_SIZE, (int)this.Position.Y/Constants.TILE_SIZE);
+			
+			// Remove event so it doesn't loop 
+			this.Path.PathCompleted -= Unit_PathCompletedAfterWin;			
+			Utilities.AssignUnitToTileByPosition(WorldPosition, this);
+			
+			GameScene.Instance.Cursor.TintToWhite();
+			GameScene.Instance.CurrentMap.UnTintAllTiles ();
+			Move_RadiusLeft = 0;
+			
+			Unselect();
+			SetInactive();
 		}
 		
 		public void FinalizeMove()

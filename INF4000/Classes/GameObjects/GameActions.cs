@@ -86,7 +86,7 @@ namespace INF4000
 		#endregion
 		
 		#region Unit Actions
-		public static void TargetEnemyUnit()
+		public static void TargetEnemyUnits()
 		{
 			GameScene.Instance.CurrentGameState = Constants.GAME_STATE_ATTACKPANEL_ACTIVE;
 					
@@ -128,6 +128,19 @@ namespace INF4000
 			GameScene.Instance.ActivePlayer.ActiveUnit.RevertMove();
 			GameScene.Instance.Cursor.MoveToTileByWorldPosition(GameScene.Instance.ActivePlayer.ActiveUnit.WorldPosition);
 		}
+		
+		public static void AttackUnit(Unit attacker, Unit defender, Tile target, Tile origin)
+		{
+			Utilities.RemoveUnitFromTileByPosition(GameScene.Instance.ActivePlayer.ActiveUnit.Path.Origin);
+			BattleManager battle = new BattleManager(attacker, defender,  target, origin);
+			
+			battle.ExecuteAttack();
+			battle.ExecuteCombatOutcome();
+			battle.ExecuteFinalizePostCombat();	
+			
+			GameScene.Instance.CurrentGameState = Constants.GAME_STATE_SELECTION_INACTIVE;
+		}
+		
 		#endregion
 	}
 }

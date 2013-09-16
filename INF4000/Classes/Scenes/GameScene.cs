@@ -529,12 +529,9 @@ namespace INF4000
 				// Unit is attacking from its original position
 				if(ActivePlayer.LastAction == Constants.ACTION_NOMOVE_ATTACK)
 				{
-					Console.WriteLine("ATTACK THIS FUCKA");
-					
-					
-					
+					GameActions.TargetEnemyUnits();
 				} else {// Unit just moved and wants to attack 
-					GameActions.TargetEnemyUnit();
+					GameActions.TargetEnemyUnits();
 				}
 			}
 			else if(UIAction == Constants.UI_ELEMENT_ACTION_TYPE_WAIT) // WAIT Button pressed
@@ -568,14 +565,9 @@ namespace INF4000
 		
 		private void CrossPressed_LastStateAttackPanelActive() // This activates combat
 		{
-			BattleManager battle = new BattleManager(ActivePlayer.ActiveUnit, ActivePlayer.TargetUnit, 
-			                                         CurrentMap.GetTile(Cursor.WorldPosition), 
-			                                         CurrentMap.GetTile(ActivePlayer.ActiveUnit.WorldPosition));
-			battle.ExecuteAttack();
-			battle.ExecuteCombatOutcome();
-			battle.ExecuteFinalizePostCombat();	
-			
-			CurrentGameState = Constants.GAME_STATE_SELECTION_INACTIVE;
+			GameActions.AttackUnit(ActivePlayer.ActiveUnit, ActivePlayer.TargetUnit, 
+			                       CurrentMap.GetTile(Cursor.WorldPosition),
+			                       CurrentMap.GetTile(ActivePlayer.ActiveUnit.WorldPosition));
 		}
 		
 		#endregion

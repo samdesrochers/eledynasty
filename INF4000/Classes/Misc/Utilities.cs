@@ -21,6 +21,13 @@ namespace INF4000
 			t.CurrentUnit = unit;		
 		}
 		
+		public static void RemoveUnitFromTileByPosition(Vector2i unitPos)
+		{					
+			Tile t = GameScene.Instance.CurrentMap.Tiles[unitPos.Y, unitPos.X];
+			if(t.CurrentUnit != null)
+				t.CurrentUnit = null;		
+		}
+		
 		public static void AssignMovePathToActiveUnit(Path path)
 		{
 			// Build Unit Path for move action

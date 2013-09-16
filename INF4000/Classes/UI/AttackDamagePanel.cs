@@ -8,7 +8,7 @@ using Sce.PlayStation.HighLevel.UI;
 
 namespace INF4000
 {
-	public class AttackOddsPanel
+	public class AttackDamagePanel
 	{
 		public Panel Panel;
 		private Label Label_Odds;
@@ -17,7 +17,7 @@ namespace INF4000
 		public bool IsActive;
 		public Vector2 Position;
 		
-		public AttackOddsPanel (Vector2 pos)
+		public AttackDamagePanel (Vector2 pos)
 		{
 			IsActive = false;
 			Position = pos;

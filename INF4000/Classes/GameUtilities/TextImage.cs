@@ -36,7 +36,7 @@ namespace INF4000
 			IsHidden = false;
 			_Text = text;
 			
-			font = AssetsManager.Instance.PixelFont;
+			font = AssetsManager.Instance.PixelFont_18;
 			
 			Image img = new Image (ImageMode.Rgba, new ImageSize (300, 40), new ImageColor (255, 0, 0, 0));
 			img.DrawText (_Text, new ImageColor (255, 255, 255, 255), font, new ImagePosition (0, 0));

@@ -21,7 +21,7 @@ namespace INF4000
 		public Button Button_EndTurn;
 		public ActionPanel ActionPanel;
 		
-		public AttackOddsPanel OddsPanel;
+		public AttackDamagePanel OddsPanel;
 		public StatsPanel TileStatsPanel;
 		public StatsPanel UnitStatsPanel;
 		
@@ -66,7 +66,7 @@ namespace INF4000
 			Label_TurnSwitchMessage.Visible = false;
 			
 			ActionPanel = new ActionPanel(new Vector2(10, 10));
-			OddsPanel = new AttackOddsPanel(new Vector2(800,130));
+			OddsPanel = new AttackDamagePanel(new Vector2(800,130));
 			TileStatsPanel = new StatsPanel(new Vector2(800, 20));
 			UnitStatsPanel = new StatsPanel(new Vector2(675, 20));
 			

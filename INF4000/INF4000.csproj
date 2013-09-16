@@ -59,12 +59,12 @@
     <Compile Include="Classes\GameObjects\GameActions.cs" />
     <Compile Include="Classes\UI\ActionItem.cs" />
     <Compile Include="Classes\UI\ActionPanel.cs" />
-    <Compile Include="Classes\UI\AttackOddsPanel.cs" />
     <Compile Include="Classes\UI\GameUI.cs" />
     <Compile Include="Classes\UI\StatsPanel.cs" />
     <Compile Include="Classes\UI\StatItem.cs" />
     <Compile Include="Classes\Map\TilesUtil.cs" />
     <Compile Include="Classes\GameUtilities\BattleManager.cs" />
+    <Compile Include="Classes\UI\AttackDamagePanel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
