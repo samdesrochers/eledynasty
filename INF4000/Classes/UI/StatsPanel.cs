@@ -24,14 +24,25 @@ namespace INF4000
 		public Vector2 Position;
 		public int Configuration;
 		
+		private bool _IsActive;
+		public bool IsActive
+		{
+			get{ return _IsActive; }
+			set
+			{ 
+				_IsActive = value;
+				this.Panel.Visible = _IsActive;
+			}
+		}
+		
 		public StatsPanel (Vector2 pos)
 		{
 			this.Position = pos;
 			this.Configuration = 0;
 			
 			Panel = new Panel();
-			Panel.Width = 125;
-			Panel.Height = 85;
+			Panel.Width = Constants.UI_ELEMENT_STATSBOX_WIDTH;
+			Panel.Height = Constants.UI_ELEMENT_STATSBOX_HEIGHT;
 			Panel.SetPosition(this.Position.X, this.Position.Y);
 					
 			DefItem = new StatItem("1", pos, Constants.UI_ELEMENT_ACTION_TYPE_PRODUCE, AssetsManager.Instance.Image_Panel_Def_Icon);
@@ -48,21 +59,21 @@ namespace INF4000
 			Image_Icon = new ImageBox();
 			Image_Icon.Width = Constants.TILE_SIZE - 10;
 			Image_Icon.Height = Constants.TILE_SIZE - 10;
-			Image_Icon.SetPosition(10,20);
+			Image_Icon.SetPosition(10,35);
 			Image_Icon.Image = AssetsManager.Instance.Image_Icon_Grass;		
 			Image_Icon.Alpha = 0.9f;
 			Image_Icon.Visible = true;
 			
 			Label_Name = new Label();
 			Label_Name.Text = "NAME";
-			Label_Name.Width = 80;
+			Label_Name.Width = 150;
 			Label_Name.Height = 30;
 			Label_Name.SetPosition(10,4);
 			Label_Name.Font = AssetsManager.Instance.PixelFont_18;
 			Label_Name.Visible = true;
 		}
 		
-		public void SetElements(int def, int dmg, int hp, string name, int type)
+		public void SetElements(int def, int dmg, int hp, string name, int type, string owner)
 		{
 			Sce.PlayStation.HighLevel.UI.ImageAsset img = null;
 			
@@ -85,6 +96,16 @@ namespace INF4000
 				case Constants.TILE_TYPE_BUILD_FORT:
 					img = AssetsManager.Instance.Image_Icon_Fort;	
 					break;
+				case Constants.UNIT_TYPE_FARMER:
+					if(owner != Constants.CHAR_KENJI)
+						img = AssetsManager.Instance.Image_Icon_Fort;
+					else
+						img = AssetsManager.Instance.Image_Icon_Farm;
+					break;
+				case Constants.UNIT_TYPE_SAMURAI:
+					img = AssetsManager.Instance.Image_Icon_Fort;	
+					break;
+				
 				default:
 					img = AssetsManager.Instance.Image_Icon_Grass;	
 					break;
@@ -101,15 +122,28 @@ namespace INF4000
 		{
 			ResetPanel();
 			this.Configuration = config;
-			
+			int Y_offset = 8;
 			switch(Configuration)
 			{
 				case Constants.UI_ELEMENT_CONFIG_STATS_UNIT:
+					DefItem.Panel.SetPosition(70, 15 + Y_offset);
+					Panel.AddChildLast(DefItem.Panel);
+				
+					HealthItem.Panel.SetPosition(70, 40 + Y_offset);
+					Panel.AddChildLast(HealthItem.Panel);
+				
+					DamageItem.Panel.SetPosition(70, 65 + Y_offset);
+					Panel.AddChildLast(DamageItem.Panel);
+				
+					Panel.Width = 200;
 					break;
 				case Constants.UI_ELEMENT_CONFIG_STATS_BUILDING:
+					DefItem.Panel.SetPosition(70, 40 + Y_offset);
+					Panel.AddChildLast(DefItem.Panel);
+					Panel.Width = 200;
 					break;
 				case Constants.UI_ELEMENT_CONFIG_STATS_TERRAIN:
-					DefItem.Panel.SetPosition(70, 30);
+					DefItem.Panel.SetPosition(70, 40 + Y_offset);
 					Panel.AddChildLast(DefItem.Panel);
 					Panel.Width = 200;
 					break;

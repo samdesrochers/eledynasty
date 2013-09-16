@@ -74,6 +74,15 @@ namespace INF4000
 			Unit u = TargetUnits[index];
 			this.TargetUnit = u;
 		}
+		
+		public void KillUnit(Unit u)
+		{
+			Tile t = GameScene.Instance.CurrentMap.GetTile(u.WorldPosition);
+			t.CurrentUnit = null;
+			
+			u.ClearGraphics();
+			Units.Remove(u);
+		}
 	}
 }
 

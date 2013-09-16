@@ -23,23 +23,23 @@ namespace INF4000
 			Position = pos;
 			
 			Panel = new Panel();
-			Panel.Width = 80;
-			Panel.Height = 80;
+			Panel.Width = Constants.UI_ELEMENT_STATSBOX_WIDTH;;
+			Panel.Height = 30;
 			Panel.SetPosition(Position.X, Position.Y);
 			Panel.Visible = false;
 			
 			Image_Background = new ImageBox();
-			Image_Background.Width = 70;
-			Image_Background.Height = 70;
+			Image_Background.Width = Panel.Width;
+			Image_Background.Height = Panel.Height;
 			//Image_Background.SetPosition(Position.X, Position.Y);
-			Image_Background.Image = AssetsManager.Instance.Image_Panel_OddsBubble;
+			Image_Background.Image = AssetsManager.Instance.Image_Stats_Panel_BG;
 			Image_Background.Alpha = 0.85f;
 			Image_Background.Visible = true;
 			
 			Label_Odds = new Label();
-			Label_Odds.Text = "99%"; // never go full 100 bro
+			Label_Odds.Text = "Damage:99%"; // never go full 100 bro
 			Label_Odds.TextColor = new UIColor(1,1,1,1);
-			Label_Odds.SetPosition(15, 35);
+			Label_Odds.SetPosition(5, 3);
 			Label_Odds.Font = AssetsManager.Instance.PixelFont_18;
 			Label_Odds.Alpha = 1.0f;
 			Label_Odds.Visible = true;
@@ -50,10 +50,10 @@ namespace INF4000
 		
 		public void SetOdds(string odds)
 		{
-			Label_Odds.Text = odds + "%";
+			Label_Odds.Text = "Damage:" + odds + "%";
 		}
 		
-		public void SetVisible(bool visible)
+		public void SetActive(bool visible)
 		{
 			Panel.Visible = visible;
 		}

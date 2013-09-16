@@ -98,8 +98,7 @@ namespace INF4000
 			GameScene.Instance.Cursor.TintToRed();
 			
 			// CALCULE LES ODDS AND SHNIZZLES (UTIL) Prepare Attack Panel
-			Vector2 pos = GameScene.Instance.Cursor.Position;
-			Utilities.MoveAttackOddsPanel(pos);
+			Utilities.ShowAttackOddsPanel();
 		}
 		
 		public static void SleepSelectedUnit()

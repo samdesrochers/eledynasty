@@ -85,6 +85,11 @@ namespace INF4000
 			GameScene.Instance.UI.ActionPanel.SetActive(true);
 		}
 		
+		public static void HideActionPanel()
+		{
+			GameScene.Instance.UI.ActionPanel.SetActive(false);
+		}
+		
 		public static void ShowAttackPanel()
 		{
 			GameScene.Instance.UI.ActionPanel.SetActive(true);
@@ -92,23 +97,25 @@ namespace INF4000
 		
 		public static void HideAttackPanel()
 		{
-			GameScene.Instance.UI.OddsPanel.SetVisible(false);
+			GameScene.Instance.UI.OddsPanel.SetActive(false);
 		}
 		
-		public static void MoveAttackOddsPanel(Vector2 pos)
+		public static void ShowAttackOddsPanel()
 		{
-			GameScene.Instance.UI.OddsPanel.SetPosition(new Vector2(pos.X, 544 - pos.Y));
-			GameScene.Instance.UI.OddsPanel.SetVisible(true);
+			GameScene.Instance.UI.OddsPanel.SetActive(true);
 		}
 		
-		public static void ShowStatsPanel()
+		public static void ShowStatsPanels()
 		{
-			GameScene.Instance.UI.StatsPanel.Panel.Visible = true;
+			GameScene.Instance.UI.TileStatsPanel.Panel.Visible = true;
+			if(GameScene.Instance.UI.UnitStatsPanel.IsActive)
+				GameScene.Instance.UI.UnitStatsPanel.Panel.Visible = true;
 		}
 		
-		public static void HideStatsPanel()
+		public static void HideStatsPanels()
 		{
-			GameScene.Instance.UI.StatsPanel.Panel.Visible = false;
+			GameScene.Instance.UI.TileStatsPanel.Panel.Visible = false;
+			GameScene.Instance.UI.UnitStatsPanel.Panel.Visible = false;
 		}
 		#endregion
 		
@@ -163,6 +170,16 @@ namespace INF4000
 		#endregion
 		
 		#region Player Util
+		public static Player GetPlayerByName(string name)
+		{
+			foreach(Player p in GameScene.Instance.Players)
+			{
+				if(p.Name == name)
+					return p;
+			}
+			return null;
+		}
+		
 		public static void AssignUnitToPlayer(Unit unit, int playerIndex)
 		{
 			if(unit == null)

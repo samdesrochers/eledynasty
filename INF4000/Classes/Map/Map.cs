@@ -135,17 +135,18 @@ namespace INF4000
 			tile.AssignInfo(tuple.Item1, tuple.Item2);
 			
 			// Create Unit according to extracted information
-			if (tileUnit != 10) {
+			if (tileUnit != Constants.UNIT_TYPE_NONE) {
 				
 				moves -= 10;		// NOTE: these -= 10 are to adjust to the tile format
 				lifePoints -= 10;	// Ex : Input : 12 HP = 2 real HP (1 is simply a buffer)
 				
 				Unit unit = Unit.CreateByType(tileUnit, moves, lifePoints, posx, posy);
-				unit.LoadGraphics();
-				tile.CurrentUnit = unit;
 				
 				// Assign the new unit to the correct Player
 				Utilities.AssignUnitToPlayer (unit, tileOwner);
+				
+				unit.LoadGraphics();
+				tile.CurrentUnit = unit;
 			}
 			
 			// Create Building according to extracted information
@@ -288,11 +289,11 @@ namespace INF4000
 	
 		public void UnTintAllTiles()
 		{
-			foreach(Tile t in ActiveTiles)
+			foreach(Tile t in Tiles)
 			{
 				t.TintWeight = 0;
 				t.SetActive(false);
-			}
+			}		
 		}
 		
 		private static bool StartsWithDelimiter (string s)

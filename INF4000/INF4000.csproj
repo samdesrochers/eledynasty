@@ -64,6 +64,7 @@
     <Compile Include="Classes\UI\StatsPanel.cs" />
     <Compile Include="Classes\UI\StatItem.cs" />
     <Compile Include="Classes\Map\TilesUtil.cs" />
+    <Compile Include="Classes\GameUtilities\BattleManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />

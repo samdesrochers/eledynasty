@@ -19,7 +19,20 @@ namespace INF4000
 		public string Label;
 		public int Type;
 		
-		public int LifePoints;
+		public int MaxLifePoints;
+		
+		private int _LifePoints;
+		public int LifePoints
+		{
+			get { return _LifePoints; }
+			set
+			{
+				_LifePoints = value;
+				if(HealthDisplay != null)
+					HealthDisplay.Text = _LifePoints.ToString();
+			}
+		}
+		
 		public int Move_MaxRadius;
 		public int Move_RadiusLeft;
 		public int AttackDamage;
@@ -46,7 +59,7 @@ namespace INF4000
 		{
 			Unselect();
 			Move_RadiusLeft = Move_MaxRadius;
-			HealthDisplay.Text = Move_RadiusLeft.ToString();
+			HealthDisplay.Text = _LifePoints.ToString();
 		}
 		
 		public static Unit CreateByType(int type, int moves, int lifePoints, int posX, int posY)
@@ -59,7 +72,7 @@ namespace INF4000
 					break;
 				case Constants.UNIT_TYPE_ARCHER:
 					break;
-				case Constants.UNIT_TYPE_KNIGHT:
+				case Constants.UNIT_TYPE_SAMURAI:
 					break;
 				case Constants.UNIT_TYPE_WIZARD:
 					break;
@@ -74,7 +87,10 @@ namespace INF4000
 			Vector2i index = new Vector2i(0,0);
 			switch (this.Type) {
 					case Constants.UNIT_TYPE_FARMER:
-						index = new Vector2i (0, 1);
+						if(this.OwnerName != Constants.CHAR_KENJI)
+							index = new Vector2i (0, 0);
+						else
+							index = new Vector2i (0, 1);
 						break;
 					case Constants.UNIT_TYPE_SWORD:
 						index = new Vector2i (3, 0);
@@ -82,7 +98,7 @@ namespace INF4000
 					case Constants.UNIT_TYPE_ARCHER:
 						index = new Vector2i (0, 0);
 						break;
-					case Constants.UNIT_TYPE_KNIGHT:
+					case Constants.UNIT_TYPE_SAMURAI:
 						index = new Vector2i (1, 1);
 						break;
 				}
@@ -91,8 +107,17 @@ namespace INF4000
 			UnitSprite = new SpriteTile(AssetsManager.Instance.UnitsTextureInfo, index);
 			UnitSprite.Quad = this.Quad;
 			UnitSprite.Position = this.Position;
+			
+			if(this.OwnerName != Constants.CHAR_KENJI)
+				UnitSprite.FlipU = true;
 					
-			HealthDisplay = new TextImage(Move_MaxRadius.ToString(), this.Position);
+			HealthDisplay = new TextImage(LifePoints.ToString(), this.Position);
+		}
+		
+		public void ClearGraphics()
+		{
+			GameScene.Instance.RemoveChild(this.UnitSprite, true);
+			GameScene.Instance.RemoveChild(this.HealthDisplay, true);
 		}
 		
 		public void Update()
@@ -122,7 +147,6 @@ namespace INF4000
 				{
 					Path.distanceMoved = 0;
 					this.Move_RadiusLeft --;
-					HealthDisplay.Text = Move_RadiusLeft.ToString();
 				}
 			}		
 		}
@@ -165,7 +189,6 @@ namespace INF4000
 			Select();
 			
 			Move_RadiusLeft += Path.RadiusUsed;
-			HealthDisplay.Text = Move_RadiusLeft.ToString();
 			
 			this.Position = new Vector2(Path.Origin.X * 64, Path.Origin.Y * 64);
 			UnitSprite.Position = this.Position;
@@ -175,7 +198,6 @@ namespace INF4000
 		public void Sleep()
 		{
 			Move_RadiusLeft = 0;
-			HealthDisplay.Text = Move_RadiusLeft.ToString ();
 			Unselect();
 			SetInactive();
 			

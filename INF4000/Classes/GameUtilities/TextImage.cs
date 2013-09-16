@@ -51,7 +51,6 @@ namespace INF4000
 			this.TextureInfo = ti;
    
 			this.Quad.S = ti.TextureSizef;
-			//this.CenterSprite();		
 			this.Position = new Vector2(pos.X, pos.Y);				
 		}
 		

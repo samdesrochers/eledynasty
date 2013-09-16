@@ -4,6 +4,10 @@ namespace INF4000
 {
 	public static class Constants
 	{
+		// General - Character Names
+		public const string CHAR_KENJI = "Kenji";
+		public const string CHAR_MASUKA = "Masuka";
+		
 		// General - Tile Size
 		public const int TILE_SIZE = 64;
 		public const int TEXT_SIZE = 32;
@@ -59,12 +63,12 @@ namespace INF4000
 		 * *****************************/
 		
 		// Unit - Units Type
-		public const int UNIT_TYPE_NONE 	= 10;
-		public const int UNIT_TYPE_FARMER 	= 11;
-		public const int UNIT_TYPE_SWORD 	= 12;
-		public const int UNIT_TYPE_ARCHER 	= 13;
-		public const int UNIT_TYPE_KNIGHT 	= 14;
-		public const int UNIT_TYPE_WIZARD 	= 15;		
+		public const int UNIT_TYPE_NONE 	= 20;
+		public const int UNIT_TYPE_FARMER 	= 21;
+		public const int UNIT_TYPE_SWORD 	= 22;
+		public const int UNIT_TYPE_ARCHER 	= 23;
+		public const int UNIT_TYPE_SAMURAI 	= 24;
+		public const int UNIT_TYPE_WIZARD 	= 25;		
 		
 		// Unit - Life Points 
 		public const int UNIT_HP_FARMER = 5;
@@ -88,7 +92,7 @@ namespace INF4000
 		public const int UNIT_DEF_WIZARD 	= 2;
 		
 		// Unit - Base number of Move Points  
-		public const int UNIT_MOVE_FARMER 	= 5;
+		public const int UNIT_MOVE_FARMER 	= 2;
 		public const int UNIT_MOVE_SWORD 	= 6;
 		public const int UNIT_MOVE_ARCHER 	= 5;
 		public const int UNIT_MOVE_KNIGHT 	= 9;
@@ -120,8 +124,8 @@ namespace INF4000
 		 * *****************************/
 		public const int UI_ELEMENT_ACTIONBOX_WIDTH 	= 200;
 		public const int UI_ELEMENT_ACTIONBOX_HEIGHT 	= 125;
-		public const int UI_ELEMENT_STATSBOX_WIDTH 	= 70;
-		public const int UI_ELEMENT_STATSBOX_HEIGHT = 110;
+		public const int UI_ELEMENT_STATSBOX_WIDTH 		= 125;
+		public const int UI_ELEMENT_STATSBOX_HEIGHT 	= 110;
 		
 		public const int UI_ELEMENT_CONFIG_WAIT_CANCEL					= 0;
 		public const int UI_ELEMENT_CONFIG_CANCEL_PRODUCE				= 1;
@@ -133,10 +137,17 @@ namespace INF4000
 		public const int UI_ELEMENT_CONFIG_STATS_TERRAIN				= 1;
 		public const int UI_ELEMENT_CONFIG_STATS_BUILDING				= 2;
 	
-		public const int UI_ELEMENT_ACTION_TYPE_WAIT = 0;
-		public const int UI_ELEMENT_ACTION_TYPE_CANCEL = 1;
-		public const int UI_ELEMENT_ACTION_TYPE_ATTACK = 2;
+		public const int UI_ELEMENT_ACTION_TYPE_WAIT 	= 0;
+		public const int UI_ELEMENT_ACTION_TYPE_CANCEL 	= 1;
+		public const int UI_ELEMENT_ACTION_TYPE_ATTACK	= 2;
 		public const int UI_ELEMENT_ACTION_TYPE_PRODUCE = 3;
+		
+		/*******************************
+		 * 	BATTLE MANAGER CONSTANTS
+		 * *****************************/
+		public const int BATTLE_END_ATTACKER_TOTALWIN 	= 0;
+		public const int BATTLE_END_DEFENDER_TOTALWIN 	= 1;
+		public const int BATTLE_END_TIE 				= 2;
 	}
 }
 

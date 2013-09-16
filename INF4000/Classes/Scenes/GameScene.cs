@@ -136,10 +136,10 @@ namespace INF4000
 				CheckUserInput ();
 				
 				if(CurrentGameState == Constants.GAME_STATE_SELECTION_INACTIVE || CurrentGameState == Constants.GAME_STATE_ATTACKPANEL_ACTIVE){
-					Utilities.ShowStatsPanel();
+					Utilities.ShowStatsPanels();
 					UpdateStatsPanel();
 				} else {
-					Utilities.HideStatsPanel();
+					Utilities.HideStatsPanels();
 				}
 			}
 		
@@ -270,7 +270,7 @@ namespace INF4000
 			}
 			
 			Vector2 pos = Cursor.Position;
-			Utilities.MoveAttackOddsPanel(pos);
+			//Utilities.MoveAttackOddsPanel(pos);
 		}
 		
 		private void UpdateMap ()
@@ -292,8 +292,23 @@ namespace INF4000
 			Tile t = Cursor.SelectedTile;
 			if(t != null)
 			{
-				UI.StatsPanel.SetElements(t.Defense, 9, 9, t.Label, t.TerrainType);
-				UI.StatsPanel.SetConfiguration(Constants.UI_ELEMENT_CONFIG_STATS_TERRAIN);
+				UI.TileStatsPanel.SetElements(t.Defense, 0, 0, t.Label, t.TerrainType, null);
+				UI.TileStatsPanel.SetConfiguration(Constants.UI_ELEMENT_CONFIG_STATS_TERRAIN);
+				
+				if(t.CurrentBuilding != null)
+				{
+					UI.TileStatsPanel.SetElements(t.Defense, 0, 0, t.CurrentBuilding.Label, t.CurrentBuilding.Type, t.CurrentBuilding.OwnerName);
+					UI.TileStatsPanel.SetConfiguration(Constants.UI_ELEMENT_CONFIG_STATS_BUILDING);
+				} 
+				
+				if(t.CurrentUnit != null)
+				{
+					UI.UnitStatsPanel.SetElements(t.CurrentUnit.Armor, t.CurrentUnit.AttackDamage, t.CurrentUnit.LifePoints, t.CurrentUnit.Label, t.CurrentUnit.Type, t.CurrentUnit.OwnerName);
+					UI.UnitStatsPanel.SetConfiguration(Constants.UI_ELEMENT_CONFIG_STATS_UNIT);
+					UI.UnitStatsPanel.IsActive = true;
+				} else {
+					UI.UnitStatsPanel.IsActive = false;
+				}
 			}
 		}
 		#endregion
@@ -515,6 +530,9 @@ namespace INF4000
 				if(ActivePlayer.LastAction == Constants.ACTION_NOMOVE_ATTACK)
 				{
 					Console.WriteLine("ATTACK THIS FUCKA");
+					
+					
+					
 				} else {// Unit just moved and wants to attack 
 					GameActions.TargetEnemyUnit();
 				}
@@ -543,14 +561,21 @@ namespace INF4000
 				} else if(ActivePlayer.ActiveUnit != null){
 					GameActions.MoveBackToOriginSelectedUnit();
 				} else {
-					CirclePressed_LastStateProduceOnly();
+					CirclePressed_LastStateProducePanelOnly();
 				}
 			}
 		}
 		
-		private void CrossPressed_LastStateAttackPanelActive()
+		private void CrossPressed_LastStateAttackPanelActive() // This activates combat
 		{
+			BattleManager battle = new BattleManager(ActivePlayer.ActiveUnit, ActivePlayer.TargetUnit, 
+			                                         CurrentMap.GetTile(Cursor.WorldPosition), 
+			                                         CurrentMap.GetTile(ActivePlayer.ActiveUnit.WorldPosition));
+			battle.ExecuteAttack();
+			battle.ExecuteCombatOutcome();
+			battle.ExecuteFinalizePostCombat();	
 			
+			CurrentGameState = Constants.GAME_STATE_SELECTION_INACTIVE;
 		}
 		
 		#endregion
@@ -561,6 +586,7 @@ namespace INF4000
 			CurrentGameState = Constants.GAME_STATE_SELECTION_INACTIVE;
 					
 			// Unselect unit and remove tint from tiles
+			Utilities.HideActionPanel();
 			ActivePlayer.ActiveUnit.Unselect ();			
 			ActivePlayer.ActiveUnit = null;
 			
@@ -570,13 +596,21 @@ namespace INF4000
 		
 		private void CirclePressed_LastStateActionPanelActive()
 		{
-			CurrentGameState = Constants.GAME_STATE_UNIT_SELECTION_ACTIVE;
-			UI.ActionPanel.SetActive(false);
-			
-			// Unselect unit and remove tint from tiles
-			ActivePlayer.ActiveUnit.RevertMove();
-			Cursor.MoveToTileByWorldPosition(ActivePlayer.ActiveUnit.WorldPosition);
-		}
+			if(ActivePlayer.LastAction == Constants.ACTION_SLEEP || ActivePlayer.LastAction == Constants.ACTION_NOMOVE_ATTACK 
+				   || ActivePlayer.LastAction == Constants.ACTION_PRODUCE || ActivePlayer.LastAction == Constants.ACTION_PRODUCE_ATTACK) // Unit on same origin tile
+			{
+				CirclePressed_LastStateActive();
+			}
+			else if(ActivePlayer.ActiveUnit != null)
+			{
+				GameActions.MoveBackToOriginSelectedUnit();
+			} 
+			else if(ActivePlayer.ActiveUnit == null) // Only building selected
+			{
+				CirclePressed_LastStateProducePanelOnly();
+			}
+
+		} 
 		
 		private void CirclePressed_LastStateAttackPanelActive()
 		{
@@ -590,15 +624,12 @@ namespace INF4000
 			Utilities.HideAttackPanel();
 		}
 			
-		private void CirclePressed_LastStateProduceOnly()
+		private void CirclePressed_LastStateProducePanelOnly()
 		{
 			CurrentGameState = Constants.GAME_STATE_SELECTION_INACTIVE;
-			UI.ActionPanel.SetActive(false);
+			Utilities.HideActionPanel();
 			Cursor.TintToWhite();
 		}
-		
-		#endregion
-		
 		#endregion
 		
 		#region Utilities
@@ -607,6 +638,7 @@ namespace INF4000
 		{
 			//_SoundPlayer.Dispose ();
 		}
+		#endregion
 		#endregion
 	}
 }
