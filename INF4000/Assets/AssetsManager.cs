@@ -28,6 +28,7 @@ namespace INF4000
 		public Font PixelFont;
 		public Font PixelFont_18;
 		public Font XenoFont;
+		public Font XenoFont_24;
 		
 		public Texture2D UnitsTexture;
 		public TextureInfo UnitsTextureInfo;
@@ -70,6 +71,7 @@ namespace INF4000
 					PixelFont = new Font("/Application/Assets/fonts/half_bold_pixel-7.ttf", 24, FontStyle.Bold);
 					PixelFont_18 = new Font("/Application/Assets/fonts/half_bold_pixel-7.ttf", 18, FontStyle.Bold);
 					XenoFont = new Font("/Application/Assets/fonts/Xenogears_font.ttf", 72, FontStyle.Regular);
+					XenoFont_24 = new Font("/Application/Assets/fonts/Xenogears_font.ttf", 24, FontStyle.Regular);
 					
 					//Units Textures
 					UnitsTexture = new Texture2D ("/Application/Assets/Units/units.png", false);

@@ -76,6 +76,7 @@ namespace INF4000
 			
 			// Select the initial Active Player
 			ActivePlayer = SelectActivePlayer ();
+			ActivePlayer.CollectGoldFromBuildings();
 			
 			// Add Debug help text
 			TextImage = new TextImage ("", new Vector2(30,30));
@@ -122,6 +123,9 @@ namespace INF4000
 		#region Update Methods
 		private void UpdateGameRunning()
 		{
+			if(ActivePlayer.IsStartingTurn)
+				InitPlayerTurn();
+			
 			UpdateCameraPosition ();
 
 			if (ActivePlayer is HumanPlayer) 
@@ -314,19 +318,33 @@ namespace INF4000
 		#endregion
 		
 		#region Game Loop Methods
+		private void InitPlayerTurn()
+		{
+			ActivePlayer.IsStartingTurn = false;
+			
+			
+		}
+		
 		private void SwitchToNextPlayer()
 		{
 			// Finish current player's turn
 			ActivePlayer.ResetUnits();
+			ActivePlayer.ResetBuildings();
+			ActivePlayer.CollectGoldFromBuildings(); // for next turn
+			
 			if(ActivePlayer.ActiveUnit != null)
 			{
-				ActivePlayer.ActiveUnit.RevertMove();
+				if(ActivePlayer.ActiveUnit.Path.RadiusUsed > 0)
+					ActivePlayer.ActiveUnit.RevertMove();
+				
 				ActivePlayer.ActiveUnit.Unselect ();
 				ActivePlayer.ActiveUnit = null;
 				CurrentMap.UnTintAllTiles();
+				Cursor.TintToWhite();
 			}
 			ActivePlayer.ActiveUnit = null;
 			ActivePlayer.LastAction = -1; //void last action
+			ActivePlayer.IsStartingTurn = true;
 			
 			// Switch Player and add a turn to the counter
 			ActivePlayerIndex++;		
@@ -369,7 +387,7 @@ namespace INF4000
 			
 		private void ExecuteTurn ()
 		{
-			//TextImage.Text = ActivePlayer.Name;
+			TextImage.Text = ActivePlayer.Name + " " + ActivePlayer.Gold + "g";
 		}
 		
 		private bool CheckIfTurnIsOver()
@@ -475,7 +493,7 @@ namespace INF4000
 					ActivePlayer.ActiveTile = CurrentMap.SelectTileFromPosition (Cursor.WorldPosition);
 					Cursor.TintToBlue();
 				} 
-				else if(selectedBuild != null && selectedUnit == null)
+				else if(selectedBuild != null && selectedUnit == null && selectedBuild.Type != Constants.BUILD_FORT)
 				{
 					CurrentGameState = Constants.GAME_STATE_ACTIONPANEL_ACTIVE;
 					UI.ActionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_CANCEL_PRODUCE);
@@ -546,7 +564,7 @@ namespace INF4000
 			}
 			else if(UIAction == Constants.UI_ELEMENT_ACTION_TYPE_PRODUCE) // PRODUCE button pressed
 			{
-				Console.WriteLine("PRODUCE THAT SHIT YO");
+				GameActions.ProduceUnit(Cursor.WorldPosition, ActivePlayer.Name);
 			}
 			else if(UIAction == Constants.UI_ELEMENT_ACTION_TYPE_CANCEL) // CANCEL button pressed
 			{

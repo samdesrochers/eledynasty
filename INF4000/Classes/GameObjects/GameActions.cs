@@ -141,6 +141,25 @@ namespace INF4000
 			GameScene.Instance.CurrentGameState = Constants.GAME_STATE_SELECTION_INACTIVE;
 		}
 		
+		public static void ProduceUnit(Vector2i originPos, string playerName)
+		{
+			Tile t = GameScene.Instance.CurrentMap.GetTile(originPos);
+			if(t.CurrentBuilding != null)
+			{
+				t.CurrentBuilding.ProduceUnit(t, playerName, GameScene.Instance.ActivePlayer);
+			}
+			
+			// Clear the shit
+			Utilities.HideActionPanel();		
+			GameScene.Instance.Cursor.TintToWhite();
+			GameScene.Instance.CurrentGameState = Constants.GAME_STATE_SELECTION_INACTIVE;
+			GameScene.Instance.CurrentMap.UnTintAllTiles();
+			
+			if(GameScene.Instance.ActivePlayer.ActiveUnit != null)
+				GameScene.Instance.ActivePlayer.ActiveUnit.Unselect();
+			
+		}	
+		
 		#endregion
 	}
 }

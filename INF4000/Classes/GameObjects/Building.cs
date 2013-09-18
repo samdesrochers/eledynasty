@@ -44,6 +44,11 @@ namespace INF4000
 			WorldPosition = new Vector2i(posX, posY);
 		}
 		
+		public void Reset()
+		{
+			CanProduceThisTurn = true;
+		}
+		
 		public void AssignGraphics(Vector2i index)
 		{
 			SpriteIndex = index; 
@@ -53,10 +58,61 @@ namespace INF4000
 			SpriteTile.Position = this.Position;
 		}
 		
-		public void ProduceUnit()
+		public void ProduceUnit(Tile t, string owner, Player player)
 		{
-			CanProduceThisTurn = true;
-			// UTIL CREATE UNIT ON BUILDING TILE OR AN ADJACENT
+			if(!CanProduceThisTurn || player.Gold < this.GoldToProduce)
+				return;
+			
+			int unitTypeToProduce = -1;
+			switch(this.Type)
+			{
+				case Constants.BUILD_FARM:
+					unitTypeToProduce = Constants.UNIT_TYPE_FARMER;
+					break;
+			}
+			
+			bool produced = false;
+			Unit unit = null;
+			
+			if(t.CurrentUnit == null)
+			{				
+				unit = Unit.CreateByType(unitTypeToProduce, 9000, 9000, t.WorldPosition.X, t.WorldPosition.Y); // Will ignore gigantic value
+				Utilities.AssignUnitToPlayerByName(unit, owner);
+				
+				unit.LoadGraphics();
+				t.CurrentUnit = unit;
+				produced = true;
+			}
+			else
+			{
+				foreach(Vector2i v in t.AdjacentPositions)
+				{
+					Tile adj = GameScene.Instance.CurrentMap.GetTile(v);
+					if(adj.CurrentUnit == null)
+					{
+						unit = Unit.CreateByType(unitTypeToProduce, 9000, 9000, adj.WorldPosition.X, adj.WorldPosition.Y); // Will ignore gigantic value
+						Utilities.AssignUnitToPlayerByName(unit, owner);
+						
+						unit.LoadGraphics();
+						adj.CurrentUnit = unit;
+						produced = true;
+						break;
+					}
+				}
+			}
+			
+			if(produced && unit != null)
+			{					
+				GameScene.Instance.RemoveChild(GameScene.Instance.Cursor.SpriteTile, false);
+				GameScene.Instance.AddChild(unit.UnitSprite);
+				GameScene.Instance.AddChild(unit.HealthDisplay);
+				GameScene.Instance.AddChild(GameScene.Instance.Cursor.SpriteTile);
+				
+				unit.Sleep();
+				player.Gold -= this.GoldToProduce;
+			}
+			
+			CanProduceThisTurn = false;
 		}
 	}
 }

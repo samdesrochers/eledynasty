@@ -51,7 +51,7 @@ namespace INF4000
 				// FARM
 				case Constants.BUILD_FARM:
 					defense = 1;
-					goldPerTurn = 2;
+					goldPerTurn = 1;
 					goldToProduce = 4;
 					productionType = Constants.UNIT_TYPE_FARMER;
 					break;

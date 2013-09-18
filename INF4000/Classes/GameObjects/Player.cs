@@ -12,11 +12,13 @@ namespace INF4000
 		public string Name;
 		public bool IsActive;
 		public bool IsHuman;
+		public bool IsStartingTurn;
 		public ImageAsset Icon;
 		
 		public int FocusPoints;
 		public int LastAction;
 		public int Gold;
+		public int GoldEarnedThisTurn;
 		
 		private Unit _ActiveUnit;
 		public Unit ActiveUnit
@@ -66,6 +68,14 @@ namespace INF4000
 			}	
 		}
 		
+		public void ResetBuildings()
+		{
+			foreach(Building b in Buildings)
+			{
+				b.Reset();
+			}	
+		}
+		
 		public void AssignTarget(int index)
 		{
 			if(index >= TargetUnits.Count)
@@ -82,6 +92,17 @@ namespace INF4000
 			
 			u.ClearGraphics();
 			Units.Remove(u);
+		}
+		
+		public void CollectGoldFromBuildings()
+		{
+			int amount = 0;
+			foreach(Building b in Buildings)
+			{
+				amount += b.GoldPerTurn;
+			}
+			this.GoldEarnedThisTurn = amount;
+			this.Gold += amount;
 		}
 	}
 }

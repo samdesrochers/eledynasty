@@ -49,7 +49,7 @@ namespace INF4000
 		
 		public static bool CanUnitAttackFromDestination(Tile tile)
 		{
-			foreach(Vector2i v in tile.AdjacentPosition){
+			foreach(Vector2i v in tile.AdjacentPositions){
 				if(GameScene.Instance.CurrentMap.GetTile(v) != null)
 				{
 					Tile t = GameScene.Instance.CurrentMap.GetTile(v);
@@ -187,7 +187,7 @@ namespace INF4000
 			return null;
 		}
 		
-		public static void AssignUnitToPlayer(Unit unit, int playerIndex)
+		public static void AssignUnitToPlayerByIndex(Unit unit, int playerIndex)
 		{
 			if(unit == null)
 				return;
@@ -198,6 +198,16 @@ namespace INF4000
 				unit.OwnerName = desiredPlayer.Name;
 				desiredPlayer.Units.Add(unit);
 			}
+		}
+		
+		public static void AssignUnitToPlayerByName(Unit unit, string name)
+		{
+			if(unit == null)
+				return;
+			
+			Player p = Utilities.GetPlayerByName(name);
+			p.Units.Add(unit);
+			unit.OwnerName = p.Name;
 		}
 		
 		public static void AssignBuildingToPlayer(Building build, int playerIndex)

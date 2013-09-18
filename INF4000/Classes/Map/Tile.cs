@@ -27,7 +27,7 @@ namespace INF4000
 		public Vector2i ActiveStateIndex;
 		public Vector2i TargetStateIndex;
 		
-		public List<Vector2i> AdjacentPosition;
+		public List<Vector2i> AdjacentPositions;
 		public Vector2i Adjacent_Left_Pos;
 		public Vector2i Adjacent_Up_Pos;
 		public Vector2i Adjacent_Right_Pos;
@@ -94,7 +94,7 @@ namespace INF4000
 		
 		public void AssignAdjacentTiles(Tile[,] tiles, int width, int height)
 		{			
-			AdjacentPosition = new List<Vector2i>();
+			AdjacentPositions = new List<Vector2i>();
 			
 			//Assign Left
 			if(WorldPosition.X - 1 >= 0)
@@ -120,10 +120,10 @@ namespace INF4000
 			else
 				Adjacent_Down_Pos = new Vector2i(-1,-1);
 			
-			AdjacentPosition.Add(Adjacent_Left_Pos);
-			AdjacentPosition.Add(Adjacent_Up_Pos);
-			AdjacentPosition.Add(Adjacent_Right_Pos);
-			AdjacentPosition.Add(Adjacent_Down_Pos);
+			AdjacentPositions.Add(Adjacent_Left_Pos);
+			AdjacentPositions.Add(Adjacent_Up_Pos);
+			AdjacentPositions.Add(Adjacent_Right_Pos);
+			AdjacentPositions.Add(Adjacent_Down_Pos);
 
 		}
 	}

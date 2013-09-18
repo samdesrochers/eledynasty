@@ -22,7 +22,7 @@ namespace INF4000
 			this.AttackDamage = Constants.UNIT_AD_FARMER;
 			this.Armor = Constants.UNIT_AD_FARMER;
 			this.Move_MaxRadius = Constants.UNIT_MOVE_FARMER;
-			this.Move_RadiusLeft = moves;
+			this.Move_RadiusLeft = System.Math.Min(Constants.UNIT_MOVE_FARMER, moves);
 			
 			// Set size, rotation and position
 			Quad.S = new Vector2(Constants.TILE_SIZE, Constants.TILE_SIZE);

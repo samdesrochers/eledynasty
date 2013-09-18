@@ -143,7 +143,7 @@ namespace INF4000
 				Unit unit = Unit.CreateByType(tileUnit, moves, lifePoints, posx, posy);
 				
 				// Assign the new unit to the correct Player
-				Utilities.AssignUnitToPlayer (unit, tileOwner);
+				Utilities.AssignUnitToPlayerByIndex (unit, tileOwner);
 				
 				unit.LoadGraphics();
 				tile.CurrentUnit = unit;
@@ -260,7 +260,7 @@ namespace INF4000
 		
 		public void SetTargetedTiles(Tile origin)
 		{
-			foreach(Vector2i v in origin.AdjacentPosition){
+			foreach(Vector2i v in origin.AdjacentPositions){
 				if(this.GetTile(v) != null)
 				{
 					Tile t = this.GetTile(v);

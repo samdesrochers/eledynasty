@@ -16,6 +16,7 @@ namespace INF4000
 		public ImageBox Image_TurnSwitchBG;
 		
 		public Label Label_TurnSwitchMessage;
+		public Label Label_TurnSwitchMessage_Gold;
 		public Label Label_Loading;
 		
 		public Button Button_EndTurn;
@@ -61,9 +62,19 @@ namespace INF4000
 			Label_TurnSwitchMessage.Text = "Turn " + GameScene.Instance.CurrentTurnCount;
 			Label_TurnSwitchMessage.Width = 300;
 			Label_TurnSwitchMessage.Height = 100;
-			Label_TurnSwitchMessage.SetPosition(400, 200);
+			Label_TurnSwitchMessage.SetPosition(380, 200);
 			Label_TurnSwitchMessage.Font = AssetsManager.Instance.XenoFont;
 			Label_TurnSwitchMessage.Visible = false;
+			
+			Label_TurnSwitchMessage_Gold = new Label();
+			Label_TurnSwitchMessage_Gold.Text = "Turn " + GameScene.Instance.CurrentTurnCount;
+			Label_TurnSwitchMessage_Gold.Width = 300;
+			Label_TurnSwitchMessage_Gold.Height = 40;
+			Label_TurnSwitchMessage_Gold.SetPosition(450, 280);
+			Label_TurnSwitchMessage_Gold.Font = AssetsManager.Instance.XenoFont_24;
+			Label_TurnSwitchMessage_Gold.Alpha = 0.0f;
+			Label_TurnSwitchMessage_Gold.TextColor = new UIColor(1, 0.4f, 0, 1);
+			Label_TurnSwitchMessage_Gold.Visible = false;
 			
 			ActionPanel = new ActionPanel(new Vector2(10, 10));
 			OddsPanel = new AttackDamagePanel(new Vector2(800,130));
@@ -72,6 +83,7 @@ namespace INF4000
 			
 			MainPanel.AddChildLast(Image_TurnSwitchBG);
 			MainPanel.AddChildLast(Label_TurnSwitchMessage);
+			MainPanel.AddChildLast(Label_TurnSwitchMessage_Gold);
 			MainPanel.AddChildLast(Button_EndTurn);
 			MainPanel.AddChildLast(ActivePlayerIcon);
 			MainPanel.AddChildLast(ActionPanel.Panel);
@@ -88,6 +100,7 @@ namespace INF4000
 		{
 			Button_EndTurn.Visible = false;
 			Label_TurnSwitchMessage.Visible = false;
+			Label_TurnSwitchMessage_Gold.Visible = false;
 			Image_TurnSwitchBG.Visible = false;
 		}
 		
@@ -99,14 +112,20 @@ namespace INF4000
 			if(Image_TurnSwitchBG.Alpha < 1)
 				Image_TurnSwitchBG.Alpha += dt*3;
 			
+			if(Label_TurnSwitchMessage_Gold.Alpha < 1)
+				Label_TurnSwitchMessage_Gold.Alpha += 2*dt;
+			
 			Label_TurnSwitchMessage.Visible = true;
+			Label_TurnSwitchMessage_Gold.Visible = true;
 			Image_TurnSwitchBG.Visible = true;		
 			Label_TurnSwitchMessage.Text = "Turn " + GameScene.Instance.CurrentTurnCount;
+			Label_TurnSwitchMessage_Gold.Text = "+ " + GameScene.Instance.ActivePlayer.GoldEarnedThisTurn.ToString() + " Gold";
 		}
 		
 		public void SetPlaying()
 		{
 			Image_TurnSwitchBG.Alpha = 0;
+			Label_TurnSwitchMessage_Gold.Alpha = 0;
 			SetNoneVisible();
 			Button_EndTurn.Visible = true;
 		}
