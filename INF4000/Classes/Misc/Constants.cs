@@ -124,7 +124,7 @@ namespace INF4000
 		 * *****************************/
 		public const int UI_ELEMENT_ACTIONBOX_WIDTH 	= 200;
 		public const int UI_ELEMENT_ACTIONBOX_HEIGHT 	= 125;
-		public const int UI_ELEMENT_STATSBOX_WIDTH 		= 125;
+		public const int UI_ELEMENT_STATSBOX_WIDTH 		= 135;
 		public const int UI_ELEMENT_STATSBOX_HEIGHT 	= 110;
 		
 		public const int UI_ELEMENT_CONFIG_WAIT_CANCEL					= 0;

@@ -15,7 +15,7 @@ namespace INF4000
 		public Label Text_Stat;
 		private string Text;
 		
-		public StatItem (string text, Vector2 pos, int action, ImageAsset image)
+		public StatItem (string text, Vector2 pos, ImageAsset image)
 		{
 			Position = pos;
 			Text = text;

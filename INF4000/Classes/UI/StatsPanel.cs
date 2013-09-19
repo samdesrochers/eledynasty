@@ -16,6 +16,7 @@ namespace INF4000
 		public StatItem HealthItem;
 		public StatItem DefItem;
 		public StatItem DamageItem;
+		public StatItem GoldItem;
 		
 		public Label Label_Name;
 		public ImageBox Image_Icon;
@@ -45,9 +46,10 @@ namespace INF4000
 			Panel.Height = Constants.UI_ELEMENT_STATSBOX_HEIGHT;
 			Panel.SetPosition(this.Position.X, this.Position.Y);
 					
-			DefItem = new StatItem("1", pos, Constants.UI_ELEMENT_ACTION_TYPE_PRODUCE, AssetsManager.Instance.Image_Panel_Def_Icon);
-			HealthItem = new StatItem("5", pos, Constants.UI_ELEMENT_ACTION_TYPE_ATTACK, AssetsManager.Instance.Image_Panel_HP_Icon);
-			DamageItem = new StatItem("4", pos, Constants.UI_ELEMENT_ACTION_TYPE_WAIT, AssetsManager.Instance.Image_Panel_Dmg_Icon);
+			DefItem = new StatItem("1", pos, AssetsManager.Instance.Image_Panel_Def_Icon);
+			HealthItem = new StatItem("5", pos, AssetsManager.Instance.Image_Panel_HP_Icon);
+			DamageItem = new StatItem("4", pos, AssetsManager.Instance.Image_Panel_Dmg_Icon);
+			GoldItem = new StatItem("3", pos, AssetsManager.Instance.Image_Panel_Gld_Icon);
 			
 			Image_Background = new ImageBox();
 			Image_Background.Width = Panel.Width;
@@ -73,7 +75,7 @@ namespace INF4000
 			Label_Name.Visible = true;
 		}
 		
-		public void SetElements(int def, int dmg, int hp, string name, int type, string owner)
+		public void SetElements(int def, int dmg, int hp, int gold, string name, int type, string owner)
 		{
 			Sce.PlayStation.HighLevel.UI.ImageAsset img = null;
 			
@@ -116,6 +118,7 @@ namespace INF4000
 			DefItem.Text_Stat.Text = def.ToString();
 			HealthItem.Text_Stat.Text = hp.ToString();
 			DamageItem.Text_Stat.Text = dmg.ToString();
+			GoldItem.Text_Stat.Text = gold.ToString();
 		}
 		
 		public void SetConfiguration(int config)
@@ -135,17 +138,21 @@ namespace INF4000
 					DamageItem.Panel.SetPosition(70, 65 + Y_offset);
 					Panel.AddChildLast(DamageItem.Panel);
 				
-					Panel.Width = 200;
+					Panel.Width = 210;
 					break;
 				case Constants.UI_ELEMENT_CONFIG_STATS_BUILDING:
-					DefItem.Panel.SetPosition(70, 40 + Y_offset);
+					DefItem.Panel.SetPosition(70, 25 + Y_offset);			
 					Panel.AddChildLast(DefItem.Panel);
-					Panel.Width = 200;
+				
+					GoldItem.Panel.SetPosition(70, 55 + Y_offset);
+					Panel.AddChildLast(GoldItem.Panel);
+				
+					Panel.Width = 210;
 					break;
 				case Constants.UI_ELEMENT_CONFIG_STATS_TERRAIN:
 					DefItem.Panel.SetPosition(70, 40 + Y_offset);
 					Panel.AddChildLast(DefItem.Panel);
-					Panel.Width = 200;
+					Panel.Width = 210;
 					break;
 			}
 		}
@@ -158,6 +165,7 @@ namespace INF4000
 			Panel.RemoveChild(DefItem.Panel);
 			Panel.RemoveChild(DamageItem.Panel);
 			Panel.RemoveChild(HealthItem.Panel);
+			Panel.RemoveChild(GoldItem.Panel);
 			
 			Panel.AddChildLast(Image_Background);
 			

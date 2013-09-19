@@ -221,6 +221,28 @@ namespace INF4000
 				build.OwnerName = desiredPlayer.Name;
 				desiredPlayer.Buildings.Add(build);
 			}
+			build.SetGraphics();
+		}
+		
+		public static void AssignBuildingToPlayerByName(Building build, string name)
+		{
+			if(build == null)
+				return;
+			
+			Player p = Utilities.GetPlayerByName(name);
+			p.Buildings.Add(build);
+			build.OwnerName = p.Name;
+			build.SetGraphics();
+		}
+		
+		public static string GetWinner()
+		{
+			foreach(Player p in GameScene.Instance.Players)
+			{
+				if(p.Units.Count > 0)
+					return p.Name;
+			}
+			return "";
 		}
 		#endregion
 	}

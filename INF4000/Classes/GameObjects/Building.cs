@@ -24,7 +24,9 @@ namespace INF4000
 		public Vector2i WorldPosition;
 		public SpriteTile SpriteTile;
 		
-		Vector2i SpriteIndex;
+		Vector2i SpriteIndex_P1;
+		Vector2i SpriteIndex_P2;
+		Vector2i SpriteIndex_N;
 		
 		public Building (int type, int posX, int posY, int def, int goldPT, int goldProd, int prodType, string label)
 		{
@@ -49,13 +51,27 @@ namespace INF4000
 			CanProduceThisTurn = true;
 		}
 		
-		public void AssignGraphics(Vector2i index)
+		public void AssignGraphics(Vector2i indexp1, Vector2i indexp2, Vector2i indexN)
 		{
-			SpriteIndex = index; 
+			SpriteIndex_P1 = indexp1;
+			SpriteIndex_P2 = indexp2;
+			SpriteIndex_N = indexN;
 			
-			SpriteTile = new SpriteTile(AssetsManager.Instance.BuildingsTextureInfo, SpriteIndex);
+			SpriteTile = new SpriteTile(AssetsManager.Instance.BuildingsTextureInfo, SpriteIndex_P1);
 			SpriteTile.Quad = this.Quad;
 			SpriteTile.Position = this.Position;
+			
+			SetGraphics();
+		}
+		
+		public void SetGraphics()
+		{
+			if(this.OwnerName == Constants.CHAR_KENJI)
+				SpriteTile.TileIndex2D = SpriteIndex_P1;
+			else if(this.OwnerName != null && this.OwnerName != "")
+				SpriteTile.TileIndex2D = SpriteIndex_P2;
+			else
+				SpriteTile.TileIndex2D = SpriteIndex_N;	
 		}
 		
 		public void ProduceUnit(Tile t, string owner, Player player)

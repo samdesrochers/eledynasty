@@ -27,7 +27,7 @@ namespace INF4000
 			int attackHPBonus = (AttackingUnit.LifePoints == AttackingUnit.MaxLifePoints) ? (AttackingUnit.AttackDamage / 2) : 0;
 			int defenseHPBonus = (DefendingUnit.LifePoints == DefendingUnit.MaxLifePoints) ? (DefendingUnit.AttackDamage / 2) : 0;
 			
-			int damageToDefender = (AttackingUnit.AttackDamage + attackHPBonus) + 1; //Heuristique
+			int damageToDefender = (AttackingUnit.AttackDamage + attackHPBonus) + 10; //Heuristique
 			int damageToAttacker = (DefendingUnit.AttackDamage + defenseHPBonus) + 1;
 		
 			int HP_Lost_Attacker = Math.Max(damageToAttacker - AttackingUnit.Armor/2, 0);

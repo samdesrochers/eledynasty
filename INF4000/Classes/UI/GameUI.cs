@@ -79,7 +79,7 @@ namespace INF4000
 			ActionPanel = new ActionPanel(new Vector2(10, 10));
 			OddsPanel = new AttackDamagePanel(new Vector2(800,130));
 			TileStatsPanel = new StatsPanel(new Vector2(800, 20));
-			UnitStatsPanel = new StatsPanel(new Vector2(675, 20));
+			UnitStatsPanel = new StatsPanel(new Vector2(665, 20));
 			
 			MainPanel.AddChildLast(Image_TurnSwitchBG);
 			MainPanel.AddChildLast(Label_TurnSwitchMessage);
@@ -113,7 +113,7 @@ namespace INF4000
 				Image_TurnSwitchBG.Alpha += dt*3;
 			
 			if(Label_TurnSwitchMessage_Gold.Alpha < 1)
-				Label_TurnSwitchMessage_Gold.Alpha += 2*dt;
+				Label_TurnSwitchMessage_Gold.Alpha += 1.2f*dt;
 			
 			Label_TurnSwitchMessage.Visible = true;
 			Label_TurnSwitchMessage_Gold.Visible = true;
@@ -138,6 +138,24 @@ namespace INF4000
 		public void SetGameOver()
 		{
 			
+		}
+		
+		public void AnimateGameOver(float dt)
+		{
+			SetNoneVisible();
+			
+			// TEMP - ANIMATION
+			if(Image_TurnSwitchBG.Alpha < 1)
+				Image_TurnSwitchBG.Alpha += dt*2;
+			
+			Label_TurnSwitchMessage.Visible = true;
+			Label_TurnSwitchMessage_Gold.Visible = true;
+			Image_TurnSwitchBG.Visible = true;		
+			Label_TurnSwitchMessage.Text = GameScene.Instance.WinnerName + " Won The Game!";
+			
+			Label_TurnSwitchMessage.Width = 800;
+			Label_TurnSwitchMessage.Height = 100;
+			Label_TurnSwitchMessage.SetPosition(100, 200);
 		}
 	}
 }

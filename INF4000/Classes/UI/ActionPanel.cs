@@ -40,7 +40,7 @@ namespace INF4000
 			Vector2 pos_cancel = new Vector2(Position.X, Position.Y + 75);
 			
 			AttackItem = new ActionItem("ATTACK", pos_att, Constants.UI_ELEMENT_ACTION_TYPE_ATTACK, AssetsManager.Instance.Image_Panel_Attack_Icon);
-			ProduceItem = new ActionItem("PRODUCE", pos_att, Constants.UI_ELEMENT_ACTION_TYPE_PRODUCE, AssetsManager.Instance.Image_Panel_Attack_Icon);
+			ProduceItem = new ActionItem("PRODUCE", pos_att, Constants.UI_ELEMENT_ACTION_TYPE_PRODUCE, AssetsManager.Instance.Image_Panel_Gld_Icon);
 			MoveItem = new ActionItem("WAIT ", pos_move, Constants.UI_ELEMENT_ACTION_TYPE_WAIT, AssetsManager.Instance.Image_Panel_Wait_Icon);
 			CancelItem = new ActionItem("CANCEL", pos_cancel, Constants.UI_ELEMENT_ACTION_TYPE_CANCEL, AssetsManager.Instance.Image_Panel_Cancel_Icon);
 			
@@ -72,6 +72,7 @@ namespace INF4000
 		{
 			SelectedIndex = 0;
 			MoveItem.Text_Action.Text = "WAIT";
+			ProduceItem.Text_Action.Text = "PRODUCE";
 			
 			foreach(ActionItem a in ActionItems)
 				a.Text_Action.TextColor = new UIColor(1,1,1,1);
@@ -134,8 +135,9 @@ namespace INF4000
 			}
 			else if(type == Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_PRODUCE_ATTACK)
 			{
-				Configuration = Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_PRODUCE_ATTACK;
-
+				Configuration = Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_PRODUCE_ATTACK;				
+				ProduceItem.Text_Action.Text = "BUILD[" +BuildingUtil.GetHighLightedBuildingGoldToProduce().ToString()+ "]";
+				
 				Panel.AddChildLast(Image_Background);
 				Panel.AddChildLast(CancelItem.Panel);
 				Panel.AddChildLast(MoveItem.Panel);
@@ -153,6 +155,8 @@ namespace INF4000
 			else if(type == Constants.UI_ELEMENT_CONFIG_CANCEL_PRODUCE)
 			{
 				Configuration = Constants.UI_ELEMENT_CONFIG_CANCEL_PRODUCE;
+				ProduceItem.Text_Action.Text = "BUILD[" +BuildingUtil.GetHighLightedBuildingGoldToProduce().ToString()+ "]" ;
+				
 				Panel.AddChildLast(Image_Background);
 				Panel.AddChildLast(CancelItem.Panel);
 				Panel.AddChildLast(ProduceItem.Panel);
@@ -167,6 +171,8 @@ namespace INF4000
 			else if(type == Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_PRODUCE)
 			{
 				Configuration = Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_PRODUCE;
+				ProduceItem.Text_Action.Text = "BUILD[" +BuildingUtil.GetHighLightedBuildingGoldToProduce().ToString()+ "]" ;
+				
 				Panel.AddChildLast(Image_Background);
 				Panel.AddChildLast(CancelItem.Panel);
 				Panel.AddChildLast(MoveItem.Panel);

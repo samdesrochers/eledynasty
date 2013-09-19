@@ -38,6 +38,7 @@ namespace INF4000
 		public int ActivePlayerIndex;	
 		
 		public List<Player> Players;
+		public string WinnerName;
 		public TextImage TextImage; // Debug text
 		
 		private float SwitchTurnTime;
@@ -115,7 +116,7 @@ namespace INF4000
 					//UpdateGameRunning();
 					break;
 				case Constants.GLOBAL_STATE_GAMEOVER:
-					//UpdateGameRunning();
+					UpdateGameOver(dt);
 					break;
 			}
 		}
@@ -170,6 +171,17 @@ namespace INF4000
 				CurrentGlobalState = Constants.GLOBAL_STATE_PLAYING_TURN;
 				UI.SetPlaying();
 				SwitchTurnTime = 0.0f;
+			}
+		}
+		
+		private void UpdateGameOver(float dt)
+		{
+			SwitchTurnTime += dt;			
+			UI.AnimateGameOver(dt);
+
+			if(SwitchTurnTime >= 5.0f || Input2.GamePad0.Cross.Release) // wait 2 seconds before switching turn
+			{
+				Director.Instance.ReplaceScene(new MenuScene());
 			}
 		}
 		
@@ -296,18 +308,18 @@ namespace INF4000
 			Tile t = Cursor.SelectedTile;
 			if(t != null)
 			{
-				UI.TileStatsPanel.SetElements(t.Defense, 0, 0, t.Label, t.TerrainType, null);
+				UI.TileStatsPanel.SetElements(t.Defense, 0, 0, 0, t.Label, t.TerrainType, null);
 				UI.TileStatsPanel.SetConfiguration(Constants.UI_ELEMENT_CONFIG_STATS_TERRAIN);
 				
 				if(t.CurrentBuilding != null)
 				{
-					UI.TileStatsPanel.SetElements(t.Defense, 0, 0, t.CurrentBuilding.Label, t.CurrentBuilding.Type, t.CurrentBuilding.OwnerName);
+					UI.TileStatsPanel.SetElements(t.Defense, 0, 0, t.CurrentBuilding.GoldPerTurn, t.CurrentBuilding.Label, t.CurrentBuilding.Type, t.CurrentBuilding.OwnerName);
 					UI.TileStatsPanel.SetConfiguration(Constants.UI_ELEMENT_CONFIG_STATS_BUILDING);
 				} 
 				
 				if(t.CurrentUnit != null)
 				{
-					UI.UnitStatsPanel.SetElements(t.CurrentUnit.Armor, t.CurrentUnit.AttackDamage, t.CurrentUnit.LifePoints, t.CurrentUnit.Label, t.CurrentUnit.Type, t.CurrentUnit.OwnerName);
+					UI.UnitStatsPanel.SetElements(t.CurrentUnit.Armor, t.CurrentUnit.AttackDamage, t.CurrentUnit.LifePoints, 0, t.CurrentUnit.Label, t.CurrentUnit.Type, t.CurrentUnit.OwnerName);
 					UI.UnitStatsPanel.SetConfiguration(Constants.UI_ELEMENT_CONFIG_STATS_UNIT);
 					UI.UnitStatsPanel.IsActive = true;
 				} else {
@@ -367,7 +379,10 @@ namespace INF4000
 		{
 			foreach (Player p in this.Players) {
 				if (p.Units.Count == 0)
-					return true;
+				{
+					CurrentGlobalState = Constants.GLOBAL_STATE_GAMEOVER;
+					WinnerName = Utilities.GetWinner();
+				}
 			}
 			return false;
 		}

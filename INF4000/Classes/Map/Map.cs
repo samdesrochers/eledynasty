@@ -153,13 +153,15 @@ namespace INF4000
 			if (tileType >= 50 && tileType <= 60) {
 				
 				List<int> stats = BuildingUtil.GetStatsByType(tileType);
-				Vector2i index = BuildingUtil.GetTileIndexesByType(tileType, tileOwner);
+				List<Vector2i> indexes = BuildingUtil.GetTileIndexesByType(tileType, tileOwner);
 				Building build = new Building(tileType, posx, posy, stats[0], stats[1], stats[2], stats[3], BuildingUtil.GetNameByType(tileType));
-				build.AssignGraphics(index);
+				build.AssignGraphics(indexes[0], indexes[1], indexes[2]);
 				tile.CurrentBuilding = build;
 				
 				// Assign the new building to the correct Player (if any)
 				Utilities.AssignBuildingToPlayer (build, tileOwner);
+				
+				
 			}
 			
 			return tile;

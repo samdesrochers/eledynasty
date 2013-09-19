@@ -6,28 +6,33 @@ namespace INF4000
 {
 	public static class BuildingUtil
 	{
-		public static Vector2i GetTileIndexesByType(int type, int owner)
+		public static List<Vector2i> GetTileIndexesByType(int type, int owner)
 		{
-			Vector2i index = new Vector2i (0, 0);			
+			List<Vector2i> indexes = new List<Vector2i>();
+			Vector2i indexP1 = new Vector2i (0, 0);
+			Vector2i indexP2 = new Vector2i (0, 0);
+			Vector2i indexN = new Vector2i (0, 0);
+			
 			switch (type) {
 				// FORT
 				case Constants.BUILD_FORT:
-					if(owner == 1)
-						index = new Vector2i (0, 0);
-					else
-						index = new Vector2i (1, 0);
+					indexP1 = new Vector2i (0, 0);
+					indexP2 = new Vector2i (1, 0);
+					indexN = new Vector2i (1, 0);
 					break;
 				
 				// FARM
 				case Constants.BUILD_FARM:
-					if(owner == 1)
-						index = new Vector2i (0, 1);
-					else
-						index = new Vector2i (1, 1);
+					indexP1 = new Vector2i (0, 1);
+					indexP2 = new Vector2i (1, 1);
+					indexN = new Vector2i (1, 0);
 					break;
 				
 			}
-			return index;	
+			indexes.Add(indexP1);
+			indexes.Add(indexP2);
+			indexes.Add(indexN);
+			return indexes;	
 		}
 		
 		public static List<int> GetStatsByType(int type)
@@ -77,6 +82,14 @@ namespace INF4000
 					break;
 			}			
 			return name;
+		}
+		
+		public static int GetHighLightedBuildingGoldToProduce()
+		{
+			Tile t = GameScene.Instance.CurrentMap.GetTile(GameScene.Instance.Cursor.WorldPosition);
+			if(t.CurrentBuilding != null)
+				return t.CurrentBuilding.GoldToProduce;
+			return -1;
 		}
 	}
 }

@@ -191,6 +191,7 @@ namespace INF4000
 			
 			Unselect();
 			SetInactive();
+			TryCaptureBuilding();
 		}
 		
 		public void FinalizeMove()
@@ -205,6 +206,8 @@ namespace INF4000
 			
 			if(this.Move_RadiusLeft == 0)
 				SetInactive();
+			
+			TryCaptureBuilding();
 		}
 		
 		public void RevertMove()
@@ -227,6 +230,21 @@ namespace INF4000
 			
 			GameScene.Instance.Cursor.TintToWhite();
 			GameScene.Instance.CurrentMap.UnTintAllTiles ();
+		}
+		
+		private void TryCaptureBuilding()
+		{
+			Tile t = GameScene.Instance.CurrentMap.GetTile(this.WorldPosition);
+			if(t.CurrentBuilding != null && t.CurrentBuilding.OwnerName != this.OwnerName)
+			{
+				if(t.CurrentBuilding.Type == Constants.TILE_TYPE_BUILD_FORT)
+				{
+					GameScene.Instance.CurrentGlobalState = Constants.GLOBAL_STATE_GAMEOVER; // SOMEONE JUST WON THE FREAKING GAME!
+					GameScene.Instance.WinnerName = this.OwnerName;
+					return;
+				}
+				Utilities.AssignBuildingToPlayerByName(t.CurrentBuilding, OwnerName);
+			}
 		}
 		
 		#region Utilities

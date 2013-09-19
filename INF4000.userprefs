@@ -1,25 +1,29 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\Scenes\GameScene.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\MapFiles\defaultMap.txt">
     <Files>
-      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="335" Column="30" />
-      <File FileName="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\GameActions.cs" Line="158" Column="58" />
-      <File FileName="INF4000\Classes\GameObjects\Building.cs" Line="56" Column="26" />
-      <File FileName="INF4000\Classes\GameObjects\Unit.cs" Line="233" Column="15" />
-      <File FileName="INF4000\Classes\GameObjects\Farmer.cs" Line="25" Column="69" />
-      <File FileName="INF4000\Classes\Misc\Constants.cs" Line="74" Column="20" />
-      <File FileName="INF4000\Classes\Map\Map.cs" Line="191" Column="57" />
-      <File FileName="INF4000\Classes\Misc\Utilities.cs" Line="203" Column="46" />
-      <File FileName="INF4000\Classes\Map\Tile.cs" Line="30" Column="42" />
-      <File FileName="INF4000\Classes\GameObjects\Player.cs" Line="104" Column="27" />
-      <File FileName="INF4000\Classes\Misc\BuildingUtil.cs" Line="53" Column="18" />
+      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="113" Column="34" />
+      <File FileName="INF4000\Classes\Misc\BuildingUtil.cs" Line="87" Column="17" />
+      <File FileName="INF4000\Classes\GameObjects\Unit.cs" Line="211" Column="1" />
+      <File FileName="INF4000\Classes\Scenes\MenuScene.cs" Line="41" Column="17" />
+      <File FileName="INF4000\Classes\UI\GameUI.cs" Line="126" Column="4" />
+      <File FileName="INF4000\Classes\Misc\Utilities.cs" Line="48" Column="1" />
+      <File FileName="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\GameActions.cs" Line="120" Column="1" />
+      <File FileName="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\AppMain.cs" Line="23" Column="1" />
+      <File FileName="INF4000\MapFiles\defaultMap.txt" Line="116" Column="11" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameUtilities\BattleManager.cs" line="74" />
-      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Unit.cs" line="181" />
-      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Unit.cs" line="192" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="383" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Unit.cs" line="242" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Unit.cs" line="241" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Unit.cs" line="240" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="151" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="152" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="153" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="155" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="156" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>

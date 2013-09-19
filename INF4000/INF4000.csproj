@@ -121,5 +121,6 @@
     <Content Include="Assets\UI\Icons\fort_ico.png" />
     <Content Include="Assets\UI\Icons\grass_ico.png" />
     <Content Include="Assets\UI\Icons\road_ico.png" />
+    <Content Include="Assets\UI\gold_ico.png" />
   </ItemGroup>
 </Project>
