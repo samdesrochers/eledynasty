@@ -57,8 +57,18 @@ namespace INF4000
 					break;
 				
 				// TREES
+				case Constants.TILE_TYPE_TREES_1:
+					idleIndex = new Vector2i (0, 2);
+					activeIndex = new Vector2i(1, 2);
+					targetIndex = new Vector2i(2, 2);
+					break;
 				
 				// MOUTAINS
+				case Constants.TILE_TYPE_HILL:
+					idleIndex = new Vector2i (0, 1);
+					activeIndex = new Vector2i(1, 1);
+					targetIndex = new Vector2i(2, 1);
+					break;
 			}
 			
 			indexes.Add(idleIndex);
@@ -88,12 +98,20 @@ namespace INF4000
 				case Constants.TILE_TYPE_ROAD_HV_LEFT:
 				case Constants.TILE_TYPE_ROAD_HV_RIGHT:
 					name = "Road";
-					defense = 2;
+					defense = 1;
 					break;
 				
 				// TREES
+				case Constants.TILE_TYPE_TREES_1:
+					name = "Forest";
+					defense = 2;
+					break;
 				
 				// MOUTAINS
+				case Constants.TILE_TYPE_HILL:
+					name = "Hills";
+					defense = 4;
+					break;
 			}
 			
 			return new Tuple<int, string>(defense, name);

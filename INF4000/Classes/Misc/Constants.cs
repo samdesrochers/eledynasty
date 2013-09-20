@@ -45,6 +45,9 @@ namespace INF4000
 		public const int TILE_TYPE_BUILD_ARCHERY 	= 53;
 		public const int TILE_TYPE_BUILD_STABLES	= 54;
 		public const int TILE_TYPE_BUILD_WIZARD		= 55;
+		public const int TILE_TYPE_HILL				= 80;
+		public const int TILE_TYPE_TREES_1			= 81;
+
 		
 		/*******************************
 		 * 	BUILDING CONSTANTS
