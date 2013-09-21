@@ -1,0 +1,13 @@
+c:\users\sam\documents\visual studio 2012\Projects\MapCreator\MapCreator\bin\Debug\MapCreator.exe.config
+c:\users\sam\documents\visual studio 2012\Projects\MapCreator\MapCreator\bin\Debug\MapCreator.exe
+c:\users\sam\documents\visual studio 2012\Projects\MapCreator\MapCreator\bin\Debug\MapCreator.pdb
+c:\users\sam\documents\visual studio 2012\Projects\MapCreator\MapCreator\obj\Debug\MapCreator.csprojResolveAssemblyReference.cache
+c:\users\sam\documents\visual studio 2012\Projects\MapCreator\MapCreator\obj\Debug\MainWindow.baml
+c:\users\sam\documents\visual studio 2012\Projects\MapCreator\MapCreator\obj\Debug\MainWindow.g.cs
+c:\users\sam\documents\visual studio 2012\Projects\MapCreator\MapCreator\obj\Debug\App.g.cs
+c:\users\sam\documents\visual studio 2012\Projects\MapCreator\MapCreator\obj\Debug\MapCreator_MarkupCompile.cache
+c:\users\sam\documents\visual studio 2012\Projects\MapCreator\MapCreator\obj\Debug\MapCreator.g.resources
+c:\users\sam\documents\visual studio 2012\Projects\MapCreator\MapCreator\obj\Debug\MapCreator.Properties.Resources.resources
+c:\users\sam\documents\visual studio 2012\Projects\MapCreator\MapCreator\obj\Debug\MapCreator.csproj.GenerateResource.Cache
+c:\users\sam\documents\visual studio 2012\Projects\MapCreator\MapCreator\obj\Debug\MapCreator.exe
+c:\users\sam\documents\visual studio 2012\Projects\MapCreator\MapCreator\obj\Debug\MapCreator.pdb
