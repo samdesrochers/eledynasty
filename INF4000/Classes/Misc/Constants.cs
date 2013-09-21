@@ -32,7 +32,6 @@ namespace INF4000
 		
 		// Terrain - Types
 		public const int TILE_TYPE_GRASS_MIDDLE 	= 10;
-		public const int TILE_TYPE_WATER_MIDDLE 	= 11;
 		public const int TILE_TYPE_ROAD_HORIZONTAL 	= 12;
 		public const int TILE_TYPE_ROAD_VERTICAL 	= 13;
 		public const int TILE_TYPE_ROAD_VH_LEFT		= 40;
@@ -47,7 +46,27 @@ namespace INF4000
 		public const int TILE_TYPE_BUILD_WIZARD		= 55;
 		public const int TILE_TYPE_HILL				= 80;
 		public const int TILE_TYPE_TREES_1			= 81;
-
+		
+		// Water 
+		public const int TILE_TYPE_WATER_MIDDLE 	= 60;
+		public const int TILE_TYPE_WATER_LEFT 		= 61;
+		public const int TILE_TYPE_WATER_RIGHT	 	= 62;
+		public const int TILE_TYPE_WATER_UP			= 63;
+		public const int TILE_TYPE_WATER_DOWN	 	= 64;
+		public const int TILE_TYPE_WATER_UP_LEFT 	= 65;
+		public const int TILE_TYPE_WATER_UP_RIGHT 	= 66;
+		public const int TILE_TYPE_WATER_DW_LEFT 	= 67;
+		public const int TILE_TYPE_WATER_DW_RIGHT 	= 68;
+		public const int TILE_TYPE_WATER_CAN_HORIZ 	= 69;
+		public const int TILE_TYPE_WATER_CAN_VERT 	= 70;
+		
+		public const int TILE_TYPE_WATER_MID_EARTH_UP_LEFT 		= 71;
+		public const int TILE_TYPE_WATER_MID_EARTH_UP_DW_LEFT 	= 72;
+		public const int TILE_TYPE_WATER_LEFT_EARTH_UP_RIGHT	= 73;
+		public const int TILE_TYPE_WATER_UP_RIGHT_EARTH_DW_LEFT = 74;
+		public const int TILE_TYPE_WATER_UP_LEFT_EARTH_DW_RIGHT = 75;
+		public const int TILE_TYPE_WATER_UP_EARTH_DW_LEFT 		= 76;
+		public const int TILE_TYPE_WATER_MID_EARTH_UP_LF_R 		= 77;
 		
 		/*******************************
 		 * 	BUILDING CONSTANTS

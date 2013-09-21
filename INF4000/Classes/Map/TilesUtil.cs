@@ -69,6 +69,101 @@ namespace INF4000
 					activeIndex = new Vector2i(1, 1);
 					targetIndex = new Vector2i(2, 1);
 					break;
+				
+				// WATER - DEFAULT
+				case Constants.TILE_TYPE_WATER_MIDDLE:
+					idleIndex = new Vector2i (5, 5);
+					activeIndex = idleIndex;
+					targetIndex = idleIndex;
+					break;
+				case Constants.TILE_TYPE_WATER_LEFT:
+					idleIndex = new Vector2i (4, 5);
+					activeIndex = idleIndex;
+					targetIndex = idleIndex;
+					break;
+				case Constants.TILE_TYPE_WATER_RIGHT:
+					idleIndex = new Vector2i (6, 5);
+					activeIndex = idleIndex;
+					targetIndex = idleIndex;
+					break;
+				case Constants.TILE_TYPE_WATER_UP:
+					idleIndex = new Vector2i (5, 6);
+					activeIndex = idleIndex;
+					targetIndex = idleIndex;
+					break;
+				case Constants.TILE_TYPE_WATER_DOWN:
+					idleIndex = new Vector2i (5, 4);
+					activeIndex = idleIndex;
+					targetIndex = idleIndex;
+					break;
+				case Constants.TILE_TYPE_WATER_UP_LEFT:
+					idleIndex = new Vector2i (4, 6);
+					activeIndex = idleIndex;
+					targetIndex = idleIndex;
+					break;
+				case Constants.TILE_TYPE_WATER_UP_RIGHT:
+					idleIndex = new Vector2i (6, 6);
+					activeIndex = idleIndex;
+					targetIndex = idleIndex;
+					break;
+				case Constants.TILE_TYPE_WATER_DW_RIGHT:
+					idleIndex = new Vector2i (6, 4);
+					activeIndex = idleIndex;
+					targetIndex = idleIndex;
+					break;
+				case Constants.TILE_TYPE_WATER_DW_LEFT:
+					idleIndex = new Vector2i (4, 4);
+					activeIndex = idleIndex;
+					targetIndex = idleIndex;
+					break;
+				case Constants.TILE_TYPE_WATER_CAN_VERT:
+					idleIndex = new Vector2i (4, 3);
+					activeIndex = idleIndex;
+					targetIndex = idleIndex;
+					break;
+				case Constants.TILE_TYPE_WATER_CAN_HORIZ:
+					idleIndex = new Vector2i (5, 3);
+					activeIndex = idleIndex;
+					targetIndex = idleIndex;
+					break;
+				case Constants.TILE_TYPE_WATER_MID_EARTH_UP_LEFT:
+					idleIndex = new Vector2i (6, 3);
+					activeIndex = idleIndex;
+					targetIndex = idleIndex;
+					break;
+				case Constants.TILE_TYPE_WATER_MID_EARTH_UP_DW_LEFT:
+					idleIndex = new Vector2i (7, 3);
+					activeIndex = idleIndex;
+					targetIndex = idleIndex;
+					break;
+				case Constants.TILE_TYPE_WATER_LEFT_EARTH_UP_RIGHT:
+					idleIndex = new Vector2i (7, 4);
+					activeIndex = idleIndex;
+					targetIndex = idleIndex;
+					break;
+				case Constants.TILE_TYPE_WATER_UP_RIGHT_EARTH_DW_LEFT:
+					idleIndex = new Vector2i (7, 5);
+					activeIndex = idleIndex;
+					targetIndex = idleIndex;
+					break;
+				case Constants.TILE_TYPE_WATER_UP_LEFT_EARTH_DW_RIGHT:
+					idleIndex = new Vector2i (7, 6);
+					activeIndex = idleIndex;
+					targetIndex = idleIndex;
+					break;
+				case Constants.TILE_TYPE_WATER_UP_EARTH_DW_LEFT:
+					idleIndex = new Vector2i (6, 7);
+					activeIndex = idleIndex;
+					targetIndex = idleIndex;
+					break;
+				case Constants.TILE_TYPE_WATER_MID_EARTH_UP_LF_R:
+					idleIndex = new Vector2i (7, 7);
+					activeIndex = idleIndex;
+					targetIndex = idleIndex;
+					break;
+				
+				
+				
 			}
 			
 			indexes.Add(idleIndex);
@@ -111,6 +206,29 @@ namespace INF4000
 				case Constants.TILE_TYPE_HILL:
 					name = "Hills";
 					defense = 4;
+					break;
+				
+				// WATER
+				case Constants.TILE_TYPE_WATER_UP:
+				case Constants.TILE_TYPE_WATER_MIDDLE:
+				case Constants.TILE_TYPE_WATER_LEFT:
+				case Constants.TILE_TYPE_WATER_RIGHT:
+				case Constants.TILE_TYPE_WATER_DOWN:
+				case Constants.TILE_TYPE_WATER_UP_LEFT:
+			 	case Constants.TILE_TYPE_WATER_UP_RIGHT:
+				case Constants.TILE_TYPE_WATER_DW_LEFT:
+				case Constants.TILE_TYPE_WATER_DW_RIGHT:
+				case Constants.TILE_TYPE_WATER_CAN_HORIZ:
+				case Constants.TILE_TYPE_WATER_CAN_VERT:		
+				case Constants.TILE_TYPE_WATER_MID_EARTH_UP_LEFT:
+				case Constants.TILE_TYPE_WATER_MID_EARTH_UP_DW_LEFT:
+				case Constants.TILE_TYPE_WATER_LEFT_EARTH_UP_RIGHT:
+				case Constants.TILE_TYPE_WATER_UP_RIGHT_EARTH_DW_LEFT:
+				case Constants.TILE_TYPE_WATER_UP_LEFT_EARTH_DW_RIGHT:
+				case Constants.TILE_TYPE_WATER_UP_EARTH_DW_LEFT:
+				case Constants.TILE_TYPE_WATER_MID_EARTH_UP_LF_R:
+					name = "Water";
+					defense = 0;
 					break;
 			}
 			

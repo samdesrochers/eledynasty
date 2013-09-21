@@ -41,7 +41,7 @@ namespace INF4000
 			CanProduceThisTurn = true;
 			
 			// Set size, rotation and position
-			Quad.S = new Vector2(64, 80);
+			Quad.S = new Vector2(64, 100);
 			Position = new Vector2(posX * Constants.TILE_SIZE, posY * Constants.TILE_SIZE);			
 			WorldPosition = new Vector2i(posX, posY);
 		}
