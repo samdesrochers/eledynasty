@@ -611,7 +611,7 @@ namespace INF4000
 		private void CrossPressed_LastStateAttackPanelActive() // This activates combat
 		{
 			// State attaque va survenir
-			BattleViewer.SetBattleManager(ActivePlayer.ActiveUnit, ActivePlayer.TargetUnit, 
+			BattleViewer.PrepareBattleAnimation(ActivePlayer.ActiveUnit, ActivePlayer.TargetUnit, 
 			                       		  CurrentMap.GetTile(Cursor.WorldPosition),
 			                       		  CurrentMap.GetTile(ActivePlayer.ActiveUnit.WorldPosition));
 			

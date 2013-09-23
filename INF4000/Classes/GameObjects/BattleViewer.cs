@@ -17,6 +17,7 @@ namespace INF4000
 		private SpriteTile AttackerSprite;
 		private SpriteTile DefenderSprite;
 		
+		private SpriteTile BackgroundSprite;
 		private SpriteTile TerrainSprite;
 		private Vector2i terrainIndex;
 		
@@ -36,7 +37,7 @@ namespace INF4000
 			AnimationTime = 0.0f;
 		}
 		
-		public void SetBattleManager(Unit attacker, Unit defender, Tile targetTile, Tile originTile)
+		public void PrepareBattleAnimation(Unit attacker, Unit defender, Tile targetTile, Tile originTile)
 		{	
 			BattleManager = new BattleManager(attacker, defender, targetTile, originTile);
 			BattleManager.ComputeDamageDealt();
@@ -54,11 +55,13 @@ namespace INF4000
 			AttackerDamage.Text = "-" + BattleManager.Damages[0].ToString();
 			AttackerDamage.Quad.S = new Vector2(92, 92);
 			AttackerDamage.Position = new Vector2(Center.X + 100, Center.Y);
+			AttackerDamage.Alpha = 1.0f;
 			AttackerDamage.Visible = false;
 			
 			DefenderDamage.Text = "-" + BattleManager.Damages[1].ToString();
 			DefenderDamage.Quad.S = new Vector2(92, 92);
 			DefenderDamage.Position = new Vector2(Center.X - 100, Center.Y);
+			DefenderDamage.Alpha = 1.0f;
 			DefenderDamage.Visible = false;
 			
 			SetGraphicsOverScene();
@@ -68,6 +71,12 @@ namespace INF4000
 		{
 			Camera2D camera = GameScene.Instance.Camera as Camera2D;
 			Center = camera.Center;
+			
+			//Background
+			BackgroundSprite.Position = new Vector2(Center.X - BackgroundSprite.Quad.S.X/2,
+			                                        Center.Y - BackgroundSprite.Quad.S.Y/2);
+			BackgroundSprite.Color.A = 0;
+			GameScene.Instance.AddChild(BackgroundSprite);
 			
 			// Terrain
 			TerrainSprite.Position = new Vector2(Center.X - TerrainSprite.Quad.S.X/2,
@@ -90,41 +99,26 @@ namespace INF4000
 		
 		private void CleanGraphicsOverScene()
 		{	
+			GameScene.Instance.RemoveChild(BackgroundSprite, false);
 			GameScene.Instance.RemoveChild(TerrainSprite, false);
 			GameScene.Instance.RemoveChild(AttackerSprite, false);
 			GameScene.Instance.RemoveChild(DefenderSprite, false);
-			GameScene.Instance.RemoveChild(AttackerDamage, false);
-			GameScene.Instance.RemoveChild(DefenderDamage, false);
-
+			GameScene.Instance.RemoveChild(AttackerDamage, true);
+			GameScene.Instance.RemoveChild(DefenderDamage, true);
 		}
 		
 		private void LoadGraphics()
 		{
-			terrainIndex = new Vector2i(0,0);
+			terrainIndex = new Vector2i(0,1);
 			
-			// Create the tile sprite for specific terrain type
+			// Create the tile sprite for specific terrain type and background
+			BackgroundSprite = new SpriteTile(AssetsManager.Instance.BattleTextureInfo, new Vector2i(0,0));
+			BackgroundSprite.Quad = this.Quad;
+			BackgroundSprite.Quad.S = new Vector2(960,544);
+			
 			TerrainSprite = new SpriteTile(AssetsManager.Instance.BattleTextureInfo, terrainIndex);
 			TerrainSprite.Quad = this.Quad;
 			TerrainSprite.Quad.S = new Vector2(640,320);
-		}
-		
-		private void PickCurrentTerrain()
-		{
-			switch (BattleManager.ContestedTile.TerrainType) 
-			{
-				case 0: break;
-			}
-			TerrainSprite.TileIndex2D = terrainIndex;
-		}
-		
-		private void AttackInGame()
-		{
-			BattleManager.ExecuteAttack();
-			BattleManager.ExecuteCombatOutcome();
-			BattleManager.ExecuteFinalizePostCombat();	
-		
-			GameScene.Instance.CurrentGameState = Constants.GAME_STATE_SELECTION_INACTIVE;
-			GameScene.Instance.CurrentGlobalState = Constants.GLOBAL_STATE_PLAYING_TURN;
 		}
 		
 		public override void Update(float dt)
@@ -138,7 +132,7 @@ namespace INF4000
 				FirstPass = false;
 			}
 					
-			if(AnimationTime >= 2.0f) 
+			if(AnimationTime >= 2.4f) 
 			{		
 				// Prepare next round
 				AnimationTime = 0.0f;			
@@ -151,11 +145,16 @@ namespace INF4000
 				// Execute real attack on game map
 				AttackInGame();
 				
+				// Reset correct Playing UI
+				GameScene.Instance.UI.SetPlaying();
+				
 			} else {
 				
 				// Animate the scene
-				if(TerrainSprite.Color.A < 1)
+				if(TerrainSprite.Color.A < 1) {
 					TerrainSprite.Color.A += 2*dt;
+					BackgroundSprite.Color.A += 1.2f*dt;
+				}
 				
 				// Animate the units
 				if(AnimationTime < 1.0f && AnimationTime > 0.4f && AttackerSprite.Position.X < Center.X + 250 && DefenderSprite.Position.X > Center.X - 250)
@@ -177,9 +176,28 @@ namespace INF4000
 					DefenderDamage.Alpha -= 0.5f*dt;
 					
 					AttackerDamage.Position = new Vector2(AttackerDamage.Position.X, AttackerDamage.Position.Y + 10*dt);
-					DefenderDamage.UpdatePositionBattle(new Vector2(DefenderDamage.Position.X, DefenderDamage.Position.Y + 10*dt));
+					DefenderDamage.Position = new Vector2(DefenderDamage.Position.X, DefenderDamage.Position.Y + 10*dt);
 				}
 			} 
+		}
+		
+		private void AttackInGame()
+		{
+			BattleManager.ExecuteAttack();
+			BattleManager.ExecuteCombatOutcome();
+			BattleManager.ExecuteFinalizePostCombat();	
+		
+			GameScene.Instance.CurrentGameState = Constants.GAME_STATE_SELECTION_INACTIVE;
+			GameScene.Instance.CurrentGlobalState = Constants.GLOBAL_STATE_PLAYING_TURN;
+		}
+		
+		private void PickCurrentTerrain()
+		{
+			switch (BattleManager.ContestedTile.TerrainType) 
+			{
+				case 0: break;
+			}
+			TerrainSprite.TileIndex2D = terrainIndex;
 		}
 	}
 }

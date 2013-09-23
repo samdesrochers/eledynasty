@@ -7,6 +7,7 @@ using Sce.PlayStation.Core.Audio;
 using Sce.PlayStation.Core.Input;
 using Sce.PlayStation.Core.Graphics;
 using Sce.PlayStation.Core.Imaging;
+using Sce.PlayStation.HighLevel.UI;
 
 namespace INF4000
 {
@@ -30,7 +31,7 @@ namespace INF4000
 			IsHidden = true;
 		}
 		
-		public Font font;
+		public UIFont font;
 		private List<int> Size;
 		public float Alpha;
 		

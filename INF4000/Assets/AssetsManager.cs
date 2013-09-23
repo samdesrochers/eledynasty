@@ -25,11 +25,11 @@ namespace INF4000
 		
 		public bool Loaded;
 		
-		public Font PixelFont;
-		public Font PixelFont_18;
-		public Font PixelFont_48;
-		public Font XenoFont;
-		public Font XenoFont_24;
+		public UIFont PixelFont;
+		public UIFont PixelFont_18;
+		public UIFont PixelFont_48;
+		public UIFont XenoFont;
+		public UIFont XenoFont_24;
 		
 		public Texture2D UnitsTexture;
 		public TextureInfo UnitsTextureInfo;
@@ -73,11 +73,11 @@ namespace INF4000
 				try
 				{
 					// Fonts
-					PixelFont = new Font("/Application/Assets/fonts/half_bold_pixel-7.ttf", 24, FontStyle.Bold);
-					PixelFont_18 = new Font("/Application/Assets/fonts/half_bold_pixel-7.ttf", 18, FontStyle.Bold);
-					PixelFont_48 = new Font("/Application/Assets/fonts/half_bold_pixel-7.ttf", 48, FontStyle.Bold);
-					XenoFont = new Font("/Application/Assets/fonts/Xenogears_font.ttf", 72, FontStyle.Regular);
-					XenoFont_24 = new Font("/Application/Assets/fonts/Xenogears_font.ttf", 24, FontStyle.Regular);
+					PixelFont = new UIFont("/Application/Assets/fonts/half_bold_pixel-7.ttf", 24, FontStyle.Bold);
+					PixelFont_18 = new UIFont("/Application/Assets/fonts/half_bold_pixel-7.ttf", 18, FontStyle.Bold);
+					PixelFont_48 = new UIFont("/Application/Assets/fonts/half_bold_pixel-7.ttf", 48, FontStyle.Bold);
+					XenoFont = new UIFont("/Application/Assets/fonts/Xenogears_font.ttf", 72, FontStyle.Regular);
+					XenoFont_24 = new UIFont("/Application/Assets/fonts/Xenogears_font.ttf", 24, FontStyle.Regular);
 					
 					//Units Textures
 					UnitsTexture = new Texture2D ("/Application/Assets/Units/units.png", false);
@@ -93,7 +93,7 @@ namespace INF4000
 					
 					// Battle Terrain's Textures
 					BattleTexture = new Texture2D ("/Application/Assets/BattleTerrain/battleTerrain.png", false);
-					BattleTextureInfo = new TextureInfo (BattleTexture, new Vector2i (2, 1));
+					BattleTextureInfo = new TextureInfo (BattleTexture, new Vector2i (2, 2));
 					
 					// UI Elements
 					Image_TurnSwitch_BG = new ImageAsset("/Application/Assets/UI/turnswitch_bg.png",false);
