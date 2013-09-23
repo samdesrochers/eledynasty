@@ -28,7 +28,6 @@ namespace INF4000
 		
 		public GameUI ()
 		{
-			// UI -----------------
 			MainPanel = new Panel();
             MainPanel.Width = 960;
             MainPanel.Height = 544;
@@ -70,7 +69,7 @@ namespace INF4000
 			Label_TurnSwitchMessage_Gold.Text = "Turn " + GameScene.Instance.CurrentTurnCount;
 			Label_TurnSwitchMessage_Gold.Width = 300;
 			Label_TurnSwitchMessage_Gold.Height = 40;
-			Label_TurnSwitchMessage_Gold.SetPosition(450, 280);
+			Label_TurnSwitchMessage_Gold.SetPosition(470, 280);
 			Label_TurnSwitchMessage_Gold.Font = AssetsManager.Instance.XenoFont_24;
 			Label_TurnSwitchMessage_Gold.Alpha = 0.0f;
 			Label_TurnSwitchMessage_Gold.TextColor = new UIColor(1, 0.4f, 0, 1);
@@ -102,6 +101,10 @@ namespace INF4000
 			Label_TurnSwitchMessage.Visible = false;
 			Label_TurnSwitchMessage_Gold.Visible = false;
 			Image_TurnSwitchBG.Visible = false;
+			ActionPanel.Panel.Visible = false;
+			OddsPanel.Panel.Visible = false;
+			TileStatsPanel.Panel.Visible = false;
+			UnitStatsPanel.Panel.Visible = false;
 		}
 		
 		public void AnimateSwitchitngTurn(float dt)
@@ -127,7 +130,14 @@ namespace INF4000
 			Image_TurnSwitchBG.Alpha = 0;
 			Label_TurnSwitchMessage_Gold.Alpha = 0;
 			SetNoneVisible();
+			
+			TileStatsPanel.Panel.Visible = true;
 			Button_EndTurn.Visible = true;
+		}
+		
+		public void SetBattleAnimation()
+		{
+			SetNoneVisible();
 		}
 		
 		public void SetPause()

@@ -130,9 +130,8 @@ namespace INF4000
 		}
 		
 		public static void AttackUnit(Unit attacker, Unit defender, Tile target, Tile origin)
-		{
-			Utilities.RemoveUnitFromTileByPosition(GameScene.Instance.ActivePlayer.ActiveUnit.Path.Origin);
-			BattleManager battle = new BattleManager(attacker, defender,  target, origin);
+		{		
+			BattleManager battle = new BattleManager(attacker, defender, target, origin);
 			
 			battle.ExecuteAttack();
 			battle.ExecuteCombatOutcome();

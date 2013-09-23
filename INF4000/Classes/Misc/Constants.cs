@@ -25,6 +25,7 @@ namespace INF4000
 		public const int GLOBAL_STATE_GAMEOVER 			= 12;
 		public const int GLOBAL_STATE_PAUSE 			= 13;
 		public const int GLOBAL_STATE_LOADING			= 14;
+		public const int GLOBAL_STATE_BATTLE_ANIMATION	= 15;
 		
 		/*******************************
 		 * 	TERRAIN CONSTANTS
@@ -93,14 +94,14 @@ namespace INF4000
 		public const int UNIT_TYPE_WIZARD 	= 25;		
 		
 		// Unit - Life Points 
-		public const int UNIT_HP_FARMER = 5;
+		public const int UNIT_HP_FARMER = 10;
 		public const int UNIT_HP_SWORD 	= 16;
 		public const int UNIT_HP_ARCHER = 10;
 		public const int UNIT_HP_KNIGHT = 20;
 		public const int UNIT_HP_WIZARD = 7;
 		
 		// Unit - Attack Damage 
-		public const int UNIT_AD_FARMER = 3;
+		public const int UNIT_AD_FARMER = 4;
 		public const int UNIT_AD_SWORD 	= 8;
 		public const int UNIT_AD_ARCHER = 5;
 		public const int UNIT_AD_KNIGHT = 10;

@@ -41,6 +41,8 @@ namespace INF4000
 		public string WinnerName;
 		public TextImage TextImage; // Debug text
 		
+		public BattleViewer BattleViewer;
+		
 		private float SwitchTurnTime;
 		public int CurrentTurnCount = 1;
 		
@@ -83,6 +85,8 @@ namespace INF4000
 			TextImage = new TextImage ("", new Vector2(30,30));
 			this.AddChild (TextImage);
 			
+			BattleViewer = new BattleViewer();
+			
 			UI = new GameUI();
 			UI.ActivePlayerIcon.Image = ActivePlayer.Icon;
 			
@@ -111,6 +115,9 @@ namespace INF4000
 					break;
 				case Constants.GLOBAL_STATE_SWITCHING_TURN:
 					UpdateGameSwitchingTurn(dt);
+					break;
+				case Constants.GLOBAL_STATE_BATTLE_ANIMATION:
+					UpdateBattleAnimation(dt);
 					break;
 				case Constants.GLOBAL_STATE_PAUSE:
 					//UpdateGameRunning();
@@ -172,6 +179,11 @@ namespace INF4000
 				UI.SetPlaying();
 				SwitchTurnTime = 0.0f;
 			}
+		}
+		
+		private void UpdateBattleAnimation(float dt)
+		{
+			BattleViewer.Update(dt);
 		}
 		
 		private void UpdateGameOver(float dt)
@@ -598,9 +610,12 @@ namespace INF4000
 		
 		private void CrossPressed_LastStateAttackPanelActive() // This activates combat
 		{
-			GameActions.AttackUnit(ActivePlayer.ActiveUnit, ActivePlayer.TargetUnit, 
-			                       CurrentMap.GetTile(Cursor.WorldPosition),
-			                       CurrentMap.GetTile(ActivePlayer.ActiveUnit.WorldPosition));
+			// State attaque va survenir
+			BattleViewer.SetBattleManager(ActivePlayer.ActiveUnit, ActivePlayer.TargetUnit, 
+			                       		  CurrentMap.GetTile(Cursor.WorldPosition),
+			                       		  CurrentMap.GetTile(ActivePlayer.ActiveUnit.WorldPosition));
+			
+			CurrentGlobalState = Constants.GLOBAL_STATE_BATTLE_ANIMATION;
 		}
 		
 		#endregion

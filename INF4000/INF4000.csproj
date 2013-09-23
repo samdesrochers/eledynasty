@@ -65,6 +65,7 @@
     <Compile Include="Classes\Map\TilesUtil.cs" />
     <Compile Include="Classes\GameUtilities\BattleManager.cs" />
     <Compile Include="Classes\UI\AttackDamagePanel.cs" />
+    <Compile Include="Classes\GameObjects\BattleViewer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -94,6 +95,7 @@
     <Folder Include="Assets\Buildings\" />
     <Folder Include="Classes\UI\" />
     <Folder Include="Assets\UI\Icons\" />
+    <Folder Include="Assets\BattleTerrain\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Audio\menu.mp3" />
@@ -122,5 +124,6 @@
     <Content Include="Assets\UI\Icons\grass_ico.png" />
     <Content Include="Assets\UI\Icons\road_ico.png" />
     <Content Include="Assets\UI\gold_ico.png" />
+    <Content Include="Assets\BattleTerrain\battleTerrain.png" />
   </ItemGroup>
 </Project>

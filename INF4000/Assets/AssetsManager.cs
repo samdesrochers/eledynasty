@@ -27,6 +27,7 @@ namespace INF4000
 		
 		public Font PixelFont;
 		public Font PixelFont_18;
+		public Font PixelFont_48;
 		public Font XenoFont;
 		public Font XenoFont_24;
 		
@@ -38,6 +39,9 @@ namespace INF4000
 		
 		public Texture2D BuildingsTexture;
 		public TextureInfo BuildingsTextureInfo;
+		
+		public Texture2D BattleTexture;
+		public TextureInfo BattleTextureInfo;
 		
 		public ImageAsset Image_TurnSwitch_BG;
 		public ImageAsset Image_Player_1_Icon;
@@ -71,6 +75,7 @@ namespace INF4000
 					// Fonts
 					PixelFont = new Font("/Application/Assets/fonts/half_bold_pixel-7.ttf", 24, FontStyle.Bold);
 					PixelFont_18 = new Font("/Application/Assets/fonts/half_bold_pixel-7.ttf", 18, FontStyle.Bold);
+					PixelFont_48 = new Font("/Application/Assets/fonts/half_bold_pixel-7.ttf", 48, FontStyle.Bold);
 					XenoFont = new Font("/Application/Assets/fonts/Xenogears_font.ttf", 72, FontStyle.Regular);
 					XenoFont_24 = new Font("/Application/Assets/fonts/Xenogears_font.ttf", 24, FontStyle.Regular);
 					
@@ -85,6 +90,10 @@ namespace INF4000
 					// Buildings Textures
 					BuildingsTexture = new Texture2D ("/Application/Assets/Buildings/build_1.png", false);
 					BuildingsTextureInfo = new TextureInfo (BuildingsTexture, new Vector2i (2, 2));
+					
+					// Battle Terrain's Textures
+					BattleTexture = new Texture2D ("/Application/Assets/BattleTerrain/battleTerrain.png", false);
+					BattleTextureInfo = new TextureInfo (BattleTexture, new Vector2i (2, 1));
 					
 					// UI Elements
 					Image_TurnSwitch_BG = new ImageAsset("/Application/Assets/UI/turnswitch_bg.png",false);
@@ -122,6 +131,12 @@ namespace INF4000
 			
 			TerrainTexture.Dispose();
 			TerrainTextureInfo.Dispose();
+			
+			BuildingsTexture.Dispose();
+			BuildingsTextureInfo.Dispose();
+			
+			BattleTexture.Dispose();
+			BattleTextureInfo.Dispose();			
 		}
 	}
 }

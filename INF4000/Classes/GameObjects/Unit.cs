@@ -123,7 +123,7 @@ namespace INF4000
 		public void Update()
 		{
 			Path.Update();
-			HealthDisplay.UpdatePosition(new Vector2(this.Position.X + 15, this.Position.Y));
+			HealthDisplay.UpdatePositionUnit(new Vector2(this.Position.X + 15, this.Position.Y));
 			
 			if(Path.Sequence.Count > 0)
 			{
