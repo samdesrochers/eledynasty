@@ -23,6 +23,8 @@ namespace INF4000
 		public ImageBox Image_Background;
 		
 		public Vector2 Position;
+		public Vector2 Right_Anchor;
+		public Vector2 Left_Anchor;
 		public int Configuration;
 		
 		private bool _IsActive;
@@ -39,6 +41,7 @@ namespace INF4000
 		public StatsPanel (Vector2 pos)
 		{
 			this.Position = pos;
+			this.Right_Anchor = pos;
 			this.Configuration = 0;
 			
 			Panel = new Panel();
@@ -155,6 +158,16 @@ namespace INF4000
 					Panel.Width = 210;
 					break;
 			}
+		}
+		
+		public void SetToRightOfScreen()
+		{
+			Panel.SetPosition(Right_Anchor.X, Right_Anchor.Y);
+		}
+		
+		public void SetToLeftOfScreen()
+		{
+			Panel.SetPosition(Left_Anchor.X, Left_Anchor.Y);
 		}
 		
 		private void ResetPanel()

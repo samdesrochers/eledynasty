@@ -124,6 +124,20 @@ namespace INF4000
 			GameScene.Instance.UI.TileStatsPanel.Panel.Visible = false;
 			GameScene.Instance.UI.UnitStatsPanel.Panel.Visible = false;
 		}
+		
+		public static void AdjustStatsPanelLocation()
+		{
+			Camera2D camera = GameScene.Instance.Camera as Camera2D;
+			
+			if(GameScene.Instance.Cursor.Position.X > camera.Center.X)
+			{
+				GameScene.Instance.UI.TileStatsPanel.SetToLeftOfScreen();
+				GameScene.Instance.UI.UnitStatsPanel.SetToLeftOfScreen();
+			} else {
+				GameScene.Instance.UI.TileStatsPanel.SetToRightOfScreen();
+				GameScene.Instance.UI.UnitStatsPanel.SetToRightOfScreen();
+			}
+		}
 		#endregion
 		
 		public static void LoadAllSpritesFromPlayer(List<Player> players, Node parent)

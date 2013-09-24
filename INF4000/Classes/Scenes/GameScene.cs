@@ -210,6 +210,7 @@ namespace INF4000
 //			} else {
 //				camera.Center = new Vector2 (camera.Center.X, camera.Center.Y - 5 * data.AnalogRightY);
 //			}		
+			Utilities.AdjustStatsPanelLocation();
 		}
 		
 		public void UpdateCameraPositionByCursor ()

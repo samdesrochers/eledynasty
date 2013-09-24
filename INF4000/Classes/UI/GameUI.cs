@@ -78,7 +78,9 @@ namespace INF4000
 			ActionPanel = new ActionPanel(new Vector2(10, 10));
 			OddsPanel = new AttackDamagePanel(new Vector2(800,130));
 			TileStatsPanel = new StatsPanel(new Vector2(800, 20));
+			TileStatsPanel.Left_Anchor = new Vector2(20, 20);
 			UnitStatsPanel = new StatsPanel(new Vector2(665, 20));
+			UnitStatsPanel.Left_Anchor = new Vector2(155, 20);
 			
 			MainPanel.AddChildLast(Image_TurnSwitchBG);
 			MainPanel.AddChildLast(Label_TurnSwitchMessage);
