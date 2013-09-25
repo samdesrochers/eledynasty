@@ -6,7 +6,7 @@ namespace INF4000
 	{
 		// General - Character Names
 		public const string CHAR_KENJI = "Kenji";
-		public const string CHAR_MASUKA = "Masuka";
+		public const string CHAR_GOHZU = "Gohzu";
 		
 		// General - Tile Size
 		public const int TILE_SIZE = 64;

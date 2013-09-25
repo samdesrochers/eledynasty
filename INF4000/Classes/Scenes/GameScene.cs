@@ -64,7 +64,8 @@ namespace INF4000
 			Players.Add (player1);
 			
 			Player player2 = new HumanPlayer ();
-			Players.Add (player2);	
+			player2.Icon = AssetsManager.Instance.Image_Gohzu_UI_Turn;
+			Players.Add (player2);				
 			
 			// Create the selected Map and its assets
 			CurrentMap = new Map (@"/Application/MapFiles/defaultMap.txt");   
@@ -90,6 +91,7 @@ namespace INF4000
 			UI = new GameUI();
 			UI.ActivePlayerIcon.Image = ActivePlayer.Icon;
 			
+			ActivePlayer.IsStartingTurn = true;
 			SwitchTurnTime = 0.0f;	
 			CurrentTurnCount = 1;
 									
@@ -132,7 +134,9 @@ namespace INF4000
 		private void UpdateGameRunning()
 		{
 			if(ActivePlayer.IsStartingTurn)
+			{
 				InitPlayerTurn();
+			}
 			
 			UpdateCameraPosition ();
 
@@ -345,9 +349,7 @@ namespace INF4000
 		#region Game Loop Methods
 		private void InitPlayerTurn()
 		{
-			ActivePlayer.IsStartingTurn = false;
-			
-			
+			ActivePlayer.IsStartingTurn = false;	
 		}
 		
 		private void SwitchToNextPlayer()
@@ -386,6 +388,7 @@ namespace INF4000
 			
 			//Reset UI
 			UI.ActionPanel.SetActive(false);
+			
 		}
 		
 		private bool CheckIsGameOver ()
@@ -415,7 +418,7 @@ namespace INF4000
 			
 		private void ExecuteTurn ()
 		{
-			TextImage.Text = ActivePlayer.Name + " " + ActivePlayer.Gold + "g";
+			TextImage.Text = ActivePlayer.Gold + "g";
 		}
 		
 		private bool CheckIfTurnIsOver()

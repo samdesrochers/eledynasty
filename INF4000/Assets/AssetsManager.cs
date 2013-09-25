@@ -57,6 +57,9 @@ namespace INF4000
 		public ImageAsset Image_Panel_HP_Icon;
 		public ImageAsset Image_Panel_Gld_Icon;
 		
+		public ImageAsset Image_Kenji_UI_Turn;
+		public ImageAsset Image_Gohzu_UI_Turn;
+		
 		public ImageAsset Image_Icon_Fort;
 		public ImageAsset Image_Icon_Farm;
 		public ImageAsset Image_Icon_Grass;
@@ -114,6 +117,9 @@ namespace INF4000
 					Image_Icon_Farm = new ImageAsset("/Application/Assets/UI/Icons/farm_ico.png",false);
 					Image_Icon_Grass = new ImageAsset("/Application/Assets/UI/Icons/grass_ico.png",false);
 					Image_Icon_Road = new ImageAsset("/Application/Assets/UI/Icons/road_ico.png",false);
+					
+					Image_Kenji_UI_Turn = new ImageAsset("/Application/Assets/UI/kenji_turn.png",false);
+					Image_Gohzu_UI_Turn = new ImageAsset("/Application/Assets/UI/gohzu_turn.png",false);
 					
 					Loaded = true;
 				} 

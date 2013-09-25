@@ -20,7 +20,7 @@ namespace INF4000
 			this.Gold = 5;
 			
 			this.TargetUnits = new List<Unit>();
-			this.Icon = AssetsManager.Instance.Image_Player_1_Icon;
+			this.Icon = AssetsManager.Instance.Image_Kenji_UI_Turn;
 		}
 	}
 }

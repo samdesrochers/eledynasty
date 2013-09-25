@@ -35,9 +35,9 @@ namespace INF4000
 			Panel.Height = Constants.UI_ELEMENT_ACTIONBOX_HEIGHT;
 			Panel.SetPosition(this.Position.X, this.Position.Y);
 			
-			Vector2 pos_att = new Vector2(Position.X , Position.Y + 15);
-			Vector2 pos_move = new Vector2(Position.X , Position.Y + 40);
-			Vector2 pos_cancel = new Vector2(Position.X, Position.Y + 75);
+			Vector2 pos_att = new Vector2(0 , 0 + 15);
+			Vector2 pos_move = new Vector2(0 , 0 + 40);
+			Vector2 pos_cancel = new Vector2(0, 0 + 75);
 			
 			AttackItem = new ActionItem("ATTACK", pos_att, Constants.UI_ELEMENT_ACTION_TYPE_ATTACK, AssetsManager.Instance.Image_Panel_Attack_Icon);
 			ProduceItem = new ActionItem("PRODUCE", pos_att, Constants.UI_ELEMENT_ACTION_TYPE_PRODUCE, AssetsManager.Instance.Image_Panel_Gld_Icon);
@@ -53,9 +53,7 @@ namespace INF4000
 			Image_Background = new ImageBox();
 			Image_Background.Width = Constants.UI_ELEMENT_ACTIONBOX_WIDTH;
 			Image_Background.Height = Constants.UI_ELEMENT_ACTIONBOX_HEIGHT;
-			Image_Background.SetPosition(this.Position.X, this.Position.Y);
 			Image_Background.Image = AssetsManager.Instance.Image_Action_Panel_BG;		
-			Image_Background.Alpha = 0.8f;
 			Image_Background.Visible = true;
 			
 			// Initial State is Move/Cancel only, adjust in consquence
@@ -199,12 +197,13 @@ namespace INF4000
 			MoveItem.Panel.SetPosition(0,0);
 			CancelItem.Panel.SetPosition(0,0);
 			
-			int Y_offset = 20;
+			int X_anchor = 5;
+			int Y_offset = 10;
 			
 			if(this.Configuration == Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL)
 			{
-				MoveItem.Panel.SetPosition(10, 10 + Y_offset);
-				CancelItem.Panel.SetPosition(10, 40 + Y_offset);
+				MoveItem.Panel.SetPosition(X_anchor, 10 + Y_offset);
+				CancelItem.Panel.SetPosition(X_anchor, 40 + Y_offset);
 				
 				Panel.Height -= 30;
 				Image_Background.Height -= 30;
@@ -212,28 +211,28 @@ namespace INF4000
 			}
 			else if(this.Configuration == Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_ATTACK || this.Configuration == Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_PRODUCE)
 			{
-				ProduceItem.Panel.SetPosition(10,10 + Y_offset);
-				AttackItem.Panel.SetPosition(10,10 + Y_offset);
-				MoveItem.Panel.SetPosition(10, 40 + Y_offset);
-				CancelItem.Panel.SetPosition(10, 70 + Y_offset);
+				ProduceItem.Panel.SetPosition(X_anchor,10 + Y_offset);
+				AttackItem.Panel.SetPosition(X_anchor,10 + Y_offset);
+				MoveItem.Panel.SetPosition(X_anchor, 40 + Y_offset);
+				CancelItem.Panel.SetPosition(X_anchor, 70 + Y_offset);
 				
 				//Panel.Height += 30;
 				//Image_Background.Height += 30;
 			}
 			else if(this.Configuration == Constants.UI_ELEMENT_CONFIG_CANCEL_PRODUCE)
 			{
-				ProduceItem.Panel.SetPosition(10,10 + Y_offset);
-				CancelItem.Panel.SetPosition(10, 40 + Y_offset);
+				ProduceItem.Panel.SetPosition(X_anchor,10 + Y_offset);
+				CancelItem.Panel.SetPosition(X_anchor, 40 + Y_offset);
 				
 				Panel.Height -= 30;
 				Image_Background.Height -= 30;
 			}
 			else if(this.Configuration == Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_PRODUCE_ATTACK)
 			{
-				ProduceItem.Panel.SetPosition(10, 10 + Y_offset);
-				AttackItem.Panel.SetPosition(10,40 + Y_offset);
-				MoveItem.Panel.SetPosition(10,70 + Y_offset);
-				CancelItem.Panel.SetPosition(10, 100 + Y_offset);
+				ProduceItem.Panel.SetPosition(X_anchor, 10 + Y_offset);
+				AttackItem.Panel.SetPosition(X_anchor,40 + Y_offset);
+				MoveItem.Panel.SetPosition(X_anchor,70 + Y_offset);
+				CancelItem.Panel.SetPosition(X_anchor, 100 + Y_offset);
 				
 				Panel.Height += 40;
 				Image_Background.Height += 40;

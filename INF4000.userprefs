@@ -1,11 +1,17 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\GameObjects\BattleViewer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\Scenes\GameScene.cs">
     <Files>
-      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="616" Column="31" />
-      <File FileName="INF4000\Classes\GameUtilities\BattleManager.cs" Line="11" Column="10" />
-      <File FileName="INF4000\Classes\GameObjects\BattleViewer.cs" Line="47" Column="24" />
-      <File FileName="INF4000\Assets\AssetsManager.cs" Line="137" Column="32" />
+      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="421" Column="21" />
+      <File FileName="INF4000\Classes\GameObjects\BattleViewer.cs" Line="169" Column="6" />
+      <File FileName="INF4000\Classes\Misc\Constants.cs" Line="9" Column="33" />
+      <File FileName="INF4000\Classes\UI\AttackDamagePanel.cs" Line="41" Column="48" />
+      <File FileName="INF4000\Assets\AssetsManager.cs" Line="122" Column="25" />
+      <File FileName="INF4000\Classes\GameUtilities\TextImage.cs" Line="10" Column="36" />
+      <File FileName="INF4000\Classes\UI\GameUI.cs" Line="115" Column="21" />
+      <File FileName="INF4000\Classes\GameObjects\HumanPlayer.cs" Line="23" Column="58" />
+      <File FileName="INF4000\Classes\UI\ActionPanel.cs" Line="56" Column="76" />
+      <File FileName="INF4000\Classes\Map\Map.cs" Line="3" Column="33" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
@@ -39,5 +45,7 @@
     <Watch file="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Cursor.cs" line="46" offsetX="517" offsetY="765" expression="SelectedTile" liveUpdate="False" />
     <Watch file="INF4000\Classes\Scenes\GameScene.cs" line="292" offsetX="397" offsetY="4947" expression="t" liveUpdate="False" />
     <Watch file="INF4000\Classes\Scenes\GameScene.cs" line="337" offsetX="717" offsetY="5712" expression="ActiveUnit" liveUpdate="False" />
+    <Watch file="INF4000\Classes\GameObjects\BattleViewer.cs" line="81" offsetX="509" offsetY="1360" expression="TerrainSprite" liveUpdate="False" />
+    <Watch file="INF4000\Classes\GameObjects\BattleViewer.cs" line="94" offsetX="517" offsetY="1581" expression="AttackerDamage" liveUpdate="False" />
   </MonoDevelop.Ide.DebuggingService.PinnedWatches>
 </Properties>

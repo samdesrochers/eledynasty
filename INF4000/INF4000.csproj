@@ -125,5 +125,7 @@
     <Content Include="Assets\UI\Icons\road_ico.png" />
     <Content Include="Assets\UI\gold_ico.png" />
     <Content Include="Assets\BattleTerrain\battleTerrain.png" />
+    <Content Include="Assets\UI\kenji_turn.png" />
+    <Content Include="Assets\UI\gohzu_turn.png" />
   </ItemGroup>
 </Project>

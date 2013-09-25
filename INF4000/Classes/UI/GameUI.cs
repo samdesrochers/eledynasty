@@ -33,9 +33,9 @@ namespace INF4000
             MainPanel.Height = 544;
 			
 			ActivePlayerIcon = new ImageBox();
-			ActivePlayerIcon.Width = 130;
-			ActivePlayerIcon.Height = 80;
-            ActivePlayerIcon.SetPosition(0.0f,0.0f);
+			ActivePlayerIcon.Width = 256;
+			ActivePlayerIcon.Height = 92;
+            ActivePlayerIcon.SetPosition(20.0f,20.0f);
 			ActivePlayerIcon.Visible = false;
 			
 			Image_TurnSwitchBG = new ImageBox();
@@ -75,7 +75,7 @@ namespace INF4000
 			Label_TurnSwitchMessage_Gold.TextColor = new UIColor(1, 0.4f, 0, 1);
 			Label_TurnSwitchMessage_Gold.Visible = false;
 			
-			ActionPanel = new ActionPanel(new Vector2(10, 10));
+			ActionPanel = new ActionPanel(new Vector2(23, 109));
 			OddsPanel = new AttackDamagePanel(new Vector2(800,130));
 			TileStatsPanel = new StatsPanel(new Vector2(800, 20));
 			TileStatsPanel.Left_Anchor = new Vector2(20, 20);
@@ -100,6 +100,7 @@ namespace INF4000
 		private void SetNoneVisible()
 		{
 			Button_EndTurn.Visible = false;
+			ActivePlayerIcon.Visible = false;
 			Label_TurnSwitchMessage.Visible = false;
 			Label_TurnSwitchMessage_Gold.Visible = false;
 			Image_TurnSwitchBG.Visible = false;
@@ -112,6 +113,8 @@ namespace INF4000
 		public void AnimateSwitchitngTurn(float dt)
 		{
 			SetNoneVisible();
+			
+			ActivePlayerIcon.Image = GameScene.Instance.ActivePlayer.Icon;
 			
 			// TEMP - ANIMATION
 			if(Image_TurnSwitchBG.Alpha < 1)
@@ -133,6 +136,7 @@ namespace INF4000
 			Label_TurnSwitchMessage_Gold.Alpha = 0;
 			SetNoneVisible();
 			
+			ActivePlayerIcon.Visible = true;
 			TileStatsPanel.Panel.Visible = true;
 			Button_EndTurn.Visible = true;
 		}
