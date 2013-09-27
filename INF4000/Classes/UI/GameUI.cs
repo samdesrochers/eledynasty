@@ -9,10 +9,11 @@ namespace INF4000
 {
 	public class GameUI
 	{
+		const int PlayerIconPos_X_Right = 690;
+		
 		private Scene _UIScene;
 		public Panel MainPanel;
-		
-		public ImageBox ActivePlayerIcon;
+	
 		public ImageBox Image_TurnSwitchBG;
 		
 		public Label Label_TurnSwitchMessage;
@@ -26,17 +27,16 @@ namespace INF4000
 		public StatsPanel TileStatsPanel;
 		public StatsPanel UnitStatsPanel;
 		
+		public Vector2 PlayerIcon_LeftAnchor;
+		public Vector2 PlayerIcon_RightAnchor;
+		
+		public PlayerPanel PlayerPanel;
+		
 		public GameUI ()
 		{
 			MainPanel = new Panel();
             MainPanel.Width = 960;
             MainPanel.Height = 544;
-			
-			ActivePlayerIcon = new ImageBox();
-			ActivePlayerIcon.Width = 256;
-			ActivePlayerIcon.Height = 92;
-            ActivePlayerIcon.SetPosition(20.0f,20.0f);
-			ActivePlayerIcon.Visible = false;
 			
 			Image_TurnSwitchBG = new ImageBox();
 			Image_TurnSwitchBG.Width = 960;
@@ -76,9 +76,16 @@ namespace INF4000
 			Label_TurnSwitchMessage_Gold.Visible = false;
 			
 			ActionPanel = new ActionPanel(new Vector2(23, 109));
+			ActionPanel.Right_Anchor = new Vector2(PlayerIconPos_X_Right + 3, 109);
+			
 			OddsPanel = new AttackDamagePanel(new Vector2(800,130));
+			
+			PlayerPanel = new PlayerPanel(new Vector2(20, 20));
+			PlayerPanel.Right_Anchor = new Vector2(PlayerIconPos_X_Right, 20);
+			
 			TileStatsPanel = new StatsPanel(new Vector2(800, 20));
 			TileStatsPanel.Left_Anchor = new Vector2(20, 20);
+			
 			UnitStatsPanel = new StatsPanel(new Vector2(665, 20));
 			UnitStatsPanel.Left_Anchor = new Vector2(155, 20);
 			
@@ -86,7 +93,7 @@ namespace INF4000
 			MainPanel.AddChildLast(Label_TurnSwitchMessage);
 			MainPanel.AddChildLast(Label_TurnSwitchMessage_Gold);
 			MainPanel.AddChildLast(Button_EndTurn);
-			MainPanel.AddChildLast(ActivePlayerIcon);
+			MainPanel.AddChildLast(PlayerPanel.Panel);
 			MainPanel.AddChildLast(ActionPanel.Panel);
 			MainPanel.AddChildLast(OddsPanel.Panel);
 			MainPanel.AddChildLast(TileStatsPanel.Panel);
@@ -100,7 +107,7 @@ namespace INF4000
 		private void SetNoneVisible()
 		{
 			Button_EndTurn.Visible = false;
-			ActivePlayerIcon.Visible = false;
+			PlayerPanel.Panel.Visible = false;
 			Label_TurnSwitchMessage.Visible = false;
 			Label_TurnSwitchMessage_Gold.Visible = false;
 			Image_TurnSwitchBG.Visible = false;
@@ -114,7 +121,7 @@ namespace INF4000
 		{
 			SetNoneVisible();
 			
-			ActivePlayerIcon.Image = GameScene.Instance.ActivePlayer.Icon;
+			PlayerPanel.SetCurrentPlayerData(GameScene.Instance.ActivePlayer.Icon, GameScene.Instance.ActivePlayer.Gold.ToString(), "");
 			
 			// TEMP - ANIMATION
 			if(Image_TurnSwitchBG.Alpha < 1)
@@ -136,7 +143,7 @@ namespace INF4000
 			Label_TurnSwitchMessage_Gold.Alpha = 0;
 			SetNoneVisible();
 			
-			ActivePlayerIcon.Visible = true;
+			PlayerPanel.Panel.Visible = true;
 			TileStatsPanel.Panel.Visible = true;
 			Button_EndTurn.Visible = true;
 		}

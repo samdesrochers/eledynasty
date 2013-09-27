@@ -20,7 +20,7 @@ namespace INF4000
 			this.LifePoints = System.Math.Min(Constants.UNIT_HP_FARMER, lifePoints);
 			this.MaxLifePoints = Constants.UNIT_HP_FARMER;	
 			this.AttackDamage = Constants.UNIT_AD_FARMER;
-			this.Armor = Constants.UNIT_AD_FARMER;
+			this.Armor = Constants.UNIT_DEF_FARMER;
 			this.Move_MaxRadius = Constants.UNIT_MOVE_FARMER;
 			this.Move_RadiusLeft = System.Math.Min(Constants.UNIT_MOVE_FARMER, moves);
 			

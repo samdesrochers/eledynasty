@@ -24,11 +24,15 @@ namespace INF4000
 		public int SelectedIndex;
 		private int ItemCount;
 		
+		public Vector2 Right_Anchor;
+		public Vector2 Left_Anchor;
+		
 		public ActionPanel (Vector2 pos)
 		{
 			Configuration = Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL;
 			SelectedIndex = 0;
 			this.Position = pos;
+			Left_Anchor = pos;
 			
 			Panel = new Panel();
 			Panel.Width = Constants.UI_ELEMENT_ACTIONBOX_WIDTH;
@@ -286,6 +290,16 @@ namespace INF4000
 				count ++;
 			}
 			return -1; // error occured
+		}
+		
+		public void SetToRightOfScreen()
+		{
+			Panel.SetPosition(Right_Anchor.X, Right_Anchor.Y);
+		}
+		
+		public void SetToLeftOfScreen()
+		{
+			Panel.SetPosition(Left_Anchor.X, Left_Anchor.Y);
 		}
 	}
 }

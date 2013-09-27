@@ -66,6 +66,7 @@
     <Compile Include="Classes\GameUtilities\BattleManager.cs" />
     <Compile Include="Classes\UI\AttackDamagePanel.cs" />
     <Compile Include="Classes\GameObjects\BattleViewer.cs" />
+    <Compile Include="Classes\UI\PlayerPanel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />

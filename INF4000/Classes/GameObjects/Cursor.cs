@@ -92,6 +92,12 @@ namespace INF4000
 			}
 		}
 		
+		public void MoveToFirstUnit()
+		{
+			if(GameScene.Instance.ActivePlayer.Units[0] != null)
+				MoveToTileByWorldPosition(GameScene.Instance.ActivePlayer.Units[0].WorldPosition);
+		}
+		
 		#region Animations
 		public void TintToWhite()
 		{

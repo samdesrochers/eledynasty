@@ -17,7 +17,19 @@ namespace INF4000
 		
 		public int FocusPoints;
 		public int LastAction;
-		public int Gold;
+		
+		private int _Gold;
+		public int Gold 
+		{
+			get { return _Gold; }
+			set { 
+				_Gold = value; 
+				if(GameScene.Instance.UI != null && GameScene.Instance.UI.PlayerPanel != null)
+					GameScene.Instance.UI.PlayerPanel.SetGold(_Gold.ToString());
+			}
+		}
+		
+		
 		public int GoldEarnedThisTurn;
 		
 		private Unit _ActiveUnit;

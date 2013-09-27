@@ -39,7 +39,6 @@ namespace INF4000
 		
 		public List<Player> Players;
 		public string WinnerName;
-		public TextImage TextImage; // Debug text
 		
 		public BattleViewer BattleViewer;
 		
@@ -81,15 +80,12 @@ namespace INF4000
 			// Select the initial Active Player
 			ActivePlayer = SelectActivePlayer ();
 			ActivePlayer.CollectGoldFromBuildings();
-			
-			// Add Debug help text
-			TextImage = new TextImage ("", new Vector2(30,30));
-			this.AddChild (TextImage);
-			
+
+			// Create the battle viewer for animations
 			BattleViewer = new BattleViewer();
 			
 			UI = new GameUI();
-			UI.ActivePlayerIcon.Image = ActivePlayer.Icon;
+			UI.PlayerPanel.SetCurrentPlayerData(ActivePlayer.Icon, ActivePlayer.Gold.ToString(), "");	
 			
 			ActivePlayer.IsStartingTurn = true;
 			SwitchTurnTime = 0.0f;	
@@ -349,6 +345,10 @@ namespace INF4000
 		#region Game Loop Methods
 		private void InitPlayerTurn()
 		{
+			// Move Cursor to new player's first unit
+			Cursor.MoveToFirstUnit();
+			UpdateCameraPositionByCursor();
+			
 			ActivePlayer.IsStartingTurn = false;	
 		}
 		
@@ -376,19 +376,14 @@ namespace INF4000
 			// Switch Player and add a turn to the counter
 			ActivePlayerIndex++;		
 			ActivePlayer = Players [ ActivePlayerIndex % Players.Count ];
-			CurrentTurnCount ++;
-			
-			// Move Cursor to new player's first unit
-			Cursor.MoveToTileByWorldPosition(ActivePlayer.Units[0].WorldPosition);
-			UpdateCameraPositionByCursor();
+			CurrentTurnCount ++;	
 			
 			// Reset States
 			CurrentGlobalState = Constants.GLOBAL_STATE_SWITCHING_TURN;
 			CurrentGameState = Constants.GAME_STATE_SELECTION_INACTIVE;
 			
 			//Reset UI
-			UI.ActionPanel.SetActive(false);
-			
+			UI.ActionPanel.SetActive(false);		
 		}
 		
 		private bool CheckIsGameOver ()
@@ -418,7 +413,7 @@ namespace INF4000
 			
 		private void ExecuteTurn ()
 		{
-			TextImage.Text = ActivePlayer.Gold + "g";
+			
 		}
 		
 		private bool CheckIfTurnIsOver()

@@ -133,9 +133,22 @@ namespace INF4000
 			{
 				GameScene.Instance.UI.TileStatsPanel.SetToLeftOfScreen();
 				GameScene.Instance.UI.UnitStatsPanel.SetToLeftOfScreen();
+				GameScene.Instance.UI.ActionPanel.SetToRightOfScreen();
+				GameScene.Instance.UI.PlayerPanel.SetToRightOfScreen();	
+				
 			} else {
 				GameScene.Instance.UI.TileStatsPanel.SetToRightOfScreen();
 				GameScene.Instance.UI.UnitStatsPanel.SetToRightOfScreen();
+				GameScene.Instance.UI.ActionPanel.SetToLeftOfScreen();
+				GameScene.Instance.UI.PlayerPanel.SetToLeftOfScreen();	
+			}
+			
+			if(GameScene.Instance.Cursor.Position.Y > camera.Center.Y + 64)
+			{
+				GameScene.Instance.UI.PlayerPanel.SetBottom();
+				
+			} else {
+				GameScene.Instance.UI.PlayerPanel.SetTop();
 			}
 		}
 		#endregion

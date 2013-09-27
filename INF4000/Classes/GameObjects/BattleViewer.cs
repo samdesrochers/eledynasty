@@ -18,6 +18,7 @@ namespace INF4000
 		private SpriteTile DefenderSprite;
 		
 		private SpriteTile BackgroundSprite;
+		private SpriteTile SplashSprite;
 		private SpriteTile TerrainSprite;
 		private Vector2i terrainIndex;
 		
@@ -95,11 +96,17 @@ namespace INF4000
 			DefenderDamage.UpdatePositionBattle(new Vector2(DefenderSprite.Position.X + 40, DefenderSprite.Position.Y + 50));
 			GameScene.Instance.AddChild(AttackerDamage);
 			GameScene.Instance.AddChild(DefenderDamage);
+			
+			// Splash
+			SplashSprite.Position = new Vector2(Center.X - SplashSprite.Quad.S.X/2,
+                                        		Center.Y - SplashSprite.Quad.S.Y/2);
+			GameScene.Instance.AddChild(SplashSprite);		
 		}
 		
 		private void CleanGraphicsOverScene()
 		{	
 			GameScene.Instance.RemoveChild(BackgroundSprite, false);
+			GameScene.Instance.RemoveChild(SplashSprite, false);
 			GameScene.Instance.RemoveChild(TerrainSprite, false);
 			GameScene.Instance.RemoveChild(AttackerSprite, false);
 			GameScene.Instance.RemoveChild(DefenderSprite, false);
@@ -119,6 +126,11 @@ namespace INF4000
 			TerrainSprite = new SpriteTile(AssetsManager.Instance.BattleTextureInfo, terrainIndex);
 			TerrainSprite.Quad = this.Quad;
 			TerrainSprite.Quad.S = new Vector2(640,320);
+			
+			SplashSprite = new SpriteTile(AssetsManager.Instance.BattleTextureInfo, new Vector2i(1,0));
+			SplashSprite.Quad = this.Quad;
+			SplashSprite.Quad.S = new Vector2(640,320);
+			SplashSprite.Color.A = 0;
 		}
 		
 		public override void Update(float dt)
@@ -132,11 +144,12 @@ namespace INF4000
 				FirstPass = false;
 			}
 					
-			if(AnimationTime >= 2.4f) 
+			if(AnimationTime >= 1.5f) 
 			{		
 				// Prepare next round
 				AnimationTime = 0.0f;			
 				SpeedModifier = 0.0f;
+				SplashSprite.Color.A = 0.0f;
 				FirstPass = true;
 				
 				// Remove sprites from scene
@@ -154,6 +167,14 @@ namespace INF4000
 				if(TerrainSprite.Color.A < 1) {
 					TerrainSprite.Color.A += 2*dt;
 					BackgroundSprite.Color.A += 1.2f*dt;
+				}
+				
+				// White Splash
+				if(AttackerSprite.Position.X > Center.X - 150 && AttackerSprite.Position.X <= Center.X && SplashSprite.Color.A <= 1) {
+					SplashSprite.Color.A += 15*dt;
+				} else if(AttackerSprite.Position.X > Center.X && SplashSprite.Color.A >= 0)
+				{
+					SplashSprite.Color.A -= 5*dt;
 				}
 				
 				// Animate the units
