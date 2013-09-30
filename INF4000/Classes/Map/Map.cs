@@ -150,7 +150,7 @@ namespace INF4000
 			}
 			
 			// Create Building according to extracted information
-			if (tileType >= 50 && tileType <= 60) {
+			if (tileType >= 50 && tileType < 60) {
 				
 				List<int> stats = BuildingUtil.GetStatsByType(tileType);
 				List<Vector2i> indexes = BuildingUtil.GetTileIndexesByType(tileType, tileOwner);
@@ -245,9 +245,11 @@ namespace INF4000
 				{
 					int p1 = linkPos.X - t.TintWeight + i; // X and Y inverted for Tiles[]
 					if(p1 >= 0 && p1 < Width && linkPos.Y < Height && linkPos.Y >= 0)
-					{
-						Tile toTint = Tiles[linkPos.Y, p1];
-						selectedTiles.Add(toTint);
+					{				
+						Tile candidate = Tiles[linkPos.Y, p1];
+						
+						if(candidate.IsMoveValid) // Water Check
+							selectedTiles.Add(candidate);
 					}
 				}
 			}

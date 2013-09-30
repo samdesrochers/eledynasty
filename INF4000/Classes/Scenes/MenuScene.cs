@@ -50,7 +50,7 @@ namespace INF4000
             Button_Title.SetPosition(dialog.Width/2 - Button_Play.Width/2, 450.0f);
             Button_Title.TouchEventReceived += (sender, e) => 
 			{
-            	Director.Instance.ReplaceScene(new TitleScene());
+            	Director.Instance.ReplaceScene(new GameScene());
             };        
                 
             dialog.AddChildLast(ImageBox);
@@ -73,10 +73,15 @@ namespace INF4000
             base.Draw();
             UISystem.Render ();
         }
+		
+		public override void OnExit ()
+		{
+			
+		}
         
         ~MenuScene()
         {
-          
+
         }
 	}
 }

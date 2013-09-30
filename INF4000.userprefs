@@ -1,27 +1,26 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\GameObjects\BattleViewer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\Map\Tile.cs">
     <Files>
-      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="409" Column="25" />
-      <File FileName="INF4000\Classes\Misc\Utilities.cs" Line="151" Column="48" />
-      <File FileName="INF4000\Classes\GameObjects\Cursor.cs" Line="98" Column="5" />
-      <File FileName="INF4000\Classes\GameObjects\BattleViewer.cs" Line="173" Column="91" />
-      <File FileName="INF4000\Classes\UI\GameUI.cs" Line="50" Column="51" />
-      <File FileName="INF4000\Classes\UI\PlayerPanel.cs" Line="56" Column="34" />
-      <File FileName="INF4000\Classes\Misc\BuildingUtil.cs" Line="33" Column="25" />
-      <File FileName="INF4000\Classes\GameObjects\Building.cs" Line="128" Column="15" />
-      <File FileName="INF4000\Classes\GameObjects\Player.cs" Line="27" Column="41" />
-      <File FileName="INF4000\Classes\GameObjects\HumanPlayer.cs" Line="20" Column="9" />
-      <File FileName="INF4000\Classes\GameObjects\Farmer.cs" Line="23" Column="42" />
-      <File FileName="INF4000\Classes\Misc\Constants.cs" Line="104" Column="20" />
-      <File FileName="INF4000\MapFiles\defaultMap.txt" Line="130" Column="11" />
+      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="375" Column="39" />
+      <File FileName="INF4000\Classes\GameObjects\Samurai.cs" Line="25" Column="70" />
+      <File FileName="INF4000\Classes\GameObjects\Farmer.cs" Line="37" Column="1" />
+      <File FileName="INF4000\Classes\Misc\Constants.cs" Line="70" Column="53" />
+      <File FileName="INF4000\Classes\Map\Map.cs" Line="237" Column="6" />
+      <File FileName="INF4000\Classes\GameObjects\Unit.cs" Line="64" Column="3" />
+      <File FileName="INF4000\MapFiles\defaultMap.txt" Line="158" Column="11" />
+      <File FileName="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\MenuScene.cs" Line="68" Column="1" />
+      <File FileName="INF4000\Classes\GameObjects\Cursor.cs" Line="95" Column="15" />
+      <File FileName="INF4000\Classes\GameObjects\Player.cs" Line="30" Column="4" />
+      <File FileName="INF4000\Classes\Map\Tile.cs" Line="31" Column="35" />
+      <File FileName="INF4000\Classes\Map\TilesUtil.cs" Line="176" Column="22" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Unit.cs" line="242" />
-      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Unit.cs" line="241" />
-      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Unit.cs" line="240" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Map\Tile.cs" line="44" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Map\Tile.cs" line="45" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Map\Tile.cs" line="47" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>

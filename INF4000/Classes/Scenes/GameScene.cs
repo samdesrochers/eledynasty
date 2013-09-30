@@ -297,9 +297,6 @@ namespace INF4000
 			{
 				Utilities.CycleEnemyUnitsRight();
 			}
-			
-			Vector2 pos = Cursor.Position;
-			//Utilities.MoveAttackOddsPanel(pos);
 		}
 		
 		private void UpdateMap ()
@@ -326,7 +323,7 @@ namespace INF4000
 				
 				if(t.CurrentBuilding != null)
 				{
-					UI.TileStatsPanel.SetElements(t.Defense, 0, 0, t.CurrentBuilding.GoldPerTurn, t.CurrentBuilding.Label, t.CurrentBuilding.Type, t.CurrentBuilding.OwnerName);
+					UI.TileStatsPanel.SetElements(t.CurrentBuilding.Defense, 0, 0, t.CurrentBuilding.GoldPerTurn, t.CurrentBuilding.Label, t.CurrentBuilding.Type, t.CurrentBuilding.OwnerName);
 					UI.TileStatsPanel.SetConfiguration(Constants.UI_ELEMENT_CONFIG_STATS_BUILDING);
 				} 
 				
@@ -371,11 +368,11 @@ namespace INF4000
 			}
 			ActivePlayer.ActiveUnit = null;
 			ActivePlayer.LastAction = -1; //void last action
-			ActivePlayer.IsStartingTurn = true;
 			
 			// Switch Player and add a turn to the counter
 			ActivePlayerIndex++;		
 			ActivePlayer = Players [ ActivePlayerIndex % Players.Count ];
+			ActivePlayer.IsStartingTurn = true;
 			CurrentTurnCount ++;	
 			
 			// Reset States

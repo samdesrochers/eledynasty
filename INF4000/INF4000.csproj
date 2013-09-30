@@ -46,8 +46,6 @@
     <Compile Include="Classes\Misc\Constants.cs" />
     <Compile Include="Classes\Scenes\GameScene.cs" />
     <Compile Include="Classes\GameObjects\Cursor.cs" />
-    <Compile Include="Classes\GameObjects\Unit.cs" />
-    <Compile Include="Classes\GameObjects\Farmer.cs" />
     <Compile Include="Classes\GameObjects\Player.cs" />
     <Compile Include="Classes\GameObjects\HumanPlayer.cs" />
     <Compile Include="Classes\Misc\Utilities.cs" />
@@ -67,6 +65,11 @@
     <Compile Include="Classes\UI\AttackDamagePanel.cs" />
     <Compile Include="Classes\GameObjects\BattleViewer.cs" />
     <Compile Include="Classes\UI\PlayerPanel.cs" />
+    <Compile Include="Classes\Scenes\LoadingScene.cs" />
+    <Compile Include="Classes\GameObjects\Units\Farmer.cs" />
+    <Compile Include="Classes\GameObjects\Units\Monk.cs" />
+    <Compile Include="Classes\GameObjects\Units\Samurai.cs" />
+    <Compile Include="Classes\GameObjects\Units\Unit.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -97,6 +100,7 @@
     <Folder Include="Classes\UI\" />
     <Folder Include="Assets\UI\Icons\" />
     <Folder Include="Assets\BattleTerrain\" />
+    <Folder Include="Classes\GameObjects\Units\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Audio\menu.mp3" />
@@ -128,5 +132,6 @@
     <Content Include="Assets\BattleTerrain\battleTerrain.png" />
     <Content Include="Assets\UI\kenji_turn.png" />
     <Content Include="Assets\UI\gohzu_turn.png" />
+    <Content Include="Assets\Title\loading.png" />
   </ItemGroup>
 </Project>

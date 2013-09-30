@@ -84,7 +84,7 @@ namespace INF4000
 					
 					//Units Textures
 					UnitsTexture = new Texture2D ("/Application/Assets/Units/units.png", false);
-					UnitsTextureInfo = new TextureInfo (UnitsTexture, new Vector2i (2, 2));
+					UnitsTextureInfo = new TextureInfo (UnitsTexture, new Vector2i (4, 4));
 					
 					// Terrain Textures
 					TerrainTexture = new Texture2D ("/Application/Assets/Tiles/TilesMap_Final.png", false);

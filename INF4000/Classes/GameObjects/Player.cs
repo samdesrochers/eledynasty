@@ -27,8 +27,7 @@ namespace INF4000
 				if(GameScene.Instance.UI != null && GameScene.Instance.UI.PlayerPanel != null)
 					GameScene.Instance.UI.PlayerPanel.SetGold(_Gold.ToString());
 			}
-		}
-		
+		}		
 		
 		public int GoldEarnedThisTurn;
 		

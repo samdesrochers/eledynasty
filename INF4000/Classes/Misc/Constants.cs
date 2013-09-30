@@ -75,7 +75,7 @@ namespace INF4000
 		
 		// Buildings - Types
 		public const int BUILD_FORT 	= 50;
-		public const int BUILD_BARRACKS = 51;
+		public const int BUILD_TEMPLE 	= 51;
 		public const int BUILD_FARM	 	= 52;
 		public const int BUILD_ARCHERY 	= 53;
 		public const int BUILD_STABLES	= 54;
@@ -88,36 +88,35 @@ namespace INF4000
 		// Unit - Units Type
 		public const int UNIT_TYPE_NONE 	= 20;
 		public const int UNIT_TYPE_FARMER 	= 21;
-		public const int UNIT_TYPE_SWORD 	= 22;
-		public const int UNIT_TYPE_ARCHER 	= 23;
-		public const int UNIT_TYPE_SAMURAI 	= 24;
-		public const int UNIT_TYPE_WIZARD 	= 25;		
+		public const int UNIT_TYPE_SAMURAI 	= 22;
+		public const int UNIT_TYPE_MONK 	= 23;
+		public const int UNIT_TYPE_WIZARD 	= 24;		
 		
 		// Unit - Life Points 
 		public const int UNIT_HP_FARMER = 10;
-		public const int UNIT_HP_SWORD 	= 16;
-		public const int UNIT_HP_ARCHER = 10;
-		public const int UNIT_HP_KNIGHT = 20;
-		public const int UNIT_HP_WIZARD = 7;
+		public const int UNIT_HP_SAMURAI = 10;
+		public const int UNIT_HP_MONK = 10;
+		public const int UNIT_HP_KNIGHT = 10;
+		public const int UNIT_HP_WIZARD = 10;
 		
 		// Unit - Attack Damage 
-		public const int UNIT_AD_FARMER = 4;
-		public const int UNIT_AD_SWORD 	= 8;
-		public const int UNIT_AD_ARCHER = 5;
-		public const int UNIT_AD_KNIGHT = 10;
-		public const int UNIT_AD_WIZARD = 7;
+		public const int UNIT_AD_FARMER 	= 5;
+		public const int UNIT_AD_SAMURAI 	= 11;
+		public const int UNIT_AD_MONK 		= 7;
+		public const int UNIT_AD_KNIGHT 	= 10;
+		public const int UNIT_AD_WIZARD 	= 7;
 		
 		// Unit - Defense 
 		public const int UNIT_DEF_FARMER 	= 1;
-		public const int UNIT_DEF_SWORD 	= 6;
-		public const int UNIT_DEF_ARCHER 	= 4;
+		public const int UNIT_DEF_SAMURAI	= 6;
+		public const int UNIT_DEF_MONK 		= 1;
 		public const int UNIT_DEF_KNIGHT 	= 8;
 		public const int UNIT_DEF_WIZARD 	= 2;
 		
 		// Unit - Base number of Move Points  
 		public const int UNIT_MOVE_FARMER 	= 2;
-		public const int UNIT_MOVE_SWORD 	= 6;
-		public const int UNIT_MOVE_ARCHER 	= 5;
+		public const int UNIT_MOVE_SAMURAI	= 2;
+		public const int UNIT_MOVE_MONK 	= 3;
 		public const int UNIT_MOVE_KNIGHT 	= 9;
 		public const int UNIT_MOVE_WIZARD 	= 5;
 

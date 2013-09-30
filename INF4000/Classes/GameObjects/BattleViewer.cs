@@ -41,7 +41,7 @@ namespace INF4000
 		public void PrepareBattleAnimation(Unit attacker, Unit defender, Tile targetTile, Tile originTile)
 		{	
 			BattleManager = new BattleManager(attacker, defender, targetTile, originTile);
-			BattleManager.ComputeDamageDealt();
+			BattleManager.ComputeDamagePercantages();
 			
 			DefenderSprite = BattleManager.AttackingUnit.UnitSprite;
 			

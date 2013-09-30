@@ -68,16 +68,15 @@ namespace INF4000
 			{
 				case Constants.UNIT_TYPE_FARMER:
 					return new Farmer(moves, lifePoints, posX, posY);
-				case Constants.UNIT_TYPE_SWORD:
-					break;
-				case Constants.UNIT_TYPE_ARCHER:
-					break;
 				case Constants.UNIT_TYPE_SAMURAI:
+					return new Samurai(moves, lifePoints, posX, posY);
+				case Constants.UNIT_TYPE_MONK:
+					return new Monk(moves, lifePoints, posX, posY);
 					break;
 				case Constants.UNIT_TYPE_WIZARD:
 					break;
 				default:
-					return new Farmer(moves, lifePoints, posX, posY);
+					return null;
 			}
 			return null;
 		}
@@ -87,19 +86,22 @@ namespace INF4000
 			Vector2i index = new Vector2i(0,0);
 			switch (this.Type) {
 					case Constants.UNIT_TYPE_FARMER:
-						if(this.OwnerName != Constants.CHAR_KENJI)
-							index = new Vector2i (0, 0);
+						if(this.OwnerName == Constants.CHAR_KENJI)
+							index = new Vector2i (0, 2);
 						else
-							index = new Vector2i (0, 1);
-						break;
-					case Constants.UNIT_TYPE_SWORD:
-						index = new Vector2i (3, 0);
-						break;
-					case Constants.UNIT_TYPE_ARCHER:
-						index = new Vector2i (0, 0);
+							index = new Vector2i (1, 2);
 						break;
 					case Constants.UNIT_TYPE_SAMURAI:
-						index = new Vector2i (1, 1);
+						if(this.OwnerName == Constants.CHAR_KENJI)
+							index = new Vector2i (0, 3);
+						else
+							index = new Vector2i (1, 3);
+						break;
+					case Constants.UNIT_TYPE_MONK:
+						if(this.OwnerName == Constants.CHAR_KENJI)
+							index = new Vector2i (2, 3);
+						else
+							index = new Vector2i (3, 3);
 						break;
 				}
 			
@@ -230,6 +232,7 @@ namespace INF4000
 			
 			GameScene.Instance.Cursor.TintToWhite();
 			GameScene.Instance.CurrentMap.UnTintAllTiles ();
+			TryCaptureBuilding();
 		}
 		
 		private void TryCaptureBuilding()

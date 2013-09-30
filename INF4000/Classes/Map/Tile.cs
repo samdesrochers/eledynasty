@@ -19,6 +19,7 @@ namespace INF4000
 		public int BuildingTurnsToProduce;
 		public int Defense;
 		public int TintWeight;
+		public bool IsMoveValid;
 		
 		public Vector2i WorldPosition;
 		public SpriteTile SpriteTile;
@@ -37,7 +38,13 @@ namespace INF4000
 
 		public Tile (int terrain, int owner, int posX, int posY)
 		{	
-			TerrainType = terrain;			
+			TerrainType = terrain;		
+
+			if(TerrainType < Constants.TILE_TYPE_WATER_MIDDLE || TerrainType > Constants.TILE_TYPE_WATER_MID_EARTH_UP_LF_R)
+				IsMoveValid = true;
+			else 
+				IsMoveValid = false;
+			
 			TileOwner = owner;
 			
 			// Set size, rotation and position

@@ -47,7 +47,7 @@ namespace INF4000
 			switch (type) {
 				// FORT
 				case Constants.BUILD_FORT:
-					defense = 8;
+					defense = 9;
 					goldPerTurn = 3;
 					goldToProduce = 0;
 					productionType = Constants.UNIT_TYPE_NONE;
@@ -55,7 +55,7 @@ namespace INF4000
 				
 				// FARM
 				case Constants.BUILD_FARM:
-					defense = 1;
+					defense = 2;
 					goldPerTurn = 1;
 					goldToProduce = 4;
 					productionType = Constants.UNIT_TYPE_FARMER;
