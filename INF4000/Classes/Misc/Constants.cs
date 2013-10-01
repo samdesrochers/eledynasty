@@ -100,9 +100,9 @@ namespace INF4000
 		public const int UNIT_HP_WIZARD = 10;
 		
 		// Unit - Attack Damage 
-		public const int UNIT_AD_FARMER 	= 5;
+		public const int UNIT_AD_FARMER 	= 4;
 		public const int UNIT_AD_SAMURAI 	= 11;
-		public const int UNIT_AD_MONK 		= 7;
+		public const int UNIT_AD_MONK 		= 8;
 		public const int UNIT_AD_KNIGHT 	= 10;
 		public const int UNIT_AD_WIZARD 	= 7;
 		
@@ -170,6 +170,13 @@ namespace INF4000
 		public const int BATTLE_END_ATTACKER_TOTALWIN 	= 0;
 		public const int BATTLE_END_DEFENDER_TOTALWIN 	= 1;
 		public const int BATTLE_END_TIE 				= 2;
+		
+		/*******************************
+		 * 	AI CONSTANTS
+		 * *****************************/
+		public const int AI_STATE_WAITING			= 0;
+		public const int AI_STATE_ACTION_DECIDED 	= 1;
+		public const int AI_STATE_EXECUTING_ACTION	= 2;
 	}
 }
 

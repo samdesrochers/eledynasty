@@ -72,7 +72,6 @@ namespace INF4000
 					return new Samurai(moves, lifePoints, posX, posY);
 				case Constants.UNIT_TYPE_MONK:
 					return new Monk(moves, lifePoints, posX, posY);
-					break;
 				case Constants.UNIT_TYPE_WIZARD:
 					break;
 				default:
@@ -176,6 +175,17 @@ namespace INF4000
 			
 			// Remove event so it doesn't loop 
 			this.Path.PathCompleted -= Unit_PathCompleted;
+		}
+		
+		public void AI_Unit_PathCompleted(object sender, EventArgs args)
+    	{
+       		// Adjust new WorldPosition
+			this.WorldPosition = new Vector2i((int) this.Position.X/Constants.TILE_SIZE, (int)this.Position.Y/Constants.TILE_SIZE);
+			
+			// Remove event so it doesn't loop 
+			this.Path.PathCompleted -= AI_Unit_PathCompleted;
+			Utilities.AssignUnitToTileByPosition(WorldPosition, this);
+			SetInactive();
 		}
 		
 		public void Unit_PathCompletedAfterWin(object sender, EventArgs args)

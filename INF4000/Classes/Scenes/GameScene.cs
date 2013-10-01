@@ -62,7 +62,7 @@ namespace INF4000
 			player1.IsActive = true;
 			Players.Add (player1);
 			
-			Player player2 = new HumanPlayer ();
+			Player player2 = new AIPlayer ();
 			player2.Icon = AssetsManager.Instance.Image_Gohzu_UI_Turn;
 			Players.Add (player2);				
 			
@@ -132,40 +132,58 @@ namespace INF4000
 			if(ActivePlayer.IsStartingTurn)
 			{
 				InitPlayerTurn();
+				if(ActivePlayer.IsHuman) {
+					Cursor.SpriteTile.Visible = true;
+					Utilities.ShowStatsPanels();
+				} else {
+					ActivePlayer.Reset();
+					Cursor.SpriteTile.Visible = false;
+					Utilities.HideStatsPanels();
+				}
 			}
 			
 			UpdateCameraPosition ();
-
-			if (ActivePlayer is HumanPlayer) 
-			{
-				if(CurrentGameState == Constants.GAME_STATE_ACTIONPANEL_ACTIVE)
-					UpdateActionPanelSelection();
-				else if(CurrentGameState == Constants.GAME_STATE_ATTACKPANEL_ACTIVE)
-					UpdateAttackPanelSelection();
-				else 
-					UpdateCursorPosition ();
-					
-				CheckUserInput ();
-				
-				if(CurrentGameState == Constants.GAME_STATE_SELECTION_INACTIVE || CurrentGameState == Constants.GAME_STATE_ATTACKPANEL_ACTIVE){
-					Utilities.ShowStatsPanels();
-					UpdateStatsPanel();
-				} else {
-					Utilities.HideStatsPanels();
-				}
+			
+			// Human or AI behavior
+			if (ActivePlayer is HumanPlayer) {
+				UpdateGameRunningHuman();
+			} else {
+				UpdateGameRunningAI();
 			}
 		
 			UpdateUnits ();			
 			UpdateMap ();	
 			
-			CheckIsGameOver ();		
-			ExecuteTurn ();
-			
+			CheckIsGameOver ();				
 			if(CheckIfTurnIsOver())
 			{
 				// Turn is done, switch to next player
 				SwitchToNextPlayer();
 			}	
+		}
+		
+		private void UpdateGameRunningHuman()
+		{
+			if(CurrentGameState == Constants.GAME_STATE_ACTIONPANEL_ACTIVE)
+					UpdateActionPanelSelection();
+			else if(CurrentGameState == Constants.GAME_STATE_ATTACKPANEL_ACTIVE)
+				UpdateAttackPanelSelection();
+			else 
+				UpdateCursorPosition ();
+				
+			CheckUserInput ();
+			
+			if(CurrentGameState == Constants.GAME_STATE_SELECTION_INACTIVE || CurrentGameState == Constants.GAME_STATE_ATTACKPANEL_ACTIVE){
+				Utilities.ShowStatsPanels();
+				UpdateStatsPanel();
+			} else {
+				Utilities.HideStatsPanels();
+			}
+		}
+		
+		private void UpdateGameRunningAI()
+		{
+			ActivePlayer.Update();
 		}
 		
 		private void UpdateGameSwitchingTurn(float dt)
@@ -356,13 +374,12 @@ namespace INF4000
 			ActivePlayer.ResetBuildings();
 			ActivePlayer.CollectGoldFromBuildings(); // for next turn
 			
-			if(ActivePlayer.ActiveUnit != null)
+			if(ActivePlayer.ActiveUnit != null && ActivePlayer.IsHuman)
 			{
 				if(ActivePlayer.ActiveUnit.Path.RadiusUsed > 0)
 					ActivePlayer.ActiveUnit.RevertMove();
 				
 				ActivePlayer.ActiveUnit.Unselect ();
-				ActivePlayer.ActiveUnit = null;
 				CurrentMap.UnTintAllTiles();
 				Cursor.TintToWhite();
 			}

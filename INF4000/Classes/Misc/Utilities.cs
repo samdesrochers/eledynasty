@@ -272,6 +272,19 @@ namespace INF4000
 			return "";
 		}
 		#endregion
+		
+		#region AI Helper methods
+		public static bool IsDestinationValid(Vector2i destination)
+		{
+			Tile t = GameScene.Instance.CurrentMap.GetTile(destination);
+			if(t.CurrentUnit != null)
+				return false;
+			else if(!t.IsMoveValid)
+				return false;
+			
+			return true;
+		}
+		#endregion
 	}
 }
 

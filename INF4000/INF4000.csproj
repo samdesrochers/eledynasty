@@ -46,8 +46,6 @@
     <Compile Include="Classes\Misc\Constants.cs" />
     <Compile Include="Classes\Scenes\GameScene.cs" />
     <Compile Include="Classes\GameObjects\Cursor.cs" />
-    <Compile Include="Classes\GameObjects\Player.cs" />
-    <Compile Include="Classes\GameObjects\HumanPlayer.cs" />
     <Compile Include="Classes\Misc\Utilities.cs" />
     <Compile Include="Classes\GameUtilities\Path.cs" />
     <Compile Include="Classes\GameUtilities\TextImage.cs" />
@@ -70,6 +68,9 @@
     <Compile Include="Classes\GameObjects\Units\Monk.cs" />
     <Compile Include="Classes\GameObjects\Units\Samurai.cs" />
     <Compile Include="Classes\GameObjects\Units\Unit.cs" />
+    <Compile Include="Classes\GameObjects\Players\AIPlayer.cs" />
+    <Compile Include="Classes\GameObjects\Players\HumanPlayer.cs" />
+    <Compile Include="Classes\GameObjects\Players\Player.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -101,6 +102,7 @@
     <Folder Include="Assets\UI\Icons\" />
     <Folder Include="Assets\BattleTerrain\" />
     <Folder Include="Classes\GameObjects\Units\" />
+    <Folder Include="Classes\GameObjects\Players\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Audio\menu.mp3" />

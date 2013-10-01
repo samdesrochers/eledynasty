@@ -160,6 +160,18 @@ namespace INF4000
 		}	
 		
 		#endregion
+		
+		#region AI Actions
+		public static void AI_MoveUnitTo(Vector2i dest, Unit unit)
+		{
+			// remove unit from path (cause this is FREAKING VALID AT THIS POINT)
+			Utilities.RemoveUnitFromTileByPosition(unit.WorldPosition);
+			
+			unit.Path = new Path();
+			unit.Path.BuildMoveToSequence(unit.WorldPosition, dest);
+			unit.Path.PathCompleted += unit.AI_Unit_PathCompleted;		
+		}
+		#endregion
 	}
 }
 

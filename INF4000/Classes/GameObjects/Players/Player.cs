@@ -50,6 +50,9 @@ namespace INF4000
 		
 		public Building ActiveBuilding;
 		
+		public virtual void Reset(){}
+		public virtual void Update(){}
+		
 		public bool HasMovableUnits()
 		{
 			if(Units.Count == 0)
