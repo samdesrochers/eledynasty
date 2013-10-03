@@ -1,16 +1,18 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\GameObjects\Players\AIPlayer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Audio\SoundManager.cs">
     <Files>
-      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="140" Column="1" />
-      <File FileName="INF4000\Classes\Misc\Constants.cs" Line="178" Column="43" />
+      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="388" Column="44" />
+      <File FileName="INF4000\Classes\Misc\Constants.cs" Line="191" Column="38" />
       <File FileName="INF4000\Classes\GameObjects\Players\AIPlayer.cs" Line="26" Column="19" />
       <File FileName="INF4000\Classes\GameObjects\Players\HumanPlayer.cs" Line="2" Column="1" />
       <File FileName="INF4000\Classes\GameObjects\Players\Player.cs" Line="53" Column="1" />
       <File FileName="INF4000\Classes\GameObjects\GameActions.cs" Line="168" Column="63" />
       <File FileName="INF4000\Classes\Misc\Utilities.cs" Line="24" Column="50" />
-      <File FileName="INF4000\Classes\GameUtilities\Path.cs" Line="100" Column="1" />
-      <File FileName="INF4000\Classes\GameObjects\Units\Unit.cs" Line="188" Column="18" />
+      <File FileName="INF4000\Classes\GameUtilities\Path.cs" Line="61" Column="64" />
+      <File FileName="INF4000\Classes\GameObjects\Units\Unit.cs" Line="157" Column="30" />
+      <File FileName="INF4000\Audio\SoundManager.cs" Line="15" Column="2" />
+      <File FileName="INF4000\Classes\GameObjects\BattleViewer.cs" Line="147" Column="23" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
@@ -18,8 +20,6 @@
       <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameUtilities\BattleManager.cs" line="71" />
       <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Players\AIPlayer.cs" line="34" />
       <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Players\AIPlayer.cs" line="29" />
-      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="139" />
-      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="134" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>

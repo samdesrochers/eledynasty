@@ -31,12 +31,15 @@ namespace INF4000
 		public Vector2 PlayerIcon_RightAnchor;
 		
 		public PlayerPanel PlayerPanel;
+		private bool Starting_SwitchingTurn;
 		
 		public GameUI ()
 		{
 			MainPanel = new Panel();
             MainPanel.Width = 960;
             MainPanel.Height = 544;
+			
+			Starting_SwitchingTurn = true;
 			
 			Image_TurnSwitchBG = new ImageBox();
 			Image_TurnSwitchBG.Width = 960;
@@ -121,7 +124,17 @@ namespace INF4000
 		{
 			SetNoneVisible();
 			
-			PlayerPanel.SetCurrentPlayerData(GameScene.Instance.ActivePlayer.Icon, GameScene.Instance.ActivePlayer.Gold.ToString(), "");
+			if(Starting_SwitchingTurn)
+			{
+				PlayerPanel.SetCurrentPlayerData(GameScene.Instance.ActivePlayer.Icon, GameScene.Instance.ActivePlayer.Gold.ToString(), "");
+				
+				if(GameScene.Instance.ActivePlayer.Name == Constants.CHAR_KENJI) {
+					SoundManager.Instance.PlayKenjiGameSong();
+				} else {
+					SoundManager.Instance.PlayEnemyGameSong();
+				}
+				Starting_SwitchingTurn = false;
+			}
 			
 			// TEMP - ANIMATION
 			if(Image_TurnSwitchBG.Alpha < 1)
@@ -146,6 +159,8 @@ namespace INF4000
 			PlayerPanel.Panel.Visible = true;
 			TileStatsPanel.Panel.Visible = true;
 			Button_EndTurn.Visible = true;
+			
+			Starting_SwitchingTurn = true;
 		}
 		
 		public void SetBattleAnimation()

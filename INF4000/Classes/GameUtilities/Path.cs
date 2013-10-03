@@ -57,6 +57,8 @@ namespace INF4000
 			}
 			RadiusUsed = Sequence.Count;
 			IsActive = true;
+			
+			SoundManager.Instance.PlaySound(Constants.SOUND_UNIT_MARCH);
 		}
 		
 		public int GetDestinationAction(Vector2i pos, Vector2i origin)

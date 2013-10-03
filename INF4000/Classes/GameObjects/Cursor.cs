@@ -62,6 +62,8 @@ namespace INF4000
 			{
 				Tile newSelectedTile = GameScene.Instance.CurrentMap.Tiles[SelectedTile.WorldPosition.Y, SelectedTile.WorldPosition.X - 1];
 				SelectedTile = newSelectedTile;
+				
+				SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_MOVE);
 			}
 		}
 		
@@ -71,6 +73,8 @@ namespace INF4000
 			{
 				Tile newSelectedTile = GameScene.Instance.CurrentMap.Tiles[SelectedTile.WorldPosition.Y + 1, SelectedTile.WorldPosition.X];
 				SelectedTile = newSelectedTile;
+				
+				SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_MOVE);
 			}
 		}
 		
@@ -80,6 +84,8 @@ namespace INF4000
 			{
 				Tile newSelectedTile = GameScene.Instance.CurrentMap.Tiles[SelectedTile.WorldPosition.Y, SelectedTile.WorldPosition.X + 1];
 				SelectedTile = newSelectedTile;
+				
+				SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_MOVE);
 			}
 		}
 		
@@ -89,6 +95,8 @@ namespace INF4000
 			{
 				Tile newSelectedTile = GameScene.Instance.CurrentMap.Tiles[SelectedTile.WorldPosition.Y - 1, SelectedTile.WorldPosition.X];
 				SelectedTile = newSelectedTile;
+				
+				SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_MOVE);
 			}
 		}
 		

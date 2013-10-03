@@ -27,6 +27,7 @@ namespace INF4000
 		
 		float SpeedModifier = 0;
 		bool FirstPass = true;
+		bool PlayCombatSound = true;
 		
 		public BattleViewer ()
 		{
@@ -40,6 +41,8 @@ namespace INF4000
 		
 		public void PrepareBattleAnimation(Unit attacker, Unit defender, Tile targetTile, Tile originTile)
 		{	
+			PlayCombatSound = true;
+			
 			BattleManager = new BattleManager(attacker, defender, targetTile, originTile);
 			BattleManager.ComputeDamagePercantages();
 			
@@ -175,6 +178,13 @@ namespace INF4000
 				} else if(AttackerSprite.Position.X > Center.X && SplashSprite.Color.A >= 0)
 				{
 					SplashSprite.Color.A -= 5*dt;
+				}
+				
+				// Combat Clash Sound at moment X
+				if(PlayCombatSound && AttackerSprite.Position.X > Center.X - 90)
+				{
+					PlayCombatSound = false;
+					SoundManager.Instance.PlaySound(Constants.SOUND_COMBAT);
 				}
 				
 				// Animate the units

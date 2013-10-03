@@ -279,7 +279,7 @@ namespace INF4000
 		
 		public Tile GetTile(Vector2i worldPos)
 		{
-			if(worldPos.X >= 0 && worldPos.Y >= 0)
+			if(worldPos.X >= 0 && worldPos.Y >= 0 && worldPos.X < Width && worldPos.Y < Height)
 				return Tiles[worldPos.Y, worldPos.X];
 			return null;
 		}

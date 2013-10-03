@@ -71,6 +71,7 @@
     <Compile Include="Classes\GameObjects\Players\AIPlayer.cs" />
     <Compile Include="Classes\GameObjects\Players\HumanPlayer.cs" />
     <Compile Include="Classes\GameObjects\Players\Player.cs" />
+    <Compile Include="Audio\SoundManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -103,9 +104,9 @@
     <Folder Include="Assets\BattleTerrain\" />
     <Folder Include="Classes\GameObjects\Units\" />
     <Folder Include="Classes\GameObjects\Players\" />
+    <Folder Include="Audio\Sound\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Audio\menu.mp3" />
     <Content Include="MapFiles\defaultMap.txt" />
     <Content Include="Assets\Units\units.png" />
     <Content Include="Assets\Items\gameItems.png" />
@@ -135,5 +136,18 @@
     <Content Include="Assets\UI\kenji_turn.png" />
     <Content Include="Assets\UI\gohzu_turn.png" />
     <Content Include="Assets\Title\loading.png" />
+    <Content Include="Audio\Sound\attack_clash.wav" />
+    <Content Include="Audio\Sound\coin_sound.wav" />
+    <Content Include="Audio\Sound\cursor_cancel.wav" />
+    <Content Include="Audio\Sound\cursor_move.wav" />
+    <Content Include="Audio\Sound\cursor_selection.wav" />
+    <Content Include="Audio\Sound\selection_action.wav" />
+    <Content Include="Audio\Sound\swoosh.wav" />
+    <Content Include="Audio\Sound\unit_march.wav" />
+    <Content Include="Audio\Sound\combat.wav" />
+    <Content Include="Audio\kenji_1.mp3" />
+    <Content Include="Audio\enemy_1.mp3" />
+    <Content Include="Audio\enemy_2.mp3" />
+    <Content Include="Audio\kenji_2.mp3" />
   </ItemGroup>
 </Project>

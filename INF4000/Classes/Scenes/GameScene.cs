@@ -56,6 +56,9 @@ namespace INF4000
 			// Load the Assets
 			AssetsManager.Instance.LoadAssets();
 			
+			// Load the Sounds
+			SoundManager.Instance.LoadSounds();
+			
 			// Create the Players
 			Players = new List<Player> ();
 			Player player1 = new HumanPlayer ();
@@ -165,7 +168,7 @@ namespace INF4000
 		private void UpdateGameRunningHuman()
 		{
 			if(CurrentGameState == Constants.GAME_STATE_ACTIONPANEL_ACTIVE)
-					UpdateActionPanelSelection();
+				UpdateActionPanelSelection();
 			else if(CurrentGameState == Constants.GAME_STATE_ATTACKPANEL_ACTIVE)
 				UpdateAttackPanelSelection();
 			else 
@@ -186,8 +189,15 @@ namespace INF4000
 			ActivePlayer.Update();
 		}
 		
+		private bool turnSwitchFirstPass = true;
 		private void UpdateGameSwitchingTurn(float dt)
 		{
+			if(turnSwitchFirstPass)
+			{
+				turnSwitchFirstPass = false;
+				SoundManager.Instance.PlaySound(Constants.SOUND_TURN_START);
+			}
+			
 			SwitchTurnTime += dt;			
 			UI.AnimateSwitchitngTurn(dt);
 
@@ -292,7 +302,7 @@ namespace INF4000
 				Cursor.NavigateDown ();
 			}
 			
-			Cursor.Update ();
+			Cursor.Update ();	
 			this.UpdateCameraPositionByCursor();
 		}
 		
@@ -300,8 +310,10 @@ namespace INF4000
 		{
 			if (Input2.GamePad.GetData (0).Up.Release) {
 				UI.ActionPanel.FocusNextItemUp();
+				SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_SELECT);
 			} else if(Input2.GamePad.GetData (0).Down.Release) {
 				UI.ActionPanel.FocusNextItemDown();
+				SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_SELECT);
 			}
 		}
 		
@@ -310,10 +322,12 @@ namespace INF4000
 			if (Input2.GamePad.GetData (0).Up.Release || Input2.GamePad.GetData (0).Right.Release) 
 			{
 				Utilities.CycleEnemyUnitsRight();
+				SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_SELECT);
 			} 
 			else if(Input2.GamePad.GetData (0).Down.Release || Input2.GamePad.GetData (0).Left.Release) 
 			{
 				Utilities.CycleEnemyUnitsRight();
+				SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_SELECT);
 			}
 		}
 		
@@ -360,11 +374,13 @@ namespace INF4000
 		#region Game Loop Methods
 		private void InitPlayerTurn()
 		{
+			turnSwitchFirstPass = true;
+			
 			// Move Cursor to new player's first unit
 			Cursor.MoveToFirstUnit();
 			UpdateCameraPositionByCursor();
 			
-			ActivePlayer.IsStartingTurn = false;	
+			ActivePlayer.IsStartingTurn = false;
 		}
 		
 		private void SwitchToNextPlayer()
@@ -467,6 +483,7 @@ namespace INF4000
 				if (Input2.GamePad.GetData (0).Circle.Release) 
 				{
 					CirclePressed_LastStateActive();
+					SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_CANCEL);
 				}
 			}
 			else if(this.CurrentGameState == Constants.GAME_STATE_ACTIONPANEL_ACTIVE)
@@ -542,6 +559,8 @@ namespace INF4000
 					ActivePlayer.ActiveBuilding = selectedBuild;
 					Cursor.TintToBlue();
 				}
+				
+				SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_SELECT);
 			}	
 		}
 		
@@ -575,7 +594,8 @@ namespace INF4000
 				} else if (action == Constants.ACTION_PRODUCE_ATTACK) {
 					GameActions.PrepareUnitAttackFromOriginOrProduce();
 				}
-			}		 
+			}
+			SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_SELECT);
 		}
 		
 		private void CrossPressed_LastStateActionPanelActive()
@@ -591,6 +611,7 @@ namespace INF4000
 				} else {// Unit just moved and wants to attack 
 					GameActions.TargetEnemyUnits();
 				}
+				SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_SELECT);
 			}
 			else if(UIAction == Constants.UI_ELEMENT_ACTION_TYPE_WAIT) // WAIT Button pressed
 			{
@@ -600,11 +621,13 @@ namespace INF4000
 					GameActions.SleepSelectedUnit();
 				} else {	
 					GameActions.MoveSelectedUnit();
-				}				
+				}
+				SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_SELECT);
 			}
 			else if(UIAction == Constants.UI_ELEMENT_ACTION_TYPE_PRODUCE) // PRODUCE button pressed
 			{
 				GameActions.ProduceUnit(Cursor.WorldPosition, ActivePlayer.Name);
+				SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_SELECT);
 			}
 			else if(UIAction == Constants.UI_ELEMENT_ACTION_TYPE_CANCEL) // CANCEL button pressed
 			{
@@ -618,6 +641,7 @@ namespace INF4000
 				} else {
 					CirclePressed_LastStateProducePanelOnly();
 				}
+				SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_CANCEL);
 			}
 		}
 		
@@ -629,6 +653,7 @@ namespace INF4000
 			                       		  CurrentMap.GetTile(ActivePlayer.ActiveUnit.WorldPosition));
 			
 			CurrentGlobalState = Constants.GLOBAL_STATE_BATTLE_ANIMATION;
+			SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_SELECT);
 		}
 		
 		#endregion
@@ -662,7 +687,7 @@ namespace INF4000
 			{
 				CirclePressed_LastStateProducePanelOnly();
 			}
-
+			SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_CANCEL);
 		} 
 		
 		private void CirclePressed_LastStateAttackPanelActive()

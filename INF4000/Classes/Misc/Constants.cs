@@ -177,6 +177,18 @@ namespace INF4000
 		public const int AI_STATE_WAITING			= 0;
 		public const int AI_STATE_ACTION_DECIDED 	= 1;
 		public const int AI_STATE_EXECUTING_ACTION	= 2;
+		
+		/*******************************
+		 * 	SOUNDS CONSTANTS
+		 * *****************************/
+		public const int SOUND_CURSOR_MOVE		= 1;
+		public const int SOUND_CURSOR_SELECT	= 2;
+		public const int SOUND_BATTLE_CLASH		= 3;
+		public const int SOUND_CURSOR_CANCEL	= 4;
+		public const int SOUND_PANEL_MOVE		= 5;
+		public const int SOUND_TURN_START		= 6;
+		public const int SOUND_UNIT_MARCH		= 7;
+		public const int SOUND_COMBAT			= 8;
 	}
 }
 

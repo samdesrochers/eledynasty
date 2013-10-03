@@ -3,7 +3,6 @@ app.exe
 Sce.PlayStation.HighLevel.GameEngine2D.dll
 System.Core.dll
 Sce.PlayStation.HighLevel.UI.dll
-Audio/menu.mp3
 MapFiles/defaultMap.txt
 Assets/Units/units.png
 Assets/Items/gameItems.png
@@ -33,3 +32,16 @@ Assets/BattleTerrain/battleTerrain.png
 Assets/UI/kenji_turn.png
 Assets/UI/gohzu_turn.png
 Assets/Title/loading.png
+Audio/Sound/attack_clash.wav
+Audio/Sound/coin_sound.wav
+Audio/Sound/cursor_cancel.wav
+Audio/Sound/cursor_move.wav
+Audio/Sound/cursor_selection.wav
+Audio/Sound/selection_action.wav
+Audio/Sound/swoosh.wav
+Audio/Sound/unit_march.wav
+Audio/Sound/combat.wav
+Audio/kenji_1.mp3
+Audio/enemy_1.mp3
+Audio/enemy_2.mp3
+Audio/kenji_2.mp3
