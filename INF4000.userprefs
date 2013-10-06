@@ -1,8 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Audio\SoundManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\GameObjects\BattleViewer.cs">
     <Files>
-      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="388" Column="44" />
+      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="253" Column="28" />
       <File FileName="INF4000\Classes\Misc\Constants.cs" Line="191" Column="38" />
       <File FileName="INF4000\Classes\GameObjects\Players\AIPlayer.cs" Line="26" Column="19" />
       <File FileName="INF4000\Classes\GameObjects\Players\HumanPlayer.cs" Line="2" Column="1" />
@@ -11,7 +11,7 @@
       <File FileName="INF4000\Classes\Misc\Utilities.cs" Line="24" Column="50" />
       <File FileName="INF4000\Classes\GameUtilities\Path.cs" Line="61" Column="64" />
       <File FileName="INF4000\Classes\GameObjects\Units\Unit.cs" Line="157" Column="30" />
-      <File FileName="INF4000\Audio\SoundManager.cs" Line="15" Column="2" />
+      <File FileName="INF4000\Audio\SoundManager.cs" Line="121" Column="4" />
       <File FileName="INF4000\Classes\GameObjects\BattleViewer.cs" Line="147" Column="23" />
     </Files>
   </MonoDevelop.Ide.Workbench>
@@ -20,6 +20,8 @@
       <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameUtilities\BattleManager.cs" line="71" />
       <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Players\AIPlayer.cs" line="34" />
       <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Players\AIPlayer.cs" line="29" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="249" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="253" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
@@ -48,5 +50,8 @@
     <Watch file="INF4000\Classes\Scenes\GameScene.cs" line="337" offsetX="717" offsetY="5712" expression="ActiveUnit" liveUpdate="False" />
     <Watch file="INF4000\Classes\GameObjects\BattleViewer.cs" line="81" offsetX="509" offsetY="1360" expression="TerrainSprite" liveUpdate="False" />
     <Watch file="INF4000\Classes\GameObjects\BattleViewer.cs" line="94" offsetX="517" offsetY="1581" expression="AttackerDamage" liveUpdate="False" />
+    <Watch file="INF4000\Audio\SoundManager.cs" line="128" offsetX="517" offsetY="2159" expression="Songs" liveUpdate="False" />
+    <Watch file="INF4000\Audio\SoundManager.cs" line="51" offsetX="773" offsetY="850" expression="Songs" liveUpdate="False" />
+    <Watch file="INF4000\Audio\SoundManager.cs" line="128" offsetX="517" offsetY="2159" expression="Songs" liveUpdate="False" />
   </MonoDevelop.Ide.DebuggingService.PinnedWatches>
 </Properties>

@@ -251,8 +251,10 @@ namespace INF4000
 			} 
 			
 			if(pos.Y >= 544/2 && pos.Y <= CurrentMap.Height * 64 - (544/2) + 64) {
-				camera.Center = new Vector2 (camera.Center.X, Cursor.Position.Y  - 32);
-			} 
+				camera.Center = new Vector2 (camera.Center.X, Cursor.Position.Y  - 16);
+			} else if(pos.Y < 544/2) {
+				camera.Center = new Vector2 (camera.Center.X, 544/2);
+			}
 		}
 		
 		private void UpdateCursorPosition ()

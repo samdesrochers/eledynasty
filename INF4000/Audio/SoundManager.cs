@@ -20,6 +20,7 @@ namespace INF4000
 		}
 		
 		public bool Loaded;
+		public bool SoundEnabled;
 		
 		public SoundPlayer SoundPlayer;
 		
@@ -44,11 +45,10 @@ namespace INF4000
 				try
 				{
 					Songs = new Bgm[4];
-					Songs[0] = new Bgm("/Application/Audio/kenji_1.mp3");
-					Songs[1] = new Bgm("/Application/Audio/kenji_2.mp3");
+					Songs[1] = new Bgm("/Application/Audio/kenji_1.mp3");
+					Songs[0] = new Bgm("/Application/Audio/kenji_2.mp3");
 					Songs[2] = new Bgm("/Application/Audio/enemy_1.mp3");
-					Songs[3] = new Bgm("/Application/Audio/enemy_2.mp3");
-					
+					Songs[3] = new Bgm("/Application/Audio/enemy_2.mp3");				
 					
 					CursorMoved = new Sound("/Application/Audio/Sound/cursor_move.wav");
 					CursorSelect = new Sound("/Application/Audio/Sound/selection_action.wav");
@@ -56,7 +56,9 @@ namespace INF4000
 					TurnStart = new Sound("/Application/Audio/Sound/coin_sound.wav");
 					UnitMarch = new Sound("/Application/Audio/Sound/unit_march.wav");
 					Combat = new Sound("/Application/Audio/Sound/combat.wav");
-
+					
+					SoundEnabled = false;
+					
 					Loaded = true;
 				} 
 				catch (Exception e)
@@ -69,7 +71,7 @@ namespace INF4000
 		public void PlaySound(int sound)
 		{
 			try 
-			{
+			{	
 				Sound soundToPlay = null;
 				switch(sound)
 				{
@@ -93,8 +95,10 @@ namespace INF4000
 					break;
 				}
 				
-				SoundPlayer = soundToPlay.CreatePlayer();
-				SoundPlayer.Play();
+				if(SoundEnabled){
+					SoundPlayer = soundToPlay.CreatePlayer();
+					SoundPlayer.Play();
+				}
 				
 			} catch {}
 		}
@@ -106,9 +110,11 @@ namespace INF4000
 			pick = (pick > 3) ? 0 : 1;
 			
 			if(SongPlayer != null) SongPlayer.Dispose();
-			SongPlayer = Songs[pick].CreatePlayer();
-   			SongPlayer.Play();
-			SongPlayer.Loop = true;
+			if(SoundEnabled){
+				SongPlayer = Songs[pick].CreatePlayer();
+	   			SongPlayer.Play();
+				SongPlayer.Loop = true;
+			}
 		}
 		
 		public void PlayEnemyGameSong()
@@ -118,9 +124,11 @@ namespace INF4000
 			pick = (pick > 5) ? 2 : 3;
 			
 			if(SongPlayer != null) SongPlayer.Dispose();
-			SongPlayer = Songs[pick].CreatePlayer();
-   			SongPlayer.Play();
-			SongPlayer.Loop = true;
+			if(SoundEnabled){
+				SongPlayer = Songs[pick].CreatePlayer();
+	   			SongPlayer.Play();
+				SongPlayer.Loop = true;
+			}
 		}
 		
 		~ SoundManager()
