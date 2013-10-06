@@ -92,7 +92,7 @@ namespace INF4000
 					
 					// Buildings Textures
 					BuildingsTexture = new Texture2D ("/Application/Assets/Buildings/build_1.png", false);
-					BuildingsTextureInfo = new TextureInfo (BuildingsTexture, new Vector2i (2, 2));
+					BuildingsTextureInfo = new TextureInfo (BuildingsTexture, new Vector2i (4, 4));
 					
 					// Battle Terrain's Textures
 					BattleTexture = new Texture2D ("/Application/Assets/BattleTerrain/battleTerrain.png", false);

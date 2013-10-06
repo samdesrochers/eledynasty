@@ -16,15 +16,22 @@ namespace INF4000
 			switch (type) {
 				// FORT
 				case Constants.BUILD_FORT:
-					indexP1 = new Vector2i (0, 0);
-					indexP2 = new Vector2i (1, 0);
+					indexP1 = new Vector2i (2, 2);
+					indexP2 = new Vector2i (3, 2);
 					indexN = new Vector2i (1, 0);
 					break;
 				
 				// FARM
 				case Constants.BUILD_FARM:
-					indexP1 = new Vector2i (0, 1);
-					indexP2 = new Vector2i (1, 1);
+					indexP1 = new Vector2i (2, 3);
+					indexP2 = new Vector2i (3, 3);
+					indexN = new Vector2i (1, 0);
+					break;
+				
+				// TEMPLE
+				case Constants.BUILD_TEMPLE:
+					indexP1 = new Vector2i (0, 3);
+					indexP2 = new Vector2i (1, 3);
 					indexN = new Vector2i (1, 0);
 					break;
 				
@@ -47,18 +54,26 @@ namespace INF4000
 			switch (type) {
 				// FORT
 				case Constants.BUILD_FORT:
-					defense = 9;
-					goldPerTurn = 3;
+					defense = Constants.BUILD_FORT_GOLD_DEF;
+					goldPerTurn = Constants.BUILD_FORT_GOLD_YEILD;
 					goldToProduce = 0;
 					productionType = Constants.UNIT_TYPE_NONE;
 					break;
 				
 				// FARM
 				case Constants.BUILD_FARM:
-					defense = 2;
-					goldPerTurn = 1;
-					goldToProduce = 4;
+					defense = Constants.BUILD_FARM_GOLD_DEF;
+					goldPerTurn = Constants.BUILD_FARM_GOLD_YEILD;
+					goldToProduce = Constants.BUILD_FARM_GOLD_PRODUCE;
 					productionType = Constants.UNIT_TYPE_FARMER;
+					break;
+				
+				// TEMPLS
+				case Constants.BUILD_TEMPLE:
+					defense = Constants.BUILD_TEMPLE_GOLD_DEF;
+					goldPerTurn = Constants.BUILD_TEMPLE_GOLD_YEILD;
+					goldToProduce = Constants.BUILD_TEMPLE_GOLD_PRODUCE;
+					productionType = Constants.UNIT_TYPE_MONK;
 					break;
 			}
 			

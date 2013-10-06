@@ -81,6 +81,20 @@ namespace INF4000
 		public const int BUILD_STABLES	= 54;
 		public const int BUILD_WIZARD	= 55;
 		
+		// Buildings - To Produce
+		public const int BUILD_TEMPLE_GOLD_PRODUCE 	= 8;
+		public const int BUILD_FARM_GOLD_PRODUCE 	= 4;
+		
+		// Buildings - Yeild
+		public const int BUILD_TEMPLE_GOLD_YEILD 	= 2;
+		public const int BUILD_FARM_GOLD_YEILD 	= 1;
+		public const int BUILD_FORT_GOLD_YEILD 	= 5;
+		
+		// Buildings - Defense
+		public const int BUILD_TEMPLE_GOLD_DEF 	= 3;
+		public const int BUILD_FARM_GOLD_DEF 	= 2;
+		public const int BUILD_FORT_GOLD_DEF 	= 9;
+		
 		/*******************************
 		 * 	UNIT CONSTANTS
 		 * *****************************/

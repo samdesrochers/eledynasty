@@ -85,6 +85,9 @@ namespace INF4000
 				case Constants.BUILD_FARM:
 					unitTypeToProduce = Constants.UNIT_TYPE_FARMER;
 					break;
+				case Constants.BUILD_TEMPLE:
+					unitTypeToProduce = Constants.UNIT_TYPE_MONK;
+					break;
 			}
 			
 			bool produced = false;
