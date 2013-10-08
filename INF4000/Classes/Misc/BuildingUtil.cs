@@ -68,7 +68,7 @@ namespace INF4000
 					productionType = Constants.UNIT_TYPE_FARMER;
 					break;
 				
-				// TEMPLS
+				// TEMPLE
 				case Constants.BUILD_TEMPLE:
 					defense = Constants.BUILD_TEMPLE_GOLD_DEF;
 					goldPerTurn = Constants.BUILD_TEMPLE_GOLD_YEILD;

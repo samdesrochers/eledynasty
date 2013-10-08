@@ -87,42 +87,52 @@ namespace INF4000
 		#endregion
 		
 		#region UI Util
+		public static void ShowGameUI()
+		{
+			GameScene.Instance.GameUI.SetActive();
+		}
+		
+		public static void ShowDialogUI()
+		{
+			GameScene.Instance.DialogUI.SetActive();
+		}
+		
 		public static void ShowActionPanel()
 		{
-			GameScene.Instance.UI.ActionPanel.SetActive(true);
+			GameScene.Instance.GameUI.ActionPanel.SetActive(true);
 		}
 		
 		public static void HideActionPanel()
 		{
-			GameScene.Instance.UI.ActionPanel.SetActive(false);
+			GameScene.Instance.GameUI.ActionPanel.SetActive(false);
 		}
 		
 		public static void ShowAttackPanel()
 		{
-			GameScene.Instance.UI.ActionPanel.SetActive(true);
+			GameScene.Instance.GameUI.ActionPanel.SetActive(true);
 		}
 		
 		public static void HideAttackPanel()
 		{
-			GameScene.Instance.UI.OddsPanel.SetActive(false);
+			GameScene.Instance.GameUI.OddsPanel.SetActive(false);
 		}
 		
 		public static void ShowAttackOddsPanel()
 		{
-			GameScene.Instance.UI.OddsPanel.SetActive(true);
+			GameScene.Instance.GameUI.OddsPanel.SetActive(true);
 		}
 		
 		public static void ShowStatsPanels()
 		{
-			GameScene.Instance.UI.TileStatsPanel.Panel.Visible = true;
-			if(GameScene.Instance.UI.UnitStatsPanel.IsActive)
-				GameScene.Instance.UI.UnitStatsPanel.Panel.Visible = true;
+			GameScene.Instance.GameUI.TileStatsPanel.Panel.Visible = true;
+			if(GameScene.Instance.GameUI.UnitStatsPanel.IsActive)
+				GameScene.Instance.GameUI.UnitStatsPanel.Panel.Visible = true;
 		}
 		
 		public static void HideStatsPanels()
 		{
-			GameScene.Instance.UI.TileStatsPanel.Panel.Visible = false;
-			GameScene.Instance.UI.UnitStatsPanel.Panel.Visible = false;
+			GameScene.Instance.GameUI.TileStatsPanel.Panel.Visible = false;
+			GameScene.Instance.GameUI.UnitStatsPanel.Panel.Visible = false;
 		}
 		
 		public static void AdjustStatsPanelLocation()
@@ -131,24 +141,24 @@ namespace INF4000
 			
 			if(GameScene.Instance.Cursor.Position.X > camera.Center.X)
 			{
-				GameScene.Instance.UI.TileStatsPanel.SetToLeftOfScreen();
-				GameScene.Instance.UI.UnitStatsPanel.SetToLeftOfScreen();
-				GameScene.Instance.UI.ActionPanel.SetToRightOfScreen();
-				GameScene.Instance.UI.PlayerPanel.SetToRightOfScreen();	
+				GameScene.Instance.GameUI.TileStatsPanel.SetToLeftOfScreen();
+				GameScene.Instance.GameUI.UnitStatsPanel.SetToLeftOfScreen();
+				GameScene.Instance.GameUI.ActionPanel.SetToRightOfScreen();
+				GameScene.Instance.GameUI.PlayerPanel.SetToRightOfScreen();	
 				
 			} else {
-				GameScene.Instance.UI.TileStatsPanel.SetToRightOfScreen();
-				GameScene.Instance.UI.UnitStatsPanel.SetToRightOfScreen();
-				GameScene.Instance.UI.ActionPanel.SetToLeftOfScreen();
-				GameScene.Instance.UI.PlayerPanel.SetToLeftOfScreen();	
+				GameScene.Instance.GameUI.TileStatsPanel.SetToRightOfScreen();
+				GameScene.Instance.GameUI.UnitStatsPanel.SetToRightOfScreen();
+				GameScene.Instance.GameUI.ActionPanel.SetToLeftOfScreen();
+				GameScene.Instance.GameUI.PlayerPanel.SetToLeftOfScreen();	
 			}
 			
 			if(GameScene.Instance.Cursor.Position.Y > camera.Center.Y + 64)
 			{
-				GameScene.Instance.UI.PlayerPanel.SetBottom();
+				GameScene.Instance.GameUI.PlayerPanel.SetBottom();
 				
 			} else {
-				GameScene.Instance.UI.PlayerPanel.SetTop();
+				GameScene.Instance.GameUI.PlayerPanel.SetTop();
 			}
 		}
 		#endregion

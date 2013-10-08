@@ -24,8 +24,8 @@ namespace INF4000
 			get { return _Gold; }
 			set { 
 				_Gold = value; 
-				if(GameScene.Instance.UI != null && GameScene.Instance.UI.PlayerPanel != null)
-					GameScene.Instance.UI.PlayerPanel.SetGold(_Gold.ToString());
+				if(GameScene.Instance.GameUI != null && GameScene.Instance.GameUI.PlayerPanel != null)
+					GameScene.Instance.GameUI.PlayerPanel.SetGold(_Gold.ToString());
 			}
 		}		
 		

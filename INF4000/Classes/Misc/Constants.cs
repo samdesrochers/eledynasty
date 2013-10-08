@@ -26,6 +26,7 @@ namespace INF4000
 		public const int GLOBAL_STATE_PAUSE 			= 13;
 		public const int GLOBAL_STATE_LOADING			= 14;
 		public const int GLOBAL_STATE_BATTLE_ANIMATION	= 15;
+		public const int GLOBAL_STATE_DIALOG			= 16;
 		
 		/*******************************
 		 * 	TERRAIN CONSTANTS
@@ -203,6 +204,12 @@ namespace INF4000
 		public const int SOUND_TURN_START		= 6;
 		public const int SOUND_UNIT_MARCH		= 7;
 		public const int SOUND_COMBAT			= 8;
+		
+		/*******************************
+		 * 	DIALOG CONSTANTS
+		 * *****************************/
+		public const string DIALOG_EOF				= "end_file";
+
 	}
 }
 

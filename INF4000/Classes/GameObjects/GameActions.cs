@@ -16,7 +16,7 @@ namespace INF4000
 		public static void PrepareUnitMove(Path path)
 		{
 			// Prepare the Action Panel with Move and Cancel actions only
-			GameScene.Instance.UI.ActionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL);
+			GameScene.Instance.GameUI.ActionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL);
 			GameScene.Instance.CurrentGameState = Constants.GAME_STATE_ACTIONPANEL_ACTIVE;
 			Utilities.AssignMovePathToActiveUnit(path); // Concrete move action
 		}
@@ -24,7 +24,7 @@ namespace INF4000
 		public static void PrepareUnitAttack(Path path)
 		{				
 			// Prepare the Action Panel with Move Attack and Cancel actions 
-			GameScene.Instance.UI.ActionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_ATTACK);
+			GameScene.Instance.GameUI.ActionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_ATTACK);
 			GameScene.Instance.CurrentGameState = Constants.GAME_STATE_ACTIONPANEL_ACTIVE;
 			Utilities.AssignMovePathToActiveUnit(path); // Concrete move action
 		}
@@ -32,45 +32,45 @@ namespace INF4000
 		public static void PrepareUnitSleep()
 		{
 			// Prepare the Action Panel with Move Attack and Cancel actions 
-			GameScene.Instance.UI.ActionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL);
+			GameScene.Instance.GameUI.ActionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL);
 			GameScene.Instance.CurrentGameState = Constants.GAME_STATE_ACTIONPANEL_ACTIVE;
 			
 			// Show Panel
 			Utilities.ShowActionPanel();
-			GameScene.Instance.UI.ActionPanel.MoveItem.Text_Action.Text = "SLEEP";
+			GameScene.Instance.GameUI.ActionPanel.MoveItem.Text_Action.Text = "SLEEP";
 		}
 		
 		public static void PrepareUnitAttackFromOrigin()
 		{
 			// Prepare the Action Panel with Move Attack and Cancel actions 
-			GameScene.Instance.UI.ActionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_ATTACK);
+			GameScene.Instance.GameUI.ActionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_ATTACK);
 			GameScene.Instance.CurrentGameState = Constants.GAME_STATE_ACTIONPANEL_ACTIVE;
 			
 			// Show Actions Panel
 			Utilities.ShowActionPanel();
-			GameScene.Instance.UI.ActionPanel.MoveItem.Text_Action.Text = "SLEEP";
+			GameScene.Instance.GameUI.ActionPanel.MoveItem.Text_Action.Text = "SLEEP";
 		}
 		
 		public static void PrepareUnitSleepOrProduce()
 		{
 			// Prepare the Action Panel with Move Attack and Cancel actions 
-			GameScene.Instance.UI.ActionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_PRODUCE);
+			GameScene.Instance.GameUI.ActionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_PRODUCE);
 			GameScene.Instance.CurrentGameState = Constants.GAME_STATE_ACTIONPANEL_ACTIVE;
 			
 			// Show Actions Panel
 			Utilities.ShowActionPanel();
-			GameScene.Instance.UI.ActionPanel.MoveItem.Text_Action.Text = "SLEEP";
+			GameScene.Instance.GameUI.ActionPanel.MoveItem.Text_Action.Text = "SLEEP";
 		}
 			
 		public static void PrepareUnitAttackFromOriginOrProduce()
 		{
 			// Prepare the Action Panel with Move Attack and Cancel actions 
-			GameScene.Instance.UI.ActionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_PRODUCE_ATTACK);
+			GameScene.Instance.GameUI.ActionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_PRODUCE_ATTACK);
 			GameScene.Instance.CurrentGameState = Constants.GAME_STATE_ACTIONPANEL_ACTIVE;
 			
 			// Show Actions Panel
 			Utilities.ShowActionPanel();
-			GameScene.Instance.UI.ActionPanel.MoveItem.Text_Action.Text = "SLEEP";
+			GameScene.Instance.GameUI.ActionPanel.MoveItem.Text_Action.Text = "SLEEP";
 		}
 		
 		public static void CancelUnitMove()
@@ -105,7 +105,7 @@ namespace INF4000
 		{
 			// Player is sleeping this unit, inactive state, close UI, sleep unit
 			GameScene.Instance.CurrentGameState = Constants.GAME_STATE_SELECTION_INACTIVE;
-			GameScene.Instance.UI.ActionPanel.SetActive(false);
+			GameScene.Instance.GameUI.ActionPanel.SetActive(false);
 			
 			GameScene.Instance.ActivePlayer.ActiveUnit.Sleep();
 			GameScene.Instance.ActivePlayer.ActiveUnit = null;
@@ -115,7 +115,7 @@ namespace INF4000
 		{
 			// Unit is moved concretly, finalize the action and hide panel
 			GameScene.Instance.CurrentGameState = Constants.GAME_STATE_SELECTION_INACTIVE;
-			GameScene.Instance.UI.ActionPanel.SetActive(false);
+			GameScene.Instance.GameUI.ActionPanel.SetActive(false);
 			Utilities.FinalizeMoveAction();
 		}
 
@@ -123,7 +123,7 @@ namespace INF4000
 		{
 			// Move is canceled, hide panel and reset unit to origin position
 			GameScene.Instance.CurrentGameState = Constants.GAME_STATE_UNIT_SELECTION_ACTIVE;
-			GameScene.Instance.UI.ActionPanel.SetActive(false);
+			GameScene.Instance.GameUI.ActionPanel.SetActive(false);
 			
 			GameScene.Instance.ActivePlayer.ActiveUnit.RevertMove();
 			GameScene.Instance.Cursor.MoveToTileByWorldPosition(GameScene.Instance.ActivePlayer.ActiveUnit.WorldPosition);

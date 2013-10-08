@@ -72,6 +72,8 @@
     <Compile Include="Classes\GameObjects\Players\HumanPlayer.cs" />
     <Compile Include="Classes\GameObjects\Players\Player.cs" />
     <Compile Include="Audio\SoundManager.cs" />
+    <Compile Include="Classes\UI\DialogUI.cs" />
+    <Compile Include="Classes\GameUtilities\DialogManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -105,6 +107,7 @@
     <Folder Include="Classes\GameObjects\Units\" />
     <Folder Include="Classes\GameObjects\Players\" />
     <Folder Include="Audio\Sound\" />
+    <Folder Include="Assets\Dialog\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="MapFiles\defaultMap.txt" />
@@ -149,5 +152,9 @@
     <Content Include="Audio\enemy_1.mp3" />
     <Content Include="Audio\enemy_2.mp3" />
     <Content Include="Audio\kenji_2.mp3" />
+    <Content Include="Assets\Dialog\char_gohzu_1.png" />
+    <Content Include="Assets\Dialog\char_kenji_1.png" />
+    <Content Include="Assets\Dialog\char_overlay_blue.png" />
+    <Content Include="Assets\Dialog\char_overlay_red.png" />
   </ItemGroup>
 </Project>

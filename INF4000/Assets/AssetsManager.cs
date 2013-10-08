@@ -65,6 +65,11 @@ namespace INF4000
 		public ImageAsset Image_Icon_Grass;
 		public ImageAsset Image_Icon_Road;
 		
+		public ImageAsset Image_Dialog_Overlay_Red;
+		public ImageAsset Image_Dialog_Overlay_Blue;
+		public ImageAsset Image_Dialog_Kenji_1;
+		public ImageAsset Image_Dialog_Gohzu_1;
+		
 		public AssetsManager ()
 		{
 			Loaded = false;
@@ -121,6 +126,13 @@ namespace INF4000
 					Image_Kenji_UI_Turn = new ImageAsset("/Application/Assets/UI/kenji_turn.png",false);
 					Image_Gohzu_UI_Turn = new ImageAsset("/Application/Assets/UI/gohzu_turn.png",false);
 					
+					// Dialog Elements
+					Image_Dialog_Overlay_Red = new ImageAsset("/Application/Assets/Dialog/char_overlay_red.png",false);
+					Image_Dialog_Overlay_Blue = new ImageAsset("/Application/Assets/Dialog/char_overlay_blue.png",false);
+					Image_Dialog_Kenji_1 = new ImageAsset("/Application/Assets/Dialog/char_kenji_1.png",false);
+					Image_Dialog_Gohzu_1 = new ImageAsset("/Application/Assets/Dialog/char_gohzu_1.png",false);
+					
+					
 					Loaded = true;
 				} 
 				catch (Exception e)
@@ -130,8 +142,9 @@ namespace INF4000
 			}
 		}
 		
-		~ AssetsManager()
+		public void Dispose()
 		{
+			try{
 			UnitsTexture.Dispose();
 			UnitsTextureInfo.Dispose();
 			
@@ -142,7 +155,9 @@ namespace INF4000
 			BuildingsTextureInfo.Dispose();
 			
 			BattleTexture.Dispose();
-			BattleTextureInfo.Dispose();			
+			BattleTextureInfo.Dispose();	
+			_Instance = null;
+			} catch (Exception e){ Console.WriteLine(e.Message + " - Error disposing textures");}
 		}
 	}
 }

@@ -143,7 +143,7 @@ namespace INF4000
 			
 			if(FirstPass)
 			{
-				GameScene.Instance.UI.SetBattleAnimation();
+				GameScene.Instance.GameUI.SetBattleAnimation();
 				FirstPass = false;
 			}
 					
@@ -162,7 +162,7 @@ namespace INF4000
 				AttackInGame();
 				
 				// Reset correct Playing UI
-				GameScene.Instance.UI.SetPlaying();
+				GameScene.Instance.GameUI.SetPlaying();
 				
 			} else {
 				

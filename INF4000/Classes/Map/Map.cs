@@ -80,6 +80,9 @@ namespace INF4000
 			GameScene.Instance.Players[0].Name = MapTextFileContent [3];
 			GameScene.Instance.Players[1].Name = MapTextFileContent [4];
 			
+			// Get the dialog sequences to the DialogManager
+			ExtractDialogInfo(MapTextFileContent);
+			
 			// Clean Map strings list to keep tiles only
 			MapTextFileContent.RemoveRange (0, 5);
 			MapTextFileContent.RemoveAll (StartsWithDelimiter);
@@ -113,6 +116,7 @@ namespace INF4000
 		}
 		#endregion
 		
+		#region Extraction methods
 		private Tile ExtractTileInfo (string info, int posx, int posy)
 		{
 			int tileType;
@@ -166,6 +170,30 @@ namespace INF4000
 			
 			return tile;
 		}
+		private void ExtractDialogInfo(List<string> mapContent)
+		{
+			List<Tuple<string, string>> dialogSequences = new List<Tuple<string, string>>();
+			foreach(string s in mapContent)
+			{
+				if(s.StartsWith("#"))
+				{
+					string sequence = "";
+					string speaker = "";
+					string text = "";
+					
+					sequence = s.Remove(0,1);
+					string[] sequences = sequence.Split('$');
+					speaker = sequences[0];
+					text = sequences[1];
+					
+					Tuple<string, string> seq = new Tuple<string, string>(speaker, text);
+					dialogSequences.Add(seq);
+				}
+			}
+			GameScene.Instance.DialogManager = new DialogManager(dialogSequences);
+		}
+		
+		#endregion
 		
 		public bool SaveMapToFile (string fileName)
 		{

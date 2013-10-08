@@ -26,7 +26,10 @@ namespace INF4000
 		/*******************************
 		 * FIELDS
 		 *******************************/
-		public GameUI UI;
+		public GameUI GameUI;
+		
+		public DialogUI DialogUI;
+		public DialogManager DialogManager;
 		
 		public int CurrentGlobalState;
 		public int CurrentGameState;
@@ -43,10 +46,12 @@ namespace INF4000
 		public BattleViewer BattleViewer;
 		
 		private float SwitchTurnTime;
+		private bool TurnSwitchInit = true;
 		public int CurrentTurnCount = 1;
 		
 		public GameScene ()
 		{
+			Console.WriteLine("CREATING GAME SCENE");
 			_Instance = this;
 			this.CurrentGlobalState = Constants.GLOBAL_STATE_SWITCHING_TURN;
 			this.CurrentGameState = Constants.GAME_STATE_SELECTION_INACTIVE;
@@ -87,16 +92,16 @@ namespace INF4000
 			// Create the battle viewer for animations
 			BattleViewer = new BattleViewer();
 			
-			UI = new GameUI();
-			UI.PlayerPanel.SetCurrentPlayerData(ActivePlayer.Icon, ActivePlayer.Gold.ToString(), "");	
+			GameUI = new GameUI();
+			GameUI.PlayerPanel.SetCurrentPlayerData(ActivePlayer.Icon, ActivePlayer.Gold.ToString(), "");
+			
+			DialogUI = new DialogUI();
+			DialogManager.SetNextSequence(); // Created in the Map, when the dialog are extracted;
 			
 			ActivePlayer.IsStartingTurn = true;
 			SwitchTurnTime = 0.0f;	
 			CurrentTurnCount = 1;
 									
-			//Now load the sound fx and create a player
-			//_Sound = new Sound ("/Application/audio/pongblip.wav");
-			//_SoundPlayer = _Sound.CreatePlayer ();
 			Scheduler.Instance.ScheduleUpdateForTarget (this, 0, false);
 		}
 		
@@ -119,6 +124,9 @@ namespace INF4000
 					break;
 				case Constants.GLOBAL_STATE_BATTLE_ANIMATION:
 					UpdateBattleAnimation(dt);
+					break;
+				case Constants.GLOBAL_STATE_DIALOG:
+					UpdateDialog(dt);
 					break;
 				case Constants.GLOBAL_STATE_PAUSE:
 					//UpdateGameRunning();
@@ -189,22 +197,21 @@ namespace INF4000
 			ActivePlayer.Update();
 		}
 		
-		private bool turnSwitchFirstPass = true;
 		private void UpdateGameSwitchingTurn(float dt)
 		{
-			if(turnSwitchFirstPass)
+			if(TurnSwitchInit)
 			{
-				turnSwitchFirstPass = false;
+				TurnSwitchInit = false;
 				SoundManager.Instance.PlaySound(Constants.SOUND_TURN_START);
 			}
 			
 			SwitchTurnTime += dt;			
-			UI.AnimateSwitchitngTurn(dt);
+			GameUI.AnimateSwitchitngTurn(dt);
 
 			if(SwitchTurnTime >= 2.0f || Input2.GamePad0.Cross.Release) // wait 2 seconds before switching turn
 			{
 				CurrentGlobalState = Constants.GLOBAL_STATE_PLAYING_TURN;
-				UI.SetPlaying();
+				GameUI.SetPlaying();
 				SwitchTurnTime = 0.0f;
 			}
 		}
@@ -214,30 +221,42 @@ namespace INF4000
 			BattleViewer.Update(dt);
 		}
 		
+		private void UpdateDialog(float dt)
+		{
+			DialogManager.Update(dt);
+		}
+		
 		private void UpdateGameOver(float dt)
 		{
 			SwitchTurnTime += dt;			
-			UI.AnimateGameOver(dt);
+			GameUI.AnimateGameOver(dt);
 
 			if(SwitchTurnTime >= 5.0f || Input2.GamePad0.Cross.Release) // wait 2 seconds before switching turn
 			{
+				Dispose();
 				Director.Instance.ReplaceScene(new MenuScene());
 			}
 		}
 		
 		private void UpdateCameraPosition ()
 		{	
+			// Adjust Camera accoring to Right Analog Stick
 //			Camera2D camera = this.Camera as Camera2D;
-//			
-//			// Adjust Camera accoring to Right Analog Stick
 //			GamePadData data = GamePad.GetData (0);
-//			Vector2 pos = camera.Center;
+//			Vector2 pos = camera.Center;			
+//			float newPosX = pos.X + 5*data.AnalogRightX;
+//			float newPosY = pos.Y - 5*data.AnalogRightY;
 //			
-//			if(pos.X >= 960/2 && pos.X <= CurrentMap.Width * 64 - (960/2) + 64) {
-//				camera.Center = new Vector2 (camera.Center.X + 5 * data.AnalogRightX, camera.Center.Y - 5 * data.AnalogRightY);
-//			} else {
-//				camera.Center = new Vector2 (camera.Center.X, camera.Center.Y - 5 * data.AnalogRightY);
-//			}		
+//			if(newPosX >= 960/2 && newPosX <= CurrentMap.Width * 64 - (960/2) + 64) {
+//				camera.Center = new Vector2(newPosX, camera.Center.Y);
+//			} 
+//			
+//			if(newPosY >= 544/2 && newPosY <= CurrentMap.Height * 64 - (544/2) + 64) {
+//				camera.Center = new Vector2 (camera.Center.X, newPosY);
+//			} else if(newPosY < 544/2) {
+//				camera.Center = new Vector2 (camera.Center.X, 544/2);
+//			}
+			
 			Utilities.AdjustStatsPanelLocation();
 		}
 		
@@ -311,10 +330,10 @@ namespace INF4000
 		private void UpdateActionPanelSelection()
 		{
 			if (Input2.GamePad.GetData (0).Up.Release) {
-				UI.ActionPanel.FocusNextItemUp();
+				GameUI.ActionPanel.FocusNextItemUp();
 				SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_SELECT);
 			} else if(Input2.GamePad.GetData (0).Down.Release) {
-				UI.ActionPanel.FocusNextItemDown();
+				GameUI.ActionPanel.FocusNextItemDown();
 				SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_SELECT);
 			}
 		}
@@ -352,22 +371,22 @@ namespace INF4000
 			Tile t = Cursor.SelectedTile;
 			if(t != null)
 			{
-				UI.TileStatsPanel.SetElements(t.Defense, 0, 0, 0, t.Label, t.TerrainType, null);
-				UI.TileStatsPanel.SetConfiguration(Constants.UI_ELEMENT_CONFIG_STATS_TERRAIN);
+				GameUI.TileStatsPanel.SetElements(t.Defense, 0, 0, 0, t.Label, t.TerrainType, null);
+				GameUI.TileStatsPanel.SetConfiguration(Constants.UI_ELEMENT_CONFIG_STATS_TERRAIN);
 				
 				if(t.CurrentBuilding != null)
 				{
-					UI.TileStatsPanel.SetElements(t.CurrentBuilding.Defense, 0, 0, t.CurrentBuilding.GoldPerTurn, t.CurrentBuilding.Label, t.CurrentBuilding.Type, t.CurrentBuilding.OwnerName);
-					UI.TileStatsPanel.SetConfiguration(Constants.UI_ELEMENT_CONFIG_STATS_BUILDING);
+					GameUI.TileStatsPanel.SetElements(t.CurrentBuilding.Defense, 0, 0, t.CurrentBuilding.GoldPerTurn, t.CurrentBuilding.Label, t.CurrentBuilding.Type, t.CurrentBuilding.OwnerName);
+					GameUI.TileStatsPanel.SetConfiguration(Constants.UI_ELEMENT_CONFIG_STATS_BUILDING);
 				} 
 				
 				if(t.CurrentUnit != null)
 				{
-					UI.UnitStatsPanel.SetElements(t.CurrentUnit.Armor, t.CurrentUnit.AttackDamage, t.CurrentUnit.LifePoints, 0, t.CurrentUnit.Label, t.CurrentUnit.Type, t.CurrentUnit.OwnerName);
-					UI.UnitStatsPanel.SetConfiguration(Constants.UI_ELEMENT_CONFIG_STATS_UNIT);
-					UI.UnitStatsPanel.IsActive = true;
+					GameUI.UnitStatsPanel.SetElements(t.CurrentUnit.Armor, t.CurrentUnit.AttackDamage, t.CurrentUnit.LifePoints, 0, t.CurrentUnit.Label, t.CurrentUnit.Type, t.CurrentUnit.OwnerName);
+					GameUI.UnitStatsPanel.SetConfiguration(Constants.UI_ELEMENT_CONFIG_STATS_UNIT);
+					GameUI.UnitStatsPanel.IsActive = true;
 				} else {
-					UI.UnitStatsPanel.IsActive = false;
+					GameUI.UnitStatsPanel.IsActive = false;
 				}
 			}
 		}
@@ -376,7 +395,7 @@ namespace INF4000
 		#region Game Loop Methods
 		private void InitPlayerTurn()
 		{
-			turnSwitchFirstPass = true;
+			TurnSwitchInit = true;
 			
 			// Move Cursor to new player's first unit
 			Cursor.MoveToFirstUnit();
@@ -415,7 +434,7 @@ namespace INF4000
 			CurrentGameState = Constants.GAME_STATE_SELECTION_INACTIVE;
 			
 			//Reset UI
-			UI.ActionPanel.SetActive(false);		
+			GameUI.ActionPanel.SetActive(false);		
 		}
 		
 		private bool CheckIsGameOver ()
@@ -460,7 +479,7 @@ namespace INF4000
 		{
 			if(CurrentGlobalState == Constants.GLOBAL_STATE_PLAYING_TURN)
 			{
-				UI.Button_EndTurn.Visible = false;
+				GameUI.Button_EndTurn.Visible = false;
 				SwitchToNextPlayer();
 			}
 		}
@@ -491,13 +510,13 @@ namespace INF4000
 			else if(this.CurrentGameState == Constants.GAME_STATE_ACTIONPANEL_ACTIVE)
 			{
 				// User selects an option in the Action panel Presses "X"
-				if (Input2.GamePad.GetData (0).Cross.Release && UI.ActionPanel.IsActive()) 
+				if (Input2.GamePad.GetData (0).Cross.Release && GameUI.ActionPanel.IsActive()) 
 				{
 					CrossPressed_LastStateActionPanelActive();
 				}
 				
 				// User Presses "O"
-				if (Input2.GamePad.GetData (0).Circle.Release && UI.ActionPanel.IsActive()) 
+				if (Input2.GamePad.GetData (0).Circle.Release && GameUI.ActionPanel.IsActive()) 
 				{
 					CirclePressed_LastStateActionPanelActive();
 				}
@@ -526,12 +545,15 @@ namespace INF4000
 			// Sqaure Pressed
 			if (Input2.GamePad.GetData (0).Square.Release) 
 			{ 
+				Utilities.ShowGameUI();
 				//UI.ActionSelectionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_MOVE_CANCEL_ATTACK);
 			}
 			
 			// Triangle Pressed
 			if (Input2.GamePad.GetData (0).Triangle.Release) 
 			{ 
+				Utilities.ShowDialogUI();
+				CurrentGlobalState = Constants.GLOBAL_STATE_DIALOG;
 				//UI.ActionSelectionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_MOVE_CANCEL);
 			}
 		}
@@ -555,7 +577,7 @@ namespace INF4000
 				else if(selectedBuild != null && selectedUnit == null && selectedBuild.Type != Constants.BUILD_FORT)
 				{
 					CurrentGameState = Constants.GAME_STATE_ACTIONPANEL_ACTIVE;
-					UI.ActionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_CANCEL_PRODUCE);
+					GameUI.ActionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_CANCEL_PRODUCE);
 					Utilities.ShowActionPanel();
 					
 					ActivePlayer.ActiveBuilding = selectedBuild;
@@ -602,7 +624,7 @@ namespace INF4000
 		
 		private void CrossPressed_LastStateActionPanelActive()
 		{
-			int UIAction = UI.ActionPanel.GetSelectedAction();
+			int UIAction = GameUI.ActionPanel.GetSelectedAction();
 			
 			if(UIAction == Constants.UI_ELEMENT_ACTION_TYPE_ATTACK) // ATTACK Button pressed
 			{
@@ -636,7 +658,7 @@ namespace INF4000
 				if(ActivePlayer.LastAction == Constants.ACTION_SLEEP || ActivePlayer.LastAction == Constants.ACTION_NOMOVE_ATTACK 
 				   || ActivePlayer.LastAction == Constants.ACTION_PRODUCE || ActivePlayer.LastAction == Constants.ACTION_PRODUCE_ATTACK) 
 				{			
-					UI.ActionPanel.SetActive(false);
+					GameUI.ActionPanel.SetActive(false);
 					CirclePressed_LastStateActive();		
 				} else if(ActivePlayer.ActiveUnit != null){
 					GameActions.MoveBackToOriginSelectedUnit();
@@ -714,10 +736,20 @@ namespace INF4000
 		
 		#region Utilities
         
-		~GameScene ()
+		public void Dispose()
 		{
-			//_SoundPlayer.Dispose ();
+			this.Cleanup();
+			
+			CurrentMap.SpriteList.RemoveAllChildren(true);
+			this.RemoveAllChildren(true);
+			
+			AssetsManager.Instance.Dispose();
+			SoundManager.Instance.Dispose();
+			
+			_Instance = null;
+			Console.WriteLine("DELETING GAME SCENE");
 		}
+		
 		#endregion
 		#endregion
 	}

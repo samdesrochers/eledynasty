@@ -57,7 +57,7 @@ namespace INF4000
 					UnitMarch = new Sound("/Application/Audio/Sound/unit_march.wav");
 					Combat = new Sound("/Application/Audio/Sound/combat.wav");
 					
-					SoundEnabled = false;
+					SoundEnabled = true;
 					
 					Loaded = true;
 				} 
@@ -131,19 +131,25 @@ namespace INF4000
 			}
 		}
 		
-		~ SoundManager()
+		public void Dispose()
 		{
+			try{
 			CursorMoved.Dispose();
 			CursorCancel.Dispose();
 			CursorSelect.Dispose();
 			Combat.Dispose();
 			TurnStart.Dispose();
 			UnitMarch.Dispose();
-			SoundPlayer.Dispose();
+			if(SoundPlayer != null) SoundPlayer.Dispose();
 			
 			Songs[0].Dispose();
 			Songs[1].Dispose();
-			SongPlayer.Dispose();
+			Songs[2].Dispose();
+			Songs[3].Dispose();
+			
+			if(SongPlayer != null) SongPlayer.Dispose();
+			} catch {}
+			_Instance = null;
 		}
 	}
 }

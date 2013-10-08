@@ -195,6 +195,11 @@ namespace INF4000
 			Label_TurnSwitchMessage.Height = 100;
 			Label_TurnSwitchMessage.SetPosition(100, 200);
 		}
+		
+		public void SetActive()
+		{
+			UISystem.SetScene(_UIScene);
+		}
 	}
 }
 
