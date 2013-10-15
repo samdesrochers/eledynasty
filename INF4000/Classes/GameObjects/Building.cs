@@ -88,6 +88,9 @@ namespace INF4000
 				case Constants.BUILD_TEMPLE:
 					unitTypeToProduce = Constants.UNIT_TYPE_MONK;
 					break;
+				case Constants.BUILD_FORGE:
+					unitTypeToProduce = Constants.UNIT_TYPE_SAMURAI;
+					break;
 			}
 			
 			bool produced = false;

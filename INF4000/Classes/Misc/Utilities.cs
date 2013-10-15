@@ -171,17 +171,17 @@ namespace INF4000
 				{
 					parent.AddChild(b.SpriteTile);
 				}
-				
+			}
+			
+			foreach(Player p in players)
+			{
 				foreach(Unit u in p.Units)
 				{
 					parent.AddChild(u.UnitSprite);
-					
-					if(u.HealthDisplay.TextureInfo != null)
-					{
-						parent.AddChild(u.HealthDisplay);
-					}
+					parent.AddChild(u.HealthDisplay);
 				}
 			}
+
 		}
 		
 		public static void CycleThroughUnits()
@@ -286,7 +286,6 @@ namespace INF4000
 		#region AI Helper methods
 		public static bool IsDestinationValid(Vector2i destination)
 		{
-			
 			Tile t = GameScene.Instance.CurrentMap.GetTile(destination);
 			if(t.CurrentUnit != null)
 				return false;

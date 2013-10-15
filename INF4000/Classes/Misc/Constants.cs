@@ -44,7 +44,7 @@ namespace INF4000
 		public const int TILE_TYPE_BUILD_BARRACKS 	= 51;
 		public const int TILE_TYPE_BUILD_FARM	 	= 52;
 		public const int TILE_TYPE_BUILD_ARCHERY 	= 53;
-		public const int TILE_TYPE_BUILD_STABLES	= 54;
+		public const int TILE_TYPE_BUILD_FORGE		= 54;
 		public const int TILE_TYPE_BUILD_WIZARD		= 55;
 		public const int TILE_TYPE_HILL				= 80;
 		public const int TILE_TYPE_TREES_1			= 81;
@@ -79,22 +79,25 @@ namespace INF4000
 		public const int BUILD_TEMPLE 	= 51;
 		public const int BUILD_FARM	 	= 52;
 		public const int BUILD_ARCHERY 	= 53;
-		public const int BUILD_STABLES	= 54;
+		public const int BUILD_FORGE	= 54;
 		public const int BUILD_WIZARD	= 55;
 		
 		// Buildings - To Produce
-		public const int BUILD_TEMPLE_GOLD_PRODUCE 	= 8;
-		public const int BUILD_FARM_GOLD_PRODUCE 	= 4;
+		public const int BUILD_TEMPLE_GOLD_PRODUCE 	= 1;
+		public const int BUILD_FORGE_GOLD_PRODUCE 	= 1;
+		public const int BUILD_FARM_GOLD_PRODUCE 	= 1;
 		
 		// Buildings - Yeild
 		public const int BUILD_TEMPLE_GOLD_YEILD 	= 2;
-		public const int BUILD_FARM_GOLD_YEILD 	= 1;
-		public const int BUILD_FORT_GOLD_YEILD 	= 5;
+		public const int BUILD_FORGE_GOLD_YEILD 	= 3;
+		public const int BUILD_FARM_GOLD_YEILD 		= 1;
+		public const int BUILD_FORT_GOLD_YEILD 		= 5;
 		
 		// Buildings - Defense
-		public const int BUILD_TEMPLE_GOLD_DEF 	= 3;
-		public const int BUILD_FARM_GOLD_DEF 	= 2;
-		public const int BUILD_FORT_GOLD_DEF 	= 9;
+		public const int BUILD_TEMPLE_GOLD_DEF 		= 3;
+		public const int BUILD_FORGE_GOLD_DEF 		= 4;
+		public const int BUILD_FARM_GOLD_DEF 		= 2;
+		public const int BUILD_FORT_GOLD_DEF 		= 9;
 		
 		/*******************************
 		 * 	UNIT CONSTANTS

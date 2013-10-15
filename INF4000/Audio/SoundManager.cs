@@ -57,7 +57,7 @@ namespace INF4000
 					UnitMarch = new Sound("/Application/Audio/Sound/unit_march.wav");
 					Combat = new Sound("/Application/Audio/Sound/combat.wav");
 					
-					SoundEnabled = true;
+					SoundEnabled = false;
 					
 					Loaded = true;
 				} 

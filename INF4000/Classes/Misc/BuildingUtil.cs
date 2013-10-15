@@ -35,6 +35,13 @@ namespace INF4000
 					indexN = new Vector2i (1, 0);
 					break;
 				
+				// FORGE
+				case Constants.BUILD_FORGE:
+					indexP1 = new Vector2i (1, 1);
+					indexP2 = new Vector2i (0, 1);
+					indexN = new Vector2i (1, 0);
+					break;
+				
 			}
 			indexes.Add(indexP1);
 			indexes.Add(indexP2);
@@ -75,6 +82,14 @@ namespace INF4000
 					goldToProduce = Constants.BUILD_TEMPLE_GOLD_PRODUCE;
 					productionType = Constants.UNIT_TYPE_MONK;
 					break;
+				
+				// FORGE
+				case Constants.BUILD_FORGE:
+					defense = Constants.BUILD_FORGE_GOLD_DEF;
+					goldPerTurn = Constants.BUILD_FORGE_GOLD_YEILD;
+					goldToProduce = Constants.BUILD_FORGE_GOLD_PRODUCE;
+					productionType = Constants.UNIT_TYPE_SAMURAI;
+					break;
 			}
 			
 			stats.Add(defense);
@@ -94,6 +109,12 @@ namespace INF4000
 					break;
 				case Constants.BUILD_FARM:
 					name = "Farm";
+					break;
+				case Constants.BUILD_TEMPLE:
+					name = "Temple";
+					break;
+				case Constants.BUILD_FORGE:
+					name = "Forge";
 					break;
 			}			
 			return name;

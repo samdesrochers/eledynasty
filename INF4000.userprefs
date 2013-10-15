@@ -1,8 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\Scenes\GameScene.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\Misc\Utilities.cs">
     <Files>
       <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="213" Column="61" />
+      <File FileName="INF4000\Classes\Misc\Utilities.cs" Line="169" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
