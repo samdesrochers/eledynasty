@@ -1,15 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\Misc\Utilities.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\GameObjects\Players\AIPlayer.cs">
     <Files>
-      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="213" Column="61" />
-      <File FileName="INF4000\Classes\Misc\Utilities.cs" Line="169" Column="5" />
+      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="197" Column="41" />
+      <File FileName="INF4000\Classes\GameObjects\Players\Player.cs" Line="54" Column="23" />
+      <File FileName="INF4000\Classes\GameObjects\Players\AIPlayer.cs" Line="37" Column="47" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameUtilities\BattleManager.cs" line="71" />
-      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Audio\SoundManager.cs" line="47" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>

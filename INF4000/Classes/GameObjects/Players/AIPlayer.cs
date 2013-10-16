@@ -8,6 +8,7 @@ namespace INF4000
 	public class AIPlayer : Player
 	{	
 		public int AI_State;
+		public int AI_Action;
 		
 		public AIPlayer ()
 		{
@@ -21,6 +22,7 @@ namespace INF4000
 			
 			this.TargetUnits = new List<Unit>();
 			AI_State = Constants.AI_STATE_WAITING;
+			AI_Action = Constants.AI_ACTION_NONE;
 		}
 		
 		public override void Reset() 
@@ -34,28 +36,45 @@ namespace INF4000
 			base.Update ();		
 			
 			// Try to pick a Unit so that we can still do a move/attack
-			if(AI_State == Constants.AI_STATE_WAITING)
+			if( AI_State == Constants.AI_STATE_WAITING )
 			{
-				this.ActiveUnit = SelectUnit();
-				if(this.ActiveUnit != null)
-				{
-					AI_State = Constants.AI_STATE_ACTION_DECIDED;
-				}
+				SelectUnit();
 			}
-			else if(AI_State == Constants.AI_STATE_ACTION_DECIDED) // Do the actual move/attack
+			else if( AI_State == Constants.AI_STATE_UNIT_SELECTED ) 
 			{
-				LaunchActionOnActiveUnit();
+				SelectAction();
 			}
-			else if ( AI_State == Constants.AI_STATE_EXECUTING_ACTION)
+			else if( AI_State == Constants.AI_STATE_ACTION_SELECTED ) // Do the actual move/attack
+			{
+				LaunchActionOnSelectedUnit();
+			}
+			else if ( AI_State == Constants.AI_STATE_EXECUTING_ACTION )
 			{
 				if(ActiveUnit != null && !ActiveUnit.IsActive) {
 					AI_State = Constants.AI_STATE_WAITING;
+					AI_Action = Constants.AI_ACTION_NONE;
 				}
 			}
 		}
 		
 		#region AI Methods
-		private Unit SelectUnit()
+		private void SelectUnit()
+		{
+			this.ActiveUnit = TrySelectUnit();
+			if(this.ActiveUnit != null)
+			{
+				AI_State = Constants.AI_STATE_UNIT_SELECTED;
+			}
+		}
+		
+		private void SelectAction()
+		{
+			AI_Action = Constants.AI_ACTION_MOVE;
+			
+			AI_State = Constants.AI_STATE_ACTION_SELECTED;	
+		}
+		
+		private Unit TrySelectUnit()
 		{
 			foreach(Unit unit in Units)
 			{
@@ -65,38 +84,58 @@ namespace INF4000
 			return null;
 		}
 		
-		private void LaunchActionOnActiveUnit()
+		private void LaunchActionOnSelectedUnit()
+		{
+			switch(AI_Action) {
+				case Constants.AI_ACTION_MOVE:
+					MoveAction();
+					break;
+				default:
+					ActiveUnit.Move_RadiusLeft = 0;
+					AI_State = Constants.AI_STATE_WAITING; // error finding next move, switch unit (fatal abort)
+					break;
+			}
+			
+			if(AI_Action == Constants.AI_ACTION_NONE) { // abort premarturaly
+					ActiveUnit.Move_RadiusLeft = 0;
+					AI_State = Constants.AI_STATE_WAITING; 
+			}
+		}
+		
+		private void MoveAction()
 		{
 			int radiusLeft = ActiveUnit.Move_RadiusLeft;
 			Vector2i destination = GetValidDestination(radiusLeft);
 			
 			if(destination.X >= 0 && destination.Y >= 0) {
 				GameActions.AI_MoveUnitTo(destination, ActiveUnit);
+				GameScene.Instance.UpdateCameraPositionBySelectedUnit();		
 				AI_State = Constants.AI_STATE_EXECUTING_ACTION;
+				
 			} else {
-				AI_State = Constants.AI_STATE_WAITING; // error finding next move, switch unit (fatal abort)
+				AI_Action = Constants.AI_ACTION_NONE; // fatal error, remove action. Will be handeled exiting the switch case in launch action
 			}
 		}
+		
 		#endregion	
 		
 		#region Util Methods for AI decisions
 		private Vector2i GetValidDestination(int radius)
 		{
-			bool found = false;
 			int retries = 4;
-			while(!found && retries > 0)
+			while(retries > 0)
 			{
 				if(retries == 4)
+					if(Utilities.IsDestinationValid(new Vector2i(ActiveUnit.WorldPosition.X, ActiveUnit.WorldPosition.Y + radius)))
+						return ( new Vector2i(ActiveUnit.WorldPosition.X, ActiveUnit.WorldPosition.Y + radius) );	
+				
+				if(retries == 3)
 					if(Utilities.IsDestinationValid(new Vector2i(ActiveUnit.WorldPosition.X + radius, ActiveUnit.WorldPosition.Y)))
 						return ( new Vector2i(ActiveUnit.WorldPosition.X + radius, ActiveUnit.WorldPosition.Y) );	
 				
-				if(retries == 3)
+				if(retries == 2)
 					if(Utilities.IsDestinationValid(new Vector2i(ActiveUnit.WorldPosition.X - radius, ActiveUnit.WorldPosition.Y)))
 						return ( new Vector2i(ActiveUnit.WorldPosition.X - radius, ActiveUnit.WorldPosition.Y) );	
-				
-				if(retries == 2)
-					if(Utilities.IsDestinationValid(new Vector2i(ActiveUnit.WorldPosition.X, ActiveUnit.WorldPosition.Y + radius)))
-						return ( new Vector2i(ActiveUnit.WorldPosition.X, ActiveUnit.WorldPosition.Y + radius) );	
 					
 				retries --;
 			}

@@ -194,6 +194,7 @@ namespace INF4000
 		
 		private void UpdateGameRunningAI()
 		{
+			// Will update the AI player's update
 			ActivePlayer.Update();
 		}
 		
@@ -238,6 +239,22 @@ namespace INF4000
 			}
 		}
 		
+		#region Camera Update methods
+		private void ResetCamera()
+		{
+			Camera2D camera = this.Camera as Camera2D;
+			if(this.ActivePlayer.Units[0] != null && ActivePlayer.IsHuman) {
+				float topLimitY = CurrentMap.Height * 64;
+				float topCameraY = camera.Center.Y + 544/2;
+				Vector2 uPos = this.ActivePlayer.Units[0].Position;
+				
+				float diffTopY = uPos.Y - topCameraY;
+				if(diffTopY <= 0) {
+					camera.Center = new Vector2(camera.Center.X, topLimitY + diffTopY - 64);
+				}
+			}			
+		}
+		
 		private void UpdateCameraPosition ()
 		{	
 			// Adjust Camera accoring to Right Analog Stick
@@ -263,7 +280,7 @@ namespace INF4000
 		public void UpdateCameraPositionByCursor ()
 		{
 			Camera2D camera = this.Camera as Camera2D;
-			Vector2 pos = Cursor.Position;
+			Vector2 pos = new Vector2(Cursor.WorldPosition.X * 64, Cursor.WorldPosition.Y * 64);
 
 			if(pos.X >= 960/2 && pos.X <= CurrentMap.Width * 64 - (960/2) + 64) {
 				camera.Center = new Vector2 (Cursor.Position.X - 32, camera.Center.Y);
@@ -275,6 +292,36 @@ namespace INF4000
 				camera.Center = new Vector2 (camera.Center.X, 544/2);
 			}
 		}
+		
+		public void UpdateCameraPositionBySelectedUnit ()
+		{
+			if(ActivePlayer.ActiveUnit == null)
+				return;
+			
+			Camera2D camera = this.Camera as Camera2D;
+			Vector2 pos = ActivePlayer.ActiveUnit.Position;
+
+			if(pos.X >= 960/2 && pos.X <= CurrentMap.Width * 64 - (960/2) + 64) {
+				camera.Center = new Vector2 (ActivePlayer.ActiveUnit.Position.X - 32, camera.Center.Y);
+			} 
+			
+			if(pos.Y >= 544/2 && pos.Y <= CurrentMap.Height * 64 - (544/2) + 64) {
+				camera.Center = new Vector2 (camera.Center.X, ActivePlayer.ActiveUnit.Position.Y  - 16);
+			} else if(pos.Y < 544/2) {
+				camera.Center = new Vector2 (camera.Center.X, 544/2);
+			} else if(pos.Y > 544/2) {
+				if(pos.X >= 960/2)
+					camera.Center = new Vector2 (camera.Center.X, CurrentMap.Height*64 - 544/2);
+				else
+					camera.Center = new Vector2 (960/2, CurrentMap.Height*64 - 544/2);
+			}
+			
+			if(pos.X > (CurrentMap.Width*64) - 960/2)
+				camera.Center = new Vector2 ((CurrentMap.Width*64) - 960/2, camera.Center.Y);
+				
+		}
+		
+		#endregion
 		
 		private void UpdateCursorPosition ()
 		{
@@ -398,8 +445,9 @@ namespace INF4000
 			TurnSwitchInit = true;
 			
 			// Move Cursor to new player's first unit
-			Cursor.MoveToFirstUnit();
+			Cursor.MoveToFirstUnit();						
 			UpdateCameraPositionByCursor();
+			ResetCamera();
 			
 			ActivePlayer.IsStartingTurn = false;
 		}

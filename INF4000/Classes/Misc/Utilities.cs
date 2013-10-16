@@ -156,9 +156,12 @@ namespace INF4000
 			if(GameScene.Instance.Cursor.Position.Y > camera.Center.Y + 64)
 			{
 				GameScene.Instance.GameUI.PlayerPanel.SetBottom();
+				GameScene.Instance.GameUI.ActionPanel.SetBottom();
 				
 			} else {
 				GameScene.Instance.GameUI.PlayerPanel.SetTop();
+				GameScene.Instance.GameUI.ActionPanel.SetTop();
+
 			}
 		}
 		#endregion
@@ -287,6 +290,10 @@ namespace INF4000
 		public static bool IsDestinationValid(Vector2i destination)
 		{
 			Tile t = GameScene.Instance.CurrentMap.GetTile(destination);
+			
+			if(t == null)
+				return false;
+			
 			if(t.CurrentUnit != null)
 				return false;
 			else if(!t.IsMoveValid)

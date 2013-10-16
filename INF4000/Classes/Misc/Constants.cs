@@ -193,8 +193,15 @@ namespace INF4000
 		 * 	AI CONSTANTS
 		 * *****************************/
 		public const int AI_STATE_WAITING			= 0;
-		public const int AI_STATE_ACTION_DECIDED 	= 1;
-		public const int AI_STATE_EXECUTING_ACTION	= 2;
+		public const int AI_STATE_UNIT_SELECTED 	= 1;
+		public const int AI_STATE_ACTION_SELECTED 	= 2;
+		public const int AI_STATE_EXECUTING_ACTION	= 3;
+		
+		public const int AI_ACTION_NONE				= 0;
+		public const int AI_ACTION_MOVE 			= 5;
+		public const int AI_ACTION_ATTACK 			= 6;
+		public const int AI_ACTION_FORTIFY 			= 7;
+		public const int AI_ACTION_PRODUCE 			= 8;
 		
 		/*******************************
 		 * 	SOUNDS CONSTANTS

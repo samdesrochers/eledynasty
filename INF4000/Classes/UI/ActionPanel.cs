@@ -301,6 +301,16 @@ namespace INF4000
 		{
 			Panel.SetPosition(Left_Anchor.X, Left_Anchor.Y);
 		}
+		
+		public void SetTop()
+		{
+			Panel.SetPosition(23, 109);
+		}
+		
+		public void SetBottom()
+		{
+			Panel.SetPosition(23, 320);
+		}
 	}
 }
 
