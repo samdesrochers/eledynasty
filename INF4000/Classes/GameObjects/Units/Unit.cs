@@ -186,6 +186,7 @@ namespace INF4000
 			this.Path.PathCompleted -= AI_Unit_PathCompleted;
 			Utilities.AssignUnitToTileByPosition(WorldPosition, this);
 			SetInactive();
+			TryCaptureBuilding();
 		}
 		
 		public void Unit_PathCompletedAfterWin(object sender, EventArgs args)

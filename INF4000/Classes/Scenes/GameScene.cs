@@ -117,7 +117,7 @@ namespace INF4000
 			switch(this.CurrentGlobalState)
 			{
 				case Constants.GLOBAL_STATE_PLAYING_TURN:
-					UpdateGameRunning();
+					UpdateGameRunning(dt);
 					break;
 				case Constants.GLOBAL_STATE_SWITCHING_TURN:
 					UpdateGameSwitchingTurn(dt);
@@ -138,7 +138,7 @@ namespace INF4000
 		}
 		
 		#region Update Methods
-		private void UpdateGameRunning()
+		private void UpdateGameRunning(float dt)
 		{
 			if(ActivePlayer.IsStartingTurn)
 			{
@@ -157,7 +157,7 @@ namespace INF4000
 			
 			// Human or AI behavior
 			if (ActivePlayer is HumanPlayer) {
-				UpdateGameRunningHuman();
+				UpdateGameRunningHuman(dt);
 			} else {
 				UpdateGameRunningAI();
 			}
@@ -173,14 +173,14 @@ namespace INF4000
 			}	
 		}
 		
-		private void UpdateGameRunningHuman()
+		private void UpdateGameRunningHuman(float dt)
 		{
 			if(CurrentGameState == Constants.GAME_STATE_ACTIONPANEL_ACTIVE)
 				UpdateActionPanelSelection();
 			else if(CurrentGameState == Constants.GAME_STATE_ATTACKPANEL_ACTIVE)
 				UpdateAttackPanelSelection();
 			else 
-				UpdateCursorPosition ();
+				UpdateCursorPosition (dt);
 				
 			CheckUserInput ();
 			
@@ -322,56 +322,95 @@ namespace INF4000
 		}
 		
 		#endregion
-		
-		private void UpdateCursorPosition ()
+
+		private void UpdateCursorPosition (float dt)
 		{
 			// "On" Section
-//			if(Input2.GamePad.GetData(0).Right.On)
-//			{
-//				CurrentMap.Cursor.NavigateRight();
-//				UpdateCameraPositionByCursor();
-//			}
-//			else if(Input2.GamePad.GetData(0).Left.On)
-//			{
-//				CurrentMap.Cursor.NavigateLeft();
-//				UpdateCameraPositionByCursor();
-//			}
-//			else if(Input2.GamePad.GetData(0).Up.On)
-//			{
-//				CurrentMap.Cursor.NavigateUp();
-//				UpdateCameraPositionByCursor();
-//			}
-//			else if(Input2.GamePad.GetData(0).Down.On)
-//			{
-//				CurrentMap.Cursor.NavigateDown();
-//				UpdateCameraPositionByCursor();
-//			}
+			if(Input2.GamePad.GetData(0).Right.Press) {
+				Cursor.NavigateRight();
+			} else if(Input2.GamePad.GetData(0).Left.Press) {
+				Cursor.NavigateLeft();
+			} else if(Input2.GamePad.GetData(0).Up.Press) {
+				Cursor.NavigateUp();
+			} else if(Input2.GamePad.GetData(0).Down.Press) {
+				Cursor.NavigateDown();	
+			} else if (Input2.GamePad.GetData (0).Up.Press && Input2.GamePad.GetData (0).Right.Press) { // Up + Right
+				Cursor.NavigateUp ();
+				Cursor.NavigateRight ();
+			} else if (Input2.GamePad.GetData (0).Up.Press && Input2.GamePad.GetData (0).Right.Press) { // Up + Left
+				Cursor.NavigateUp ();
+				Cursor.NavigateLeft ();
+			} else if (Input2.GamePad.GetData (0).Down.Press && Input2.GamePad.GetData (0).Right.Press) { // Down + Right
+				Cursor.NavigateDown ();
+				Cursor.NavigateRight ();
+			} else if (Input2.GamePad.GetData (0).Down.Press && Input2.GamePad.GetData (0).Right.Press) { // Down + Left
+				Cursor.NavigateDown ();
+				Cursor.NavigateLeft ();
+			}
+
 			
-			// "Release" Section		
-			if (Input2.GamePad.GetData (0).Up.Release && Input2.GamePad.GetData (0).Right.Release) { // Up + Right
-				Cursor.NavigateUp ();
-				Cursor.NavigateRight ();
+			// "Down" Section
+			if(Input2.GamePad.GetData(0).Right.Down) {
+				Cursor.MoveTick += dt;		
+				if(Cursor.MoveTick >= Constants.CURSOR_TICK_TIME) {
+					Cursor.NavigateRight();
+					Cursor.MoveTick = 0;
+				}		
+			} else if(Input2.GamePad.GetData(0).Left.Down) {
+				Cursor.MoveTick += dt;
+				if(Cursor.MoveTick >= Constants.CURSOR_TICK_TIME) {
+					Cursor.NavigateLeft();
+					Cursor.MoveTick = 0;
+				}
+			} else if(Input2.GamePad.GetData(0).Up.Down) {
+				Cursor.MoveTick += dt;
+				if(Cursor.MoveTick >= Constants.CURSOR_TICK_TIME) {
+					Cursor.NavigateUp();
+					Cursor.MoveTick = 0;
+				}
+			} else if(Input2.GamePad.GetData(0).Down.Down) {
+				Cursor.MoveTick += dt;
+				if(Cursor.MoveTick >= Constants.CURSOR_TICK_TIME) {
+					Cursor.NavigateDown();
+					Cursor.MoveTick = 0;
+				}
+			} else if (Input2.GamePad.GetData (0).Up.Release && Input2.GamePad.GetData (0).Right.Release) { // Up + Right
+				Cursor.MoveTick += dt;
+				if(Cursor.MoveTick >= Constants.CURSOR_TICK_TIME) {
+					Cursor.NavigateUp ();
+					Cursor.NavigateRight ();
+					Cursor.MoveTick = 0;
+				}
 			} else if (Input2.GamePad.GetData (0).Up.Release && Input2.GamePad.GetData (0).Right.Release) { // Up + Left
-				Cursor.NavigateUp ();
-				Cursor.NavigateLeft ();
+				Cursor.MoveTick += dt;
+				if(Cursor.MoveTick >= Constants.CURSOR_TICK_TIME) {
+					Cursor.NavigateUp ();
+					Cursor.NavigateLeft ();
+					Cursor.MoveTick = 0;
+				}
 			} else if (Input2.GamePad.GetData (0).Down.Release && Input2.GamePad.GetData (0).Right.Release) { // Down + Right
-				Cursor.NavigateDown ();
-				Cursor.NavigateRight ();
+				Cursor.MoveTick += dt;
+				if(Cursor.MoveTick >= Constants.CURSOR_TICK_TIME) {
+					Cursor.NavigateDown ();
+					Cursor.NavigateRight ();
+					Cursor.MoveTick = 0;
+				}
 			} else if (Input2.GamePad.GetData (0).Down.Release && Input2.GamePad.GetData (0).Right.Release) { // Down + Left
-				Cursor.NavigateDown ();
-				Cursor.NavigateLeft ();
-			} else if (Input2.GamePad.GetData (0).Right.Release) {
-				Cursor.NavigateRight ();
-			} else if (Input2.GamePad.GetData (0).Left.Release) {
-				Cursor.NavigateLeft ();
-			} else if (Input2.GamePad.GetData (0).Up.Release) {
-				Cursor.NavigateUp ();
-			} else if (Input2.GamePad.GetData (0).Down.Release) {
-				Cursor.NavigateDown ();
+				Cursor.MoveTick += dt;
+				if(Cursor.MoveTick >= Constants.CURSOR_TICK_TIME) {
+					Cursor.NavigateDown ();
+					Cursor.NavigateLeft ();
+					Cursor.MoveTick = 0;
+				}
+			}
+			
+			// "Release Section"
+			if (Input2.GamePad.GetData (0).Right.Release || Input2.GamePad.GetData (0).Left.Release || Input2.GamePad.GetData (0).Up.Release || Input2.GamePad.GetData (0).Down.Release) {
+				Cursor.MoveTick = 0;
 			}
 			
 			Cursor.Update ();	
-			this.UpdateCameraPositionByCursor();
+			UpdateCameraPositionByCursor();
 		}
 		
 		private void UpdateActionPanelSelection()

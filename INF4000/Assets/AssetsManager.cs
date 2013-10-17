@@ -31,6 +31,9 @@ namespace INF4000
 		public UIFont XenoFont;
 		public UIFont XenoFont_24;
 		
+		public Texture2D CursorTexture;
+		public TextureInfo CursorTextureInfo;
+		
 		public Texture2D UnitsTexture;
 		public TextureInfo UnitsTextureInfo;
 		
@@ -87,7 +90,11 @@ namespace INF4000
 					XenoFont = new UIFont("/Application/Assets/fonts/Xenogears_font.ttf", 72, FontStyle.Regular);
 					XenoFont_24 = new UIFont("/Application/Assets/fonts/Xenogears_font.ttf", 24, FontStyle.Regular);
 					
-					//Units Textures
+					// Cursor Textures
+					CursorTexture = new Texture2D ("/Application/Assets/Items/gameItems.png", false);
+					CursorTextureInfo = new TextureInfo (CursorTexture, new Vector2i (2,2));
+					
+					// Units Textures
 					UnitsTexture = new Texture2D ("/Application/Assets/Units/units.png", false);
 					UnitsTextureInfo = new TextureInfo (UnitsTexture, new Vector2i (4, 4));
 					
@@ -144,19 +151,24 @@ namespace INF4000
 		
 		public void Dispose()
 		{
-			try{
-			UnitsTexture.Dispose();
-			UnitsTextureInfo.Dispose();
-			
-			TerrainTexture.Dispose();
-			TerrainTextureInfo.Dispose();
-			
-			BuildingsTexture.Dispose();
-			BuildingsTextureInfo.Dispose();
-			
-			BattleTexture.Dispose();
-			BattleTextureInfo.Dispose();	
-			_Instance = null;
+			try
+			{
+				CursorTexture.Dispose();
+				CursorTextureInfo.Dispose();
+					
+				UnitsTexture.Dispose();
+				UnitsTextureInfo.Dispose();
+				
+				TerrainTexture.Dispose();
+				TerrainTextureInfo.Dispose();
+				
+				BuildingsTexture.Dispose();
+				BuildingsTextureInfo.Dispose();
+				
+				BattleTexture.Dispose();
+				BattleTextureInfo.Dispose();	
+				_Instance = null;
+				
 			} catch (Exception e){ Console.WriteLine(e.Message + " - Error disposing textures");}
 		}
 	}

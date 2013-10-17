@@ -218,7 +218,12 @@ namespace INF4000
 		/*******************************
 		 * 	DIALOG CONSTANTS
 		 * *****************************/
-		public const string DIALOG_EOF				= "end_file";
+		public const string DIALOG_EOF	= "end_file";
+		
+		/*******************************
+		 * 	CURSOR CONSTANTS
+		 * *****************************/
+		public const float CURSOR_TICK_TIME	= 0.1f;
 
 	}
 }

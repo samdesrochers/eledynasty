@@ -16,7 +16,7 @@ namespace INF4000
 		
 		public Texture2D Texture;
 		
-		private const string AssetsPath = "/Application/Assets/Items/gameItems.png";
+		public float MoveTick;
 		
 		public Cursor (Tile tile)
 		{
@@ -26,17 +26,13 @@ namespace INF4000
 			Position = SelectedTile.Position;
 			WorldPosition = SelectedTile.WorldPosition;
 						
-			this.LoadGraphics(new Vector2i(1,1));
+			this.LoadGraphics();
+			MoveTick = 0.0f;
 		}
 		
-		public void LoadGraphics(Vector2i index)
-		{
-			// Create the actual texture object and specify its size
-			Texture = new Texture2D (AssetsPath, false);
-			this.TextureInfo = new TextureInfo (Texture, new Vector2i (2, 2));
-			
-			// Assign part of that texture as SpriteTile for the object
-			SpriteTile = new SpriteTile(this.TextureInfo, index);
+		public void LoadGraphics()
+		{		
+			SpriteTile = new SpriteTile(AssetsManager.Instance.CursorTextureInfo, new Vector2i (1, 1));
 			SpriteTile.Quad = this.Quad;
 			SpriteTile.Position = this.Position;
 		}

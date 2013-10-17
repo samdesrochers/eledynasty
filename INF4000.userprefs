@@ -1,16 +1,22 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\GameObjects\Players\AIPlayer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\Scenes\GameScene.cs">
     <Files>
-      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="197" Column="41" />
+      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="326" Column="4" />
       <File FileName="INF4000\Classes\GameObjects\Players\Player.cs" Line="54" Column="23" />
-      <File FileName="INF4000\Classes\GameObjects\Players\AIPlayer.cs" Line="37" Column="47" />
+      <File FileName="INF4000\Classes\GameObjects\Players\AIPlayer.cs" Line="131" Column="5" />
+      <File FileName="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameUtilities\BattleManager.cs" Line="83" Column="4" />
+      <File FileName="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Cursor.cs" Line="44" Column="15" />
+      <File FileName="INF4000\Classes\Misc\Utilities.cs" Line="292" Column="1" />
+      <File FileName="INF4000\Classes\UI\ActionPanel.cs" Line="312" Column="28" />
+      <File FileName="INF4000\Classes\UI\PlayerPanel.cs" Line="78" Column="22" />
+      <File FileName="INF4000\Classes\UI\GameUI.cs" Line="81" Column="48" />
+      <File FileName="INF4000\Classes\Map\Map.cs" Line="308" Column="15" />
+      <File FileName="INF4000\Classes\Misc\Constants.cs" Line="200" Column="34" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameUtilities\BattleManager.cs" line="71" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
     <Watch file="INF4000\Classes\Map\Map.cs" line="62" offsetX="685" offsetY="1037" expression="_Tiles" liveUpdate="False" />
@@ -44,5 +50,6 @@
     <Watch file="INF4000\Classes\Map\Map.cs" line="185" offsetX="557" offsetY="3128" expression="sequences" liveUpdate="False" />
     <Watch file="INF4000\Audio\SoundManager.cs" line="114" offsetX="517" offsetY="1921" expression="Songs" liveUpdate="False" />
     <Watch file="INF4000\Audio\SoundManager.cs" line="49" offsetX="653" offsetY="816" expression="Songs" liveUpdate="False" />
+    <Watch file="INF4000\Classes\Scenes\GameScene.cs" line="415" offsetX="549" offsetY="7038" expression="Cursor" liveUpdate="False" />
   </MonoDevelop.Ide.DebuggingService.PinnedWatches>
 </Properties>
