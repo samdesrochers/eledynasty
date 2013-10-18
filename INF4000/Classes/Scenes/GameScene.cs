@@ -75,7 +75,7 @@ namespace INF4000
 			Players.Add (player2);				
 			
 			// Create the selected Map and its assets
-			CurrentMap = new Map (@"/Application/MapFiles/defaultMap.txt");   
+			CurrentMap = new Map ( OverworldScene.Instance.SelectedLevel.GameLevelPath );   
 			this.AddChild (CurrentMap.SpriteList);	
 			
 			// Add the units assets to the Main SpriteList

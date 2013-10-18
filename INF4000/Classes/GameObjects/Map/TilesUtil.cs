@@ -21,6 +21,16 @@ namespace INF4000
 					activeIndex = new Vector2i(1, 3);
 					targetIndex = new Vector2i(2, 3);
 					break;
+				case Constants.TILE_TYPE_GRASS_MIDDLE_2:
+					idleIndex = new Vector2i (3, 2);
+					activeIndex = new Vector2i(1, 3);
+					targetIndex = new Vector2i(2, 3);
+					break;	
+				case Constants.TILE_TYPE_GRASS_TRANSIT:
+					idleIndex = new Vector2i (7, 2);
+					activeIndex = new Vector2i(1, 3);
+					targetIndex = new Vector2i(2, 3);
+					break;	
 				
 				// ROAD
 				case Constants.TILE_TYPE_ROAD_VERTICAL:
@@ -62,10 +72,20 @@ namespace INF4000
 					activeIndex = new Vector2i(1, 2);
 					targetIndex = new Vector2i(2, 2);
 					break;
+				case Constants.TILE_TYPE_TREES_2:
+					idleIndex = new Vector2i (4, 2);
+					activeIndex = new Vector2i(1, 2);
+					targetIndex = new Vector2i(2, 2);
+					break;
 				
 				// MOUTAINS
 				case Constants.TILE_TYPE_HILL:
 					idleIndex = new Vector2i (0, 1);
+					activeIndex = new Vector2i(1, 1);
+					targetIndex = new Vector2i(2, 1);
+					break;
+				case Constants.TILE_TYPE_HILL_2:
+					idleIndex = new Vector2i (5, 2);
 					activeIndex = new Vector2i(1, 1);
 					targetIndex = new Vector2i(2, 1);
 					break;
@@ -161,9 +181,7 @@ namespace INF4000
 					activeIndex = idleIndex;
 					targetIndex = idleIndex;
 					break;
-				
-				
-				
+
 			}
 			
 			indexes.Add(idleIndex);
@@ -181,6 +199,8 @@ namespace INF4000
 			switch (type) {
 				// GRASS
 				case Constants.TILE_TYPE_GRASS_MIDDLE:
+				case Constants.TILE_TYPE_GRASS_MIDDLE_2:
+				case Constants.TILE_TYPE_GRASS_TRANSIT:
 					name = "Grass";
 					defense = 1;
 					break;

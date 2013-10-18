@@ -17,7 +17,7 @@ namespace INF4000
 		private Vector2i faceIndex;
 		private int currentFrameIndexX = 0;
 		private int nbFrames = 3;
-		private float FrameTime = 0.4f;		
+		private float FrameTime = 0.3f;		
 		private float AnimationTime;
 		
 		public Avatar ()
@@ -34,9 +34,15 @@ namespace INF4000
 		public override void Update(float dt)
 		{
 			base.Update(dt);
+			Animate(dt);
 			
+			
+
+		}
+		
+		public void Animate(float dt)
+		{
 			AnimationTime += dt;
-			
 			if(AnimationTime >= FrameTime) {
 				currentFrameIndexX = (currentFrameIndexX + 1) % nbFrames;
 				SpriteTile.TileIndex2D = new Vector2i(currentFrameIndexX, faceIndex.Y);

@@ -51,6 +51,11 @@ namespace INF4000
 		public const int TILE_TYPE_HILL				= 80;
 		public const int TILE_TYPE_TREES_1			= 81;
 		
+		public const int TILE_TYPE_GRASS_MIDDLE_2 	= 30;
+		public const int TILE_TYPE_HILL_2 			= 82;
+		public const int TILE_TYPE_TREES_2 			= 83;
+		public const int TILE_TYPE_GRASS_TRANSIT 	= 90;
+
 		// Water 
 		public const int TILE_TYPE_WATER_MIDDLE 	= 60;
 		public const int TILE_TYPE_WATER_LEFT 		= 61;
@@ -225,7 +230,7 @@ namespace INF4000
 		/*******************************
 		 * 	CURSOR CONSTANTS
 		 * *****************************/
-		public const float CURSOR_TICK_TIME	= 0.1f;
+		public const float CURSOR_TICK_TIME	= 0.15f;
 		
 		/*******************************
 		 * 	OVERWORLD CONSTANTS

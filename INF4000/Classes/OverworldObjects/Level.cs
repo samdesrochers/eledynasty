@@ -1,5 +1,6 @@
 using System;
 using Sce.PlayStation.HighLevel.UI;
+using Sce.PlayStation.Core;
 
 namespace INF4000
 {
@@ -12,6 +13,7 @@ namespace INF4000
 		
 		public bool IsLocked;
 		public int LevelNumber;
+		public Vector2 Position;
 		
 		public ImageAsset EnemyAvatar;
 		

@@ -1,33 +1,32 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\Scenes\OverworldScene.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\MapFiles\map2.txt">
     <Files>
-      <File FileName="INF4000\Classes\Scenes\MenuScene.cs" Line="42" Column="73" />
-      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="141" Column="1" />
-      <File FileName="INF4000\Classes\Scenes\OverworldScene.cs" Line="86" Column="1" />
-      <File FileName="INF4000\Classes\Util\Constants.cs" Line="30" Column="46" />
-      <File FileName="INF4000\Classes\OverworldObjects\UI\OverworldUI.cs" Line="41" Column="4" />
-      <File FileName="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\AppMain.cs" Line="23" Column="1" />
+      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="6" Column="7" />
+      <File FileName="INF4000\Classes\Scenes\OverworldScene.cs" Line="121" Column="23" />
+      <File FileName="INF4000\Classes\OverworldObjects\UI\LevelDescriptor.cs" Line="14" Column="16" />
+      <File FileName="INF4000\Classes\OverworldObjects\Avatar.cs" Line="26" Column="27" />
+      <File FileName="INF4000\Classes\OverworldObjects\Level.cs" Line="27" Column="30" />
+      <File FileName="INF4000\MapFiles\map2.txt" Line="178" Column="11" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="INF4000" expanded="True">
-            <Node name="Assets" expanded="True" />
+            <Node name="Audio" expanded="True" />
             <Node name="Classes" expanded="True">
               <Node name="GameObjects" expanded="True">
                 <Node name="Map" expanded="True" />
-                <Node name="UI" expanded="True" />
               </Node>
               <Node name="OverworldObjects" expanded="True">
                 <Node name="UI" expanded="True" />
               </Node>
-              <Node name="Scenes" expanded="True">
-                <Node name="OverworldScene.cs" selected="True" />
-              </Node>
+              <Node name="Scenes" expanded="True" />
               <Node name="Util" expanded="True" />
             </Node>
-            <Node name="MapFiles" expanded="True" />
+            <Node name="MapFiles" expanded="True">
+              <Node name="map2.txt" selected="True" />
+            </Node>
           </Node>
         </State>
       </Pad>
@@ -36,6 +35,7 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="243" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Map\Map.cs" line="143" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>

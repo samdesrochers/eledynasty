@@ -34,6 +34,8 @@ namespace INF4000
 		public Avatar Avatar;
 		
 		public List<Level> Levels;
+		public Level SelectedLevel;
+		public int LevelIndex;
 		
 		public OverworldScene ()
 		{
@@ -53,9 +55,18 @@ namespace INF4000
 			Avatar = new Avatar();
 			
 			Levels = new List<Level>();
-			Level level1 = new Level("Village of Haruma", "Kenji's home village is under attack by local Rebels.", "Gohzu Amari", 1, AssetsManager.Instance.Image_Dialog_Gohzu_1);
+			Level level1 = new Level("Village of Haruma", "Kenji's home village is under attack by local Rebels. Even with litte troops and training, Kenji rushes in to aid his people.", "Gohzu Amari", 2, AssetsManager.Instance.Image_Dialog_Gohzu_1);
+			level1.GameLevelPath = @"/Application/MapFiles/map1.txt";
+			level1.Position = new Vector2(670,315);
 			Levels.Add(level1);
 			
+			Level level2 = new Level("Korama's Frontier", "War wages south, near Korama's frontier. Kenji must travel here with his newly acquired army and push through the enemy troops massing there. Onward on finding out what happened to his father...", "Akari Kotsu", 1, AssetsManager.Instance.Image_Dialog_Gohzu_1);
+			level2.GameLevelPath = @"/Application/MapFiles/map2.txt";
+			level2.Position = new Vector2(300,315);
+			Levels.Add(level2);
+			
+			LevelIndex = 0;
+			SelectedLevel = Levels[ LevelIndex ];
 			this.AddChild(OVMap.SpriteTile);
 			this.AddChild(Avatar.SpriteTile);		
 			
@@ -104,6 +115,16 @@ namespace INF4000
 				State = Constants.OV_STATE_STARTING_GAME;
 			} else if(Input2.GamePad.GetData (0).Circle.Release ) {
 				State = Constants.OV_STATE_EXITING_GAME;
+			}
+			
+			if( Input2.GamePad.GetData (0).Left.Release ) {
+				LevelIndex = (int)Sce.PlayStation.Core.FMath.Abs((LevelIndex - 1) % Levels.Count);
+				SelectedLevel = Levels[LevelIndex];
+				OVUI.SetLevelInfo(SelectedLevel);
+			} else if ( Input2.GamePad.GetData (0).Right.Release ) {
+				LevelIndex = (LevelIndex + 1) % Levels.Count;
+				SelectedLevel = Levels[LevelIndex];
+				OVUI.SetLevelInfo(SelectedLevel);
 			}
 		}
 

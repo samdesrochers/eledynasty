@@ -78,8 +78,8 @@ namespace INF4000
 			
 			LevelDesc = new Label();
 			LevelDesc.Width = 155;
-			LevelDesc.Height = 180;
-			LevelDesc.SetPosition(200,40);
+			LevelDesc.Height = 190;
+			LevelDesc.SetPosition(200,80);
 			LevelDesc.Font = AssetsManager.Instance.PixelFont_18;
 			
 			EnemyName = new Label();

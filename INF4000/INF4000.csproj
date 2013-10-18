@@ -76,10 +76,10 @@
     <Compile Include="Classes\Util\BuildingUtil.cs" />
     <Compile Include="Classes\OverworldObjects\Level.cs" />
     <Compile Include="Classes\OverworldObjects\Avatar.cs" />
-    <Compile Include="Classes\GameObjects\Map\OverworldMap.cs" />
     <Compile Include="Classes\OverworldObjects\UI\OverworldUI.cs" />
     <Compile Include="Classes\OverworldObjects\UI\LevelDescriptor.cs" />
     <Compile Include="Classes\OverworldObjects\OverworldMap.cs" />
+    <Compile Include="Classes\GameObjects\Map\Map.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -165,5 +165,7 @@
     <Content Include="Assets\Map\overworld.png" />
     <Content Include="Assets\Players\avatar.png" />
     <Content Include="Assets\UI\blackbg.png" />
+    <Content Include="MapFiles\map1.txt" />
+    <Content Include="MapFiles\map2.txt" />
   </ItemGroup>
 </Project>
