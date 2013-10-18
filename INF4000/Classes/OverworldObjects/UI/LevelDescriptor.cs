@@ -20,7 +20,7 @@ namespace INF4000
 		public ImageBox Background;
 		public ImageBox Overlay1;
 		public ImageBox Overlay2;
-
+		public ImageBox Overlay3;
 		
 		public LevelDescriptor (Vector2 pos)
 		{
@@ -42,14 +42,21 @@ namespace INF4000
 			Overlay1.Height = 200;
 			Overlay1.Image = AssetsManager.Instance.Image_Black_BG;
 			Overlay1.SetPosition(10, 80);
-			Overlay1.Alpha = 0.8f;
+			Overlay1.Alpha = 0.4f;
 			
 			Overlay2 = new ImageBox();
 			Overlay2.Width = 170;
 			Overlay2.Height = 200;
 			Overlay2.Image = AssetsManager.Instance.Image_Black_BG;
 			Overlay2.SetPosition(190, 80);
-			Overlay2.Alpha = 0.8f;
+			Overlay2.Alpha = 0.4f;
+			
+			Overlay3 = new ImageBox();
+			Overlay3.Width = 350;
+			Overlay3.Height = 60;
+			Overlay3.Image = AssetsManager.Instance.Image_Black_BG;
+			Overlay3.SetPosition(10, 10);
+			Overlay3.Alpha = 0.4f;
 			
 			EnemyAvatar = new ImageBox();
 			EnemyAvatar.Width = 120;
@@ -85,6 +92,7 @@ namespace INF4000
 			Panel.AddChildLast(Background);
 			Panel.AddChildLast(Overlay1);
 			Panel.AddChildLast(Overlay2);
+			Panel.AddChildLast(Overlay3);
 			Panel.AddChildLast(EnemyAvatar);
 			Panel.AddChildLast(LevelName);
 			Panel.AddChildLast(LevelDesc);

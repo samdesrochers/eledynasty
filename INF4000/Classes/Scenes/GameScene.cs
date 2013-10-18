@@ -238,7 +238,9 @@ namespace INF4000
 			if(SwitchTurnTime >= 5.0f || Input2.GamePad0.Cross.Release) // wait 2 seconds before switching turn
 			{
 				Dispose();
-				Director.Instance.ReplaceScene(new MenuScene());
+				
+				OverworldScene.Instance.Reset();
+				Director.Instance.ReplaceScene( OverworldScene.Instance );		
 			}
 		}
 		
@@ -840,8 +842,8 @@ namespace INF4000
 			CurrentMap.SpriteList.RemoveAllChildren(true);
 			this.RemoveAllChildren(true);
 			
-			AssetsManager.Instance.Dispose();
-			SoundManager.Instance.Dispose();
+			//AssetsManager.Instance.Dispose();
+			//SoundManager.Instance.Dispose();
 			
 			_Instance = null;
 			Console.WriteLine("DELETING GAME SCENE");

@@ -36,6 +36,11 @@ namespace INF4000
             UISystem.SetScene(_UIScene);
 		}
 		
+		public void Show()
+		{
+			UISystem.SetScene(_UIScene);
+		}
+		
 		public void SetLevelInfo(Level level)
 		{
 			SceneOverlay.Alpha = 0;

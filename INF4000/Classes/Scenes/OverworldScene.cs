@@ -34,7 +34,6 @@ namespace INF4000
 		public Avatar Avatar;
 		
 		public List<Level> Levels;
-		private float AnimationTime;
 		
 		public OverworldScene ()
 		{
@@ -63,6 +62,14 @@ namespace INF4000
 			OVUI = new OverworldUI();
 			OVUI.SetLevelInfo(Levels[0]);
 			
+			Scheduler.Instance.ScheduleUpdateForTarget (this, 0, false);
+		}
+		
+		public void Reset()
+		{
+			OVUI.SceneOverlay.Alpha = 0;
+			State = Constants.OV_STATE_IDLE;
+			OVUI.Show();
 			Scheduler.Instance.ScheduleUpdateForTarget (this, 0, false);
 		}
 		
@@ -111,7 +118,7 @@ namespace INF4000
 		
 		public void UpdateExitingGame(float dt) 
 		{
-			Director.Instance.ReplaceScene( new MenuScene() );
+			//Director.Instance.ReplaceScene( new MenuScene() );
 		}
 		
 		#region Update Methods	     
