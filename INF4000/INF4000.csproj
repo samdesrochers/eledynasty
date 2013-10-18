@@ -41,28 +41,11 @@
     <Compile Include="AppMain.cs" />
     <Compile Include="Classes\Scenes\MenuScene.cs" />
     <Compile Include="Classes\Scenes\TitleScene.cs" />
-    <Compile Include="Classes\Map\Tile.cs" />
-    <Compile Include="Classes\Map\Map.cs" />
-    <Compile Include="Classes\Misc\Constants.cs" />
     <Compile Include="Classes\Scenes\GameScene.cs" />
     <Compile Include="Classes\GameObjects\Cursor.cs" />
-    <Compile Include="Classes\Misc\Utilities.cs" />
-    <Compile Include="Classes\GameUtilities\Path.cs" />
-    <Compile Include="Classes\GameUtilities\TextImage.cs" />
     <Compile Include="Assets\AssetsManager.cs" />
     <Compile Include="Classes\GameObjects\Building.cs" />
-    <Compile Include="Classes\Misc\BuildingUtil.cs" />
-    <Compile Include="Classes\GameObjects\GameActions.cs" />
-    <Compile Include="Classes\UI\ActionItem.cs" />
-    <Compile Include="Classes\UI\ActionPanel.cs" />
-    <Compile Include="Classes\UI\GameUI.cs" />
-    <Compile Include="Classes\UI\StatsPanel.cs" />
-    <Compile Include="Classes\UI\StatItem.cs" />
-    <Compile Include="Classes\Map\TilesUtil.cs" />
-    <Compile Include="Classes\GameUtilities\BattleManager.cs" />
-    <Compile Include="Classes\UI\AttackDamagePanel.cs" />
     <Compile Include="Classes\GameObjects\BattleViewer.cs" />
-    <Compile Include="Classes\UI\PlayerPanel.cs" />
     <Compile Include="Classes\Scenes\LoadingScene.cs" />
     <Compile Include="Classes\GameObjects\Units\Farmer.cs" />
     <Compile Include="Classes\GameObjects\Units\Monk.cs" />
@@ -72,8 +55,31 @@
     <Compile Include="Classes\GameObjects\Players\HumanPlayer.cs" />
     <Compile Include="Classes\GameObjects\Players\Player.cs" />
     <Compile Include="Audio\SoundManager.cs" />
-    <Compile Include="Classes\UI\DialogUI.cs" />
-    <Compile Include="Classes\GameUtilities\DialogManager.cs" />
+    <Compile Include="Classes\GameObjects\UI\ActionItem.cs" />
+    <Compile Include="Classes\GameObjects\UI\ActionPanel.cs" />
+    <Compile Include="Classes\GameObjects\UI\GameUI.cs" />
+    <Compile Include="Classes\GameObjects\UI\StatsPanel.cs" />
+    <Compile Include="Classes\GameObjects\UI\StatItem.cs" />
+    <Compile Include="Classes\GameObjects\UI\AttackDamagePanel.cs" />
+    <Compile Include="Classes\GameObjects\UI\PlayerPanel.cs" />
+    <Compile Include="Classes\GameObjects\UI\DialogUI.cs" />
+    <Compile Include="Classes\GameObjects\Map\Tile.cs" />
+    <Compile Include="Classes\GameObjects\Map\TilesUtil.cs" />
+    <Compile Include="Classes\GameObjects\GameUtilities\Path.cs" />
+    <Compile Include="Classes\GameObjects\GameUtilities\TextImage.cs" />
+    <Compile Include="Classes\GameObjects\GameUtilities\BattleManager.cs" />
+    <Compile Include="Classes\GameObjects\GameUtilities\DialogManager.cs" />
+    <Compile Include="Classes\GameObjects\GameUtilities\GameActions.cs" />
+    <Compile Include="Classes\Scenes\OverworldScene.cs" />
+    <Compile Include="Classes\Util\Constants.cs" />
+    <Compile Include="Classes\Util\Utilities.cs" />
+    <Compile Include="Classes\Util\BuildingUtil.cs" />
+    <Compile Include="Classes\OverworldObjects\Level.cs" />
+    <Compile Include="Classes\OverworldObjects\Avatar.cs" />
+    <Compile Include="Classes\GameObjects\Map\OverworldMap.cs" />
+    <Compile Include="Classes\OverworldObjects\UI\OverworldUI.cs" />
+    <Compile Include="Classes\OverworldObjects\UI\LevelDescriptor.cs" />
+    <Compile Include="Classes\OverworldObjects\OverworldMap.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -88,26 +94,26 @@
     <Folder Include="Assets\" />
     <Folder Include="Assets\Title\" />
     <Folder Include="Classes\" />
-    <Folder Include="Classes\Map\" />
     <Folder Include="Classes\Scenes\" />
-    <Folder Include="Classes\Misc\" />
     <Folder Include="MapFiles\" />
     <Folder Include="Assets\Tiles\" />
     <Folder Include="Classes\GameObjects\" />
     <Folder Include="Assets\Items\" />
     <Folder Include="Assets\Units\" />
     <Folder Include="Assets\fonts\" />
-    <Folder Include="Classes\GameUtilities\" />
     <Folder Include="Assets\Players\" />
     <Folder Include="Assets\UI\" />
     <Folder Include="Assets\Buildings\" />
-    <Folder Include="Classes\UI\" />
     <Folder Include="Assets\UI\Icons\" />
     <Folder Include="Assets\BattleTerrain\" />
     <Folder Include="Classes\GameObjects\Units\" />
     <Folder Include="Classes\GameObjects\Players\" />
     <Folder Include="Audio\Sound\" />
     <Folder Include="Assets\Dialog\" />
+    <Folder Include="Assets\Map\" />
+    <Folder Include="Classes\OverworldObjects\" />
+    <Folder Include="Classes\OverworldObjects\UI\" />
+    <Folder Include="Classes\Util\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="MapFiles\defaultMap.txt" />
@@ -156,5 +162,8 @@
     <Content Include="Assets\Dialog\char_kenji_1.png" />
     <Content Include="Assets\Dialog\char_overlay_blue.png" />
     <Content Include="Assets\Dialog\char_overlay_red.png" />
+    <Content Include="Assets\Map\overworld.png" />
+    <Content Include="Assets\Players\avatar.png" />
+    <Content Include="Assets\UI\blackbg.png" />
   </ItemGroup>
 </Project>

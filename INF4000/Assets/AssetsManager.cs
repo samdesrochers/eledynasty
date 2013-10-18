@@ -30,6 +30,8 @@ namespace INF4000
 		public UIFont PixelFont_48;
 		public UIFont XenoFont;
 		public UIFont XenoFont_24;
+		public UIFont XenoFont_36;
+
 		
 		public Texture2D CursorTexture;
 		public TextureInfo CursorTextureInfo;
@@ -46,7 +48,14 @@ namespace INF4000
 		public Texture2D BattleTexture;
 		public TextureInfo BattleTextureInfo;
 		
+		public Texture2D OverworldMapTexture;
+		public TextureInfo OverworldMapTextureInfo;
+		
+		public Texture2D AvatarTexture;
+		public TextureInfo AvatarTextureInfo;
+		
 		public ImageAsset Image_TurnSwitch_BG;
+		public ImageAsset Image_Black_BG;
 		public ImageAsset Image_Player_1_Icon;
 		public ImageAsset Image_Action_Panel_BG;
 		public ImageAsset Image_Panel_Attack_Icon;
@@ -89,6 +98,8 @@ namespace INF4000
 					PixelFont_48 = new UIFont("/Application/Assets/fonts/half_bold_pixel-7.ttf", 48, FontStyle.Bold);
 					XenoFont = new UIFont("/Application/Assets/fonts/Xenogears_font.ttf", 72, FontStyle.Regular);
 					XenoFont_24 = new UIFont("/Application/Assets/fonts/Xenogears_font.ttf", 24, FontStyle.Regular);
+					XenoFont_36 = new UIFont("/Application/Assets/fonts/Xenogears_font.ttf", 36, FontStyle.Regular);
+
 					
 					// Cursor Textures
 					CursorTexture = new Texture2D ("/Application/Assets/Items/gameItems.png", false);
@@ -110,8 +121,18 @@ namespace INF4000
 					BattleTexture = new Texture2D ("/Application/Assets/BattleTerrain/battleTerrain.png", false);
 					BattleTextureInfo = new TextureInfo (BattleTexture, new Vector2i (2, 2));
 					
+					// Overworld Textures
+					OverworldMapTexture = new Texture2D ("/Application/Assets/Map/overworld.png", false);
+					OverworldMapTextureInfo = new TextureInfo (OverworldMapTexture, new Vector2i (1, 1));
+					
+					// Avatar Textures
+					AvatarTexture = new Texture2D ("/Application/Assets/Players/avatar.png", false);
+					AvatarTextureInfo = new TextureInfo (AvatarTexture, new Vector2i (3, 4));
+
+					
 					// UI Elements
 					Image_TurnSwitch_BG = new ImageAsset("/Application/Assets/UI/turnswitch_bg.png",false);
+					Image_Black_BG = new ImageAsset("/Application/Assets/UI/blackbg.png",false);
 					Image_Player_1_Icon = new ImageAsset("/Application/Assets/Players/araki.png",false);
 					Image_Action_Panel_BG = new ImageAsset("/Application/Assets/UI/panel_bg.png",false);
 					Image_Panel_Wait_Icon = new ImageAsset("/Application/Assets/UI/wait_icon.png",false);
@@ -167,6 +188,13 @@ namespace INF4000
 				
 				BattleTexture.Dispose();
 				BattleTextureInfo.Dispose();	
+				
+				OverworldMapTexture.Dispose();
+				OverworldMapTextureInfo.Dispose();
+				
+				AvatarTexture.Dispose();
+				AvatarTextureInfo.Dispose();
+				
 				_Instance = null;
 				
 			} catch (Exception e){ Console.WriteLine(e.Message + " - Error disposing textures");}

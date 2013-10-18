@@ -162,6 +162,9 @@ C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-unsigned\Application\Assets\Dialog\char_kenji_1.png
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-unsigned\Application\Assets\Dialog\char_overlay_blue.png
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-unsigned\Application\Assets\Dialog\char_overlay_red.png
+C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-unsigned\Application\Assets\Map\overworld.png
+C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-unsigned\Application\Assets\Players\avatar.png
+C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-unsigned\Application\Assets\UI\blackbg.png
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-signed\Application\app.info
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-signed\Application\shaders\Simple.cgx
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-signed\Application\app.exe
@@ -215,6 +218,9 @@ C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-signed\Application\Assets\Dialog\char_kenji_1.png
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-signed\Application\Assets\Dialog\char_overlay_blue.png
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-signed\Application\Assets\Dialog\char_overlay_red.png
+C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-signed\Application\Assets\Map\overworld.png
+C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-signed\Application\Assets\Players\avatar.png
+C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-signed\Application\Assets\UI\blackbg.png
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000.psdp
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\obj\Debug\convertedpdb\app.exe.mdb
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\obj\Debug\app.exe

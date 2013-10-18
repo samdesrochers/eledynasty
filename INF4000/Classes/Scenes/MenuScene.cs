@@ -38,7 +38,7 @@ namespace INF4000
             Button_Play.SetPosition(dialog.Width/2 - Button_Play.Width/2, 300.0f);
             Button_Play.TouchEventReceived += (sender, e) => 
 			{
-                Director.Instance.ReplaceScene(new GameScene());
+                Director.Instance.ReplaceScene(new OverworldScene());
             };
             
             Button Button_Title = new Button();

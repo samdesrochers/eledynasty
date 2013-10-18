@@ -53,7 +53,7 @@ namespace INF4000
 		{
 			Console.WriteLine("CREATING GAME SCENE");
 			_Instance = this;
-			this.CurrentGlobalState = Constants.GLOBAL_STATE_SWITCHING_TURN;
+			this.CurrentGlobalState = Constants.GLOBAL_STATE_STARTING_GAME;
 			this.CurrentGameState = Constants.GAME_STATE_SELECTION_INACTIVE;
 			
 			this.Camera.SetViewFromViewport ();
@@ -116,6 +116,9 @@ namespace INF4000
 			base.Update (dt);
 			switch(this.CurrentGlobalState)
 			{
+				case Constants.GLOBAL_STATE_STARTING_GAME:
+					UpdateStartingGame(dt);
+					break;
 				case Constants.GLOBAL_STATE_PLAYING_TURN:
 					UpdateGameRunning(dt);
 					break;
@@ -237,6 +240,13 @@ namespace INF4000
 				Dispose();
 				Director.Instance.ReplaceScene(new MenuScene());
 			}
+		}
+		
+		private void UpdateStartingGame(float dt)
+		{
+			GameUI.AnimateStartingGame(dt);		
+			if(GameUI.Image_StartTurnBG.Alpha <= 0)
+				CurrentGlobalState = Constants.GLOBAL_STATE_SWITCHING_TURN;
 		}
 		
 		#region Camera Update methods
