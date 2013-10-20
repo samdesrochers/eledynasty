@@ -13,7 +13,8 @@ namespace INF4000
 		public Panel MainPanel;
 		public LevelDescriptor LevelDesc;
 		
-		public ImageBox SceneOverlay;
+		public ImageBox WhiteTween;	
+		public ImageBox BlackTween;
 		
 		public OverworldUI ()
 		{
@@ -21,15 +22,22 @@ namespace INF4000
             MainPanel.Width = 960;
             MainPanel.Height = 544;
 			
-			SceneOverlay = new ImageBox();
-			SceneOverlay.Image = AssetsManager.Instance.Image_Black_BG;
-			SceneOverlay.Width = 960;
-			SceneOverlay.Height = 544;
-			SceneOverlay.Alpha = 0;
+			BlackTween = new ImageBox();
+			BlackTween.Image = AssetsManager.Instance.Image_Black_BG;
+			BlackTween.Width = 960;
+			BlackTween.Height = 544;
+			BlackTween.Alpha = 0;
+			
+			WhiteTween = new ImageBox();
+			WhiteTween.Image = AssetsManager.Instance.Image_White_BG;
+			WhiteTween.Width = 960;
+			WhiteTween.Height = 544;
+			WhiteTween.Alpha = 1;
 			
 			LevelDesc = new LevelDescriptor(new Vector2(20,20));		
 			MainPanel.AddChildLast(LevelDesc.Panel);
-			MainPanel.AddChildLast(SceneOverlay);
+			MainPanel.AddChildLast(BlackTween);
+			MainPanel.AddChildLast(WhiteTween);
 			
 			_UIScene = new Sce.PlayStation.HighLevel.UI.Scene();
             _UIScene.RootWidget.AddChildLast(MainPanel);
@@ -43,13 +51,28 @@ namespace INF4000
 		
 		public void SetLevelInfo(Level level)
 		{
-			SceneOverlay.Alpha = 0;
+			BlackTween.Alpha = 0;
 			LevelDesc.SetLevelInfo(level.EnemyAvatar, level.Name, level.Description,level.EnemyName);
-		}		
+		}	
+		
+		public void AdjustPosition(Level level)
+		{
+			if(level.Position.X > 960/2)
+				LevelDesc.Panel.SetPosition(20, 20);
+			else
+				LevelDesc.Panel.SetPosition(560, 220);
+		}
 		
 		public void UpdateGameStarting(float dt)
 		{
-			SceneOverlay.Alpha += dt;
+			BlackTween.Alpha += 1.8f*dt;
+		}
+		
+		public void UpdateSceneEntering(float dt)
+		{
+			WhiteTween.Alpha -= dt;
+			if(WhiteTween.Alpha <= 0)
+				MainPanel.RemoveChild(WhiteTween);
 		}
 	}
 }

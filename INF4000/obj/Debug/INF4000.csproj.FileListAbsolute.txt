@@ -229,3 +229,5 @@ C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-unsigned\Application\MapFiles\map2.txt
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-signed\Application\MapFiles\map1.txt
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-signed\Application\MapFiles\map2.txt
+C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-unsigned\Application\Assets\UI\whitebg.png
+C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-signed\Application\Assets\UI\whitebg.png

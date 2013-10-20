@@ -236,8 +236,10 @@ namespace INF4000
 		 * 	OVERWORLD CONSTANTS
 		 * *****************************/
 		public const int OV_STATE_IDLE	= 0;
-		public const int OV_STATE_STARTING_GAME	= 1;
-		public const int OV_STATE_EXITING_GAME	= 2;
+		public const int OV_STATE_STARTING_GAME		= 1;
+		public const int OV_STATE_ENTERING_SCENE	= 2;
+		public const int OV_STATE_SWITCHING_LEVEL	= 3;
+
 
 	}
 }

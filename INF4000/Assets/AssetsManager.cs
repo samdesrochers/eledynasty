@@ -56,6 +56,7 @@ namespace INF4000
 		
 		public ImageAsset Image_TurnSwitch_BG;
 		public ImageAsset Image_Black_BG;
+		public ImageAsset Image_White_BG;
 		public ImageAsset Image_Player_1_Icon;
 		public ImageAsset Image_Action_Panel_BG;
 		public ImageAsset Image_Panel_Attack_Icon;
@@ -133,6 +134,7 @@ namespace INF4000
 					// UI Elements
 					Image_TurnSwitch_BG = new ImageAsset("/Application/Assets/UI/turnswitch_bg.png",false);
 					Image_Black_BG = new ImageAsset("/Application/Assets/UI/blackbg.png",false);
+					Image_White_BG = new ImageAsset("/Application/Assets/UI/whitebg.png",false);
 					Image_Player_1_Icon = new ImageAsset("/Application/Assets/Players/araki.png",false);
 					Image_Action_Panel_BG = new ImageAsset("/Application/Assets/UI/panel_bg.png",false);
 					Image_Panel_Wait_Icon = new ImageAsset("/Application/Assets/UI/wait_icon.png",false);

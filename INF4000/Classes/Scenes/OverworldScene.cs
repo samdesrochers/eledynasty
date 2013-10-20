@@ -42,7 +42,7 @@ namespace INF4000
 			Console.WriteLine("CREATING OVERWORLD SCENE");
 			_Instance = this;
 						
-			State = Constants.OV_STATE_IDLE;
+			State = Constants.OV_STATE_ENTERING_SCENE;
 			this.Camera.SetViewFromViewport ();
 
 			// Load the Assets
@@ -54,19 +54,10 @@ namespace INF4000
 			OVMap = new OverworldMap();				
 			Avatar = new Avatar();
 			
-			Levels = new List<Level>();
-			Level level1 = new Level("Village of Haruma", "Kenji's home village is under attack by local Rebels. Even with litte troops and training, Kenji rushes in to aid his people.", "Gohzu Amari", 2, AssetsManager.Instance.Image_Dialog_Gohzu_1);
-			level1.GameLevelPath = @"/Application/MapFiles/map1.txt";
-			level1.Position = new Vector2(670,315);
-			Levels.Add(level1);
+			GenerateLevels();
+			Avatar.Position = SelectedLevel.Position;
+			Avatar.SpriteTile.Position = SelectedLevel.Position;
 			
-			Level level2 = new Level("Korama's Frontier", "War wages south, near Korama's frontier. Kenji must travel here with his newly acquired army and push through the enemy troops massing there. Onward on finding out what happened to his father...", "Akari Kotsu", 1, AssetsManager.Instance.Image_Dialog_Gohzu_1);
-			level2.GameLevelPath = @"/Application/MapFiles/map2.txt";
-			level2.Position = new Vector2(300,315);
-			Levels.Add(level2);
-			
-			LevelIndex = 0;
-			SelectedLevel = Levels[ LevelIndex ];
 			this.AddChild(OVMap.SpriteTile);
 			this.AddChild(Avatar.SpriteTile);		
 			
@@ -78,7 +69,7 @@ namespace INF4000
 		
 		public void Reset()
 		{
-			OVUI.SceneOverlay.Alpha = 0;
+			OVUI.BlackTween.Alpha = 0;
 			State = Constants.OV_STATE_IDLE;
 			OVUI.Show();
 			Scheduler.Instance.ScheduleUpdateForTarget (this, 0, false);
@@ -101,8 +92,11 @@ namespace INF4000
 				case Constants.OV_STATE_STARTING_GAME:
 					UpdateStartingGame(dt);
 					break;
-				case Constants.OV_STATE_EXITING_GAME:
-					UpdateExitingGame(dt);
+				case Constants.OV_STATE_ENTERING_SCENE:
+					UpdateEnteringGame(dt);
+					break;
+				case Constants.OV_STATE_SWITCHING_LEVEL:
+					UpdateSwitchingLevel(dt);
 					break;
 			}		
 		}
@@ -113,36 +107,57 @@ namespace INF4000
 			
 			if (Input2.GamePad.GetData (0).Cross.Release || Input2.GamePad.GetData (0).Start.Release ) {
 				State = Constants.OV_STATE_STARTING_GAME;
-			} else if(Input2.GamePad.GetData (0).Circle.Release ) {
-				State = Constants.OV_STATE_EXITING_GAME;
 			}
 			
 			if( Input2.GamePad.GetData (0).Left.Release ) {
 				LevelIndex = (int)Sce.PlayStation.Core.FMath.Abs((LevelIndex - 1) % Levels.Count);
 				SelectedLevel = Levels[LevelIndex];
+				
 				OVUI.SetLevelInfo(SelectedLevel);
+				OVUI.AdjustPosition(SelectedLevel);
+				
+				Avatar.RunAction( new MoveTo( SelectedLevel.Position, 0.5f ));
+				Avatar.SpriteTile.RunAction( new MoveTo( SelectedLevel.Position, 0.5f ));
+				
+				State = Constants.OV_STATE_SWITCHING_LEVEL;
 			} else if ( Input2.GamePad.GetData (0).Right.Release ) {
 				LevelIndex = (LevelIndex + 1) % Levels.Count;
 				SelectedLevel = Levels[LevelIndex];
+				
 				OVUI.SetLevelInfo(SelectedLevel);
+				OVUI.AdjustPosition(SelectedLevel);
+				
+				Avatar.RunAction( new MoveTo( SelectedLevel.Position, 0.5f ));
+				Avatar.SpriteTile.RunAction( new MoveTo( SelectedLevel.Position, 0.5f ));
+				
+				State = Constants.OV_STATE_SWITCHING_LEVEL;
 			}
 		}
 
 		public void UpdateStartingGame(float dt) 
 		{
 			OVUI.UpdateGameStarting(dt);
-			if(OVUI.SceneOverlay.Alpha >= 1)
+			if(OVUI.BlackTween.Alpha >= 1)
 			{
 				Director.Instance.ReplaceScene( new GameScene() );
 			}
 		}
 		
-		public void UpdateExitingGame(float dt) 
+		public void UpdateEnteringGame(float dt) 
 		{
-			//Director.Instance.ReplaceScene( new MenuScene() );
+			OVUI.UpdateSceneEntering(dt);
+			if(OVUI.WhiteTween.Alpha <= 0)
+				State = Constants.OV_STATE_IDLE;
 		}
 		
-		#region Update Methods	     
+		public void UpdateSwitchingLevel(float dt) 
+		{
+			Avatar.Update(dt);
+			if(Avatar.Position.X == SelectedLevel.Position.X && Avatar.Position.Y == SelectedLevel.Position.Y)
+				State = Constants.OV_STATE_IDLE;
+		}
+		
+		#region Utility Methods	     
 		public void Dispose()
 		{
 			this.Cleanup();
@@ -153,6 +168,23 @@ namespace INF4000
 			
 			_Instance = null;
 			Console.WriteLine("DELETING OVERWORLD SCENE");
+		}
+		
+		private void GenerateLevels()
+		{
+			Levels = new List<Level>();
+			Level level1 = new Level("Village of Haruma", "Kenji's home village is under attack by local Rebels. Even with litte troops and training, Kenji rushes in to aid his people.", "Gohzu Amari", 2, AssetsManager.Instance.Image_Dialog_Gohzu_1);
+			level1.GameLevelPath = @"/Application/MapFiles/map1.txt";
+			level1.Position = new Vector2(685,305);
+			Levels.Add(level1);
+			
+			Level level2 = new Level("Korama's Frontier", "War wages south, near Korama's frontier. Kenji must travel here with his newly acquired army and push through the enemy troops massing there. Onward on finding out what happened to his father...", "Akari Kotsu", 1, AssetsManager.Instance.Image_Dialog_Gohzu_1);
+			level2.GameLevelPath = @"/Application/MapFiles/map2.txt";
+			level2.Position = new Vector2(395,305);
+			Levels.Add(level2);
+			
+			LevelIndex = 0;
+			SelectedLevel = Levels[ LevelIndex ];
 		}
 		
 		#endregion

@@ -167,5 +167,6 @@
     <Content Include="Assets\UI\blackbg.png" />
     <Content Include="MapFiles\map1.txt" />
     <Content Include="MapFiles\map2.txt" />
+    <Content Include="Assets\UI\whitebg.png" />
   </ItemGroup>
 </Project>

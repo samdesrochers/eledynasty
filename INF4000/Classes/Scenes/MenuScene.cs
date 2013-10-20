@@ -14,19 +14,32 @@ namespace INF4000
 	public class MenuScene : Sce.PlayStation.HighLevel.GameEngine2D.Scene
 	{
 		private Sce.PlayStation.HighLevel.UI.Scene _UIScene;
+		private Sce.PlayStation.HighLevel.UI.Panel dialog;
+		
+		private int State;
+		private ImageBox Tween;
 		
         public MenuScene ()
         {
             this.Camera.SetViewFromViewport();
-            Sce.PlayStation.HighLevel.UI.Panel dialog = new Panel();
+            dialog = new Panel();
             dialog.Width = Director.Instance.GL.Context.GetViewport().Width;
             dialog.Height = Director.Instance.GL.Context.GetViewport().Height;
+			
+			State = Constants.OV_STATE_IDLE;
             
             ImageBox ImageBox = new ImageBox();
             ImageBox.Width = dialog.Width;
             ImageBox.Image = new ImageAsset("/Application/Assets/Title/title.png", false);
             ImageBox.Height = dialog.Height;
             ImageBox.SetPosition(0.0f,0.0f);
+			
+			Tween = new ImageBox();
+			Tween.Width = 960;
+			Tween.Height = 544;
+			Tween.SetPosition(0,0);
+			Tween.Image = new ImageAsset("/Application/Assets/UI/whitebg.png", false);
+			Tween.Alpha = 0;
             
             Button Button_Play = new Button();
             Button_Play.Name = "buttonPlay";
@@ -38,8 +51,8 @@ namespace INF4000
             Button_Play.SetPosition(dialog.Width/2 - Button_Play.Width/2, 300.0f);
             Button_Play.TouchEventReceived += (sender, e) => 
 			{
-				if(OverworldScene.Instance != null)
-                Director.Instance.ReplaceScene( OverworldScene.Instance );
+				dialog.AddChildLast(Tween);
+				State = Constants.OV_STATE_STARTING_GAME;
             };
             
             Button Button_Title = new Button();
@@ -57,6 +70,7 @@ namespace INF4000
             dialog.AddChildLast(ImageBox);
             dialog.AddChildLast(Button_Play);
             dialog.AddChildLast(Button_Title);
+			
             _UIScene = new Sce.PlayStation.HighLevel.UI.Scene();
             _UIScene.RootWidget.AddChildLast(dialog);
             UISystem.SetScene(_UIScene);
@@ -66,7 +80,17 @@ namespace INF4000
         public override void Update (float dt)
         {
             base.Update (dt);
-            UISystem.Update(Touch.GetData(0));           
+            UISystem.Update(Touch.GetData(0));
+			
+			if(State == Constants.OV_STATE_STARTING_GAME)
+			{
+				Tween.Alpha += dt;
+				if(Tween.Alpha >= 1) {
+					State = Constants.OV_STATE_IDLE;
+					if(OverworldScene.Instance != null)
+                		Director.Instance.ReplaceScene( OverworldScene.Instance );
+				}			
+			}
         }
         
         public override void Draw ()
