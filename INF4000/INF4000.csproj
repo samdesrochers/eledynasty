@@ -80,6 +80,7 @@
     <Compile Include="Classes\OverworldObjects\UI\LevelDescriptor.cs" />
     <Compile Include="Classes\OverworldObjects\OverworldMap.cs" />
     <Compile Include="Classes\GameObjects\Map\Map.cs" />
+    <Compile Include="Classes\Scenes\TutorialScene.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -114,6 +115,7 @@
     <Folder Include="Classes\OverworldObjects\" />
     <Folder Include="Classes\OverworldObjects\UI\" />
     <Folder Include="Classes\Util\" />
+    <Folder Include="Assets\UI\Tutorial\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="MapFiles\defaultMap.txt" />
@@ -168,5 +170,14 @@
     <Content Include="MapFiles\map1.txt" />
     <Content Include="MapFiles\map2.txt" />
     <Content Include="Assets\UI\whitebg.png" />
+    <Content Include="Assets\UI\Tutorial\fort_but.png" />
+    <Content Include="Assets\UI\Tutorial\fort_screen.png" />
+    <Content Include="Assets\UI\Tutorial\gold_but.png" />
+    <Content Include="Assets\UI\Tutorial\gold_screen.png" />
+    <Content Include="Assets\UI\Tutorial\panel.png" />
+    <Content Include="Assets\UI\Tutorial\stats_but.png" />
+    <Content Include="Assets\UI\Tutorial\stats_screen.png" />
+    <Content Include="Assets\Title\newgame_but.png" />
+    <Content Include="Assets\UI\Tutorial\back_but.png" />
   </ItemGroup>
 </Project>

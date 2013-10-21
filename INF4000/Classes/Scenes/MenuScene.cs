@@ -44,27 +44,27 @@ namespace INF4000
             Button Button_Play = new Button();
             Button_Play.Name = "buttonPlay";
             Button_Play.Text = "Launch Game";
-            Button_Play.Width = 500;
-            Button_Play.Height = 100;
-            Button_Play.Alpha = 0.8f;
+            Button_Play.Width = 316;
+            Button_Play.Height = 110;
+			Button_Play.IconImage = new ImageAsset("/Application/Assets/Title/newgame_but.png", false);
 			Button_Play.TextFont = new UIFont(FontAlias.System, 25, FontStyle.Regular);
-            Button_Play.SetPosition(dialog.Width/2 - Button_Play.Width/2, 300.0f);
+            Button_Play.SetPosition(dialog.Width/2 - Button_Play.Width/2, 250.0f);
             Button_Play.TouchEventReceived += (sender, e) => 
 			{
+				Button_Play.Alpha = 0.2f;
 				dialog.AddChildLast(Tween);
 				State = Constants.OV_STATE_STARTING_GAME;
             };
             
             Button Button_Title = new Button();
-            Button_Title.Name = "buttonMenu";
-            Button_Title.Text = "Main Menu";
-            Button_Title.Width = 500;
-            Button_Title.Height = 50;
+            Button_Title.Text = "Tutorial";
+            Button_Title.Width = 316;
+            Button_Title.Height = 110;
             Button_Title.Alpha = 0.8f;
-            Button_Title.SetPosition(dialog.Width/2 - Button_Play.Width/2, 450.0f);
+            Button_Title.SetPosition(dialog.Width/2 - Button_Play.Width/2, 380.0f);
             Button_Title.TouchEventReceived += (sender, e) => 
 			{
-            	//Director.Instance.ReplaceScene(new GameScene());
+            	Director.Instance.ReplaceScene(new TutorialScene());
             };        
                 
             dialog.AddChildLast(ImageBox);
