@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Sce.PlayStation.HighLevel.GameEngine2D;
+using Sce.PlayStation.HighLevel.GameEngine2D.Base;
 
 namespace INF4000
 {
@@ -43,6 +45,12 @@ namespace INF4000
 				coeff_attacker = 110; 
 			else if(DefendingUnit.OwnerName == Constants.CHAR_KENJI)
 				coeff_defender = 110;
+			
+			int attackerSupportCoeffBonus = GetSupportCoefficient(AttackerOriginTile, AttackingUnit);
+			int defenderSupportCoeffBonus = GetSupportCoefficient(ContestedTile, DefendingUnit);
+			
+			coeff_attacker += attackerSupportCoeffBonus;
+			coeff_defender += defenderSupportCoeffBonus;
 			
 			float AttackerHP = (float)AttackingUnit.LifePoints;
 			float DefenderHP = (float)DefendingUnit.LifePoints;
@@ -132,7 +140,6 @@ namespace INF4000
 		public void ExecuteFinalizePostCombat()
 		{
 			Utilities.HideAttackPanel();
-			Utilities.HideActionPanel();
 			
 			if(AttackingUnit != null && AttackingUnit.LifePoints > 0)
 				AttackingUnit.Sleep();
@@ -140,6 +147,28 @@ namespace INF4000
 			GameScene.Instance.CurrentMap.UnTintAllTiles();
 			GameScene.Instance.Cursor.TintToWhite();
 			GameScene.Instance.ActivePlayer.ActiveUnit = null;
+		}
+		
+		private int GetSupportCoefficient(Tile t, Unit ally)
+		{
+			int coeff = 0;
+			Unit supporter = GetAllyUnit(t, ally);
+			if(supporter != null)
+			{
+				coeff += (3 * supporter.AttackDamage);
+			}
+			return coeff;
+		}
+		
+		private Unit GetAllyUnit(Tile t, Unit ally)
+		{
+			foreach(Vector2i adjPos in t.AdjacentPositions)
+			{
+				Tile adj = GameScene.Instance.CurrentMap.GetTile(adjPos);
+				if(adj.CurrentUnit != null && ally.OwnerName == adj.CurrentUnit.OwnerName)
+					return adj.CurrentUnit;
+			}
+			return null;
 		}
 	}
 }

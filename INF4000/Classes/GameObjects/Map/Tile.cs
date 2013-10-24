@@ -22,11 +22,11 @@ namespace INF4000
 		public bool IsMoveValid;
 		
 		public Vector2i WorldPosition;
-		public SpriteTile SpriteTile;
 		
+		public SpriteTile SpriteTile;
+		public SpriteTile ActiveOverlay;
+		public SpriteTile TargetOverlay;	
 		public Vector2i IdleStateIndex;
-		public Vector2i ActiveStateIndex;
-		public Vector2i TargetStateIndex;
 		
 		public List<Vector2i> AdjacentPositions;
 		public Vector2i Adjacent_Left_Pos;
@@ -53,15 +53,22 @@ namespace INF4000
 			WorldPosition = new Vector2i(posX, posY);
 		}
 		
-		public void AssignGraphics(Vector2i idleIndex, Vector2i activeIndex, Vector2i targetIndex)
+		public void AssignGraphics(Vector2i idleIndex)
 		{
 			IdleStateIndex = idleIndex;
-			ActiveStateIndex = activeIndex;
-			TargetStateIndex = targetIndex;
-			
 			SpriteTile = new SpriteTile(this.TextureInfo, IdleStateIndex);
 			SpriteTile.Quad = this.Quad;
 			SpriteTile.Position = this.Position;
+			
+			ActiveOverlay = new SpriteTile(this.TextureInfo, new Vector2i(1, 3));
+			ActiveOverlay.Quad = this.Quad;
+			ActiveOverlay.Position = this.Position;
+			ActiveOverlay.Color = new Vector4(1,1,1,0.4f);
+			
+			TargetOverlay = new SpriteTile(this.TextureInfo, new Vector2i(2, 3));
+			TargetOverlay.Quad = this.Quad;
+			TargetOverlay.Position = this.Position;
+			TargetOverlay.Color = new Vector4(1,1,1,0.4f);
 		}
 		
 		public void AssignInfo(int defenseModifier, string info)
@@ -72,8 +79,7 @@ namespace INF4000
 		
 		public void Update()
 		{
-			// Update SpriteTile's position
-			SpriteTile.Position = this.Position;			
+			
 		}
 		
 		public bool HasUnit()
@@ -85,18 +91,24 @@ namespace INF4000
 		
 		public void SetActive(bool active)
 		{	
-			if(active)
-				SpriteTile.TileIndex2D = ActiveStateIndex;
-			else
-				SpriteTile.TileIndex2D = IdleStateIndex;
+			GameScene.Instance.RemoveChild(GameScene.Instance.Cursor.SpriteTile, false);
+			if(active) {
+				GameScene.Instance.AddChild(ActiveOverlay);
+			} else {
+				GameScene.Instance.RemoveChild(ActiveOverlay, false);
+			}
+			GameScene.Instance.AddChild(GameScene.Instance.Cursor.SpriteTile);
 		}
 		
 		public void SetTargeted(bool target)
 		{	
-			if(target)
-				SpriteTile.TileIndex2D = TargetStateIndex;
-			else
-				SpriteTile.TileIndex2D = IdleStateIndex;
+			GameScene.Instance.RemoveChild(GameScene.Instance.Cursor.SpriteTile, false);
+			if(target) {
+				GameScene.Instance.AddChild(TargetOverlay);
+			} else {
+				GameScene.Instance.RemoveChild(TargetOverlay, false);
+			}
+			GameScene.Instance.AddChild(GameScene.Instance.Cursor.SpriteTile);
 		}
 		
 		public void AssignAdjacentTiles(Tile[,] tiles, int width, int height)

@@ -17,6 +17,9 @@ namespace INF4000
 		private SpriteTile AttackerSprite;
 		private SpriteTile DefenderSprite;
 		
+		private SpriteTile SupportAttackerSprite;
+		private SpriteTile SupportDefenderSprite;
+		
 		private SpriteTile BackgroundSprite;
 		private SpriteTile SplashSprite;
 		private SpriteTile TerrainSprite;
@@ -50,6 +53,23 @@ namespace INF4000
 			
 			AttackerSprite = new SpriteTile(attacker.UnitSprite.TextureInfo, attacker.UnitSprite.TileIndex2D);
 			DefenderSprite = new SpriteTile(defender.UnitSprite.TextureInfo, defender.UnitSprite.TileIndex2D);
+			SupportAttackerSprite = null;
+			SupportDefenderSprite = null;
+			
+			// Support Units (if any)
+			Unit supAttack = GetAllyUnitGraphics(originTile, attacker);
+			Unit defAttack = GetAllyUnitGraphics(targetTile, defender);
+			
+			if(supAttack != null) {
+				SupportAttackerSprite = new SpriteTile(supAttack.UnitSprite.TextureInfo, supAttack.UnitSprite.TileIndex2D);
+				SupportAttackerSprite.Quad.S = new Vector2(60,60);
+			}			
+			
+			if(defAttack != null) {
+				SupportDefenderSprite = new SpriteTile(defAttack.UnitSprite.TextureInfo, defAttack.UnitSprite.TileIndex2D);
+				SupportDefenderSprite.Quad.S = new Vector2(60,60);
+				SupportDefenderSprite.FlipU = true;
+			}
 			
 			AttackerSprite.Quad.S = new Vector2(128,128);
 			DefenderSprite.Quad.S = new Vector2(128,128);
@@ -94,6 +114,17 @@ namespace INF4000
 			GameScene.Instance.AddChild(DefenderSprite);
 			GameScene.Instance.AddChild(AttackerSprite);
 			
+			// Support - Attack
+			if(SupportAttackerSprite != null) {
+				SupportAttackerSprite.Position = new Vector2(Center.X - 284, Center.Y + 40);
+				GameScene.Instance.AddChild(SupportAttackerSprite);
+			}
+			
+			if (SupportDefenderSprite != null) {
+				SupportDefenderSprite.Position = new Vector2(Center.X + 224, Center.Y + 40);
+				GameScene.Instance.AddChild(SupportDefenderSprite);
+			}			
+			
 			// Units HP
 			AttackerDamage.UpdatePositionBattle(new Vector2(AttackerSprite.Position.X + 10, AttackerSprite.Position.Y + 50));
 			DefenderDamage.UpdatePositionBattle(new Vector2(DefenderSprite.Position.X + 40, DefenderSprite.Position.Y + 50));
@@ -115,6 +146,8 @@ namespace INF4000
 			GameScene.Instance.RemoveChild(DefenderSprite, false);
 			GameScene.Instance.RemoveChild(AttackerDamage, true);
 			GameScene.Instance.RemoveChild(DefenderDamage, true);
+			GameScene.Instance.RemoveChild(SupportAttackerSprite, true);
+			GameScene.Instance.RemoveChild(SupportDefenderSprite, true);
 		}
 		
 		private void LoadGraphics()
@@ -229,6 +262,17 @@ namespace INF4000
 				case 0: break;
 			}
 			TerrainSprite.TileIndex2D = terrainIndex;
+		}
+		
+		private Unit GetAllyUnitGraphics(Tile t, Unit ally)
+		{
+			foreach(Vector2i adjPos in t.AdjacentPositions)
+			{
+				Tile adj = GameScene.Instance.CurrentMap.GetTile(adjPos);
+				if(adj.CurrentUnit != null && ally.OwnerName == adj.CurrentUnit.OwnerName)
+					return adj.CurrentUnit;
+			}
+			return null;
 		}
 	}
 }

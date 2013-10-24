@@ -119,6 +119,9 @@ namespace INF4000
 		
 		public static void ShowAttackOddsPanel()
 		{
+			GameScene.Instance.GameUI.OddsPanel.Panel.SetPosition(GameScene.Instance.Cursor.Position.X, 544 - GameScene.Instance.Cursor.Position.Y);
+			float dmg = Utilities.GetDefenderTakenDamage();
+			GameScene.Instance.GameUI.OddsPanel.SetOdds(dmg);
 			GameScene.Instance.GameUI.OddsPanel.SetActive(true);
 		}
 		
@@ -213,6 +216,17 @@ namespace INF4000
 			u = GameScene.Instance.ActivePlayer.TargetUnits[nextIdx];
 			GameScene.Instance.ActivePlayer.TargetUnit = u;
 			GameScene.Instance.Cursor.MoveToTileByWorldPosition(u.WorldPosition);
+		}
+			
+		private static float GetDefenderTakenDamage()
+		{
+			Unit attacker = GameScene.Instance.ActivePlayer.ActiveUnit;
+			Unit defender = GameScene.Instance.ActivePlayer.TargetUnit;
+			Tile origin = GameScene.Instance.CurrentMap.GetTile(GameScene.Instance.ActivePlayer.ActiveUnit.WorldPosition);
+			Tile target = GameScene.Instance.CurrentMap.GetTile(GameScene.Instance.ActivePlayer.TargetUnit.WorldPosition);
+			BattleManager bm = new BattleManager(attacker, defender, target, origin);
+			bm.ComputeDamagePercantages();	
+			return bm.DmgPercentages[0];
 		}
 		#endregion
 		

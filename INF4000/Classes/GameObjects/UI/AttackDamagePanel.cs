@@ -23,34 +23,36 @@ namespace INF4000
 			Position = pos;
 			
 			Panel = new Panel();
-			Panel.Width = Constants.UI_ELEMENT_STATSBOX_WIDTH;;
-			Panel.Height = 30;
+			Panel.Width = 90;
+			Panel.Height = 35;
 			Panel.SetPosition(Position.X, Position.Y);
-			Panel.Visible = false;
+			Panel.Visible = true;
 			
 			Image_Background = new ImageBox();
 			Image_Background.Width = Panel.Width;
 			Image_Background.Height = Panel.Height;
-			//Image_Background.SetPosition(Position.X, Position.Y);
 			Image_Background.Image = AssetsManager.Instance.Image_Stats_Panel_BG;
-			Image_Background.Alpha = 0.85f;
+			Image_Background.Alpha = 0.75f;
 			Image_Background.Visible = true;
 			
 			Label_Odds = new Label();
-			Label_Odds.Text = "Damage:99%"; // never go full 100 bro
-			Label_Odds.TextColor = new UIColor(1,1,1,1);
+			Label_Odds.TextColor = new UIColor(0.9f,0.1f,0.0f,1);
 			Label_Odds.SetPosition(5, 3);
 			Label_Odds.Font = AssetsManager.Instance.PixelFont_18;
-			Label_Odds.Alpha = 1.0f;
 			Label_Odds.Visible = true;
 			
 			Panel.AddChildLast(Image_Background);
 			Panel.AddChildLast(Label_Odds);
 		}
 		
-		public void SetOdds(string odds)
+		public void SetOdds(float odds)
 		{
-			Label_Odds.Text = "Damage:" + odds + "%";
+			try {
+				string oddsStripped = odds.ToString();
+				int idxOf = oddsStripped.IndexOf('.');
+				oddsStripped = oddsStripped.Remove(idxOf);
+				Label_Odds.Text = "DMG:" + oddsStripped + "%";
+			} catch {Label_Odds.Text = "DMG:50%";}
 		}
 		
 		public void SetActive(bool visible)

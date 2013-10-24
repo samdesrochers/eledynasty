@@ -56,9 +56,9 @@ namespace INF4000
 			{			
 				t.TextureInfo = TexInfo;		
 			
-				List<Vector2i> indexes = TilesUtil.GetTileIndexesByType(t.TerrainType);
+				Vector2i index = TilesUtil.GetTileIndexesByType(t.TerrainType);
 					
-				t.AssignGraphics (indexes[0], indexes[1], indexes[2]);
+				t.AssignGraphics (index);
 				SpriteList.AddChild (t.SpriteTile);
 			}
 		}
@@ -163,9 +163,7 @@ namespace INF4000
 				tile.CurrentBuilding = build;
 				
 				// Assign the new building to the correct Player (if any)
-				Utilities.AssignBuildingToPlayer (build, tileOwner);
-				
-				
+				Utilities.AssignBuildingToPlayer (build, tileOwner);		
 			}
 			
 			return tile;
@@ -325,6 +323,7 @@ namespace INF4000
 			{
 				t.TintWeight = 0;
 				t.SetActive(false);
+				t.SetTargeted(false);
 			}		
 		}
 		
