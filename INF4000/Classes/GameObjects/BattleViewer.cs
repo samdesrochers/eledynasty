@@ -73,8 +73,7 @@ namespace INF4000
 			
 			AttackerSprite.Quad.S = new Vector2(128,128);
 			DefenderSprite.Quad.S = new Vector2(128,128);
-			DefenderSprite.FlipU = true;
-			//PickCurrentTerrain();
+			DefenderSprite.FlipU = true;		
 			
 			AttackerDamage.Text = "-" + BattleManager.Damages[0].ToString();
 			AttackerDamage.Quad.S = new Vector2(92, 92);
@@ -88,6 +87,7 @@ namespace INF4000
 			DefenderDamage.Alpha = 1.0f;
 			DefenderDamage.Visible = false;
 			
+			PickCurrentTerrain();
 			SetGraphicsOverScene();
 		}
 		
@@ -109,19 +109,19 @@ namespace INF4000
 			GameScene.Instance.AddChild(TerrainSprite);
 			
 			// Units
-			AttackerSprite.Position = new Vector2(Center.X - 120 - 64, Center.Y - 64);
-			DefenderSprite.Position = new Vector2(Center.X + 120 - 64, Center.Y - 64);
+			AttackerSprite.Position = new Vector2(Center.X - 120 - 64, Center.Y - 84);
+			DefenderSprite.Position = new Vector2(Center.X + 120 - 64, Center.Y - 84);
 			GameScene.Instance.AddChild(DefenderSprite);
 			GameScene.Instance.AddChild(AttackerSprite);
 			
 			// Support - Attack
 			if(SupportAttackerSprite != null) {
-				SupportAttackerSprite.Position = new Vector2(Center.X - 284, Center.Y + 40);
+				SupportAttackerSprite.Position = new Vector2(Center.X - 284, Center.Y + 10);
 				GameScene.Instance.AddChild(SupportAttackerSprite);
 			}
 			
 			if (SupportDefenderSprite != null) {
-				SupportDefenderSprite.Position = new Vector2(Center.X + 224, Center.Y + 40);
+				SupportDefenderSprite.Position = new Vector2(Center.X + 224, Center.Y + 10);
 				GameScene.Instance.AddChild(SupportDefenderSprite);
 			}			
 			
@@ -259,7 +259,29 @@ namespace INF4000
 		{
 			switch (BattleManager.ContestedTile.TerrainType) 
 			{
-				case 0: break;
+				case Constants.TILE_TYPE_GRASS_MIDDLE: 
+					terrainIndex = new Vector2i(1,1); 
+					break;
+				case Constants.TILE_TYPE_ROAD_HORIZONTAL:
+				case Constants.TILE_TYPE_ROAD_VERTICAL: 
+				case Constants.TILE_TYPE_ROAD_VH_LEFT: 
+				case Constants.TILE_TYPE_ROAD_VH_RIGHT: 
+				case Constants.TILE_TYPE_ROAD_HV_LEFT:
+				case Constants.TILE_TYPE_ROAD_HV_RIGHT: 
+					terrainIndex = new Vector2i(1,0); 
+					break;
+				case Constants.TILE_TYPE_BUILD_FORT:
+				case Constants.TILE_TYPE_BUILD_BARRACKS: 
+				case Constants.TILE_TYPE_BUILD_FARM: 
+				case Constants.TILE_TYPE_BUILD_ARCHERY: 
+				case Constants.TILE_TYPE_BUILD_FORGE:
+				case Constants.TILE_TYPE_BUILD_WIZARD: 
+					terrainIndex = new Vector2i(0,0); 
+					break;
+				case Constants.TILE_TYPE_TREES_1:
+				case Constants.TILE_TYPE_TREES_2:
+					terrainIndex = new Vector2i(0,1); 
+					break;
 			}
 			TerrainSprite.TileIndex2D = terrainIndex;
 		}

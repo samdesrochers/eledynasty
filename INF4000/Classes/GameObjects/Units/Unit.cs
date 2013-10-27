@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Sce.PlayStation.Core;
 using Sce.PlayStation.Core.Graphics;
 using Sce.PlayStation.Core.Imaging;
@@ -36,7 +37,10 @@ namespace INF4000
 		public int Move_MaxRadius;
 		public int Move_RadiusLeft;
 		public int AttackDamage;
-		public int Armor;		
+		public int Armor;
+		
+		public int Behavior;
+		public Queue AI_Actions;
 		
 		public Vector2i WorldPosition;
 		
@@ -185,6 +189,7 @@ namespace INF4000
 			// Remove event so it doesn't loop 
 			this.Path.PathCompleted -= AI_Unit_PathCompleted;
 			Utilities.AssignUnitToTileByPosition(WorldPosition, this);
+			
 			SetInactive();
 			TryCaptureBuilding();
 		}

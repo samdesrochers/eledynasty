@@ -247,8 +247,10 @@ namespace INF4000
 		private void UpdateStartingGame(float dt)
 		{
 			GameUI.AnimateStartingGame(dt);		
-			if(GameUI.Image_StartTurnBG.Alpha <= 0)
+			if(GameUI.Image_StartTurnBG.Alpha <= 0) {
+				//Utilities.ShowDialogUI();
 				CurrentGlobalState = Constants.GLOBAL_STATE_SWITCHING_TURN;
+			}
 		}
 		
 		#region Camera Update methods
@@ -258,6 +260,7 @@ namespace INF4000
 			if(this.ActivePlayer.Units[0] != null && ActivePlayer.IsHuman) {
 				float topLimitY = CurrentMap.Height * 64;
 				float topCameraY = camera.Center.Y + 544/2;
+				float rightCameraX = camera.Center.X - 960/2;
 				Vector2 uPos = this.ActivePlayer.Units[0].Position;
 				
 				float diffTopY = uPos.Y - topCameraY;

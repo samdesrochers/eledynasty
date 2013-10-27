@@ -7,6 +7,7 @@ namespace INF4000
 		// General - Character Names
 		public const string CHAR_KENJI = "Kenji";
 		public const string CHAR_GOHZU = "Gohzu";
+		public const string CHAR_HIMIKO = "Himiko";
 		
 		// General - Tile Size
 		public const int TILE_SIZE = 64;
@@ -144,6 +145,11 @@ namespace INF4000
 		public const int UNIT_MOVE_MONK 	= 3;
 		public const int UNIT_MOVE_KNIGHT 	= 9;
 		public const int UNIT_MOVE_WIZARD 	= 5;
+		
+		// Unit - AI Behaviors
+		public const int UNIT_AI_BEHAV_ATTACK 	= 0;
+		public const int UNIT_AI_BEHAV_DEFEND 	= 1;
+		public const int UNIT_AI_BEHAV_CAPTURE 	= 2;
 
 		/*******************************
 		 * 	PATH CONSTANTS
@@ -201,14 +207,19 @@ namespace INF4000
 		 * *****************************/
 		public const int AI_STATE_WAITING			= 0;
 		public const int AI_STATE_UNIT_SELECTED 	= 1;
-		public const int AI_STATE_ACTION_SELECTED 	= 2;
+		public const int AI_STATE_ACTIONS_PREPARED 	= 2;
 		public const int AI_STATE_EXECUTING_ACTION	= 3;
+		public const int AI_STATE_BEGIN_TURN		= 9;
+		public const int AI_STATE_END_TURN			= 10;
 		
 		public const int AI_ACTION_NONE				= 0;
 		public const int AI_ACTION_MOVE 			= 5;
 		public const int AI_ACTION_ATTACK 			= 6;
-		public const int AI_ACTION_FORTIFY 			= 7;
-		public const int AI_ACTION_PRODUCE 			= 8;
+		public const int AI_ACTION_DEFEND 			= 7;
+		public const int AI_ACTION_CAPTURE 			= 8;
+		
+		public const int AI_BEHAVIOR_OFFENSE 		= 0;
+		public const int AI_BEHAVIOR_DEFENSE 		= 1;
 		
 		/*******************************
 		 * 	SOUNDS CONSTANTS
@@ -239,6 +250,13 @@ namespace INF4000
 		public const int OV_STATE_STARTING_GAME		= 1;
 		public const int OV_STATE_ENTERING_SCENE	= 2;
 		public const int OV_STATE_SWITCHING_LEVEL	= 3;
+		
+		/*******************************
+		 * 	AVATAR CONSTANTS
+		 * *****************************/
+		public const int AVATAR_DIRECTION_UP		= 0;
+		public const int AVATAR_DIRECTION_LEFT		= 1;
+		public const int AVATAR_DIRECTION_RIGHT		= 2;
 
 
 	}

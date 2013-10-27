@@ -3,9 +3,13 @@ Horuma's Town
 10
 Kenji
 Gohzu
-#Kenji$Once upon a time, I wrote a very long text for no real purpose other than testing this motherfucka. You know how it goes fella, that's all.
-#Gohzu$I never really read that text, but I wanted to make sure it worked, so I rolled with it.
-#Kenji$There's no way in hell I'm going to go buy a tuba and run around to fiesta gallore.
+#Kenji$This can't be... I can't let vile rebels harm my natal village. If only I had my father's courage, maybe we could stand a chance against them.
+#Himiko$Kenji! You have to save Hamura from the rebels. Think about all the great memories we made growing up in this village. 
+#Himiko$I know what it is to try and live to your father's  exepectation. Even if he's far away, You can make him proud, by chasing these rebels. I belive in you!
+#Kenji$Himiko... I will do my best for you, for my father, and for those poor souls trapped in this village.
+#Gohzu$Hahaha! Try all you want kiddo, thses puny peasants aren't going anywhere aside from their tombs!
+#Gohzu$Come, rush at us if you want, your troops and you don't stand a chance!
+#Kenji$We will see about that Gozhu. Bring it on!.
 #end_file$11
 #Kenji$Once upon a time, I wrote a very long text for no real purpose other than testing this motherfucka. You know how it goes fella, that's all.
 #Gohzu$I never really read that text, but I wanted to make sure it worked, so I rolled with it.

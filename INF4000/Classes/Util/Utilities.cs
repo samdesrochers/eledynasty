@@ -315,6 +315,12 @@ namespace INF4000
 			
 			return true;
 		}
+		
+		public static Player GetHumanPlayer()
+		{
+			// The human player will always be the first player
+			return GameScene.Instance.Players[0];
+		}
 		#endregion
 	}
 }

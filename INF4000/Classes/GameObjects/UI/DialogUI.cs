@@ -79,6 +79,10 @@ namespace INF4000
 				Image_Background_Speaker.Image = AssetsManager.Instance.Image_Dialog_Overlay_Red;	
 				Image_Speaker.Image = AssetsManager.Instance.Image_Dialog_Gohzu_1;
 				Label_SpeakerName.Text = "-"+name+"-";
+			} else if (name == Constants.CHAR_HIMIKO) {
+				Image_Background_Speaker.Image = AssetsManager.Instance.Image_Dialog_Overlay_Blue;	
+				Image_Speaker.Image = AssetsManager.Instance.Image_Dialog_Kenji_1;
+				Label_SpeakerName.Text = "-"+name+"-";
 			}
 		}
 		

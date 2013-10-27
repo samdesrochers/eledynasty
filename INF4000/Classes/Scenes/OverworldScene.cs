@@ -116,10 +116,13 @@ namespace INF4000
 				OVUI.SetLevelInfo(SelectedLevel);
 				OVUI.AdjustPosition(SelectedLevel);
 				
-				Avatar.RunAction( new MoveTo( SelectedLevel.Position, 0.5f ));
-				Avatar.SpriteTile.RunAction( new MoveTo( SelectedLevel.Position, 0.5f ));
+				Avatar.RunAction( new MoveTo( SelectedLevel.Position, 0.7f ));
+				Avatar.SpriteTile.RunAction( new MoveTo( SelectedLevel.Position, 0.7f ));
 				
-				State = Constants.OV_STATE_SWITCHING_LEVEL;
+				Avatar.Direction = Constants.AVATAR_DIRECTION_LEFT;
+				Avatar.Destination = SelectedLevel.Position;
+
+				
 			} else if ( Input2.GamePad.GetData (0).Right.Release ) {
 				LevelIndex = (LevelIndex + 1) % Levels.Count;
 				SelectedLevel = Levels[LevelIndex];
@@ -127,10 +130,11 @@ namespace INF4000
 				OVUI.SetLevelInfo(SelectedLevel);
 				OVUI.AdjustPosition(SelectedLevel);
 				
-				Avatar.RunAction( new MoveTo( SelectedLevel.Position, 0.5f ));
-				Avatar.SpriteTile.RunAction( new MoveTo( SelectedLevel.Position, 0.5f ));
+				Avatar.RunAction( new MoveTo( SelectedLevel.Position, 0.7f ));
+				Avatar.SpriteTile.RunAction( new MoveTo( SelectedLevel.Position, 0.7f ));
 				
-				State = Constants.OV_STATE_SWITCHING_LEVEL;
+				Avatar.Direction = Constants.AVATAR_DIRECTION_RIGHT;
+				Avatar.Destination = SelectedLevel.Position;
 			}
 		}
 

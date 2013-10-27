@@ -1,33 +1,35 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\Scenes\MenuScene.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\Scenes\GameScene.cs">
     <Files>
-      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="6" Column="7" />
-      <File FileName="INF4000\Classes\Scenes\OverworldScene.cs" Line="60" Column="4" />
-      <File FileName="INF4000\Classes\OverworldObjects\UI\LevelDescriptor.cs" Line="14" Column="16" />
-      <File FileName="INF4000\Classes\OverworldObjects\Avatar.cs" Line="12" Column="15" />
-      <File FileName="INF4000\Classes\OverworldObjects\Level.cs" Line="27" Column="30" />
-      <File FileName="INF4000\MapFiles\map2.txt" Line="175" Column="11" />
-      <File FileName="INF4000\Classes\Util\Constants.cs" Line="240" Column="43" />
-      <File FileName="INF4000\Classes\OverworldObjects\UI\OverworldUI.cs" Line="74" Column="29" />
-      <File FileName="INF4000\Classes\Scenes\MenuScene.cs" Line="64" Column="78" />
-      <File FileName="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\AppMain.cs" Line="23" Column="1" />
-      <File FileName="INF4000\Classes\Scenes\TutorialScene.cs" Line="94" Column="5" />
+      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="269" Column="6" />
+      <File FileName="INF4000\Classes\Scenes\OverworldScene.cs" Line="134" Column="30" />
+      <File FileName="INF4000\MapFiles\map1.txt" Line="8" Column="120" />
+      <File FileName="INF4000\Classes\GameObjects\UI\DialogUI.cs" Line="83" Column="86" />
+      <File FileName="INF4000\Classes\GameObjects\BattleViewer.cs" Line="126" Column="8" />
+      <File FileName="INF4000\Classes\Util\Constants.cs" Line="46" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="INF4000" expanded="True">
             <Node name="Assets" expanded="True">
-              <Node name="UI" expanded="True">
-                <Node name="Tutorial" expanded="True" />
-              </Node>
+              <Node name="Players" expanded="True" />
             </Node>
             <Node name="Classes" expanded="True">
-              <Node name="Scenes" expanded="True">
-                <Node name="MenuScene.cs" selected="True" />
+              <Node name="GameObjects" expanded="True">
+                <Node name="GameUtilities" expanded="True" />
+                <Node name="UI" expanded="True" />
               </Node>
+              <Node name="OverworldObjects" expanded="True">
+                <Node name="UI" expanded="True" />
+              </Node>
+              <Node name="Scenes" expanded="True">
+                <Node name="GameScene.cs" selected="True" />
+              </Node>
+              <Node name="Util" expanded="True" />
             </Node>
+            <Node name="MapFiles" expanded="True" />
           </Node>
         </State>
       </Pad>

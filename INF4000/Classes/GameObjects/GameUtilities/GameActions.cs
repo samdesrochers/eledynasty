@@ -145,7 +145,7 @@ namespace INF4000
 			Tile t = GameScene.Instance.CurrentMap.GetTile(originPos);
 			if(t.CurrentBuilding != null)
 			{
-				t.CurrentBuilding.ProduceUnit(t, playerName, GameScene.Instance.ActivePlayer);
+				t.CurrentBuilding.ProduceUnit( playerName, GameScene.Instance.ActivePlayer);
 			}
 			
 			// Clear the shit

@@ -160,7 +160,7 @@ namespace INF4000
 		
 		public void AnimateStartingGame(float dt)
 		{
-			Image_StartTurnBG.Alpha -= dt;
+			Image_StartTurnBG.Alpha -= 2*(dt/3);
 			
 			if(Image_StartTurnBG.Alpha <= 0)
 				MainPanel.RemoveChild(Image_StartTurnBG);

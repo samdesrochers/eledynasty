@@ -21,6 +21,8 @@ namespace INF4000
 		public int ProductionType;
 		public bool CanProduceThisTurn;
 		
+		public int AI_ProductionValue;
+		
 		public Vector2i WorldPosition;
 		public SpriteTile SpriteTile;
 		
@@ -74,8 +76,9 @@ namespace INF4000
 				SpriteTile.TileIndex2D = SpriteIndex_N;	
 		}
 		
-		public void ProduceUnit(Tile t, string owner, Player player)
+		public void ProduceUnit(string owner, Player player)
 		{
+			Tile t = GameScene.Instance.CurrentMap.GetTile(this.WorldPosition);
 			if(!CanProduceThisTurn || player.Gold < this.GoldToProduce)
 				return;
 			
