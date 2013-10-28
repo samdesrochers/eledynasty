@@ -120,7 +120,7 @@ namespace INF4000
 					
 					// Battle Terrain's Textures
 					BattleTexture = new Texture2D ("/Application/Assets/BattleTerrain/battleTerrain.png", false);
-					BattleTextureInfo = new TextureInfo (BattleTexture, new Vector2i (2, 2));
+					BattleTextureInfo = new TextureInfo (BattleTexture, new Vector2i (2, 3));
 					
 					// Overworld Textures
 					OverworldMapTexture = new Texture2D ("/Application/Assets/Map/overworld.png", false);

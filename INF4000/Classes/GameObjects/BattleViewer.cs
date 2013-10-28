@@ -13,6 +13,7 @@ namespace INF4000
 		public BattleManager BattleManager;
 		public float AnimationTime;
 		private Vector2 Center;
+		private bool IsHuman;
 		
 		private SpriteTile AttackerSprite;
 		private SpriteTile DefenderSprite;
@@ -45,6 +46,7 @@ namespace INF4000
 		public void PrepareBattleAnimation(Unit attacker, Unit defender, Tile targetTile, Tile originTile)
 		{	
 			PlayCombatSound = true;
+			IsHuman = GameScene.Instance.ActivePlayer.IsHuman;
 			
 			BattleManager = new BattleManager(attacker, defender, targetTile, originTile);
 			BattleManager.ComputeDamagePercantages();
@@ -155,7 +157,7 @@ namespace INF4000
 			terrainIndex = new Vector2i(0,1);
 			
 			// Create the tile sprite for specific terrain type and background
-			BackgroundSprite = new SpriteTile(AssetsManager.Instance.BattleTextureInfo, new Vector2i(0,0));
+			BackgroundSprite = new SpriteTile(AssetsManager.Instance.BattleTextureInfo, new Vector2i(0,1));
 			BackgroundSprite.Quad = this.Quad;
 			BackgroundSprite.Quad.S = new Vector2(960,544);
 			
@@ -163,7 +165,7 @@ namespace INF4000
 			TerrainSprite.Quad = this.Quad;
 			TerrainSprite.Quad.S = new Vector2(640,320);
 			
-			SplashSprite = new SpriteTile(AssetsManager.Instance.BattleTextureInfo, new Vector2i(1,0));
+			SplashSprite = new SpriteTile(AssetsManager.Instance.BattleTextureInfo, new Vector2i(0,0));
 			SplashSprite.Quad = this.Quad;
 			SplashSprite.Quad.S = new Vector2(640,320);
 			SplashSprite.Color.A = 0;
@@ -195,7 +197,10 @@ namespace INF4000
 				AttackInGame();
 				
 				// Reset correct Playing UI
-				GameScene.Instance.GameUI.SetPlaying();
+				if(IsHuman)
+					GameScene.Instance.GameUI.SetPlaying();
+				else
+					((AIPlayer)GameScene.Instance.ActivePlayer).NextAction();
 				
 			} else {
 				
@@ -249,7 +254,9 @@ namespace INF4000
 		{
 			BattleManager.ExecuteAttack();
 			BattleManager.ExecuteCombatOutcome();
-			BattleManager.ExecuteFinalizePostCombat();	
+			
+			if(IsHuman)
+				BattleManager.ExecuteFinalizePostCombat();	
 		
 			GameScene.Instance.CurrentGameState = Constants.GAME_STATE_SELECTION_INACTIVE;
 			GameScene.Instance.CurrentGlobalState = Constants.GLOBAL_STATE_PLAYING_TURN;
@@ -260,7 +267,7 @@ namespace INF4000
 			switch (BattleManager.ContestedTile.TerrainType) 
 			{
 				case Constants.TILE_TYPE_GRASS_MIDDLE: 
-					terrainIndex = new Vector2i(1,1); 
+					terrainIndex = new Vector2i(1,2); 
 					break;
 				case Constants.TILE_TYPE_ROAD_HORIZONTAL:
 				case Constants.TILE_TYPE_ROAD_VERTICAL: 
@@ -268,7 +275,7 @@ namespace INF4000
 				case Constants.TILE_TYPE_ROAD_VH_RIGHT: 
 				case Constants.TILE_TYPE_ROAD_HV_LEFT:
 				case Constants.TILE_TYPE_ROAD_HV_RIGHT: 
-					terrainIndex = new Vector2i(1,0); 
+					terrainIndex = new Vector2i(1,1); 
 					break;
 				case Constants.TILE_TYPE_BUILD_FORT:
 				case Constants.TILE_TYPE_BUILD_BARRACKS: 
@@ -276,11 +283,11 @@ namespace INF4000
 				case Constants.TILE_TYPE_BUILD_ARCHERY: 
 				case Constants.TILE_TYPE_BUILD_FORGE:
 				case Constants.TILE_TYPE_BUILD_WIZARD: 
-					terrainIndex = new Vector2i(0,0); 
+					terrainIndex = new Vector2i(0,1); 
 					break;
 				case Constants.TILE_TYPE_TREES_1:
 				case Constants.TILE_TYPE_TREES_2:
-					terrainIndex = new Vector2i(0,1); 
+					terrainIndex = new Vector2i(0,2); 
 					break;
 			}
 			TerrainSprite.TileIndex2D = terrainIndex;

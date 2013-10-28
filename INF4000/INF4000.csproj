@@ -81,6 +81,7 @@
     <Compile Include="Classes\OverworldObjects\OverworldMap.cs" />
     <Compile Include="Classes\GameObjects\Map\Map.cs" />
     <Compile Include="Classes\Scenes\TutorialScene.cs" />
+    <Compile Include="Classes\GameObjects\GameUtilities\AIState.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />

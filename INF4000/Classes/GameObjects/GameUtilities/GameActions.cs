@@ -131,13 +131,9 @@ namespace INF4000
 		
 		public static void AttackUnit(Unit attacker, Unit defender, Tile target, Tile origin)
 		{		
-			BattleManager battle = new BattleManager(attacker, defender, target, origin);
-			
-			battle.ExecuteAttack();
-			battle.ExecuteCombatOutcome();
-			battle.ExecuteFinalizePostCombat();	
-			
-			GameScene.Instance.CurrentGameState = Constants.GAME_STATE_SELECTION_INACTIVE;
+			GameScene.Instance.BattleViewer.PrepareBattleAnimation(attacker, defender, target, origin);			
+			GameScene.Instance.CurrentGlobalState = Constants.GLOBAL_STATE_BATTLE_ANIMATION;
+			SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_SELECT);
 		}
 		
 		public static void ProduceUnit(Vector2i originPos, string playerName)
@@ -162,15 +158,18 @@ namespace INF4000
 		#endregion
 		
 		#region AI Actions
-		public static void AI_MoveUnitTo(Vector2i dest, Unit unit)
+		public static bool AI_MoveUnitTo(Vector2i dest, Unit unit)
 		{
+			unit.Path = new Path();
+			if(!unit.Path.AI_BuildMoveToSequence(unit.WorldPosition, dest, unit.Move_RadiusLeft))
+				return false;
+			
 			// remove unit from path (cause this is FREAKING VALID AT THIS POINT)
 			Utilities.RemoveUnitFromTileByPosition(unit.WorldPosition);
-			
-			unit.Path = new Path();
-			unit.Path.BuildMoveToSequence(unit.WorldPosition, dest);
-			unit.Path.PathCompleted += unit.AI_Unit_PathCompleted;		
+			unit.Path.PathCompleted += unit.AI_Unit_PathCompleted;
+			return true;
 		}
+	
 		#endregion
 	}
 }

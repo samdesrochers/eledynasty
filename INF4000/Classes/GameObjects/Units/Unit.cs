@@ -21,7 +21,6 @@ namespace INF4000
 		public int Type;
 		
 		public int MaxLifePoints;
-		
 		private int _LifePoints;
 		public int LifePoints
 		{
@@ -39,9 +38,6 @@ namespace INF4000
 		public int AttackDamage;
 		public int Armor;
 		
-		public int Behavior;
-		public Queue AI_Actions;
-		
 		public Vector2i WorldPosition;
 		
 		public SpriteTile UnitSprite;
@@ -51,6 +47,11 @@ namespace INF4000
 		
 		public bool IsSelected;
 		public bool IsActive;
+		
+		/* AI Fields */
+		public int Behavior;
+		public Queue AI_Actions;
+		public int Heuristic; // The lower the value is, the most likely the AI will act on the unit
 				
 		/***********************************
 		 *  METHODS
@@ -165,8 +166,13 @@ namespace INF4000
 		public void MoveToAfterWin(Vector2i destination)
 		{
 			this.Path = new Path();
-			this.Path.BuildMoveToSequence (this.WorldPosition, destination);
-			this.Path.PathCompleted += Unit_PathCompletedAfterWin;	
+			if(GameScene.Instance.ActivePlayer.IsHuman) {
+				this.Path.BuildMoveToSequence (this.WorldPosition, destination);
+				this.Path.PathCompleted += Unit_PathCompletedAfterWin;	
+			} else {
+				((AIPlayer)GameScene.Instance.ActivePlayer).AddMoveAfterWin(destination);
+				this.Move_RadiusLeft = 1;
+			}
 		}
 		
 		public void Unit_PathCompleted(object sender, EventArgs args)
@@ -189,7 +195,11 @@ namespace INF4000
 			// Remove event so it doesn't loop 
 			this.Path.PathCompleted -= AI_Unit_PathCompleted;
 			Utilities.AssignUnitToTileByPosition(WorldPosition, this);
-			
+			((AIPlayer)GameScene.Instance.ActivePlayer).NextAction();
+		}
+		
+		public void AI_Sleep()
+		{
 			SetInactive();
 			TryCaptureBuilding();
 		}

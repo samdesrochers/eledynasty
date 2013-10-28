@@ -115,7 +115,7 @@ namespace INF4000
             UISystem.SetScene(_UIScene);
 		}
 		
-		private void SetNoneVisible()
+		public void SetNoneVisible()
 		{
 			Button_EndTurn.Visible = false;
 			PlayerPanel.Panel.Visible = false;

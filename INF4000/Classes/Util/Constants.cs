@@ -217,9 +217,16 @@ namespace INF4000
 		public const int AI_ACTION_ATTACK 			= 6;
 		public const int AI_ACTION_DEFEND 			= 7;
 		public const int AI_ACTION_CAPTURE 			= 8;
+		public const int AI_ACTION_SELECT_CAPTURE 	= 9;
+		public const int AI_ACTION_SELECT_ATTACK 	= 10;
+		public const int AI_ACTION_SELECT_DEFEND 	= 11;
+		public const int AI_ACTION_SLEEP			= 99;
 		
 		public const int AI_BEHAVIOR_OFFENSE 		= 0;
 		public const int AI_BEHAVIOR_DEFENSE 		= 1;
+		public const int AI_BEHAVIOR_ALL_OFFENSE_DEBUG 		= 100;
+		public const int AI_BEHAVIOR_ALL_DEFENSE_DEBUG 		= 101;
+		public const int AI_BEHAVIOR_ALL_CAPTURE_DEBUG 		= 102;
 		
 		/*******************************
 		 * 	SOUNDS CONSTANTS

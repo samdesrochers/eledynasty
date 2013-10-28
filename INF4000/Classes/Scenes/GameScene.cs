@@ -260,12 +260,16 @@ namespace INF4000
 			if(this.ActivePlayer.Units[0] != null && ActivePlayer.IsHuman) {
 				float topLimitY = CurrentMap.Height * 64;
 				float topCameraY = camera.Center.Y + 544/2;
-				float rightCameraX = camera.Center.X - 960/2;
+				float leftCameraX = camera.Center.X - 960/2;
 				Vector2 uPos = this.ActivePlayer.Units[0].Position;
 				
 				float diffTopY = uPos.Y - topCameraY;
 				if(diffTopY <= 0) {
 					camera.Center = new Vector2(camera.Center.X, topLimitY + diffTopY - 64);
+				}
+				Console.WriteLine("CamX:{0}, unitX:{1}",leftCameraX, uPos.X );
+				if(uPos.X < leftCameraX) {
+					camera.Center = new Vector2(960/2, camera.Center.Y);
 				}
 			}			
 		}
@@ -571,7 +575,9 @@ namespace INF4000
 		
 		private bool CheckIfTurnIsOver()
 		{
-			if(!ActivePlayer.HasMovableUnits() && CurrentGameState == Constants.GAME_STATE_SELECTION_INACTIVE)
+			if(!ActivePlayer.HasMovableUnits() && CurrentGameState == Constants.GAME_STATE_SELECTION_INACTIVE && ActivePlayer.IsHuman)
+				return true;
+			else if (!ActivePlayer.IsHuman && ((AIPlayer)ActivePlayer).IsTurnOver )
 				return true;
 			
 			return false;
@@ -773,13 +779,9 @@ namespace INF4000
 		
 		private void CrossPressed_LastStateAttackPanelActive() // This activates combat
 		{
-			// State attaque va survenir
-			BattleViewer.PrepareBattleAnimation(ActivePlayer.ActiveUnit, ActivePlayer.TargetUnit, 
-			                       		  CurrentMap.GetTile(Cursor.WorldPosition),
-			                       		  CurrentMap.GetTile(ActivePlayer.ActiveUnit.WorldPosition));
-			
-			CurrentGlobalState = Constants.GLOBAL_STATE_BATTLE_ANIMATION;
-			SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_SELECT);
+			GameActions.AttackUnit(ActivePlayer.ActiveUnit, ActivePlayer.TargetUnit, 
+	                       		  CurrentMap.GetTile(Cursor.WorldPosition),
+	                       		  CurrentMap.GetTile(ActivePlayer.ActiveUnit.WorldPosition));
 		}
 		
 		#endregion

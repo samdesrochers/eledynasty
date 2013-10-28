@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Sce.PlayStation.Core;
 using System.Collections.Generic;
 using Sce.PlayStation.HighLevel.GameEngine2D.Base;
@@ -61,6 +62,78 @@ namespace INF4000
 			SoundManager.Instance.PlaySound(Constants.SOUND_UNIT_MARCH);
 		}
 		
+		public bool AI_BuildMoveToSequence(Vector2i origin, Vector2i destination, int movePoints)
+		{
+			if(movePoints == 0 || (origin.X == destination.X && origin.Y == destination.Y)) {
+				IsActive = true;		
+				SoundManager.Instance.PlaySound(Constants.SOUND_UNIT_MARCH);
+				return true;
+			}
+			
+			Origin = origin;
+			Vector2i finalPos = origin;
+			int availableMovePoints = movePoints;
+			
+			Tile originTile = GameScene.Instance.CurrentMap.GetTile(origin);
+			List<AIState> candidates = new List<AIState>();
+			
+			// Assign heuristic value (manhattan). Also filters tiles where move is impossible
+			foreach(Vector2i v in originTile.AdjacentPositions)
+			{
+				Tile can = GameScene.Instance.CurrentMap.GetTile(v);
+				if(can != null && can.IsMoveValid) {
+					AIState s = new AIState();
+					s.Position = can.WorldPosition;
+					s.IsOccupied = (can.CurrentUnit != null) ? true : false;
+					s.Heuristic = GetManhattanValue(destination, s.Position);
+					candidates.Add(s);
+				}			
+			}
+			
+			candidates = candidates.OrderBy(o=>o.Heuristic).ToList();	
+			while(candidates.Count > 0) {
+				bool legelCandidatePicked = false;
+				AIState candidate = null;
+				while (!legelCandidatePicked) {
+					candidate = candidates.First();	
+					if(candidate.IsOccupied) {
+						candidates.Remove(candidate);
+					} else {
+						legelCandidatePicked = true;
+					}
+				}
+				
+				if(candidate.Position.X > origin.X) {
+					Sequence.Enqueue(Constants.PATH_RIGHT);
+					candidates.Remove(candidate);
+					availableMovePoints --;
+					AI_BuildMoveToSequence(candidate.Position, destination, availableMovePoints);
+					return true;
+				} else if(candidate.Position.X < origin.X) {
+					Sequence.Enqueue(Constants.PATH_LEFT);
+					candidates.Remove(candidate);
+					availableMovePoints --;
+					AI_BuildMoveToSequence(candidate.Position, destination, availableMovePoints);
+					return true;
+				}
+				if(candidate.Position.Y > origin.Y) {
+					Sequence.Enqueue(Constants.PATH_UP);
+					candidates.Remove(candidate);
+					availableMovePoints --;
+					AI_BuildMoveToSequence(candidate.Position, destination, availableMovePoints);
+					return true;
+				} else if(candidate.Position.Y < origin.Y) {
+					Sequence.Enqueue(Constants.PATH_DOWN);
+					candidates.Remove(candidate);
+					availableMovePoints --;
+					AI_BuildMoveToSequence(candidate.Position, destination, availableMovePoints);
+					return true;
+				}
+			}
+			
+			return false;
+		}
+				
 		public int GetDestinationAction(Vector2i pos, Vector2i origin)
 		{			
 			Tile dest = GameScene.Instance.CurrentMap.SelectTileFromPosition(pos);
@@ -109,6 +182,13 @@ namespace INF4000
 				handler(this, EventArgs.Empty);
 			}
 		}
+		
+		#region AI Methods
+		private int GetManhattanValue(Vector2i destination, Vector2i origin)
+		{
+			return System.Math.Abs(destination.X - origin.X) + System.Math.Abs(destination.Y - origin.Y);
+		}
+		#endregion
 	}
 }
 
