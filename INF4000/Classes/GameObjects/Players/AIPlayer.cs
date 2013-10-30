@@ -31,7 +31,7 @@ namespace INF4000
 			this.TargetUnits = new List<Unit>();
 			AI_State = Constants.AI_STATE_BEGIN_TURN;
 			AI_Action = Constants.AI_ACTION_NONE;
-			AI_Behavior = Constants.AI_BEHAVIOR_ALL_OFFENSE_DEBUG;
+			AI_Behavior = Constants.AI_BEHAVIOR_ALL_CAPTURE_DEBUG;
 			
 			IsTurnOver = false;
 		}
@@ -187,6 +187,7 @@ namespace INF4000
 					}
 				}
 			}
+			/* TEMP - (Hopefully) - Selects a static move option */
 			else { // Random - ish
 				int radiusLeft = ActiveUnit.Move_RadiusLeft;
 				Vector2i destination = GetValidDestination(radiusLeft);
@@ -225,6 +226,29 @@ namespace INF4000
 		private void CaptureAction()
 		{
 			Console.WriteLine("Capturing ");
+				
+			if(Candidates.Count == 1) { // Only the "building" State was inherited from
+				NextAction(); // Skip
+			} else {
+				Tile origin = GameScene.Instance.CurrentMap.GetTile(ActiveUnit.WorldPosition);
+				Candidates.Clear();
+				
+				foreach(Vector2i p in origin.AdjacentPositions)
+					Candidates.Add( new AIState(){ 
+						Position = p,
+						Heuristic = AssignAttackAndCaptureHeuristic(p)
+					} );
+				
+				foreach(AIState a in Candidates)
+				{
+					Tile t = GameScene.Instance.CurrentMap.GetTile(a.Position);
+					if(t != null && t.CurrentUnit != null && t.CurrentUnit.OwnerName != this.Name) {			
+						GameActions.AttackUnit(ActiveUnit, t.CurrentUnit, t, origin);
+						AI_State = Constants.AI_STATE_EXECUTING_ACTION;
+						break;
+					}
+				}
+			}
 		}
 		
 		private void SleepAction()
@@ -253,17 +277,30 @@ namespace INF4000
 			
 			// Get all of the human units
 			List<Unit> enemyUnits = Utilities.GetHumanPlayer().Units;
-			
-			// Calculate initial distance value. We want to attack the enemy closer to the current unit
-			foreach(Unit u in enemyUnits)
+		
+			// Calculate initial heuristic
+			foreach(Unit u in enemyUnits) {
 				u.Heuristic = GetDistanceValue(u.WorldPosition, ActiveUnit.WorldPosition);
+			}
 			
 			List<Unit> sortedEnemyUnits = enemyUnits.OrderBy(o=>o.Heuristic).ToList();
-			Unit nearestUnit = sortedEnemyUnits[0];
 			
-			Candidates = GenerateAttackDestinationsFromSeed(nearestUnit.WorldPosition);
-			Candidates.ForEach(c => AssignAttackHeuristic(c, nearestUnit));
-			Candidates = Candidates.OrderBy(o=>o.Heuristic).ToList();
+			int unitIndex = 0;
+			bool destinationFound = false;
+			
+			// Try the currently selected unit destination as potential move target
+			while( !destinationFound && unitIndex < enemyUnits.Count ) {
+				Unit bestPick = sortedEnemyUnits[unitIndex];
+				
+				Candidates = GenerateAttackDestinationsFromSeed(bestPick.WorldPosition);
+				if(Candidates.Count > 0) {
+					Candidates.ForEach(c => AssignAttackHeuristic(c, bestPick));
+					Candidates = Candidates.OrderBy(o=>o.Heuristic).ToList();
+					destinationFound = true;
+				} else {
+					unitIndex ++;
+				}
+			}
 			
 			NextAction();
 		}
@@ -277,6 +314,41 @@ namespace INF4000
 		private void SelectDestination_Capture()
 		{
 			Console.WriteLine("Selecting capture location");
+			
+			// Get all of the human buildings
+			List<Building> enemyBuildings = Utilities.GetHumanPlayer().Buildings;
+		
+			// Assign decision heuristics
+			foreach(Building b in enemyBuildings) {
+				b.Heuristic += GetDistanceValue(b.WorldPosition, ActiveUnit.WorldPosition);
+				b.Heuristic += GetBuidlingTypeValue(b);
+				b.Heuristic += GetReachableThisTurnValue(b.WorldPosition, ActiveUnit.WorldPosition, ActiveUnit.Move_RadiusLeft);
+			}
+			
+			List<Building> sortedEnemyBuildings = enemyBuildings.OrderBy(o=>o.Heuristic).ToList();
+			
+			int buildIndex = 0;
+			bool destinationFound = false;
+			
+			// Try the currently selected building as potential move target
+			while( !destinationFound && buildIndex < enemyBuildings.Count ) {
+				Building bestPick = sortedEnemyBuildings[buildIndex];
+				
+				Candidates = GenerateCaptureDestinationsFromSeed(bestPick.WorldPosition);
+				if(Candidates.Count > 0) {
+					if(Candidates.Count > 1) { // More than one candidate means we're going all out war to capture
+						ActiveUnit.AI_Actions.Clear();
+						ActiveUnit.AI_Actions.Enqueue(Constants.AI_ACTION_MOVE);
+						ActiveUnit.AI_Actions.Enqueue(Constants.AI_ACTION_ATTACK);
+						ActiveUnit.AI_Actions.Enqueue(Constants.AI_ACTION_SLEEP);
+						SelectDestination_Attack();
+					}
+					destinationFound = true;
+				} else {
+					buildIndex ++;
+				}
+			}
+			
 			NextAction();
 		}
 		
@@ -319,7 +391,7 @@ namespace INF4000
 		
 		private void AssignBehavior()
 		{
-			// Should decide dynamically which global AI behavior to use
+			// Should decide dynamically which individual AI behavior to use
 			foreach(Unit u in Units)
 			{
 				if(AI_Behavior == Constants.AI_BEHAVIOR_DEFENSE) {
@@ -374,6 +446,13 @@ namespace INF4000
 			state.Heuristic += GetCanAttackWithoutMovingValue(t, enemy);
 		}
 		
+		private int AssignAttackAndCaptureHeuristic(Vector2i pos)
+		{	
+			// Remember : we want to minimize the heuristic value
+			Tile t = GameScene.Instance.CurrentMap.GetTile(pos);
+			return GetBuildingOnTileValue_Attack(t);
+		}
+		
 		#endregion
 		
 		#region Heuristics methods
@@ -382,6 +461,13 @@ namespace INF4000
 		private int GetDistanceValue(Vector2i destination, Vector2i origin)
 		{
 			return System.Math.Abs(destination.X - origin.X) + System.Math.Abs(destination.Y - origin.Y);
+		}
+		
+		private int GetReachableThisTurnValue(Vector2i destination, Vector2i origin, int radius)
+		{
+			if(System.Math.Abs(destination.X - origin.X) + System.Math.Abs(destination.Y - origin.Y) <= radius)
+				return -3;
+			return 1;
 		}
 		
 		private int GetUnitTypeValue(Unit u)
@@ -400,9 +486,9 @@ namespace INF4000
 		private int GetBuildingOnTileValue_Attack(Tile t)
 		{	// Offensive stance
 			if(t.CurrentBuilding != null && t.CurrentBuilding.OwnerName == this.Name)
-				return -5;
+				return GetBuidlingTypeValue(t.CurrentBuilding) - 5;
 			else if(t.CurrentBuilding != null && t.CurrentBuilding.OwnerName != this.Name)
-				return -10;
+				return GetBuidlingTypeValue(t.CurrentBuilding) - 10;
 			return 0;
 		}
 		
@@ -415,7 +501,19 @@ namespace INF4000
 		private int GetCanAttackWithoutMovingValue(Tile t, Unit enemy)
 		{
 			if(t.AdjacentPositions.Any(a => a == enemy.WorldPosition))
-				return -100;
+				return -20;
+			return 0;
+		}
+		
+		/* ---------------- CAPTURE HEURISTICS --------------- */
+		private int GetBuidlingTypeValue(Building building)
+		{
+			switch(building.Type) {
+				case Constants.BUILD_FARM 	: return -2;
+				case Constants.BUILD_FORT 	: return -5;
+				case Constants.BUILD_FORGE 	: return -3;
+				case Constants.BUILD_TEMPLE : return -2;
+			}
 			return 0;
 		}
 		
@@ -427,6 +525,7 @@ namespace INF4000
 		{
 			Candidates.Clear();
 			Candidates.Add(new AIState(){Position = destination});
+			
 			ActiveUnit.AI_Actions.Clear();
 			ActiveUnit.AI_Actions.Enqueue(Constants.AI_ACTION_MOVE);
 			ActiveUnit.AI_Actions.Enqueue(Constants.AI_ACTION_SLEEP);
@@ -445,9 +544,41 @@ namespace INF4000
 			for( int i = candidates.Count - 1; i >= 0; i-- ) {
 				AIState s = candidates[i];
 				Vector2i v = s.Position;
+				Tile t = GameScene.Instance.CurrentMap.GetTile(v);
 				if(v.X < 0 || v.X > GameScene.Instance.CurrentMap.Width - 1
-				   || v.Y < 0 || v.X > GameScene.Instance.CurrentMap.Height - 1)
+				   || v.Y < 0 || v.X > GameScene.Instance.CurrentMap.Height - 1
+				   || (t.CurrentUnit != null && t.WorldPosition != ActiveUnit.WorldPosition)
+				   || !t.IsMoveValid )
 					candidates.Remove(s);
+			}
+			return candidates;	
+		}
+		
+		private List<AIState> GenerateCaptureDestinationsFromSeed(Vector2i seed)
+		{
+			List<AIState> candidates = new List<AIState>();
+			Tile buildingTile = GameScene.Instance.CurrentMap.GetTile(seed);
+			
+			if(buildingTile.CurrentUnit == null) {
+				candidates.Add(new AIState(){ Position = new Vector2i(seed.X, seed.Y) });
+			} else {	
+				candidates.Add(new AIState(){ Position = new Vector2i(seed.X - 1, seed.Y) });
+				candidates.Add(new AIState(){ Position = new Vector2i(seed.X + 1, seed.Y) });
+				candidates.Add(new AIState(){ Position = new Vector2i(seed.X, seed.Y + 1) });
+				candidates.Add(new AIState(){ Position = new Vector2i(seed.X, seed.Y - 1) });
+				
+				// Remove invalid destinations
+				for( int i = candidates.Count - 1; i >= 0; i-- ) {
+					AIState s = candidates[i];
+					Vector2i v = s.Position;
+					Tile t = GameScene.Instance.CurrentMap.GetTile(v);
+					if(v.X < 0 
+					   || v.X > GameScene.Instance.CurrentMap.Width - 1
+					   || v.Y < 0 || v.X > GameScene.Instance.CurrentMap.Height - 1 
+					   || (t.CurrentUnit != null && t.WorldPosition != ActiveUnit.WorldPosition)
+					   || !t.IsMoveValid )
+						candidates.Remove(s);
+				}
 			}
 			return candidates;	
 		}

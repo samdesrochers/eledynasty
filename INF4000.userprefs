@@ -1,16 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\GameObjects\Units\Unit.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\GameObjects\GameUtilities\Path.cs">
     <Files>
-      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="133" Column="12" />
+      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="471" Column="1" />
       <File FileName="INF4000\Classes\Scenes\OverworldScene.cs" Line="134" Column="30" />
-      <File FileName="INF4000\Classes\GameObjects\UI\DialogUI.cs" Line="83" Column="86" />
+      <File FileName="INF4000\Classes\GameObjects\UI\DialogUI.cs" Line="89" Column="52" />
       <File FileName="INF4000\Classes\GameObjects\BattleViewer.cs" Line="203" Column="63" />
       <File FileName="INF4000\Classes\Util\Constants.cs" Line="223" Column="38" />
-      <File FileName="INF4000\Classes\GameObjects\Players\AIPlayer.cs" Line="62" Column="1" />
-      <File FileName="INF4000\Classes\GameObjects\Units\Unit.cs" Line="173" Column="73" />
-      <File FileName="INF4000\Classes\GameObjects\GameUtilities\GameActions.cs" Line="136" Column="55" />
-      <File FileName="INF4000\Classes\GameObjects\GameUtilities\Path.cs" Line="34" Column="32" />
+      <File FileName="INF4000\Classes\GameObjects\Players\AIPlayer.cs" Line="247" Column="62" />
+      <File FileName="INF4000\Classes\GameObjects\Units\Unit.cs" Line="158" Column="1" />
+      <File FileName="INF4000\Classes\GameObjects\GameUtilities\GameActions.cs" Line="171" Column="1" />
+      <File FileName="INF4000\Classes\GameObjects\GameUtilities\Path.cs" Line="101" Column="1" />
       <File FileName="INF4000\Classes\GameObjects\GameUtilities\AIState.cs" Line="14" Column="25" />
       <File FileName="INF4000\Classes\GameObjects\Map\Tile.cs" Line="34" Column="38" />
       <File FileName="INF4000\Classes\GameObjects\GameUtilities\BattleManager.cs" Line="120" Column="28" />
@@ -25,13 +25,13 @@
             </Node>
             <Node name="Classes" expanded="True">
               <Node name="GameObjects" expanded="True">
-                <Node name="GameUtilities" expanded="True" />
+                <Node name="GameUtilities" expanded="True">
+                  <Node name="Path.cs" selected="True" />
+                </Node>
                 <Node name="Map" expanded="True" />
                 <Node name="Players" expanded="True" />
                 <Node name="UI" expanded="True" />
-                <Node name="Units" expanded="True">
-                  <Node name="Unit.cs" selected="True" />
-                </Node>
+                <Node name="Units" expanded="True" />
               </Node>
               <Node name="Scenes" expanded="True" />
               <Node name="Util" expanded="True" />
@@ -44,8 +44,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Players\AIPlayer.cs" line="146" />
-      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Players\AIPlayer.cs" line="143" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\GameUtilities\Path.cs" line="11" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
@@ -87,5 +86,7 @@
     <Watch file="INF4000\Classes\GameObjects\Players\AIPlayer.cs" line="211" offsetX="621" offsetY="3570" expression="Candidates" liveUpdate="False" />
     <Watch file="INF4000\Classes\GameObjects\Players\AIPlayer.cs" line="213" offsetX="669" offsetY="3604" expression="a" liveUpdate="False" />
     <Watch file="INF4000\Classes\GameObjects\Players\AIPlayer.cs" line="216" offsetX="421" offsetY="3655" expression="Candidates" liveUpdate="False" />
+    <Watch file="INF4000\Classes\GameObjects\GameUtilities\Path.cs" line="11" offsetX="373" offsetY="170" expression="Sequence" liveUpdate="False" />
+    <Watch file="INF4000\Classes\GameObjects\Players\AIPlayer.cs" line="17" offsetX="397" offsetY="272" expression="Candidates" liveUpdate="False" />
   </MonoDevelop.Ide.DebuggingService.PinnedWatches>
 </Properties>

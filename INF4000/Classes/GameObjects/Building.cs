@@ -22,6 +22,7 @@ namespace INF4000
 		public bool CanProduceThisTurn;
 		
 		public int AI_ProductionValue;
+		public int Heuristic;
 		
 		public Vector2i WorldPosition;
 		public SpriteTile SpriteTile;

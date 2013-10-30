@@ -26,7 +26,7 @@ namespace INF4000
 			Panel.Width = 90;
 			Panel.Height = 35;
 			Panel.SetPosition(Position.X, Position.Y);
-			Panel.Visible = true;
+			Panel.Visible = false;
 			
 			Image_Background = new ImageBox();
 			Image_Background.Width = Panel.Width;

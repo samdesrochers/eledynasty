@@ -195,11 +195,15 @@ namespace INF4000
 			// Remove event so it doesn't loop 
 			this.Path.PathCompleted -= AI_Unit_PathCompleted;
 			Utilities.AssignUnitToTileByPosition(WorldPosition, this);
+			
+			TryCaptureBuilding();
 			((AIPlayer)GameScene.Instance.ActivePlayer).NextAction();
+			
 		}
 		
 		public void AI_Sleep()
 		{
+			this.Move_RadiusLeft = 0;
 			SetInactive();
 			TryCaptureBuilding();
 		}
@@ -272,6 +276,7 @@ namespace INF4000
 					GameScene.Instance.WinnerName = this.OwnerName;
 					return;
 				}
+				Utilities.RemoveBuildingFromPlayerByName(t.CurrentBuilding, t.CurrentBuilding.OwnerName);
 				Utilities.AssignBuildingToPlayerByName(t.CurrentBuilding, OwnerName);
 			}
 		}

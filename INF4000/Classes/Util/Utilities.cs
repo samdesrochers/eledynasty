@@ -289,6 +289,15 @@ namespace INF4000
 			build.SetGraphics();
 		}
 		
+		public static void RemoveBuildingFromPlayerByName(Building build, string name)
+		{
+			if(build == null)
+				return;
+			
+			Player p = Utilities.GetPlayerByName(name);
+			p.Buildings.Remove(build);
+		}
+		
 		public static string GetWinner()
 		{
 			foreach(Player p in GameScene.Instance.Players)

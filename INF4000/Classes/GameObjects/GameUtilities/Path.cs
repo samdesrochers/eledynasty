@@ -92,14 +92,21 @@ namespace INF4000
 			
 			candidates = candidates.OrderBy(o=>o.Heuristic).ToList();	
 			while(candidates.Count > 0) {
-				bool legelCandidatePicked = false;
+				bool legalCandidatePicked = false;
 				AIState candidate = null;
-				while (!legelCandidatePicked) {
+				while (!legalCandidatePicked) {
+					
+					if(candidates.Count == 0 && Sequence.Count != 0) {
+						IsActive = true;
+						return true;
+					}
+					
 					candidate = candidates.First();	
-					if(candidate.IsOccupied) {
+					
+					if(candidate.IsOccupied && candidate.Position.X == destination.X && candidate.Position.Y == destination.Y) {
 						candidates.Remove(candidate);
 					} else {
-						legelCandidatePicked = true;
+						legalCandidatePicked = true;
 					}
 				}
 				
