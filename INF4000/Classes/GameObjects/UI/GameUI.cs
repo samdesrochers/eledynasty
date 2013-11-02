@@ -28,9 +28,6 @@ namespace INF4000
 		public StatsPanel TileStatsPanel;
 		public StatsPanel UnitStatsPanel;
 		
-		public Vector2 PlayerIcon_LeftAnchor;
-		public Vector2 PlayerIcon_RightAnchor;
-		
 		public PlayerPanel PlayerPanel;
 		private bool Starting_SwitchingTurn;
 		
@@ -59,8 +56,8 @@ namespace INF4000
 			Button_EndTurn = new Button();
             Button_EndTurn.Name = "ButtonEndTurn";
             Button_EndTurn.Text = "End Turn";
-            Button_EndTurn.Width = 150;
-            Button_EndTurn.Height = 60;
+            Button_EndTurn.Width = 140;
+            Button_EndTurn.Height = 50;
             Button_EndTurn.Alpha = 0.8f;
 			Button_EndTurn.TextFont = AssetsManager.Instance.PixelFont;
             Button_EndTurn.SetPosition(800, 480);
@@ -215,6 +212,16 @@ namespace INF4000
 		public void SetActive()
 		{
 			UISystem.SetScene(_UIScene);
+		}
+		
+		public void SetEndTurn_Left()
+		{
+			Button_EndTurn.SetPosition(20, 480);
+		}
+		
+		public void SetEndTurn_Right()
+		{
+			Button_EndTurn.SetPosition(800, 480);
 		}
 	}
 }

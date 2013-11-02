@@ -267,7 +267,7 @@ namespace INF4000
 		
 		private void TryCaptureBuilding()
 		{
-			Tile t = GameScene.Instance.CurrentMap.GetTile(this.WorldPosition);
+			Tile t = Utilities.GetTile(this.WorldPosition);
 			if(t.CurrentBuilding != null && t.CurrentBuilding.OwnerName != this.OwnerName)
 			{
 				if(t.CurrentBuilding.Type == Constants.TILE_TYPE_BUILD_FORT)

@@ -91,9 +91,9 @@ namespace INF4000
 		public const int BUILD_WIZARD	= 55;
 		
 		// Buildings - To Produce
-		public const int BUILD_TEMPLE_GOLD_PRODUCE 	= 1;
-		public const int BUILD_FORGE_GOLD_PRODUCE 	= 1;
-		public const int BUILD_FARM_GOLD_PRODUCE 	= 1;
+		public const int BUILD_TEMPLE_GOLD_PRODUCE 	= 20;
+		public const int BUILD_FORGE_GOLD_PRODUCE 	= 30;
+		public const int BUILD_FARM_GOLD_PRODUCE 	= 10;
 		
 		// Buildings - Yeild
 		public const int BUILD_TEMPLE_GOLD_YEILD 	= 2;
@@ -175,7 +175,7 @@ namespace INF4000
 		/*******************************
 		 * 	UI CONSTANTS
 		 * *****************************/
-		public const int UI_ELEMENT_ACTIONBOX_WIDTH 	= 200;
+		public const int UI_ELEMENT_ACTIONBOX_WIDTH 	= 250;
 		public const int UI_ELEMENT_ACTIONBOX_HEIGHT 	= 125;
 		public const int UI_ELEMENT_STATSBOX_WIDTH 		= 135;
 		public const int UI_ELEMENT_STATSBOX_HEIGHT 	= 110;

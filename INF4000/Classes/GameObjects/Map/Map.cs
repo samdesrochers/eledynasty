@@ -243,7 +243,7 @@ namespace INF4000
 		#endregion		
 			
 		#region Utilities
-		private void SelectActiveTiles(Tile initialTile, int radius) // OBSOLETE
+		public void SelectActiveTiles(Tile initialTile, int radius) 
 		{
 			ActiveTiles = new List<Tile>();
 			Vector2i initPos = initialTile.WorldPosition;
@@ -284,8 +284,9 @@ namespace INF4000
 			foreach(Tile mt in selectedTiles)
 				ActiveTiles.Add(mt);
 			
-			foreach(Tile at in ActiveTiles)
-				at.SetActive(true);
+			if(GameScene.Instance.ActivePlayer.IsHuman)
+				foreach(Tile at in ActiveTiles)
+					at.SetActive(true);
 		}
 		
 		public void SetTargetedTiles(Tile origin)

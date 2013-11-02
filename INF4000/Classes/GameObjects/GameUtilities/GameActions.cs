@@ -138,7 +138,7 @@ namespace INF4000
 		
 		public static void ProduceUnit(Vector2i originPos, string playerName)
 		{
-			Tile t = GameScene.Instance.CurrentMap.GetTile(originPos);
+			Tile t = Utilities.GetTile(originPos);
 			if(t.CurrentBuilding != null)
 			{
 				t.CurrentBuilding.ProduceUnit( playerName, GameScene.Instance.ActivePlayer);

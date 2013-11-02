@@ -79,16 +79,22 @@ namespace INF4000
 			
 			AttackerDamage.Text = "-" + BattleManager.Damages[0].ToString();
 			AttackerDamage.Quad.S = new Vector2(92, 92);
-			AttackerDamage.Position = new Vector2(Center.X + 100, Center.Y);
 			AttackerDamage.Alpha = 1.0f;
 			AttackerDamage.Visible = false;
 			
 			DefenderDamage.Text = "-" + BattleManager.Damages[1].ToString();
 			DefenderDamage.Quad.S = new Vector2(92, 92);
-			DefenderDamage.Position = new Vector2(Center.X - 100, Center.Y);
 			DefenderDamage.Alpha = 1.0f;
 			DefenderDamage.Visible = false;
 			
+			if(GameScene.Instance.ActivePlayer.IsHuman) {
+				AttackerDamage.Position = new Vector2(Center.X + 100, Center.Y);
+				DefenderDamage.Position = new Vector2(Center.X - 100, Center.Y);
+			} else {
+				AttackerDamage.Position = new Vector2(Center.X - 100, Center.Y);
+				DefenderDamage.Position = new Vector2(Center.X + 100, Center.Y);
+			}
+				
 			PickCurrentTerrain();
 			SetGraphicsOverScene();
 		}
@@ -157,7 +163,7 @@ namespace INF4000
 			terrainIndex = new Vector2i(0,1);
 			
 			// Create the tile sprite for specific terrain type and background
-			BackgroundSprite = new SpriteTile(AssetsManager.Instance.BattleTextureInfo, new Vector2i(0,1));
+			BackgroundSprite = new SpriteTile(AssetsManager.Instance.BattleTextureInfo, new Vector2i(1,0));
 			BackgroundSprite.Quad = this.Quad;
 			BackgroundSprite.Quad.S = new Vector2(960,544);
 			
@@ -207,7 +213,7 @@ namespace INF4000
 				// Animate the scene
 				if(TerrainSprite.Color.A < 1) {
 					TerrainSprite.Color.A += 2*dt;
-					BackgroundSprite.Color.A += 1.2f*dt;
+					BackgroundSprite.Color.A += 1.6f*dt;
 				}
 				
 				// White Splash
@@ -297,7 +303,7 @@ namespace INF4000
 		{
 			foreach(Vector2i adjPos in t.AdjacentPositions)
 			{
-				Tile adj = GameScene.Instance.CurrentMap.GetTile(adjPos);
+				Tile adj = Utilities.GetTile(adjPos);
 				if(adj.CurrentUnit != null && ally.OwnerName == adj.CurrentUnit.OwnerName)
 					return adj.CurrentUnit;
 			}

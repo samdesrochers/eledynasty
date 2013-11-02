@@ -13,6 +13,12 @@ namespace INF4000
 {
 	public static class Utilities
 	{
+		#region Tile Methods
+		public static Tile GetTile(Vector2i pos)
+		{
+			return GameScene.Instance.CurrentMap.GetTile(pos);
+		}
+		#endregion
 		
 		#region Unit Methods
 		public static void AssignUnitToTileByPosition(Vector2i unitPos, Unit unit)
@@ -50,9 +56,9 @@ namespace INF4000
 		public static bool CanUnitAttackFromDestination(Tile tile)
 		{
 			foreach(Vector2i v in tile.AdjacentPositions){
-				if(GameScene.Instance.CurrentMap.GetTile(v) != null)
+				if(Utilities.GetTile(v) != null)
 				{
-					Tile t = GameScene.Instance.CurrentMap.GetTile(v);
+					Tile t = Utilities.GetTile(v);
 					if(t.CurrentUnit != null && t.CurrentUnit.OwnerName != GameScene.Instance.ActivePlayer.Name)
 						return true;
 				}
@@ -72,6 +78,14 @@ namespace INF4000
 			
 			else if(dest.CurrentUnit.OwnerName == GameScene.Instance.ActivePlayer.Name 
 			        && canAttack && buil == null)
+				return Constants.ACTION_NOMOVE_ATTACK;
+			
+			else if(dest.CurrentUnit.OwnerName == GameScene.Instance.ActivePlayer.Name 
+			   && !canAttack && buil != null && buil.Type == Constants.BUILD_FORT)
+				return Constants.ACTION_SLEEP;
+			
+			else if(dest.CurrentUnit.OwnerName == GameScene.Instance.ActivePlayer.Name 
+			   && canAttack && buil != null && buil.Type == Constants.BUILD_FORT)
 				return Constants.ACTION_NOMOVE_ATTACK;
 			
 			else if(dest.CurrentUnit.OwnerName == GameScene.Instance.ActivePlayer.Name 
@@ -138,7 +152,7 @@ namespace INF4000
 			GameScene.Instance.GameUI.UnitStatsPanel.Panel.Visible = false;
 		}
 		
-		public static void AdjustStatsPanelLocation()
+		public static void AdjustUIPanelsLocation()
 		{
 			Camera2D camera = GameScene.Instance.Camera as Camera2D;
 			
@@ -148,12 +162,14 @@ namespace INF4000
 				GameScene.Instance.GameUI.UnitStatsPanel.SetToLeftOfScreen();
 				GameScene.Instance.GameUI.ActionPanel.SetToRightOfScreen();
 				GameScene.Instance.GameUI.PlayerPanel.SetToRightOfScreen();	
+				GameScene.Instance.GameUI.SetEndTurn_Left();
 				
 			} else {
 				GameScene.Instance.GameUI.TileStatsPanel.SetToRightOfScreen();
 				GameScene.Instance.GameUI.UnitStatsPanel.SetToRightOfScreen();
 				GameScene.Instance.GameUI.ActionPanel.SetToLeftOfScreen();
-				GameScene.Instance.GameUI.PlayerPanel.SetToLeftOfScreen();	
+				GameScene.Instance.GameUI.PlayerPanel.SetToLeftOfScreen();
+				GameScene.Instance.GameUI.SetEndTurn_Right();
 			}
 			
 			if(GameScene.Instance.Cursor.Position.Y > camera.Center.Y + 64)
@@ -166,6 +182,11 @@ namespace INF4000
 				GameScene.Instance.GameUI.ActionPanel.SetTop();
 
 			}
+		}
+		
+		public static void ShowAIPlayerPanel()
+		{
+			GameScene.Instance.GameUI.PlayerPanel.SetVisible(true);
 		}
 		#endregion
 		
@@ -222,8 +243,8 @@ namespace INF4000
 		{
 			Unit attacker = GameScene.Instance.ActivePlayer.ActiveUnit;
 			Unit defender = GameScene.Instance.ActivePlayer.TargetUnit;
-			Tile origin = GameScene.Instance.CurrentMap.GetTile(GameScene.Instance.ActivePlayer.ActiveUnit.WorldPosition);
-			Tile target = GameScene.Instance.CurrentMap.GetTile(GameScene.Instance.ActivePlayer.TargetUnit.WorldPosition);
+			Tile origin = Utilities.GetTile(GameScene.Instance.ActivePlayer.ActiveUnit.WorldPosition);
+			Tile target = Utilities.GetTile(GameScene.Instance.ActivePlayer.TargetUnit.WorldPosition);
 			BattleManager bm = new BattleManager(attacker, defender, target, origin);
 			bm.ComputeDamagePercantages();	
 			return bm.DmgPercentages[0];
@@ -312,7 +333,7 @@ namespace INF4000
 		#region AI Helper methods
 		public static bool IsDestinationValid(Vector2i destination)
 		{
-			Tile t = GameScene.Instance.CurrentMap.GetTile(destination);
+			Tile t = Utilities.GetTile(destination);
 			
 			if(t == null)
 				return false;
@@ -329,6 +350,17 @@ namespace INF4000
 		{
 			// The human player will always be the first player
 			return GameScene.Instance.Players[0];
+		}
+		
+		public static List<Tile> AI_GetCandidateMoveTiles(Vector2i origin, int radius)
+		{
+			List<Tile> tiles = null;
+			
+			Tile t = Utilities.GetTile(origin);
+			GameScene.Instance.CurrentMap.SelectActiveTiles(t, radius);
+			tiles = GameScene.Instance.CurrentMap.ActiveTiles;
+			
+			return tiles;
 		}
 		#endregion
 	}

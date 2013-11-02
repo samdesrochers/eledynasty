@@ -31,7 +31,7 @@ namespace INF4000
 			this.TargetUnits = new List<Unit>();
 			AI_State = Constants.AI_STATE_BEGIN_TURN;
 			AI_Action = Constants.AI_ACTION_NONE;
-			AI_Behavior = Constants.AI_BEHAVIOR_ALL_CAPTURE_DEBUG;
+			AI_Behavior = Constants.AI_BEHAVIOR_DEFENSE;
 			
 			IsTurnOver = false;
 		}
@@ -43,13 +43,19 @@ namespace INF4000
 			IsTurnOver = false;
 		}
 		
-		public override void Update ()
+		float waitTimer = 0;
+		
+		public override void Update (float dt)
 		{
-			base.Update ();		
+			base.Update (dt);		
 			CheckTurnOver();
 			
 			if( AI_State == Constants.AI_STATE_WAITING ){
-				SelectUnit();
+				if(waitTimer > 0.2f) {
+					SelectUnit();
+					waitTimer = 0;
+				}
+				waitTimer += dt;
 			} else if( AI_State == Constants.AI_STATE_UNIT_SELECTED ) {
 				SetActions();
 			} else if( AI_State == Constants.AI_STATE_ACTIONS_PREPARED ) {
@@ -86,8 +92,9 @@ namespace INF4000
 		private void BeginTurn()
 		{
 			GameScene.Instance.GameUI.SetNoneVisible();
+			Utilities.ShowAIPlayerPanel();
 			AssignBehavior();
-			//TryProduce();
+			TryProduce();
 			AI_State = Constants.AI_STATE_WAITING;
 		}
 		
@@ -206,15 +213,15 @@ namespace INF4000
 		private void AttackAction()
 		{
 			Console.WriteLine("Attacking ");
-			Tile origin = GameScene.Instance.CurrentMap.GetTile(ActiveUnit.WorldPosition);
+			Tile origin = Utilities.GetTile(ActiveUnit.WorldPosition);
 			Candidates.Clear();
 			
 			foreach(Vector2i p in origin.AdjacentPositions)
-				Candidates.Add( new AIState(){ Position = GameScene.Instance.CurrentMap.GetTile(p).WorldPosition } );
+				Candidates.Add( new AIState(){ Position = Utilities.GetTile(p).WorldPosition } );
 			
 			foreach(AIState a in Candidates)
 			{
-				Tile t = GameScene.Instance.CurrentMap.GetTile(a.Position);
+				Tile t = Utilities.GetTile(a.Position);
 				if(t != null && t.CurrentUnit != null && t.CurrentUnit.OwnerName != this.Name) {			
 					GameActions.AttackUnit(ActiveUnit, t.CurrentUnit, t, origin);
 					AI_State = Constants.AI_STATE_EXECUTING_ACTION;
@@ -230,7 +237,7 @@ namespace INF4000
 			if(Candidates.Count == 1) { // Only the "building" State was inherited from
 				NextAction(); // Skip
 			} else {
-				Tile origin = GameScene.Instance.CurrentMap.GetTile(ActiveUnit.WorldPosition);
+				Tile origin = Utilities.GetTile(ActiveUnit.WorldPosition);
 				Candidates.Clear();
 				
 				foreach(Vector2i p in origin.AdjacentPositions)
@@ -241,7 +248,7 @@ namespace INF4000
 				
 				foreach(AIState a in Candidates)
 				{
-					Tile t = GameScene.Instance.CurrentMap.GetTile(a.Position);
+					Tile t = Utilities.GetTile(a.Position);
 					if(t != null && t.CurrentUnit != null && t.CurrentUnit.OwnerName != this.Name) {			
 						GameActions.AttackUnit(ActiveUnit, t.CurrentUnit, t, origin);
 						AI_State = Constants.AI_STATE_EXECUTING_ACTION;
@@ -308,6 +315,60 @@ namespace INF4000
 		private void SelectDestination_Defend()
 		{
 			Console.WriteLine("Selecting defend location");
+			
+			// Get all of our buildings
+			List<Building> AIBuildings = this.Buildings;
+			List<Tile> candidateTiles = new List<Tile>();
+			List<AIState> AIDestinations = new List<AIState>();		
+			
+			// Assign decision heuristics
+			foreach(Building b in AIBuildings) {
+				if(!HasUnit(b.WorldPosition)){
+					b.Heuristic += GetDistanceValue(b.WorldPosition, ActiveUnit.WorldPosition);
+					b.Heuristic += GetBuidlingTypeValue_Defense(b);
+					b.Heuristic += GetReachableThisTurnValue(b.WorldPosition, ActiveUnit.WorldPosition, ActiveUnit.Move_RadiusLeft);
+					
+					AIState s = new AIState(){Position = b.WorldPosition, Heuristic = b.Heuristic};
+					AIDestinations.Add(s);
+				}
+			}
+			
+			candidateTiles = Utilities.AI_GetCandidateMoveTiles(ActiveUnit.WorldPosition, ActiveUnit.Move_RadiusLeft);
+			foreach(Tile t in candidateTiles)
+			{
+				if(!HasUnit(t.WorldPosition)){
+					AIState s = new AIState();
+					s.Position = t.WorldPosition;
+					s.Heuristic += GetDistanceValue(t.WorldPosition, ActiveUnit.WorldPosition);
+					s.Heuristic += GetTileTypeValue_Defense(t);
+					s.Heuristic += GetReachableThisTurnValue(t.WorldPosition, ActiveUnit.WorldPosition, ActiveUnit.Move_RadiusLeft);				
+					AIDestinations.Add(s);
+				}
+			}
+			
+			AIDestinations = AIDestinations.OrderBy(o=>o.Heuristic).ToList();
+			
+			int tileIndex = 0;
+			bool destinationFound = false;
+			
+			// Try the currently selected building as potential move target
+			while( !destinationFound && tileIndex < AIDestinations.Count ) {
+				AIState bestPick = AIDestinations[tileIndex];
+				
+				Candidates = GenerateDefendDestinationsFromSeed(bestPick.Position);
+				if(Candidates.Count > 0) {
+					destinationFound = true;
+				} else {
+					tileIndex ++;
+				}
+			}
+			
+			// Check if unit is already on optimal tile; if not, it will need to move
+			if(Candidates.Count > 0 && IsOnTile_Defense(ActiveUnit.WorldPosition, Candidates.First().Position)) { 
+				ActiveUnit.AI_Actions.Clear();
+				ActiveUnit.AI_Actions.Enqueue(Constants.AI_ACTION_SLEEP);		
+			}
+			
 			NextAction();
 		}
 		
@@ -321,7 +382,7 @@ namespace INF4000
 			// Assign decision heuristics
 			foreach(Building b in enemyBuildings) {
 				b.Heuristic += GetDistanceValue(b.WorldPosition, ActiveUnit.WorldPosition);
-				b.Heuristic += GetBuidlingTypeValue(b);
+				b.Heuristic += GetBuidlingTypeValue_Capture(b);
 				b.Heuristic += GetReachableThisTurnValue(b.WorldPosition, ActiveUnit.WorldPosition, ActiveUnit.Move_RadiusLeft);
 			}
 			
@@ -419,11 +480,11 @@ namespace INF4000
 						u.Behavior = Constants.UNIT_AI_BEHAV_ATTACK;
 				} else if(AI_Behavior == Constants.AI_BEHAVIOR_ALL_DEFENSE_DEBUG) {
 					if(u.Type == Constants.UNIT_TYPE_FARMER)
-						u.Behavior = Constants.UNIT_AI_BEHAV_DEFEND;
+						u.Behavior = Constants.UNIT_AI_BEHAV_CAPTURE;
 					else if(u.Type == Constants.UNIT_TYPE_MONK)
 						u.Behavior = Constants.UNIT_AI_BEHAV_DEFEND;
 					else if(u.Type == Constants.UNIT_TYPE_SAMURAI)
-						u.Behavior = Constants.UNIT_AI_BEHAV_DEFEND;
+						u.Behavior = Constants.UNIT_AI_BEHAV_CAPTURE;
 				} else if(AI_Behavior == Constants.AI_BEHAVIOR_ALL_CAPTURE_DEBUG) {
 					if(u.Type == Constants.UNIT_TYPE_FARMER)
 						u.Behavior = Constants.UNIT_AI_BEHAV_CAPTURE;
@@ -438,7 +499,7 @@ namespace INF4000
 		private void AssignAttackHeuristic(AIState state, Unit enemy)
 		{	
 			// Remember : we want to minimize the heuristic value
-			Tile t = GameScene.Instance.CurrentMap.GetTile(state.Position);
+			Tile t = Utilities.GetTile(state.Position);
 			state.Heuristic += GetDistanceValue(state.Position, ActiveUnit.WorldPosition);
 			state.Heuristic += GetUnitOnTileValue(t);
 			// state.Heuristic += GetBuildingOnTileValue_Attack(t);
@@ -449,7 +510,7 @@ namespace INF4000
 		private int AssignAttackAndCaptureHeuristic(Vector2i pos)
 		{	
 			// Remember : we want to minimize the heuristic value
-			Tile t = GameScene.Instance.CurrentMap.GetTile(pos);
+			Tile t = Utilities.GetTile(pos);
 			return GetBuildingOnTileValue_Attack(t);
 		}
 		
@@ -475,6 +536,14 @@ namespace INF4000
 			return (u.AttackDamage + u.Armor - u.LifePoints);
 		}
 		
+		private bool HasUnit(Vector2i pos)
+		{
+			Tile t = Utilities.GetTile(pos);
+			if(t.CurrentUnit != null && t.CurrentUnit.WorldPosition != ActiveUnit.WorldPosition)	// Reject defense to tile 
+				return true;
+			return false;
+		}
+		
 		/* ---------------- ATTACK HEURISTICS --------------- */
 		private int GetUnitOnTileValue(Tile t)
 		{
@@ -486,9 +555,9 @@ namespace INF4000
 		private int GetBuildingOnTileValue_Attack(Tile t)
 		{	// Offensive stance
 			if(t.CurrentBuilding != null && t.CurrentBuilding.OwnerName == this.Name)
-				return GetBuidlingTypeValue(t.CurrentBuilding) - 5;
+				return GetBuidlingTypeValue_Capture(t.CurrentBuilding) - 5;
 			else if(t.CurrentBuilding != null && t.CurrentBuilding.OwnerName != this.Name)
-				return GetBuidlingTypeValue(t.CurrentBuilding) - 10;
+				return GetBuidlingTypeValue_Capture(t.CurrentBuilding) - 10;
 			return 0;
 		}
 		
@@ -506,7 +575,7 @@ namespace INF4000
 		}
 		
 		/* ---------------- CAPTURE HEURISTICS --------------- */
-		private int GetBuidlingTypeValue(Building building)
+		private int GetBuidlingTypeValue_Capture(Building building)
 		{
 			switch(building.Type) {
 				case Constants.BUILD_FARM 	: return -2;
@@ -516,6 +585,36 @@ namespace INF4000
 			}
 			return 0;
 		}
+		
+		/* ---------------- DEFENSE HEURISTICS --------------- */
+		private int GetBuidlingTypeValue_Defense(Building building)
+		{
+			switch(building.Type) {
+				case Constants.BUILD_FARM 	: return -3;
+				case Constants.BUILD_FORT 	: return -50;
+				case Constants.BUILD_FORGE 	: return -5;
+				case Constants.BUILD_TEMPLE : return -4;
+			}
+			return 0;
+		}
+		
+		private int GetTileTypeValue_Defense(Tile tile)
+		{
+			switch(tile.TerrainType) {
+				case Constants.TILE_TYPE_HILL :
+				case Constants.TILE_TYPE_HILL_2 : 			
+					return -8;
+				case Constants.TILE_TYPE_TREES_1 :
+				case Constants.TILE_TYPE_TREES_2 :
+					return -5;
+			}
+			return 0;
+		}
+		
+		private bool IsOnTile_Defense(Vector2i unitPos, Vector2i candidatePos)
+		{
+			return (unitPos.X == candidatePos.X && unitPos.Y == candidatePos.Y);
+		}		
 		
 		#endregion
 		
@@ -544,7 +643,7 @@ namespace INF4000
 			for( int i = candidates.Count - 1; i >= 0; i-- ) {
 				AIState s = candidates[i];
 				Vector2i v = s.Position;
-				Tile t = GameScene.Instance.CurrentMap.GetTile(v);
+				Tile t = Utilities.GetTile(v);
 				if(v.X < 0 || v.X > GameScene.Instance.CurrentMap.Width - 1
 				   || v.Y < 0 || v.X > GameScene.Instance.CurrentMap.Height - 1
 				   || (t.CurrentUnit != null && t.WorldPosition != ActiveUnit.WorldPosition)
@@ -554,10 +653,41 @@ namespace INF4000
 			return candidates;	
 		}
 		
+		private List<AIState> GenerateDefendDestinationsFromSeed(Vector2i seed)
+		{
+			List<AIState> candidates = new List<AIState>();
+			Tile tile = Utilities.GetTile(seed);
+			
+			if(tile.CurrentUnit == null) {
+				candidates.Add(new AIState(){ Position = new Vector2i(seed.X, seed.Y) });
+			} else if (IsOnTile_Defense(ActiveUnit.WorldPosition, seed)) {
+				candidates.Add(new AIState(){ Position = new Vector2i(seed.X, seed.Y) });
+			} else {	
+				candidates.Add(new AIState(){ Position = new Vector2i(seed.X - 1, seed.Y) });
+				candidates.Add(new AIState(){ Position = new Vector2i(seed.X + 1, seed.Y) });
+				candidates.Add(new AIState(){ Position = new Vector2i(seed.X, seed.Y + 1) });
+				candidates.Add(new AIState(){ Position = new Vector2i(seed.X, seed.Y - 1) });
+				
+				// Remove invalid destinations
+				for( int i = candidates.Count - 1; i >= 0; i-- ) {
+					AIState s = candidates[i];
+					Vector2i v = s.Position;
+					Tile t = Utilities.GetTile(v);
+					if(v.X < 0 
+					   || v.X > GameScene.Instance.CurrentMap.Width - 1
+					   || v.Y < 0 || v.X > GameScene.Instance.CurrentMap.Height - 1 
+					   || (t.CurrentUnit != null && t.WorldPosition != ActiveUnit.WorldPosition)
+					   || !t.IsMoveValid )
+						candidates.Remove(s);
+				}
+			}
+			return candidates;
+		}
+		
 		private List<AIState> GenerateCaptureDestinationsFromSeed(Vector2i seed)
 		{
 			List<AIState> candidates = new List<AIState>();
-			Tile buildingTile = GameScene.Instance.CurrentMap.GetTile(seed);
+			Tile buildingTile = Utilities.GetTile(seed);
 			
 			if(buildingTile.CurrentUnit == null) {
 				candidates.Add(new AIState(){ Position = new Vector2i(seed.X, seed.Y) });
@@ -571,7 +701,7 @@ namespace INF4000
 				for( int i = candidates.Count - 1; i >= 0; i-- ) {
 					AIState s = candidates[i];
 					Vector2i v = s.Position;
-					Tile t = GameScene.Instance.CurrentMap.GetTile(v);
+					Tile t = Utilities.GetTile(v);
 					if(v.X < 0 
 					   || v.X > GameScene.Instance.CurrentMap.Width - 1
 					   || v.Y < 0 || v.X > GameScene.Instance.CurrentMap.Height - 1 
@@ -624,4 +754,3 @@ namespace INF4000
 		#endregion
 	}
 }
-

@@ -74,13 +74,13 @@ namespace INF4000
 			Vector2i finalPos = origin;
 			int availableMovePoints = movePoints;
 			
-			Tile originTile = GameScene.Instance.CurrentMap.GetTile(origin);
+			Tile originTile = Utilities.GetTile(origin);
 			List<AIState> candidates = new List<AIState>();
 			
 			// Assign heuristic value (manhattan). Also filters tiles where move is impossible
 			foreach(Vector2i v in originTile.AdjacentPositions)
 			{
-				Tile can = GameScene.Instance.CurrentMap.GetTile(v);
+				Tile can = Utilities.GetTile(v);
 				if(can != null && can.IsMoveValid) {
 					AIState s = new AIState();
 					s.Position = can.WorldPosition;
@@ -102,8 +102,9 @@ namespace INF4000
 					}
 					
 					candidate = candidates.First();	
-					
-					if(candidate.IsOccupied && candidate.Position.X == destination.X && candidate.Position.Y == destination.Y) {
+					if ( candidate.Position.X == destination.X && candidate.Position.Y == destination.Y && !candidate.IsOccupied  ) {
+						legalCandidatePicked = true; // Found a match for destination		
+					} else if(candidate.IsOccupied) {
 						candidates.Remove(candidate);
 					} else {
 						legalCandidatePicked = true;

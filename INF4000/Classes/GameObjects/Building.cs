@@ -79,7 +79,7 @@ namespace INF4000
 		
 		public void ProduceUnit(string owner, Player player)
 		{
-			Tile t = GameScene.Instance.CurrentMap.GetTile(this.WorldPosition);
+			Tile t = Utilities.GetTile(this.WorldPosition);
 			if(!CanProduceThisTurn || player.Gold < this.GoldToProduce)
 				return;
 			
@@ -113,7 +113,7 @@ namespace INF4000
 			{
 				foreach(Vector2i v in t.AdjacentPositions)
 				{
-					Tile adj = GameScene.Instance.CurrentMap.GetTile(v);
+					Tile adj = Utilities.GetTile(v);
 					if(adj.CurrentUnit == null)
 					{
 						unit = Unit.CreateByType(unitTypeToProduce, 9000, 9000, adj.WorldPosition.X, adj.WorldPosition.Y); // Will ignore gigantic value

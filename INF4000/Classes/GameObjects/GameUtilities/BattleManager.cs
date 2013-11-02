@@ -164,7 +164,7 @@ namespace INF4000
 		{
 			foreach(Vector2i adjPos in t.AdjacentPositions)
 			{
-				Tile adj = GameScene.Instance.CurrentMap.GetTile(adjPos);
+				Tile adj = Utilities.GetTile(adjPos);
 				if(adj.CurrentUnit != null && ally.OwnerName == adj.CurrentUnit.OwnerName)
 					return adj.CurrentUnit;
 			}

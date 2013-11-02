@@ -162,7 +162,7 @@ namespace INF4000
 			if (ActivePlayer is HumanPlayer) {
 				UpdateGameRunningHuman(dt);
 			} else {
-				UpdateGameRunningAI();
+				UpdateGameRunningAI(dt);
 			}
 		
 			UpdateUnits ();			
@@ -195,10 +195,10 @@ namespace INF4000
 			}
 		}
 		
-		private void UpdateGameRunningAI()
+		private void UpdateGameRunningAI(float dt)
 		{
 			// Will update the AI player's update
-			ActivePlayer.Update();
+			ActivePlayer.Update(dt);
 		}
 		
 		private void UpdateGameSwitchingTurn(float dt)
@@ -268,7 +268,7 @@ namespace INF4000
 					camera.Center = new Vector2(camera.Center.X, topLimitY + diffTopY - 64);
 				}
 				Console.WriteLine("CamX:{0}, unitX:{1}",leftCameraX, uPos.X );
-				if(uPos.X < leftCameraX) {
+				if(uPos.X <= leftCameraX && leftCameraX < 960/2) {
 					camera.Center = new Vector2(960/2, camera.Center.Y);
 				}
 			}			
@@ -293,7 +293,7 @@ namespace INF4000
 //				camera.Center = new Vector2 (camera.Center.X, 544/2);
 //			}
 			
-			Utilities.AdjustStatsPanelLocation();
+			Utilities.AdjustUIPanelsLocation();
 		}
 		
 		public void UpdateCameraPositionByCursor ()
@@ -793,8 +793,10 @@ namespace INF4000
 					
 			// Unselect unit and remove tint from tiles
 			Utilities.HideActionPanel();
-			ActivePlayer.ActiveUnit.Unselect ();			
-			ActivePlayer.ActiveUnit = null;
+			if(ActivePlayer.ActiveUnit != null) {
+				ActivePlayer.ActiveUnit.Unselect ();			
+				ActivePlayer.ActiveUnit = null;
+			}
 			
 			Cursor.TintToWhite();
 			CurrentMap.UnTintAllTiles();

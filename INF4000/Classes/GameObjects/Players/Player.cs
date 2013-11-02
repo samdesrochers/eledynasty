@@ -51,7 +51,7 @@ namespace INF4000
 		public Building ActiveBuilding;
 		
 		public virtual void Reset(){}
-		public virtual void Update(){}
+		public virtual void Update(float dt){}
 		
 		public bool HasMovableUnits()
 		{
@@ -101,7 +101,7 @@ namespace INF4000
 		
 		public void KillUnit(Unit u)
 		{
-			Tile t = GameScene.Instance.CurrentMap.GetTile(u.WorldPosition);
+			Tile t = Utilities.GetTile(u.WorldPosition);
 			t.CurrentUnit = null;
 			
 			u.ClearGraphics();

@@ -58,7 +58,7 @@ namespace INF4000
 			Label_Gold.Text = gold;
 		}
 
-		public void SetActive(bool visible)
+		public void SetVisible(bool visible)
 		{
 			Panel.Visible = visible;
 		}

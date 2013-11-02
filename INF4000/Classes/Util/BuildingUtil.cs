@@ -122,7 +122,7 @@ namespace INF4000
 		
 		public static int GetHighLightedBuildingGoldToProduce()
 		{
-			Tile t = GameScene.Instance.CurrentMap.GetTile(GameScene.Instance.Cursor.WorldPosition);
+			Tile t = Utilities.GetTile(GameScene.Instance.Cursor.WorldPosition);
 			if(t.CurrentBuilding != null)
 				return t.CurrentBuilding.GoldToProduce;
 			return -1;
