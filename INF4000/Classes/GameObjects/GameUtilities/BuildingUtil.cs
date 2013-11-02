@@ -32,14 +32,14 @@ namespace INF4000
 				case Constants.BUILD_TEMPLE:
 					indexP1 = new Vector2i (0, 3);
 					indexP2 = new Vector2i (1, 3);
-					indexN = new Vector2i (1, 0);
+					indexN = new Vector2i (1, 2);
 					break;
 				
 				// FORGE
 				case Constants.BUILD_FORGE:
 					indexP1 = new Vector2i (1, 1);
 					indexP2 = new Vector2i (0, 1);
-					indexN = new Vector2i (1, 0);
+					indexN = new Vector2i (0, 2);
 					break;
 				
 			}

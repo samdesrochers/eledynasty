@@ -192,12 +192,10 @@ namespace INF4000
 		
 		public static void LoadAllSpritesFromPlayer(List<Player> players, Node parent)
 		{
-			foreach(Player p in players)
+			foreach(Tile t in GameScene.Instance.CurrentMap.Tiles)
 			{
-				foreach(Building b in p.Buildings)
-				{
-					parent.AddChild(b.SpriteTile);
-				}
+				if(t.CurrentBuilding != null)
+					parent.AddChild(t.CurrentBuilding.SpriteTile);
 			}
 			
 			foreach(Player p in players)

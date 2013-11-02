@@ -276,7 +276,9 @@ namespace INF4000
 					GameScene.Instance.WinnerName = this.OwnerName;
 					return;
 				}
-				Utilities.RemoveBuildingFromPlayerByName(t.CurrentBuilding, t.CurrentBuilding.OwnerName);
+				if(t.CurrentBuilding.OwnerName != null && t.CurrentBuilding.OwnerName != "")
+					Utilities.RemoveBuildingFromPlayerByName(t.CurrentBuilding, t.CurrentBuilding.OwnerName);
+				
 				Utilities.AssignBuildingToPlayerByName(t.CurrentBuilding, OwnerName);
 			}
 		}

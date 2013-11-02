@@ -73,7 +73,6 @@
     <Compile Include="Classes\Scenes\OverworldScene.cs" />
     <Compile Include="Classes\Util\Constants.cs" />
     <Compile Include="Classes\Util\Utilities.cs" />
-    <Compile Include="Classes\Util\BuildingUtil.cs" />
     <Compile Include="Classes\OverworldObjects\Level.cs" />
     <Compile Include="Classes\OverworldObjects\Avatar.cs" />
     <Compile Include="Classes\OverworldObjects\UI\OverworldUI.cs" />
@@ -82,6 +81,7 @@
     <Compile Include="Classes\GameObjects\Map\Map.cs" />
     <Compile Include="Classes\Scenes\TutorialScene.cs" />
     <Compile Include="Classes\GameObjects\GameUtilities\AIState.cs" />
+    <Compile Include="Classes\GameObjects\GameUtilities\BuildingUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />

@@ -579,7 +579,7 @@ namespace INF4000
 		{
 			switch(building.Type) {
 				case Constants.BUILD_FARM 	: return -2;
-				case Constants.BUILD_FORT 	: return -5;
+				case Constants.BUILD_FORT 	: return -6;
 				case Constants.BUILD_FORGE 	: return -3;
 				case Constants.BUILD_TEMPLE : return -2;
 			}
@@ -591,7 +591,7 @@ namespace INF4000
 		{
 			switch(building.Type) {
 				case Constants.BUILD_FARM 	: return -3;
-				case Constants.BUILD_FORT 	: return -50;
+				case Constants.BUILD_FORT 	: return -6;
 				case Constants.BUILD_FORGE 	: return -5;
 				case Constants.BUILD_TEMPLE : return -4;
 			}

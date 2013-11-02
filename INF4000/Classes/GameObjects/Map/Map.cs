@@ -15,6 +15,7 @@ namespace INF4000
 	{		
 		public Tile[,] Tiles;
 		public List<Tile> ActiveTiles;
+		public List<SpriteTile> BuildingsSprites;
 		
 		public string Name;
 		public int Width;
@@ -29,7 +30,7 @@ namespace INF4000
 				if (!LoadMapFromFile (mapFilePath)) {
 					Console.WriteLine ("Error reading Map file");
 				}
-		
+			
 				LoadGraphics ();
 				
 			} catch (Exception e) {
@@ -111,7 +112,9 @@ namespace INF4000
 			TexInfo = AssetsManager.Instance.TerrainTextureInfo;
 				
 			// Create and fill SpriteList
-			SpriteList = new SpriteList (TexInfo);				
+			SpriteList = new SpriteList (TexInfo);
+			BuildingsSprites = new List<SpriteTile>();
+			
 			LoadTerrainGraphics ();
 		}
 		#endregion
@@ -163,7 +166,7 @@ namespace INF4000
 				tile.CurrentBuilding = build;
 				
 				// Assign the new building to the correct Player (if any)
-				Utilities.AssignBuildingToPlayer (build, tileOwner);		
+				Utilities.AssignBuildingToPlayer (build, tileOwner);
 			}
 			
 			return tile;
