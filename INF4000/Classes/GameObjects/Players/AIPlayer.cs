@@ -31,7 +31,7 @@ namespace INF4000
 			this.TargetUnits = new List<Unit>();
 			AI_State = Constants.AI_STATE_BEGIN_TURN;
 			AI_Action = Constants.AI_ACTION_NONE;
-			AI_Behavior = Constants.AI_BEHAVIOR_DEFENSE;
+			AI_Behavior = Constants.AI_BEHAVIOR_ALL_CAPTURE_DEBUG;
 			
 			IsTurnOver = false;
 		}
@@ -94,7 +94,7 @@ namespace INF4000
 			GameScene.Instance.GameUI.SetNoneVisible();
 			Utilities.ShowAIPlayerPanel();
 			AssignBehavior();
-			TryProduce();
+			//TryProduce();
 			AI_State = Constants.AI_STATE_WAITING;
 		}
 		
@@ -324,11 +324,11 @@ namespace INF4000
 			// Assign decision heuristics
 			foreach(Building b in AIBuildings) {
 				if(!HasUnit(b.WorldPosition)){
-					b.Heuristic += GetDistanceValue(b.WorldPosition, ActiveUnit.WorldPosition);
-					b.Heuristic += GetBuidlingTypeValue_Defense(b);
-					b.Heuristic += GetReachableThisTurnValue(b.WorldPosition, ActiveUnit.WorldPosition, ActiveUnit.Move_RadiusLeft);
-					
-					AIState s = new AIState(){Position = b.WorldPosition, Heuristic = b.Heuristic};
+					AIState s = new AIState();
+					s.Position = b.WorldPosition;
+					s.Heuristic += GetDistanceValue(b.WorldPosition, ActiveUnit.WorldPosition);
+					s.Heuristic += GetBuidlingTypeValue_Defense(b);
+					s.Heuristic += GetReachableThisTurnValue(b.WorldPosition, ActiveUnit.WorldPosition, ActiveUnit.Move_RadiusLeft);
 					AIDestinations.Add(s);
 				}
 			}
@@ -377,25 +377,30 @@ namespace INF4000
 			Console.WriteLine("Selecting capture location");
 			
 			// Get all of the human buildings
-			List<Building> enemyBuildings = Utilities.GetHumanPlayer().Buildings;
-		
+			List<Building> enemyBuildings = Utilities.AI_GetEnemyBuildings();
+			List<AIState> AIDestinations = new List<AIState>();	
+			
 			// Assign decision heuristics
 			foreach(Building b in enemyBuildings) {
-				b.Heuristic += GetDistanceValue(b.WorldPosition, ActiveUnit.WorldPosition);
-				b.Heuristic += GetBuidlingTypeValue_Capture(b);
-				b.Heuristic += GetReachableThisTurnValue(b.WorldPosition, ActiveUnit.WorldPosition, ActiveUnit.Move_RadiusLeft);
+				AIState s = new AIState();
+				s.Position = b.WorldPosition;
+				s.Heuristic += GetDistanceValue(b.WorldPosition, ActiveUnit.WorldPosition);
+				s.Heuristic += GetBuidlingTypeValue_Capture(b);
+				s.Heuristic += GetBuidlingOccupied_Capture(b);
+				s.Heuristic += GetReachableThisTurnValue(b.WorldPosition, ActiveUnit.WorldPosition, ActiveUnit.Move_RadiusLeft);
+				AIDestinations.Add(s);
 			}
 			
-			List<Building> sortedEnemyBuildings = enemyBuildings.OrderBy(o=>o.Heuristic).ToList();
+			AIDestinations = AIDestinations.OrderBy(o=>o.Heuristic).ToList();
 			
 			int buildIndex = 0;
 			bool destinationFound = false;
 			
 			// Try the currently selected building as potential move target
-			while( !destinationFound && buildIndex < enemyBuildings.Count ) {
-				Building bestPick = sortedEnemyBuildings[buildIndex];
+			while( !destinationFound && buildIndex < AIDestinations.Count ) {
+				AIState bestPick = AIDestinations[buildIndex];
 				
-				Candidates = GenerateCaptureDestinationsFromSeed(bestPick.WorldPosition);
+				Candidates = GenerateCaptureDestinationsFromSeed(bestPick.Position);
 				if(Candidates.Count > 0) {
 					if(Candidates.Count > 1) { // More than one candidate means we're going all out war to capture
 						ActiveUnit.AI_Actions.Clear();
@@ -583,6 +588,13 @@ namespace INF4000
 				case Constants.BUILD_FORGE 	: return -3;
 				case Constants.BUILD_TEMPLE : return -2;
 			}
+			return 0;
+		}
+		
+		private int GetBuidlingOccupied_Capture(Building building)
+		{
+			if(building.OwnerName == null || building.OwnerName == "")
+				return -20;
 			return 0;
 		}
 		

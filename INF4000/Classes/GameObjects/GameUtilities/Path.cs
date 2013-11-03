@@ -21,11 +21,14 @@ namespace INF4000
 		public int RadiusUsed;
 		public Vector2i Origin;
 		
+		public List<AIState> Visited;
+		
 		public Path()
 		{
 			Sequence = new Queue<string>();
 			IsActive = false;
 			distanceMoved = 0;
+			Visited = new List<AIState>();
 		}
 		
 		public void BuildMoveToSequence(Vector2i origin, Vector2i destination)
@@ -65,6 +68,7 @@ namespace INF4000
 		public bool AI_BuildMoveToSequence(Vector2i origin, Vector2i destination, int movePoints)
 		{
 			if(movePoints == 0 || (origin.X == destination.X && origin.Y == destination.Y)) {
+				Visited.Clear();
 				IsActive = true;		
 				SoundManager.Instance.PlaySound(Constants.SOUND_UNIT_MARCH);
 				return true;
@@ -81,7 +85,7 @@ namespace INF4000
 			foreach(Vector2i v in originTile.AdjacentPositions)
 			{
 				Tile can = Utilities.GetTile(v);
-				if(can != null && can.IsMoveValid) {
+				if(can != null && can.IsMoveValid && Visited.FindIndex(s => (s.Position.X == can.WorldPosition.X && s.Position.Y == can.WorldPosition.Y)) < 0 ) {
 					AIState s = new AIState();
 					s.Position = can.WorldPosition;
 					s.IsOccupied = (can.CurrentUnit != null) ? true : false;
@@ -97,6 +101,7 @@ namespace INF4000
 				while (!legalCandidatePicked) {
 					
 					if(candidates.Count == 0 && Sequence.Count != 0) {
+						Visited.Clear();
 						IsActive = true;
 						return true;
 					}
@@ -110,6 +115,8 @@ namespace INF4000
 						legalCandidatePicked = true;
 					}
 				}
+				
+				Visited.Add(candidate);
 				
 				if(candidate.Position.X > origin.X) {
 					Sequence.Enqueue(Constants.PATH_RIGHT);

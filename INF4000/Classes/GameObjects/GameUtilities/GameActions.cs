@@ -161,6 +161,7 @@ namespace INF4000
 		public static bool AI_MoveUnitTo(Vector2i dest, Unit unit)
 		{
 			unit.Path = new Path();
+			unit.Path.Visited.Add( new AIState(){Position = unit.WorldPosition} );
 			if(!unit.Path.AI_BuildMoveToSequence(unit.WorldPosition, dest, unit.Move_RadiusLeft))
 				return false;
 			

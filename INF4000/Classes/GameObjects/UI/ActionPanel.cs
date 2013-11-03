@@ -138,7 +138,7 @@ namespace INF4000
 			else if(type == Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_PRODUCE_ATTACK)
 			{
 				Configuration = Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_PRODUCE_ATTACK;				
-				ProduceItem.Text_Action.Text = "BUILD [" +BuildingUtil.GetHighLightedBuildingGoldToProduce().ToString()+ "]";
+				ProduceItem.Text_Action.Text = "TRAIN [" +BuildingUtil.GetHighLightedBuildingGoldToProduce().ToString()+ "]";
 				
 				Panel.AddChildLast(Image_Background);
 				Panel.AddChildLast(CancelItem.Panel);
@@ -157,7 +157,7 @@ namespace INF4000
 			else if(type == Constants.UI_ELEMENT_CONFIG_CANCEL_PRODUCE)
 			{
 				Configuration = Constants.UI_ELEMENT_CONFIG_CANCEL_PRODUCE;
-				ProduceItem.Text_Action.Text = "BUILD [" +BuildingUtil.GetHighLightedBuildingGoldToProduce().ToString()+ "]" ;
+				ProduceItem.Text_Action.Text = "TRAIN [" +BuildingUtil.GetHighLightedBuildingGoldToProduce().ToString()+ "]" ;
 				
 				Panel.AddChildLast(Image_Background);
 				Panel.AddChildLast(CancelItem.Panel);
@@ -173,7 +173,7 @@ namespace INF4000
 			else if(type == Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_PRODUCE)
 			{
 				Configuration = Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL_PRODUCE;
-				ProduceItem.Text_Action.Text = "BUILD [" +BuildingUtil.GetHighLightedBuildingGoldToProduce().ToString()+ "]" ;
+				ProduceItem.Text_Action.Text = "TRAIN [" +BuildingUtil.GetHighLightedBuildingGoldToProduce().ToString()+ "]" ;
 				
 				Panel.AddChildLast(Image_Background);
 				Panel.AddChildLast(CancelItem.Panel);

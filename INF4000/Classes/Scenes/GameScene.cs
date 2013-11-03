@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Sce.PlayStation.Core;
 using Sce.PlayStation.HighLevel.GameEngine2D;
 using Sce.PlayStation.HighLevel.GameEngine2D.Base;
-using Sce.PlayStation.Core.Audio;
 using Sce.PlayStation.Core.Input;
 using Sce.PlayStation.HighLevel.UI;
 
@@ -63,6 +62,7 @@ namespace INF4000
 			
 			// Load the Sounds
 			SoundManager.Instance.LoadSounds();
+			SoundManager.Instance.PlayIntroMapSong();
 			
 			// Create the Players
 			Players = new List<Player> ();
@@ -661,6 +661,7 @@ namespace INF4000
 			if (Input2.GamePad.GetData (0).Triangle.Release) 
 			{ 
 				Utilities.ShowDialogUI();
+				SoundManager.Instance.PlayIntroMapSong();
 				CurrentGlobalState = Constants.GLOBAL_STATE_DIALOG;
 				//UI.ActionSelectionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_MOVE_CANCEL);
 			}

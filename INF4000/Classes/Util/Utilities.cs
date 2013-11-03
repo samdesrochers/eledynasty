@@ -350,6 +350,19 @@ namespace INF4000
 			return GameScene.Instance.Players[0];
 		}
 		
+		public static List<Building> AI_GetEnemyBuildings()
+		{
+			List<Building> buildings = new List<Building>();
+			foreach(Tile t in GameScene.Instance.CurrentMap.Tiles)
+			{
+				if(t.CurrentBuilding != null && t.CurrentBuilding.OwnerName != null && t.CurrentBuilding.OwnerName == Constants.CHAR_KENJI)
+					buildings.Add(t.CurrentBuilding);
+				else if(t.CurrentBuilding != null && t.CurrentBuilding.OwnerName == null)
+					buildings.Add(t.CurrentBuilding);
+			}
+			return buildings;
+		}
+		
 		public static List<Tile> AI_GetCandidateMoveTiles(Vector2i origin, int radius)
 		{
 			List<Tile> tiles = null;

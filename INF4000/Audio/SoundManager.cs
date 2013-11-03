@@ -44,11 +44,12 @@ namespace INF4000
 			if(!Loaded){
 				try
 				{
-					Songs = new Bgm[4];
+					Songs = new Bgm[5];
 					Songs[1] = new Bgm("/Application/Audio/kenji_1.mp3");
 					Songs[0] = new Bgm("/Application/Audio/kenji_2.mp3");
 					Songs[2] = new Bgm("/Application/Audio/enemy_1.mp3");
-					Songs[3] = new Bgm("/Application/Audio/enemy_2.mp3");				
+					Songs[3] = new Bgm("/Application/Audio/enemy_2.mp3");
+					Songs[4] = new Bgm("/Application/Audio/intro_map1.mp3");
 					
 					CursorMoved = new Sound("/Application/Audio/Sound/cursor_move.wav");
 					CursorSelect = new Sound("/Application/Audio/Sound/selection_action.wav");
@@ -57,7 +58,7 @@ namespace INF4000
 					UnitMarch = new Sound("/Application/Audio/Sound/unit_march.wav");
 					Combat = new Sound("/Application/Audio/Sound/combat.wav");
 					
-					SoundEnabled = false;
+					SoundEnabled = true;
 					
 					Loaded = true;
 				} 
@@ -101,6 +102,16 @@ namespace INF4000
 				}
 				
 			} catch {}
+		}
+		
+		public void PlayIntroMapSong()
+		{
+			if(SongPlayer != null) SongPlayer.Dispose();
+			if(SoundEnabled){
+				SongPlayer = Songs[4].CreatePlayer();
+	   			SongPlayer.Play();
+				SongPlayer.Loop = true;
+			}
 		}
 		
 		public void PlayKenjiGameSong()
