@@ -213,6 +213,7 @@ namespace INF4000
 		public const int AI_STATE_END_TURN			= 10;
 		
 		public const int AI_ACTION_NONE				= 0;
+		public const int AI_ACTION_MOVECAPTURE 		= 4;
 		public const int AI_ACTION_MOVE 			= 5;
 		public const int AI_ACTION_ATTACK 			= 6;
 		public const int AI_ACTION_DEFEND 			= 7;

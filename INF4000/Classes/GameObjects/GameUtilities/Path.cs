@@ -9,11 +9,12 @@ namespace INF4000
 	public class Path
 	{
 		public Queue<string> Sequence;
+		public Queue<string> CompleteSequence;
 		
 		const int TickPerStep = Constants.PATH_TICKS; // arbitrary value
 		const int MovePerStep = Constants.PATH_STEP;  // 8*8 = 64 pixels to move per step
 
-		int currentTick = TickPerStep;
+		public int currentTick = TickPerStep;
 		
 		public event EventHandler PathCompleted;
 		public bool IsActive;
@@ -26,6 +27,7 @@ namespace INF4000
 		public Path()
 		{
 			Sequence = new Queue<string>();
+			CompleteSequence = new Queue<string>();
 			IsActive = false;
 			distanceMoved = 0;
 			Visited = new List<AIState>();
@@ -68,7 +70,6 @@ namespace INF4000
 		public bool AI_BuildMoveToSequence(Vector2i origin, Vector2i destination, int movePoints)
 		{
 			if(movePoints == 0 || (origin.X == destination.X && origin.Y == destination.Y)) {
-				Visited.Clear();
 				IsActive = true;		
 				SoundManager.Instance.PlaySound(Constants.SOUND_UNIT_MARCH);
 				return true;
@@ -101,7 +102,6 @@ namespace INF4000
 				while (!legalCandidatePicked) {
 					
 					if(candidates.Count == 0 && Sequence.Count != 0) {
-						Visited.Clear();
 						IsActive = true;
 						return true;
 					}
@@ -148,6 +148,98 @@ namespace INF4000
 			
 			return false;
 		}
+		
+		public bool AI_BuildMoveToCaptureSequence(Vector2i origin, Vector2i destination, int movePoints)
+		{
+			if(origin.X == destination.X && origin.Y == destination.Y) {
+				IsActive = true;		
+				SoundManager.Instance.PlaySound(Constants.SOUND_UNIT_MARCH);
+				return true;
+			}
+			
+			// Total heuristic
+			if(CompleteSequence.Count > 7) {
+				IsActive = true;		
+				SoundManager.Instance.PlaySound(Constants.SOUND_UNIT_MARCH);
+				return true;
+			}
+			
+			Origin = origin;
+			Vector2i finalPos = origin;
+			
+			Tile originTile = Utilities.GetTile(origin);
+			List<AIState> candidates = new List<AIState>();
+			
+			// Assign heuristic value (manhattan). Also filters tiles where move is impossible
+			foreach(Vector2i v in originTile.AdjacentPositions)
+			{
+				Tile can = Utilities.GetTile(v);
+				if(can != null && can.IsMoveValid && Visited.FindIndex(s => (s.Position.X == can.WorldPosition.X && s.Position.Y == can.WorldPosition.Y)) < 0 ) {
+					AIState s = new AIState();
+					s.Position = can.WorldPosition;
+					s.IsOccupied = (can.CurrentUnit != null) ? true : false;
+					s.Heuristic = GetManhattanValue(destination, s.Position);
+					candidates.Add(s);
+				}			
+			}
+			
+			candidates = candidates.OrderBy(o=>o.Heuristic).ToList();	
+			while(candidates.Count > 0) {
+				bool legalCandidatePicked = false;
+				AIState candidate = null;
+				while (!legalCandidatePicked) {
+					
+					if(candidates.Count == 0 && Sequence.Count != 0) {
+						IsActive = true;
+						return true;
+					}
+					
+					if(candidates.Count > 0)
+						candidate = candidates.First();
+					else {
+						Visited.Clear();
+						Sequence.Clear();
+						CompleteSequence.Clear();
+						AI_BuildMoveToSequence(origin, destination, movePoints);
+					}
+					
+					if ( candidate.Position.X == destination.X && candidate.Position.Y == destination.Y && !candidate.IsOccupied  ) {
+						legalCandidatePicked = true; // Found a match for destination		
+					} else if(candidate.IsOccupied) {
+						candidates.Remove(candidate);
+					} else {
+						legalCandidatePicked = true;
+					}
+				}
+				
+				Visited.Add(candidate);
+				
+				if(candidate.Position.X > origin.X) {
+					CompleteSequence.Enqueue(Constants.PATH_RIGHT);
+					candidates.Remove(candidate);
+					AI_BuildMoveToCaptureSequence(candidate.Position, destination, movePoints);
+					return true;
+				} else if(candidate.Position.X < origin.X) {
+					CompleteSequence.Enqueue(Constants.PATH_LEFT);
+					candidates.Remove(candidate);
+					AI_BuildMoveToCaptureSequence(candidate.Position, destination, movePoints);
+					return true;
+				}
+				if(candidate.Position.Y > origin.Y) {
+					CompleteSequence.Enqueue(Constants.PATH_UP);
+					candidates.Remove(candidate);
+					AI_BuildMoveToCaptureSequence(candidate.Position, destination, movePoints);
+					return true;
+				} else if(candidate.Position.Y < origin.Y) {
+					CompleteSequence.Enqueue(Constants.PATH_DOWN);
+					candidates.Remove(candidate);
+					AI_BuildMoveToCaptureSequence(candidate.Position, destination, movePoints);
+					return true;
+				}
+			}
+			
+			return false;
+		}
 				
 		public int GetDestinationAction(Vector2i pos, Vector2i origin)
 		{			
@@ -174,8 +266,10 @@ namespace INF4000
 		
 		public void Update()
 		{
+			try {
 			if(Sequence.Count > 0 && IsActive)
-			{					
+			{	
+				Console.WriteLine(currentTick);
 				if(currentTick == 0)
 				{
 					Sequence.Dequeue();
@@ -183,10 +277,11 @@ namespace INF4000
 				}
 				currentTick --;
 			} 
-			else if(IsActive)
+			else if(IsActive && Sequence.Count == 0)
 			{
 				OnPathCompleted();
 			}
+			} catch (Exception e) {Console.WriteLine(e.Message + "Path error");}
 		}
 		
 		private void OnPathCompleted()

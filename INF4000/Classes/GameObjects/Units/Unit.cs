@@ -50,6 +50,7 @@ namespace INF4000
 		
 		/* AI Fields */
 		public int Behavior;
+		public Vector2i FinalDestination;
 		public Queue AI_Actions;
 		public int Heuristic; // The lower the value is, the most likely the AI will act on the unit
 				
@@ -129,7 +130,6 @@ namespace INF4000
 		public void Update()
 		{
 			Path.Update();
-			HealthDisplay.UpdatePositionUnit(new Vector2(this.Position.X + 15, this.Position.Y));
 			
 			if(Path.Sequence.Count > 0)
 			{
@@ -146,6 +146,10 @@ namespace INF4000
 					this.Position = new Vector2(Position.X, Position.Y - MOVE_DISTANCE_TICK);
 				
 				UnitSprite.Position = this.Position;
+				HealthDisplay.UpdatePositionUnit(new Vector2(this.Position.X + 15, this.Position.Y));
+				
+				if(AttackDamage == Constants.UNIT_AD_MONK)
+					Console.WriteLine("POS: "+Position+" SPRITE: "+ UnitSprite.Position);
 				
 				// Check if this path current's step is "completed". If so, remove a MovePoint and reset the path counter
 				Path.distanceMoved += Constants.PATH_STEP;

@@ -31,7 +31,7 @@ namespace INF4000
 			this.TargetUnits = new List<Unit>();
 			AI_State = Constants.AI_STATE_BEGIN_TURN;
 			AI_Action = Constants.AI_ACTION_NONE;
-			AI_Behavior = Constants.AI_BEHAVIOR_ALL_CAPTURE_DEBUG;
+			AI_Behavior = Constants.AI_BEHAVIOR_DEFENSE;
 			
 			IsTurnOver = false;
 		}
@@ -126,7 +126,7 @@ namespace INF4000
 				ActiveUnit.AI_Actions.Enqueue(Constants.AI_ACTION_SLEEP);
 			} else if(ActiveUnit.Behavior == Constants.UNIT_AI_BEHAV_CAPTURE) {
 				ActiveUnit.AI_Actions.Enqueue(Constants.AI_ACTION_SELECT_CAPTURE);
-				ActiveUnit.AI_Actions.Enqueue(Constants.AI_ACTION_MOVE);
+				ActiveUnit.AI_Actions.Enqueue(Constants.AI_ACTION_MOVECAPTURE);
 				ActiveUnit.AI_Actions.Enqueue(Constants.AI_ACTION_CAPTURE);
 				ActiveUnit.AI_Actions.Enqueue(Constants.AI_ACTION_SLEEP);
 			} else {
@@ -148,6 +148,9 @@ namespace INF4000
 			switch(AI_Action) {
 				case Constants.AI_ACTION_MOVE:
 					MoveAction();
+					break;
+				case Constants.AI_ACTION_MOVECAPTURE:
+					MoveCaptureAction();
 					break;
 				case Constants.AI_ACTION_ATTACK:
 					AttackAction();
@@ -185,6 +188,40 @@ namespace INF4000
 				{
 					AIState state = Candidates.First();
 					pathFound = GameActions.AI_MoveUnitTo(state.Position, ActiveUnit);
+					if(state.Position.X == ActiveUnit.Position.X && state.Position.Y == ActiveUnit.Position.Y) {
+						FinalizeMovePreparation();
+					} else if (!pathFound) {
+						Candidates.Remove(state);
+					} else if (pathFound) {
+						FinalizeMovePreparation();
+					}
+				}
+			}
+			/* TEMP - (Hopefully) - Selects a static move option */
+			else { // Random - ish
+				int radiusLeft = ActiveUnit.Move_RadiusLeft;
+				Vector2i destination = GetValidDestination(radiusLeft);
+				
+				if(destination.X >= 0 && destination.Y >= 0) {
+					GameActions.AI_MoveUnitTo(destination, ActiveUnit);
+					GameScene.Instance.UpdateCameraPositionBySelectedUnit();		
+					AI_State = Constants.AI_STATE_EXECUTING_ACTION;
+					
+				} else {
+					AI_Action = Constants.AI_ACTION_NONE; // fatal error, remove action. Will be handeled exiting the switch case in launch action
+				}
+			}
+		}
+		
+		private void MoveCaptureAction()
+		{
+			if(Candidates != null && Candidates.Count > 0)
+			{
+				bool pathFound = false;
+				while(Candidates.Count > 0 && !pathFound)
+				{
+					AIState state = Candidates.First();
+					pathFound = GameActions.AI_MoveForCapture(ActiveUnit);
 					if(state.Position.X == ActiveUnit.Position.X && state.Position.Y == ActiveUnit.Position.Y) {
 						FinalizeMovePreparation();
 					} else if (!pathFound) {
@@ -255,6 +292,11 @@ namespace INF4000
 						break;
 					}
 				}
+			}
+			
+			if(ActiveUnit.WorldPosition.X == ActiveUnit.FinalDestination.X && ActiveUnit.WorldPosition.Y == ActiveUnit.FinalDestination.Y) {
+				ActiveUnit.Path.CompleteSequence.Clear();
+				ActiveUnit.Path.Visited.Clear();
 			}
 		}
 		
@@ -384,7 +426,7 @@ namespace INF4000
 			foreach(Building b in enemyBuildings) {
 				AIState s = new AIState();
 				s.Position = b.WorldPosition;
-				s.Heuristic += GetDistanceValue(b.WorldPosition, ActiveUnit.WorldPosition);
+				s.Heuristic += 2*GetDistanceValue(b.WorldPosition, ActiveUnit.WorldPosition);
 				s.Heuristic += GetBuidlingTypeValue_Capture(b);
 				s.Heuristic += GetBuidlingOccupied_Capture(b);
 				s.Heuristic += GetReachableThisTurnValue(b.WorldPosition, ActiveUnit.WorldPosition, ActiveUnit.Move_RadiusLeft);
@@ -408,7 +450,11 @@ namespace INF4000
 						ActiveUnit.AI_Actions.Enqueue(Constants.AI_ACTION_ATTACK);
 						ActiveUnit.AI_Actions.Enqueue(Constants.AI_ACTION_SLEEP);
 						SelectDestination_Attack();
+					} else if(ActiveUnit.FinalDestination.X != bestPick.Position.X || ActiveUnit.FinalDestination.Y != bestPick.Position.Y) {
+						ActiveUnit.FinalDestination = bestPick.Position;				
+						if(ActiveUnit.Path.CompleteSequence != null) ActiveUnit.Path.CompleteSequence.Clear();
 					}
+					
 					destinationFound = true;
 				} else {
 					buildIndex ++;
@@ -594,7 +640,7 @@ namespace INF4000
 		private int GetBuidlingOccupied_Capture(Building building)
 		{
 			if(building.OwnerName == null || building.OwnerName == "")
-				return -20;
+				return -5;
 			return 0;
 		}
 		

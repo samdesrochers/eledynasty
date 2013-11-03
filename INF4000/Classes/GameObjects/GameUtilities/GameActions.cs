@@ -170,6 +170,31 @@ namespace INF4000
 			unit.Path.PathCompleted += unit.AI_Unit_PathCompleted;
 			return true;
 		}
+		
+		public static bool AI_MoveForCapture(Unit unit)
+		{
+			if(unit.Path.CompleteSequence.Count == 0) {
+				unit.Path = new Path();
+			
+				unit.Path.Visited.Add( new AIState(){Position = unit.WorldPosition} );
+				if(!unit.Path.AI_BuildMoveToCaptureSequence(unit.WorldPosition, unit.FinalDestination, unit.Move_RadiusLeft))
+					return false;
+			} else {
+				unit.Path.currentTick = Constants.PATH_TICKS;
+			}
+			
+			int moveCounter = 0;
+			while(moveCounter < unit.Move_RadiusLeft && unit.Path.CompleteSequence != null && unit.Path.CompleteSequence.Count > 0)
+			{
+				moveCounter ++;
+				unit.Path.Sequence.Enqueue(unit.Path.CompleteSequence.Dequeue());
+			}
+			
+			// remove unit from path (cause this is FREAKING VALID AT THIS POINT)
+			Utilities.RemoveUnitFromTileByPosition(unit.WorldPosition);
+			unit.Path.PathCompleted += unit.AI_Unit_PathCompleted;
+			return true;
+		}
 	
 		#endregion
 	}
