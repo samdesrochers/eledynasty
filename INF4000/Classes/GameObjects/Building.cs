@@ -19,6 +19,7 @@ namespace INF4000
 		public int GoldPerTurn;
 		public int GoldToProduce;
 		public int ProductionType;
+		public int PointsToCapture;
 		public bool CanProduceThisTurn;
 		
 		public int AI_ProductionValue;
@@ -42,6 +43,7 @@ namespace INF4000
 			ProductionType = prodType;
 			Label = label;
 			CanProduceThisTurn = true;
+			PointsToCapture = 20;
 			
 			// Set size, rotation and position
 			Quad.S = new Vector2(64, 64);
@@ -80,8 +82,10 @@ namespace INF4000
 		public void ProduceUnit(string owner, Player player)
 		{
 			Tile t = Utilities.GetTile(this.WorldPosition);
-			if(!CanProduceThisTurn || player.Gold < this.GoldToProduce)
+			if(!CanProduceThisTurn || player.Gold < this.GoldToProduce) {
+				SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_CANCEL);
 				return;
+			}
 			
 			int unitTypeToProduce = -1;
 			switch(this.Type)
@@ -135,6 +139,7 @@ namespace INF4000
 				GameScene.Instance.AddChild(GameScene.Instance.Cursor.SpriteTile);
 				
 				unit.Sleep();
+				Console.WriteLine("Unit produced : " + unit.Type + " at : Px=" + unit.WorldPosition.X + " Py=" + unit.WorldPosition.Y);
 				player.Gold -= this.GoldToProduce;
 			}
 			

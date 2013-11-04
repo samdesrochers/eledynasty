@@ -17,6 +17,7 @@ namespace INF4000
 		public StatItem DefItem;
 		public StatItem DamageItem;
 		public StatItem GoldItem;
+		public StatItem CaptureItem;
 		
 		public Label Label_Name;
 		public ImageBox Image_Icon;
@@ -53,6 +54,7 @@ namespace INF4000
 			HealthItem = new StatItem("5", pos, AssetsManager.Instance.Image_Panel_HP_Icon);
 			DamageItem = new StatItem("4", pos, AssetsManager.Instance.Image_Panel_Dmg_Icon);
 			GoldItem = new StatItem("3", pos, AssetsManager.Instance.Image_Panel_Gld_Icon);
+			CaptureItem = new StatItem("20", pos, AssetsManager.Instance.Image_Panel_HP_Icon);
 			
 			Image_Background = new ImageBox();
 			Image_Background.Width = Panel.Width;
@@ -78,7 +80,7 @@ namespace INF4000
 			Label_Name.Visible = true;
 		}
 		
-		public void SetElements(int def, int dmg, int hp, int gold, string name, int type, string owner)
+		public void SetElements(int def, int dmg, int hp, int gold, string name, int type, string owner, int capture)
 		{
 			Sce.PlayStation.HighLevel.UI.ImageAsset img = null;
 			
@@ -122,6 +124,7 @@ namespace INF4000
 			HealthItem.Text_Stat.Text = hp.ToString();
 			DamageItem.Text_Stat.Text = dmg.ToString();
 			GoldItem.Text_Stat.Text = gold.ToString();
+			CaptureItem.Text_Stat.Text = capture.ToString();
 		}
 		
 		public void SetConfiguration(int config)
@@ -144,10 +147,13 @@ namespace INF4000
 					Panel.Width = 210;
 					break;
 				case Constants.UI_ELEMENT_CONFIG_STATS_BUILDING:
-					DefItem.Panel.SetPosition(70, 25 + Y_offset);			
+					CaptureItem.Panel.SetPosition(70, 15 + Y_offset);
+					Panel.AddChildLast(CaptureItem.Panel);
+				
+					DefItem.Panel.SetPosition(70, 40 + Y_offset);			
 					Panel.AddChildLast(DefItem.Panel);
 				
-					GoldItem.Panel.SetPosition(70, 55 + Y_offset);
+					GoldItem.Panel.SetPosition(70, 65 + Y_offset);
 					Panel.AddChildLast(GoldItem.Panel);
 				
 					Panel.Width = 210;
@@ -179,6 +185,7 @@ namespace INF4000
 			Panel.RemoveChild(DamageItem.Panel);
 			Panel.RemoveChild(HealthItem.Panel);
 			Panel.RemoveChild(GoldItem.Panel);
+			Panel.RemoveChild(CaptureItem.Panel);
 			
 			Panel.AddChildLast(Image_Background);
 			

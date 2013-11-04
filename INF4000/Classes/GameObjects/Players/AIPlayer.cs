@@ -230,20 +230,8 @@ namespace INF4000
 						FinalizeMovePreparation();
 					}
 				}
-			}
-			/* TEMP - (Hopefully) - Selects a static move option */
-			else { // Random - ish
-				int radiusLeft = ActiveUnit.Move_RadiusLeft;
-				Vector2i destination = GetValidDestination(radiusLeft);
-				
-				if(destination.X >= 0 && destination.Y >= 0) {
-					GameActions.AI_MoveUnitTo(destination, ActiveUnit);
-					GameScene.Instance.UpdateCameraPositionBySelectedUnit();		
-					AI_State = Constants.AI_STATE_EXECUTING_ACTION;
-					
-				} else {
-					AI_Action = Constants.AI_ACTION_NONE; // fatal error, remove action. Will be handeled exiting the switch case in launch action
-				}
+			} else {
+				FinalizeMovePreparation();
 			}
 		}
 		
@@ -450,11 +438,8 @@ namespace INF4000
 						ActiveUnit.AI_Actions.Enqueue(Constants.AI_ACTION_ATTACK);
 						ActiveUnit.AI_Actions.Enqueue(Constants.AI_ACTION_SLEEP);
 						SelectDestination_Attack();
-					} else if(ActiveUnit.FinalDestination.X != bestPick.Position.X || ActiveUnit.FinalDestination.Y != bestPick.Position.Y) {
-						ActiveUnit.FinalDestination = bestPick.Position;				
-						if(ActiveUnit.Path.CompleteSequence != null) ActiveUnit.Path.CompleteSequence.Clear();
-					}
-					
+					} 
+					ActiveUnit.FinalDestination = bestPick.Position;
 					destinationFound = true;
 				} else {
 					buildIndex ++;
@@ -649,7 +634,7 @@ namespace INF4000
 		{
 			switch(building.Type) {
 				case Constants.BUILD_FARM 	: return -3;
-				case Constants.BUILD_FORT 	: return -6;
+				case Constants.BUILD_FORT 	: return -9;
 				case Constants.BUILD_FORGE 	: return -5;
 				case Constants.BUILD_TEMPLE : return -4;
 			}
@@ -661,10 +646,10 @@ namespace INF4000
 			switch(tile.TerrainType) {
 				case Constants.TILE_TYPE_HILL :
 				case Constants.TILE_TYPE_HILL_2 : 			
-					return -8;
+					return -4;
 				case Constants.TILE_TYPE_TREES_1 :
 				case Constants.TILE_TYPE_TREES_2 :
-					return -5;
+					return -2;
 			}
 			return 0;
 		}
@@ -747,7 +732,7 @@ namespace INF4000
 			List<AIState> candidates = new List<AIState>();
 			Tile buildingTile = Utilities.GetTile(seed);
 			
-			if(buildingTile.CurrentUnit == null) {
+			if(buildingTile.CurrentUnit == null || (buildingTile.CurrentUnit.WorldPosition.X == seed.X && buildingTile.CurrentUnit.WorldPosition.Y == seed.Y)) {
 				candidates.Add(new AIState(){ Position = new Vector2i(seed.X, seed.Y) });
 			} else {	
 				candidates.Add(new AIState(){ Position = new Vector2i(seed.X - 1, seed.Y) });
@@ -763,7 +748,7 @@ namespace INF4000
 					if(v.X < 0 
 					   || v.X > GameScene.Instance.CurrentMap.Width - 1
 					   || v.Y < 0 || v.X > GameScene.Instance.CurrentMap.Height - 1 
-					   || (t.CurrentUnit != null && t.WorldPosition != ActiveUnit.WorldPosition)
+					   || (t.CurrentUnit != null)
 					   || !t.IsMoveValid )
 						candidates.Remove(s);
 				}

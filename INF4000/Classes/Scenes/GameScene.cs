@@ -92,6 +92,9 @@ namespace INF4000
 			// Create the battle viewer for animations
 			BattleViewer = new BattleViewer();
 			
+			// Set the Buildings stack for capture animations
+			BuildingUtil.LastCapturedBuildings = new Stack<Building>();
+			
 			GameUI = new GameUI();
 			GameUI.PlayerPanel.SetCurrentPlayerData(ActivePlayer.Icon, ActivePlayer.Gold.ToString(), "");
 			
@@ -127,6 +130,9 @@ namespace INF4000
 					break;
 				case Constants.GLOBAL_STATE_BATTLE_ANIMATION:
 					UpdateBattleAnimation(dt);
+					break;
+				case Constants.GLOBAL_STATE_CAPTURE_ANIMATION:
+					UpdateCaptureAnimation(dt);
 					break;
 				case Constants.GLOBAL_STATE_DIALOG:
 					UpdateDialog(dt);
@@ -189,9 +195,11 @@ namespace INF4000
 			
 			if(CurrentGameState == Constants.GAME_STATE_SELECTION_INACTIVE || CurrentGameState == Constants.GAME_STATE_ATTACKPANEL_ACTIVE){
 				Utilities.ShowStatsPanels();
+				Utilities.ShowEndTurnButton();
 				UpdateStatsPanel();
 			} else {
 				Utilities.HideStatsPanels();
+				Utilities.HideEndTurnButton();
 			}
 		}
 		
@@ -223,6 +231,11 @@ namespace INF4000
 		private void UpdateBattleAnimation(float dt)
 		{
 			BattleViewer.Update(dt);
+		}
+		
+		private void UpdateCaptureAnimation(float dt)
+		{
+			BuildingUtil.Update(dt);
 		}
 		
 		private void UpdateDialog(float dt)
@@ -267,7 +280,6 @@ namespace INF4000
 				if(diffTopY <= 0) {
 					camera.Center = new Vector2(camera.Center.X, topLimitY + diffTopY - 64);
 				}
-				Console.WriteLine("CamX:{0}, unitX:{1}",leftCameraX, uPos.X );
 				if(uPos.X <= leftCameraX && leftCameraX < 960/2) {
 					camera.Center = new Vector2(960/2, camera.Center.Y);
 				}
@@ -276,23 +288,6 @@ namespace INF4000
 		
 		private void UpdateCameraPosition ()
 		{	
-			// Adjust Camera accoring to Right Analog Stick
-//			Camera2D camera = this.Camera as Camera2D;
-//			GamePadData data = GamePad.GetData (0);
-//			Vector2 pos = camera.Center;			
-//			float newPosX = pos.X + 5*data.AnalogRightX;
-//			float newPosY = pos.Y - 5*data.AnalogRightY;
-//			
-//			if(newPosX >= 960/2 && newPosX <= CurrentMap.Width * 64 - (960/2) + 64) {
-//				camera.Center = new Vector2(newPosX, camera.Center.Y);
-//			} 
-//			
-//			if(newPosY >= 544/2 && newPosY <= CurrentMap.Height * 64 - (544/2) + 64) {
-//				camera.Center = new Vector2 (camera.Center.X, newPosY);
-//			} else if(newPosY < 544/2) {
-//				camera.Center = new Vector2 (camera.Center.X, 544/2);
-//			}
-			
 			Utilities.AdjustUIPanelsLocation();
 		}
 		
@@ -460,6 +455,10 @@ namespace INF4000
 		private void UpdateMap ()
 		{
 			CurrentMap.Update ();
+//			if(BuildingUtil.LastCapturedBuildings.Count > 0)
+//			{
+//				CurrentGlobalState = Constants.GLOBAL_STATE_CAPTURE_ANIMATION;
+//			}
 		}
 		
 		private void UpdateUnits ()
@@ -476,18 +475,18 @@ namespace INF4000
 			Tile t = Cursor.SelectedTile;
 			if(t != null)
 			{
-				GameUI.TileStatsPanel.SetElements(t.Defense, 0, 0, 0, t.Label, t.TerrainType, null);
+				GameUI.TileStatsPanel.SetElements(t.Defense, 0, 0, 0, t.Label, t.TerrainType, null, 0);
 				GameUI.TileStatsPanel.SetConfiguration(Constants.UI_ELEMENT_CONFIG_STATS_TERRAIN);
 				
 				if(t.CurrentBuilding != null)
 				{
-					GameUI.TileStatsPanel.SetElements(t.CurrentBuilding.Defense, 0, 0, t.CurrentBuilding.GoldPerTurn, t.CurrentBuilding.Label, t.CurrentBuilding.Type, t.CurrentBuilding.OwnerName);
+					GameUI.TileStatsPanel.SetElements(t.CurrentBuilding.Defense, 0, 0, t.CurrentBuilding.GoldPerTurn, t.CurrentBuilding.Label, t.CurrentBuilding.Type, t.CurrentBuilding.OwnerName, t.CurrentBuilding.PointsToCapture);
 					GameUI.TileStatsPanel.SetConfiguration(Constants.UI_ELEMENT_CONFIG_STATS_BUILDING);
 				} 
 				
 				if(t.CurrentUnit != null)
 				{
-					GameUI.UnitStatsPanel.SetElements(t.CurrentUnit.Armor, t.CurrentUnit.AttackDamage, t.CurrentUnit.LifePoints, 0, t.CurrentUnit.Label, t.CurrentUnit.Type, t.CurrentUnit.OwnerName);
+					GameUI.UnitStatsPanel.SetElements(t.CurrentUnit.Armor, t.CurrentUnit.AttackDamage, t.CurrentUnit.LifePoints, 0, t.CurrentUnit.Label, t.CurrentUnit.Type, t.CurrentUnit.OwnerName, 0);
 					GameUI.UnitStatsPanel.SetConfiguration(Constants.UI_ELEMENT_CONFIG_STATS_UNIT);
 					GameUI.UnitStatsPanel.IsActive = true;
 				} else {

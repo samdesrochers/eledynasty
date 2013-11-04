@@ -269,7 +269,6 @@ namespace INF4000
 			try {
 			if(Sequence.Count > 0 && IsActive)
 			{	
-				Console.WriteLine(currentTick);
 				if(currentTick == 0)
 				{
 					Sequence.Dequeue();

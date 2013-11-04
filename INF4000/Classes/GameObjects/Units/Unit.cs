@@ -47,6 +47,7 @@ namespace INF4000
 		
 		public bool IsSelected;
 		public bool IsActive;
+		private bool DidCaptureThisTurn;
 		
 		/* AI Fields */
 		public int Behavior;
@@ -63,9 +64,14 @@ namespace INF4000
 		// Called at the end of a turn to restore various values
 		public void Reset()
 		{
+			if(!DidCaptureThisTurn) {
+				TryReclaimBuilding();
+				TryCaptureBuilding();
+			}
 			Unselect();
 			Move_RadiusLeft = Move_MaxRadius;
 			HealthDisplay.Text = _LifePoints.ToString();
+			DidCaptureThisTurn = false;
 		}
 		
 		public static Unit CreateByType(int type, int moves, int lifePoints, int posX, int posY)
@@ -148,9 +154,6 @@ namespace INF4000
 				UnitSprite.Position = this.Position;
 				HealthDisplay.UpdatePositionUnit(new Vector2(this.Position.X + 15, this.Position.Y));
 				
-				if(AttackDamage == Constants.UNIT_AD_MONK)
-					Console.WriteLine("POS: "+Position+" SPRITE: "+ UnitSprite.Position);
-				
 				// Check if this path current's step is "completed". If so, remove a MovePoint and reset the path counter
 				Path.distanceMoved += Constants.PATH_STEP;
 				if(Path.distanceMoved == Constants.PATH_STEP * Constants.PATH_TICKS)
@@ -158,7 +161,9 @@ namespace INF4000
 					Path.distanceMoved = 0;
 					this.Move_RadiusLeft --;
 				}
-			}		
+			}
+			
+			HealthDisplay.UpdatePositionUnit(new Vector2(this.Position.X + 15, this.Position.Y));
 		}
 		
 		public void MoveTo(Vector2i destination)
@@ -200,7 +205,6 @@ namespace INF4000
 			this.Path.PathCompleted -= AI_Unit_PathCompleted;
 			Utilities.AssignUnitToTileByPosition(WorldPosition, this);
 			
-			TryCaptureBuilding();
 			((AIPlayer)GameScene.Instance.ActivePlayer).NextAction();
 			
 		}
@@ -210,6 +214,7 @@ namespace INF4000
 			this.Move_RadiusLeft = 0;
 			SetInactive();
 			TryCaptureBuilding();
+			TryReclaimBuilding();
 		}
 		
 		public void Unit_PathCompletedAfterWin(object sender, EventArgs args)
@@ -228,6 +233,7 @@ namespace INF4000
 			Unselect();
 			SetInactive();
 			TryCaptureBuilding();
+			TryReclaimBuilding();
 		}
 		
 		public void FinalizeMove()
@@ -239,11 +245,13 @@ namespace INF4000
 			GameScene.Instance.CurrentMap.UnTintAllTiles ();
 			
 			Unselect();
+			Path.RadiusUsed = 0;
 			
 			if(this.Move_RadiusLeft == 0)
 				SetInactive();
 			
-			TryCaptureBuilding();
+			//TryCaptureBuilding();
+			//TryReclaimBuilding();
 		}
 		
 		public void RevertMove()
@@ -267,23 +275,47 @@ namespace INF4000
 			GameScene.Instance.Cursor.TintToWhite();
 			GameScene.Instance.CurrentMap.UnTintAllTiles ();
 			TryCaptureBuilding();
+			TryReclaimBuilding();
 		}
 		
 		private void TryCaptureBuilding()
 		{
 			Tile t = Utilities.GetTile(this.WorldPosition);
-			if(t.CurrentBuilding != null && t.CurrentBuilding.OwnerName != this.OwnerName)
-			{
-				if(t.CurrentBuilding.Type == Constants.TILE_TYPE_BUILD_FORT)
-				{
-					GameScene.Instance.CurrentGlobalState = Constants.GLOBAL_STATE_GAMEOVER; // SOMEONE JUST WON THE FREAKING GAME!
-					GameScene.Instance.WinnerName = this.OwnerName;
-					return;
-				}
-				if(t.CurrentBuilding.OwnerName != null && t.CurrentBuilding.OwnerName != "")
-					Utilities.RemoveBuildingFromPlayerByName(t.CurrentBuilding, t.CurrentBuilding.OwnerName);
+			if(t.CurrentBuilding != null && t.CurrentBuilding.OwnerName != this.OwnerName && !DidCaptureThisTurn )
+			{	
+				this.DidCaptureThisTurn = true;
+				BuildingUtil.LastCapturedBuildings.Push(t.CurrentBuilding);
 				
-				Utilities.AssignBuildingToPlayerByName(t.CurrentBuilding, OwnerName);
+				t.CurrentBuilding.PointsToCapture -= this.LifePoints;
+				t.CurrentBuilding.PointsToCapture = (t.CurrentBuilding.PointsToCapture < 0) ? 0 : t.CurrentBuilding.PointsToCapture;
+				
+				if(t.CurrentBuilding.PointsToCapture == 0) {
+					if(t.CurrentBuilding.Type == Constants.TILE_TYPE_BUILD_FORT)
+					{
+						GameScene.Instance.CurrentGlobalState = Constants.GLOBAL_STATE_GAMEOVER; // SOMEONE JUST WON THE FREAKING GAME!
+						GameScene.Instance.WinnerName = this.OwnerName;
+						return;
+					}
+					if(t.CurrentBuilding.OwnerName != null && t.CurrentBuilding.OwnerName != "")
+						Utilities.RemoveBuildingFromPlayerByName(t.CurrentBuilding, t.CurrentBuilding.OwnerName);
+					
+					Utilities.AssignBuildingToPlayerByName(t.CurrentBuilding, OwnerName);
+					t.CurrentBuilding.PointsToCapture = 20;
+				}
+			}
+		}
+		
+		private void TryReclaimBuilding()
+		{
+			Tile t = Utilities.GetTile(this.WorldPosition);
+			if(t.CurrentBuilding != null && t.CurrentBuilding.OwnerName == this.OwnerName && !DidCaptureThisTurn)
+			{
+				if(t.CurrentBuilding.PointsToCapture < 20) {
+					this.DidCaptureThisTurn = true;
+					t.CurrentBuilding.PointsToCapture += this.LifePoints;
+					BuildingUtil.LastCapturedBuildings.Push(t.CurrentBuilding);
+				}
+				t.CurrentBuilding.PointsToCapture = (t.CurrentBuilding.PointsToCapture > 20) ? 20 : t.CurrentBuilding.PointsToCapture;
 			}
 		}
 		

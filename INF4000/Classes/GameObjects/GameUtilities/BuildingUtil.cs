@@ -6,6 +6,8 @@ namespace INF4000
 {
 	public static class BuildingUtil
 	{
+		public static Stack<Building> LastCapturedBuildings;
+		
 		public static List<Vector2i> GetTileIndexesByType(int type, int owner)
 		{
 			List<Vector2i> indexes = new List<Vector2i>();
@@ -126,6 +128,45 @@ namespace INF4000
 			if(t.CurrentBuilding != null)
 				return t.CurrentBuilding.GoldToProduce;
 			return -1;
+		}
+		
+		static float time = 0;
+		static Building currentBuilding;
+		static TextImage pointsImage;
+		public static void Update(float dt)
+		{
+			// Init
+			if(time == 0) {
+				currentBuilding = LastCapturedBuildings.Pop();
+				
+				string toDisplay = "CAP : " + (20 - currentBuilding.PointsToCapture).ToString();
+				pointsImage = new TextImage(toDisplay, currentBuilding.Position);
+				
+				if(GameScene.Instance.ActivePlayer.IsHuman && currentBuilding.OwnerName == Constants.CHAR_KENJI)
+					pointsImage.Color = new Sce.PlayStation.Core.Vector4(0.1f, 0.1f, 1, 1);
+				else if(GameScene.Instance.ActivePlayer.IsHuman && currentBuilding.OwnerName != Constants.CHAR_KENJI)
+					pointsImage.Color = new Sce.PlayStation.Core.Vector4(1f, 0.1f, 0.1f, 1);
+				
+				GameScene.Instance.AddChild(pointsImage);
+				SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_SELECT);
+			}
+			
+			if(time <= 0.4f)
+			{
+				pointsImage.Position = new Sce.PlayStation.Core.Vector2(pointsImage.Position.X, pointsImage.Position.Y + 1);
+			}
+			
+			if(time > 0.4f)
+			{
+				GameScene.Instance.RemoveChild(pointsImage, false);
+				time = 0;
+			}
+			
+			time += dt;
+			
+			if(BuildingUtil.LastCapturedBuildings.Count == 0) {
+				GameScene.Instance.CurrentGlobalState = Constants.GLOBAL_STATE_PLAYING_TURN;
+			}
 		}
 	}
 }

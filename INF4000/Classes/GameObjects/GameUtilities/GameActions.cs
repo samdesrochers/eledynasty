@@ -175,9 +175,11 @@ namespace INF4000
 		{
 			if(unit.Path.CompleteSequence.Count == 0) {
 				unit.Path = new Path();
-			
-				unit.Path.Visited.Add( new AIState(){Position = unit.WorldPosition} );
-				if(!unit.Path.AI_BuildMoveToCaptureSequence(unit.WorldPosition, unit.FinalDestination, unit.Move_RadiusLeft))
+				
+				if(!(unit.FinalDestination.X == unit.WorldPosition.X && unit.FinalDestination.Y == unit.WorldPosition.Y))
+					unit.Path.Visited.Add( new AIState(){Position = unit.WorldPosition} );
+				
+			if(!unit.Path.AI_BuildMoveToCaptureSequence(unit.WorldPosition, unit.FinalDestination, unit.Move_RadiusLeft))
 					return false;
 			} else {
 				unit.Path.currentTick = Constants.PATH_TICKS;

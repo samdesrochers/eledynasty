@@ -29,6 +29,7 @@ namespace INF4000
 		public const int GLOBAL_STATE_BATTLE_ANIMATION	= 15;
 		public const int GLOBAL_STATE_DIALOG			= 16;
 		public const int GLOBAL_STATE_STARTING_GAME		= 17;
+		public const int GLOBAL_STATE_CAPTURE_ANIMATION	= 18;
 
 		
 		/*******************************

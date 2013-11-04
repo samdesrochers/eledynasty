@@ -131,6 +131,16 @@ namespace INF4000
 			GameScene.Instance.GameUI.OddsPanel.SetActive(false);
 		}
 		
+		public static void HideEndTurnButton()
+		{
+			GameScene.Instance.GameUI.Button_EndTurn.Visible = false;
+		}
+		public static void ShowEndTurnButton()
+		{
+			GameScene.Instance.GameUI.Button_EndTurn.Visible = true;
+		}
+		
+		
 		public static void ShowAttackOddsPanel()
 		{
 			GameScene.Instance.GameUI.OddsPanel.Panel.SetPosition(GameScene.Instance.Cursor.Position.X, 544 - GameScene.Instance.Cursor.Position.Y);
