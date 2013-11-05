@@ -143,7 +143,7 @@ namespace INF4000
 		// Unit - Base number of Move Points  
 		public const int UNIT_MOVE_FARMER 	= 2;
 		public const int UNIT_MOVE_SAMURAI	= 2;
-		public const int UNIT_MOVE_MONK 	= 3;
+		public const int UNIT_MOVE_MONK 	= 20;
 		public const int UNIT_MOVE_KNIGHT 	= 9;
 		public const int UNIT_MOVE_WIZARD 	= 5;
 		
@@ -195,6 +195,7 @@ namespace INF4000
 		public const int UI_ELEMENT_ACTION_TYPE_CANCEL 	= 1;
 		public const int UI_ELEMENT_ACTION_TYPE_ATTACK	= 2;
 		public const int UI_ELEMENT_ACTION_TYPE_PRODUCE = 3;
+		public const int UI_ELEMENT_ACTION_TYPE_SLEEP 	= 4;
 		
 		/*******************************
 		 * 	BATTLE MANAGER CONSTANTS
@@ -241,6 +242,7 @@ namespace INF4000
 		public const int SOUND_TURN_START		= 6;
 		public const int SOUND_UNIT_MARCH		= 7;
 		public const int SOUND_COMBAT			= 8;
+		public const int SOUND_CAPTURE			= 9;
 		
 		/*******************************
 		 * 	DIALOG CONSTANTS

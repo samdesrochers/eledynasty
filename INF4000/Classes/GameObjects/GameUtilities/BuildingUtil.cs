@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Sce.PlayStation.Core;
 using Sce.PlayStation.HighLevel.GameEngine2D.Base;
 
 namespace INF4000
@@ -139,33 +140,26 @@ namespace INF4000
 			if(time == 0) {
 				currentBuilding = LastCapturedBuildings.Pop();
 				
-				string toDisplay = "CAP : " + (20 - currentBuilding.PointsToCapture).ToString();
-				pointsImage = new TextImage(toDisplay, currentBuilding.Position);
-				
-				if(GameScene.Instance.ActivePlayer.IsHuman && currentBuilding.OwnerName == Constants.CHAR_KENJI)
-					pointsImage.Color = new Sce.PlayStation.Core.Vector4(0.1f, 0.1f, 1, 1);
-				else if(GameScene.Instance.ActivePlayer.IsHuman && currentBuilding.OwnerName != Constants.CHAR_KENJI)
-					pointsImage.Color = new Sce.PlayStation.Core.Vector4(1f, 0.1f, 0.1f, 1);
+				string toDisplay = "Capturing: " + (20 - currentBuilding.PointsToCapture).ToString();
+				pointsImage = new TextImage(toDisplay, new Vector2(currentBuilding.Position.X + 20, currentBuilding.Position.Y));
 				
 				GameScene.Instance.AddChild(pointsImage);
 				SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_SELECT);
 			}
 			
-			if(time <= 0.4f)
-			{
+			time += dt;
+			
+			if(time <= 0.4f) {
 				pointsImage.Position = new Sce.PlayStation.Core.Vector2(pointsImage.Position.X, pointsImage.Position.Y + 1);
 			}
 			
-			if(time > 0.4f)
-			{
+			if(time > 0.5f) {
 				GameScene.Instance.RemoveChild(pointsImage, false);
 				time = 0;
-			}
-			
-			time += dt;
-			
-			if(BuildingUtil.LastCapturedBuildings.Count == 0) {
-				GameScene.Instance.CurrentGlobalState = Constants.GLOBAL_STATE_PLAYING_TURN;
+				
+				if(BuildingUtil.LastCapturedBuildings.Count == 0) {
+					GameScene.Instance.CurrentGlobalState = Constants.GLOBAL_STATE_PLAYING_TURN;
+				}
 			}
 		}
 	}

@@ -181,5 +181,8 @@
     <Content Include="Assets\Title\newgame_but.png" />
     <Content Include="Assets\UI\Tutorial\back_but.png" />
     <Content Include="Audio\intro_map1.mp3" />
+    <Content Include="Assets\UI\flag_ico.png" />
+    <Content Include="Audio\Sound\capture.wav" />
+    <Content Include="Audio\overworld_1.mp3" />
   </ItemGroup>
 </Project>

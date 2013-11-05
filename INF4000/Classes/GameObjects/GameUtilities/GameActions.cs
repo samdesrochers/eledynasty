@@ -40,6 +40,14 @@ namespace INF4000
 			GameScene.Instance.GameUI.ActionPanel.MoveItem.Text_Action.Text = "SLEEP";
 		}
 		
+		public static void PrepareUnitCapture(Path path)
+		{
+			// Prepare the Action Panel with Move, Cancel and Capture
+			GameScene.Instance.GameUI.ActionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_WAIT_CANCEL);
+			GameScene.Instance.CurrentGameState = Constants.GAME_STATE_ACTIONPANEL_ACTIVE;
+			Utilities.AssignMovePathToActiveUnit(path); // Concrete move action
+		}
+		
 		public static void PrepareUnitAttackFromOrigin()
 		{
 			// Prepare the Action Panel with Move Attack and Cancel actions 

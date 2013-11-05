@@ -54,7 +54,7 @@ namespace INF4000
 			HealthItem = new StatItem("5", pos, AssetsManager.Instance.Image_Panel_HP_Icon);
 			DamageItem = new StatItem("4", pos, AssetsManager.Instance.Image_Panel_Dmg_Icon);
 			GoldItem = new StatItem("3", pos, AssetsManager.Instance.Image_Panel_Gld_Icon);
-			CaptureItem = new StatItem("20", pos, AssetsManager.Instance.Image_Panel_HP_Icon);
+			CaptureItem = new StatItem("20", pos, AssetsManager.Instance.Image_Panel_Flag_Icon);
 			
 			Image_Background = new ImageBox();
 			Image_Background.Width = Panel.Width;

@@ -5,6 +5,7 @@ using Sce.PlayStation.Core.Graphics;
 using Sce.PlayStation.Core.Input;
 using Sce.PlayStation.Core.Imaging;
 using Sce.PlayStation.HighLevel.UI;
+using Sce.PlayStation.HighLevel.GameEngine2D.Base;
 
 namespace INF4000
 {
@@ -19,6 +20,7 @@ namespace INF4000
 		public ActionItem ProduceItem;
 		public ActionItem MoveItem;
 		public ActionItem CancelItem;
+		public ActionItem SleepItem;
 		
 		public Vector2 Position;
 		public int SelectedIndex;
@@ -39,14 +41,16 @@ namespace INF4000
 			Panel.Height = Constants.UI_ELEMENT_ACTIONBOX_HEIGHT;
 			Panel.SetPosition(this.Position.X, this.Position.Y);
 			
-			Vector2 pos_att = new Vector2(0 , 0 + 15);
-			Vector2 pos_move = new Vector2(0 , 0 + 40);
-			Vector2 pos_cancel = new Vector2(0, 0 + 75);
+			Vector2 pos_att = new Vector2(0 ,15);
+			Vector2 pos_move = new Vector2(0 , 40);
+			Vector2 pos_cancel = new Vector2(0, 75);
+			Vector2 pos_sleep = new Vector2(0, 100);
 			
 			AttackItem = new ActionItem("ATTACK", pos_att, Constants.UI_ELEMENT_ACTION_TYPE_ATTACK, AssetsManager.Instance.Image_Panel_Attack_Icon);
 			ProduceItem = new ActionItem("PRODUCE", pos_att, Constants.UI_ELEMENT_ACTION_TYPE_PRODUCE, AssetsManager.Instance.Image_Panel_Gld_Icon);
 			MoveItem = new ActionItem("WAIT ", pos_move, Constants.UI_ELEMENT_ACTION_TYPE_WAIT, AssetsManager.Instance.Image_Panel_Wait_Icon);
 			CancelItem = new ActionItem("CANCEL", pos_cancel, Constants.UI_ELEMENT_ACTION_TYPE_CANCEL, AssetsManager.Instance.Image_Panel_Cancel_Icon);
+			SleepItem = new ActionItem("SLEEP", pos_sleep, Constants.UI_ELEMENT_ACTION_TYPE_CANCEL, AssetsManager.Instance.Image_Panel_Wait_Icon);
 			
 			ActionItems = new List<ActionItem>();
 			ActionItems.Add(MoveItem);
@@ -200,6 +204,7 @@ namespace INF4000
 			ProduceItem.Panel.SetPosition(0,0);
 			MoveItem.Panel.SetPosition(0,0);
 			CancelItem.Panel.SetPosition(0,0);
+			SleepItem.Panel.SetPosition(0,0);
 			
 			int X_anchor = 5;
 			int Y_offset = 10;
@@ -310,6 +315,15 @@ namespace INF4000
 		public void SetBottom()
 		{
 			Panel.SetPosition(23, 320);
+		}
+		
+		public void TryAddCaptureItem(Vector2i position)
+		{
+			Tile t = Utilities.GetTile(position);
+			if(t.CurrentBuilding != null && t.CurrentBuilding.PointsToCapture != 20)
+			{
+				//TODO: Add capture item
+			}
 		}
 	}
 }

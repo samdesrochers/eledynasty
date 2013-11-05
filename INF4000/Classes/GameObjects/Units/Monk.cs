@@ -22,7 +22,7 @@ namespace INF4000
 			this.AttackDamage = Constants.UNIT_AD_MONK;
 			this.Armor = Constants.UNIT_DEF_MONK;
 			this.Move_MaxRadius = Constants.UNIT_MOVE_MONK;
-			this.Move_RadiusLeft = System.Math.Min(Constants.UNIT_MOVE_MONK, moves);
+			this.Move_RadiusLeft = this.Move_MaxRadius; //System.Math.Min(Constants.UNIT_MOVE_MONK, moves);
 			
 			// Set size, rotation and position
 			Quad.S = new Vector2(Constants.TILE_SIZE, Constants.TILE_SIZE);

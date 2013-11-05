@@ -49,6 +49,7 @@ namespace INF4000
 			
 			// Load the Sounds
 			SoundManager.Instance.LoadSounds();
+			SoundManager.Instance.PlayOverworldSong();
 						
 			OVMap = new OverworldMap();				
 			Avatar = new Avatar();
@@ -68,6 +69,7 @@ namespace INF4000
 		
 		public void Reset()
 		{
+			SoundManager.Instance.PlayOverworldSong();
 			OVUI.BlackTween.Alpha = 0;
 			State = Constants.OV_STATE_IDLE;
 			OVUI.Show();
@@ -140,6 +142,8 @@ namespace INF4000
 		public void UpdateStartingGame(float dt) 
 		{
 			OVUI.UpdateGameStarting(dt);
+			SoundManager.Instance.FadeOut(3*dt);
+			
 			if(OVUI.BlackTween.Alpha >= 1)
 			{
 				Director.Instance.ReplaceScene( new GameScene() );

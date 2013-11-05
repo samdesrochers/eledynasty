@@ -219,9 +219,16 @@ namespace INF4000
 
 		}
 		
+		static int ActiveUnitIndex = 0;
 		public static void CycleThroughUnits()
 		{
-			
+			List<Unit> units = GameScene.Instance.ActivePlayer.Units;
+			ActiveUnitIndex = (ActiveUnitIndex + 1)%units.Count;
+			Unit currentUnit = units[ActiveUnitIndex];
+			GameScene.Instance.ActivePlayer.ActiveUnit = currentUnit;
+			GameScene.Instance.Cursor.MoveToTileByWorldPosition(currentUnit.WorldPosition);
+			GameScene.Instance.UpdateCameraUltimate();
+			SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_MOVE);
 		}
 		
 		#region Attack Methods

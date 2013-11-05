@@ -94,7 +94,7 @@ namespace INF4000
 			GameScene.Instance.GameUI.SetNoneVisible();
 			Utilities.ShowAIPlayerPanel();
 			AssignBehavior();
-			//TryProduce();
+			TryProduce();
 			AI_State = Constants.AI_STATE_WAITING;
 		}
 		
@@ -242,7 +242,8 @@ namespace INF4000
 			Candidates.Clear();
 			
 			foreach(Vector2i p in origin.AdjacentPositions)
-				Candidates.Add( new AIState(){ Position = Utilities.GetTile(p).WorldPosition } );
+				if(p.X >= 0 && p.Y >= 0)
+					Candidates.Add( new AIState(){ Position = Utilities.GetTile(p).WorldPosition } );
 			
 			foreach(AIState a in Candidates)
 			{
@@ -451,39 +452,41 @@ namespace INF4000
 		
 		private void TryProduce()
 		{
-			Building fort = Buildings[0]; // always first building
-			List<Building> farms = new List<Building>();
-			List<Building> temples = new List<Building>();
-			List<Building> forges = new List<Building>();
-			
-			foreach(Building b in Buildings)
-				if(b.Type == Constants.BUILD_FORT)
-					fort = b;
-			
-			foreach(Building b in Buildings)
-			{
-				if(b.Type ==  Constants.BUILD_FARM)
-					farms.Add(b);
-				else if(b.Type == Constants.BUILD_TEMPLE)
-					temples.Add(b);
-				else if(b.Type == Constants.BUILD_FORGE)
-					forges.Add(b);
+			if(this.Gold >= 40) {
+				Building fort = Buildings[0]; // always first building
+				List<Building> farms = new List<Building>();
+				List<Building> temples = new List<Building>();
+				List<Building> forges = new List<Building>();
 				
-				int value = GetDistanceValue(fort.WorldPosition, b.WorldPosition);
-				b.AI_ProductionValue = value;
+				foreach(Building b in Buildings)
+					if(b.Type == Constants.BUILD_FORT)
+						fort = b;
+				
+				foreach(Building b in Buildings)
+				{
+					if(b.Type ==  Constants.BUILD_FARM)
+						farms.Add(b);
+					else if(b.Type == Constants.BUILD_TEMPLE)
+						temples.Add(b);
+					else if(b.Type == Constants.BUILD_FORGE)
+						forges.Add(b);
+					
+					int value = GetDistanceValue(fort.WorldPosition, b.WorldPosition);
+					b.AI_ProductionValue = value;
+				}
+				
+				List<Building> sortedForges = forges.OrderBy(o=>o.AI_ProductionValue).ToList();
+				foreach(Building b in sortedForges)
+					b.ProduceUnit(Name, this);
+				
+				List<Building> sortedTemples = temples.OrderBy(o=>o.AI_ProductionValue).ToList();
+				foreach(Building b in sortedTemples)
+					b.ProduceUnit(Name, this);
+				
+				List<Building> sortedFarms = farms.OrderBy(o=>o.AI_ProductionValue).ToList();
+				foreach(Building b in sortedFarms)
+					b.ProduceUnit(Name, this);
 			}
-			
-			List<Building> sortedForges = forges.OrderBy(o=>o.AI_ProductionValue).ToList();
-			foreach(Building b in sortedForges)
-				b.ProduceUnit(Name, this);
-			
-			List<Building> sortedTemples = temples.OrderBy(o=>o.AI_ProductionValue).ToList();
-			foreach(Building b in sortedTemples)
-				b.ProduceUnit(Name, this);
-			
-			List<Building> sortedFarms = farms.OrderBy(o=>o.AI_ProductionValue).ToList();
-			foreach(Building b in sortedFarms)
-				b.ProduceUnit(Name, this);
 		}
 		
 		private void AssignBehavior()

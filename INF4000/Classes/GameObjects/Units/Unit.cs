@@ -290,11 +290,11 @@ namespace INF4000
 				t.CurrentBuilding.PointsToCapture = (t.CurrentBuilding.PointsToCapture < 0) ? 0 : t.CurrentBuilding.PointsToCapture;
 				
 				if(t.CurrentBuilding.PointsToCapture == 0) {
+					SoundManager.Instance.PlaySound(Constants.SOUND_CAPTURE);
 					if(t.CurrentBuilding.Type == Constants.TILE_TYPE_BUILD_FORT)
 					{
 						GameScene.Instance.CurrentGlobalState = Constants.GLOBAL_STATE_GAMEOVER; // SOMEONE JUST WON THE FREAKING GAME!
 						GameScene.Instance.WinnerName = this.OwnerName;
-						return;
 					}
 					if(t.CurrentBuilding.OwnerName != null && t.CurrentBuilding.OwnerName != "")
 						Utilities.RemoveBuildingFromPlayerByName(t.CurrentBuilding, t.CurrentBuilding.OwnerName);

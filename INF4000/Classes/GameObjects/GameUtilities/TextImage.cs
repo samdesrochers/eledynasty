@@ -47,6 +47,7 @@ namespace INF4000
 			font = AssetsManager.Instance.PixelFont_18;
 			
 			Image img = new Image (ImageMode.Rgba, new ImageSize (Size[0], Size[1]), new ImageColor (255, 0, 0, 0));
+			
 			img.DrawText (_Text, new ImageColor (255, 255, 255, 255), font, new ImagePosition (0, 0));
   
 			Texture2D texture = new Texture2D (Size[0], Size[1], false, PixelFormat.Rgba);
@@ -74,8 +75,10 @@ namespace INF4000
 			font = AssetsManager.Instance.PixelFont_48;
 			
 			Image img = new Image (ImageMode.Rgba, new ImageSize (Size[0], Size[1]), new ImageColor (255, 0, 0, 0));
+			
+			img.DrawRectangle(new ImageColor(0,0,0,1), new Sce.PlayStation.Core.Imaging.ImageRect((int)pos.X - size/2, (int)pos.Y + size/2, size, size));
 			img.DrawText (_Text, new ImageColor (255, 255, 255, 255), font, new ImagePosition (0, 0));
-  
+  			
 			Texture2D texture = new Texture2D (Size[0], Size[1], false, PixelFormat.Rgba);
 			texture.SetPixels (0, img.ToBuffer ());
 			img.Dispose ();                                  

@@ -69,6 +69,7 @@ namespace INF4000
 		public ImageAsset Image_Panel_Dmg_Icon;
 		public ImageAsset Image_Panel_HP_Icon;
 		public ImageAsset Image_Panel_Gld_Icon;
+		public ImageAsset Image_Panel_Flag_Icon;
 		
 		public ImageAsset Image_Kenji_UI_Turn;
 		public ImageAsset Image_Gohzu_UI_Turn;
@@ -147,6 +148,7 @@ namespace INF4000
 					Image_Panel_Dmg_Icon = new ImageAsset("/Application/Assets/UI/dmg_ico.png",false);
 					Image_Panel_HP_Icon = new ImageAsset("/Application/Assets/UI/hp_ico.png",false);
 					Image_Panel_Gld_Icon = new ImageAsset("/Application/Assets/UI/gold_ico.png",false);
+					Image_Panel_Flag_Icon = new ImageAsset("/Application/Assets/UI/flag_ico.png",false);
 					
 					Image_Icon_Fort = new ImageAsset("/Application/Assets/UI/Icons/fort_ico.png",false);
 					Image_Icon_Farm = new ImageAsset("/Application/Assets/UI/Icons/farm_ico.png",false);

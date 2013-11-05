@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading;
 using System.Collections.Generic;
 using Sce.PlayStation.Core;
@@ -247,10 +248,12 @@ namespace INF4000
 		{
 			SwitchTurnTime += dt;			
 			GameUI.AnimateGameOver(dt);
+			SoundManager.Instance.FadeOut(dt);
 
 			if(SwitchTurnTime >= 5.0f || Input2.GamePad0.Cross.Release) // wait 2 seconds before switching turn
 			{
-				Dispose();
+				Dispose();			
+				
 				
 				OverworldScene.Instance.Reset();
 				Director.Instance.ReplaceScene( OverworldScene.Instance );		
@@ -289,6 +292,42 @@ namespace INF4000
 		private void UpdateCameraPosition ()
 		{	
 			Utilities.AdjustUIPanelsLocation();
+		}
+		
+		public void UpdateCameraUltimate()
+		{
+			if(ActivePlayer.ActiveUnit == null)
+				return;
+			
+			Camera2D camera = this.Camera as Camera2D;	
+			Vector2 unitPos = ActivePlayer.ActiveUnit.Position;		
+			Vector2 newCamCenter = unitPos;
+			
+			float mapWidth = CurrentMap.Width * 64;
+			float mapHeigth = CurrentMap.Height * 64;
+			
+			float delimiterRight = newCamCenter.X + 960/2;
+			float delimiterLeft= newCamCenter.X - 960/2;
+			float delimiterUp = newCamCenter.Y + 544/2;
+			float delimiterDown = newCamCenter.Y - 544/2;
+			
+			if(delimiterRight > mapWidth) {
+				float diff = mapWidth - delimiterRight;
+				camera.Center = new Vector2(newCamCenter.X + diff, camera.Center.Y);
+			}
+			
+			if(newCamCenter.X < 480) {
+				camera.Center = new Vector2(480, camera.Center.Y);
+			}
+			
+			if(delimiterUp > mapHeigth) {
+				float diff = mapHeigth - delimiterUp;
+				camera.Center = new Vector2(camera.Center.X, newCamCenter.Y + diff);
+			}
+			
+			if(newCamCenter.Y < 544/2) {
+				camera.Center = new Vector2(camera.Center.X, 544/2);
+			}
 		}
 		
 		public void UpdateCameraPositionByCursor ()
@@ -455,10 +494,10 @@ namespace INF4000
 		private void UpdateMap ()
 		{
 			CurrentMap.Update ();
-//			if(BuildingUtil.LastCapturedBuildings.Count > 0)
-//			{
-//				CurrentGlobalState = Constants.GLOBAL_STATE_CAPTURE_ANIMATION;
-//			}
+			if(BuildingUtil.LastCapturedBuildings.Count > 0 && CurrentGlobalState != Constants.GLOBAL_STATE_GAMEOVER)
+			{
+				CurrentGlobalState = Constants.GLOBAL_STATE_CAPTURE_ANIMATION;
+			}
 		}
 		
 		private void UpdateUnits ()
@@ -711,6 +750,7 @@ namespace INF4000
 				} else if (action == Constants.ACTION_ATTACK) {
 					GameActions.PrepareUnitAttack(path);
 				}
+				GameUI.ActionPanel.TryAddCaptureItem(Cursor.WorldPosition);
 			}
 			else // User selected same tile as ActiveUnit's tile, which may or may not have a building
 			{

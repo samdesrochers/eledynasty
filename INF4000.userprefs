@@ -1,34 +1,33 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\GameObjects\Units\Unit.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Audio\SoundManager.cs">
     <Files>
       <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="458" Column="44" />
       <File FileName="INF4000\Classes\GameObjects\Players\AIPlayer.cs" Line="438" Column="36" />
       <File FileName="INF4000\Classes\Util\Utilities.cs" Line="358" Column="105" />
       <File FileName="INF4000\Classes\GameObjects\GameUtilities\Path.cs" Line="181" Column="26" />
-      <File FileName="INF4000\Classes\Util\Constants.cs" Line="32" Column="55" />
+      <File FileName="INF4000\Classes\Util\Constants.cs" Line="245" Column="39" />
       <File FileName="INF4000\Classes\GameObjects\Building.cs" Line="46" Column="19" />
-      <File FileName="INF4000\Classes\GameObjects\Units\Unit.cs" Line="307" Column="36" />
+      <File FileName="INF4000\Classes\GameObjects\Units\Unit.cs" Line="293" Column="61" />
       <File FileName="INF4000\Classes\GameObjects\UI\ActionPanel.cs" Line="76" Column="39" />
       <File FileName="INF4000\Classes\GameObjects\Players\Player.cs" Line="81" Column="8" />
       <File FileName="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\GameUtilities\GameActions.cs" Line="174" Column="50" />
-      <File FileName="INF4000\Classes\GameObjects\GameUtilities\BuildingUtil.cs" Line="150" Column="44" />
+      <File FileName="INF4000\Classes\GameObjects\GameUtilities\BuildingUtil.cs" Line="147" Column="5" />
       <File FileName="INF4000\Classes\GameObjects\GameUtilities\TextImage.cs" Line="113" Column="35" />
-      <File FileName="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\BattleViewer.cs" Line="216" Column="42" />
+      <File FileName="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\BattleViewer.cs" Line="132" Column="63" />
+      <File FileName="INF4000\Audio\SoundManager.cs" Line="90" Column="31" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="INF4000" expanded="True">
-            <Node name="Audio" expanded="True" />
+            <Node name="Audio" expanded="True" selected="True" />
             <Node name="Classes" expanded="True">
               <Node name="GameObjects" expanded="True">
                 <Node name="GameUtilities" expanded="True" />
                 <Node name="Players" expanded="True" />
                 <Node name="UI" expanded="True" />
-                <Node name="Units" expanded="True">
-                  <Node name="Unit.cs" selected="True" />
-                </Node>
+                <Node name="Units" expanded="True" />
               </Node>
               <Node name="Scenes" expanded="True" />
               <Node name="Util" expanded="True" />

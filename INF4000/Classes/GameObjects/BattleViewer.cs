@@ -64,12 +64,12 @@ namespace INF4000
 			
 			if(supAttack != null) {
 				SupportAttackerSprite = new SpriteTile(supAttack.UnitSprite.TextureInfo, supAttack.UnitSprite.TileIndex2D);
-				SupportAttackerSprite.Quad.S = new Vector2(60,60);
+				SupportAttackerSprite.Quad.S = new Vector2(70,70);
 			}			
 			
 			if(defAttack != null) {
 				SupportDefenderSprite = new SpriteTile(defAttack.UnitSprite.TextureInfo, defAttack.UnitSprite.TileIndex2D);
-				SupportDefenderSprite.Quad.S = new Vector2(60,60);
+				SupportDefenderSprite.Quad.S = new Vector2(70,70);
 				SupportDefenderSprite.FlipU = true;
 			}
 			
@@ -124,12 +124,12 @@ namespace INF4000
 			
 			// Support - Attack
 			if(SupportAttackerSprite != null) {
-				SupportAttackerSprite.Position = new Vector2(Center.X - 284, Center.Y + 10);
+				SupportAttackerSprite.Position = new Vector2(Center.X - 304, Center.Y + 20);
 				GameScene.Instance.AddChild(SupportAttackerSprite);
 			}
 			
 			if (SupportDefenderSprite != null) {
-				SupportDefenderSprite.Position = new Vector2(Center.X + 224, Center.Y + 10);
+				SupportDefenderSprite.Position = new Vector2(Center.X + 204, Center.Y + 20);
 				GameScene.Instance.AddChild(SupportDefenderSprite);
 			}			
 			
@@ -273,7 +273,7 @@ namespace INF4000
 			switch (BattleManager.ContestedTile.TerrainType) 
 			{
 				case Constants.TILE_TYPE_GRASS_MIDDLE: 
-					terrainIndex = new Vector2i(1,2); 
+					terrainIndex = new Vector2i(0,2); 
 					break;
 				case Constants.TILE_TYPE_ROAD_HORIZONTAL:
 				case Constants.TILE_TYPE_ROAD_VERTICAL: 
@@ -304,7 +304,7 @@ namespace INF4000
 			foreach(Vector2i adjPos in t.AdjacentPositions)
 			{
 				Tile adj = Utilities.GetTile(adjPos);
-				if(adj.CurrentUnit != null && ally.OwnerName == adj.CurrentUnit.OwnerName)
+				if(adj != null && adj.CurrentUnit != null && ally.OwnerName == adj.CurrentUnit.OwnerName)
 					return adj.CurrentUnit;
 			}
 			return null;

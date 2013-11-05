@@ -162,10 +162,13 @@ namespace INF4000
 		
 		private Unit GetAllyUnit(Tile t, Unit ally)
 		{
+			if(t == null || ally == null)
+				return null;
+			
 			foreach(Vector2i adjPos in t.AdjacentPositions)
 			{
 				Tile adj = Utilities.GetTile(adjPos);
-				if(adj.CurrentUnit != null && ally.OwnerName == adj.CurrentUnit.OwnerName)
+				if(adj != null && adj.CurrentUnit != null && ally.OwnerName == adj.CurrentUnit.OwnerName)
 					return adj.CurrentUnit;
 			}
 			return null;

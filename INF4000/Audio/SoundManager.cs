@@ -33,6 +33,7 @@ namespace INF4000
 		private Sound TurnStart;
 		private Sound UnitMarch;
 		private Sound Combat;
+		private Sound Capture;
 		
 		public SoundManager ()
 		{
@@ -44,12 +45,13 @@ namespace INF4000
 			if(!Loaded){
 				try
 				{
-					Songs = new Bgm[5];
+					Songs = new Bgm[6];
 					Songs[1] = new Bgm("/Application/Audio/kenji_1.mp3");
 					Songs[0] = new Bgm("/Application/Audio/kenji_2.mp3");
 					Songs[2] = new Bgm("/Application/Audio/enemy_1.mp3");
 					Songs[3] = new Bgm("/Application/Audio/enemy_2.mp3");
 					Songs[4] = new Bgm("/Application/Audio/intro_map1.mp3");
+					Songs[5] = new Bgm("/Application/Audio/overworld_1.mp3");
 					
 					CursorMoved = new Sound("/Application/Audio/Sound/cursor_move.wav");
 					CursorSelect = new Sound("/Application/Audio/Sound/selection_action.wav");
@@ -57,6 +59,7 @@ namespace INF4000
 					TurnStart = new Sound("/Application/Audio/Sound/coin_sound.wav");
 					UnitMarch = new Sound("/Application/Audio/Sound/unit_march.wav");
 					Combat = new Sound("/Application/Audio/Sound/combat.wav");
+					Capture = new Sound("/Application/Audio/Sound/capture.wav");
 					
 					SoundEnabled = true;
 					
@@ -94,6 +97,9 @@ namespace INF4000
 				case Constants.SOUND_COMBAT:
 					soundToPlay = Combat;
 					break;
+				case Constants.SOUND_CAPTURE:
+					soundToPlay = Capture;
+					break;
 				}
 				
 				if(SoundEnabled){
@@ -109,6 +115,16 @@ namespace INF4000
 			if(SongPlayer != null) SongPlayer.Dispose();
 			if(SoundEnabled){
 				SongPlayer = Songs[4].CreatePlayer();
+	   			SongPlayer.Play();
+				SongPlayer.Loop = true;
+			}
+		}
+		
+		public void PlayOverworldSong()
+		{
+			if(SongPlayer != null) SongPlayer.Dispose();
+			if(SoundEnabled){
+				SongPlayer = Songs[5].CreatePlayer();
 	   			SongPlayer.Play();
 				SongPlayer.Loop = true;
 			}
@@ -140,6 +156,11 @@ namespace INF4000
 	   			SongPlayer.Play();
 				SongPlayer.Loop = true;
 			}
+		}
+		
+		public void FadeOut(float dt)
+		{
+			if(SongPlayer != null) SongPlayer.Volume -= dt;
 		}
 		
 		public void Dispose()
