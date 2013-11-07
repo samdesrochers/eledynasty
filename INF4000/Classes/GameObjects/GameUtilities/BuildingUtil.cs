@@ -140,7 +140,7 @@ namespace INF4000
 			if(time == 0) {
 				currentBuilding = LastCapturedBuildings.Pop();
 				
-				string toDisplay = "Capturing: " + (20 - currentBuilding.PointsToCapture).ToString();
+				string toDisplay = "Capturing: " + (currentBuilding.PointsToCapture).ToString();
 				pointsImage = new TextImage(toDisplay, new Vector2(currentBuilding.Position.X + 20, currentBuilding.Position.Y));
 				
 				GameScene.Instance.AddChild(pointsImage);
@@ -149,11 +149,12 @@ namespace INF4000
 			
 			time += dt;
 			
-			if(time <= 0.4f) {
-				pointsImage.Position = new Sce.PlayStation.Core.Vector2(pointsImage.Position.X, pointsImage.Position.Y + 1);
+			if(time <= 0.6f) {
+				pointsImage.Color = new Vector4(1-time/2, 0.2f-time/2, 0.5f-time/2, 1);
+				pointsImage.Position = new Sce.PlayStation.Core.Vector2(pointsImage.Position.X + FMath.Cos(10*time), pointsImage.Position.Y + 1);
 			}
 			
-			if(time > 0.5f) {
+			if(time > 0.7f) {
 				GameScene.Instance.RemoveChild(pointsImage, false);
 				time = 0;
 				

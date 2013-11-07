@@ -109,7 +109,7 @@ namespace INF4000
 					candidate = candidates.First();	
 					if ( candidate.Position.X == destination.X && candidate.Position.Y == destination.Y && !candidate.IsOccupied  ) {
 						legalCandidatePicked = true; // Found a match for destination		
-					} else if(candidate.IsOccupied) {
+					} else if(candidate.IsOccupied && candidate.Position.X == destination.X && candidate.Position.Y == destination.Y) {
 						candidates.Remove(candidate);
 					} else {
 						legalCandidatePicked = true;
@@ -205,7 +205,7 @@ namespace INF4000
 					
 					if ( candidate.Position.X == destination.X && candidate.Position.Y == destination.Y && !candidate.IsOccupied  ) {
 						legalCandidatePicked = true; // Found a match for destination		
-					} else if(candidate.IsOccupied) {
+					} else if(candidate.IsOccupied && candidate.Position.X == destination.X && candidate.Position.Y == destination.Y) {
 						candidates.Remove(candidate);
 					} else {
 						legalCandidatePicked = true;

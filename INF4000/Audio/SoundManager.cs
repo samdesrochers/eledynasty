@@ -61,7 +61,7 @@ namespace INF4000
 					Combat = new Sound("/Application/Audio/Sound/combat.wav");
 					Capture = new Sound("/Application/Audio/Sound/capture.wav");
 					
-					SoundEnabled = true;
+					SoundEnabled = false;
 					
 					Loaded = true;
 				} 

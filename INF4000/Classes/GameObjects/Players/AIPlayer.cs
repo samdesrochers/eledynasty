@@ -318,7 +318,11 @@ namespace INF4000
 		
 			// Calculate initial heuristic
 			foreach(Unit u in enemyUnits) {
-				u.Heuristic = GetDistanceValue(u.WorldPosition, ActiveUnit.WorldPosition);
+				u.Heuristic = 0;
+				Tile t = Utilities.GetTile(u.WorldPosition);
+				if(t.CurrentBuilding != null)
+					u.Heuristic += GetBuidlingTypeValue_Capture(t.CurrentBuilding);
+				u.Heuristic += GetDistanceValue(u.WorldPosition, ActiveUnit.WorldPosition);
 			}
 			
 			List<Unit> sortedEnemyUnits = enemyUnits.OrderBy(o=>o.Heuristic).ToList();
@@ -618,7 +622,7 @@ namespace INF4000
 		{
 			switch(building.Type) {
 				case Constants.BUILD_FARM 	: return -2;
-				case Constants.BUILD_FORT 	: return -6;
+				case Constants.BUILD_FORT 	: return -7;
 				case Constants.BUILD_FORGE 	: return -3;
 				case Constants.BUILD_TEMPLE : return -2;
 			}
@@ -628,7 +632,7 @@ namespace INF4000
 		private int GetBuidlingOccupied_Capture(Building building)
 		{
 			if(building.OwnerName == null || building.OwnerName == "")
-				return -5;
+				return -15;
 			return 0;
 		}
 		
@@ -637,7 +641,7 @@ namespace INF4000
 		{
 			switch(building.Type) {
 				case Constants.BUILD_FARM 	: return -3;
-				case Constants.BUILD_FORT 	: return -9;
+				case Constants.BUILD_FORT 	: return -8;
 				case Constants.BUILD_FORGE 	: return -5;
 				case Constants.BUILD_TEMPLE : return -4;
 			}
@@ -735,7 +739,7 @@ namespace INF4000
 			List<AIState> candidates = new List<AIState>();
 			Tile buildingTile = Utilities.GetTile(seed);
 			
-			if(buildingTile.CurrentUnit == null || (buildingTile.CurrentUnit.WorldPosition.X == seed.X && buildingTile.CurrentUnit.WorldPosition.Y == seed.Y)) {
+			if(buildingTile.CurrentUnit == null || (ActiveUnit.WorldPosition.X == seed.X && ActiveUnit.WorldPosition.Y == seed.Y)) {
 				candidates.Add(new AIState(){ Position = new Vector2i(seed.X, seed.Y) });
 			} else {	
 				candidates.Add(new AIState(){ Position = new Vector2i(seed.X - 1, seed.Y) });
@@ -743,7 +747,7 @@ namespace INF4000
 				candidates.Add(new AIState(){ Position = new Vector2i(seed.X, seed.Y + 1) });
 				candidates.Add(new AIState(){ Position = new Vector2i(seed.X, seed.Y - 1) });
 				
-				// Remove invalid destinations
+				// Remove invalid destinations (for attack)
 				for( int i = candidates.Count - 1; i >= 0; i-- ) {
 					AIState s = candidates[i];
 					Vector2i v = s.Position;

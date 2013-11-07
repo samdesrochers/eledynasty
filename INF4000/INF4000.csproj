@@ -42,10 +42,7 @@
     <Compile Include="Classes\Scenes\MenuScene.cs" />
     <Compile Include="Classes\Scenes\TitleScene.cs" />
     <Compile Include="Classes\Scenes\GameScene.cs" />
-    <Compile Include="Classes\GameObjects\Cursor.cs" />
     <Compile Include="Assets\AssetsManager.cs" />
-    <Compile Include="Classes\GameObjects\Building.cs" />
-    <Compile Include="Classes\GameObjects\BattleViewer.cs" />
     <Compile Include="Classes\Scenes\LoadingScene.cs" />
     <Compile Include="Classes\GameObjects\Units\Farmer.cs" />
     <Compile Include="Classes\GameObjects\Units\Monk.cs" />
@@ -82,6 +79,9 @@
     <Compile Include="Classes\Scenes\TutorialScene.cs" />
     <Compile Include="Classes\GameObjects\GameUtilities\AIState.cs" />
     <Compile Include="Classes\GameObjects\GameUtilities\BuildingUtil.cs" />
+    <Compile Include="Classes\GameObjects\GameUtilities\BattleViewer.cs" />
+    <Compile Include="Classes\GameObjects\Map\Building.cs" />
+    <Compile Include="Classes\GameObjects\GameUtilities\Cursor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -183,6 +183,5 @@
     <Content Include="Audio\intro_map1.mp3" />
     <Content Include="Assets\UI\flag_ico.png" />
     <Content Include="Audio\Sound\capture.wav" />
-    <Content Include="Audio\overworld_1.mp3" />
   </ItemGroup>
 </Project>
