@@ -227,7 +227,7 @@ namespace INF4000
 			Unit currentUnit = units[ActiveUnitIndex];
 			GameScene.Instance.ActivePlayer.ActiveUnit = currentUnit;
 			GameScene.Instance.Cursor.MoveToTileByWorldPosition(currentUnit.WorldPosition);
-			GameScene.Instance.UpdateCameraUltimate();
+			GameScene.Instance.UpdateCameraCycle();
 			SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_MOVE);
 		}
 		

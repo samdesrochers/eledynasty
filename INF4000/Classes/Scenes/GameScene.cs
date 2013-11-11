@@ -294,7 +294,7 @@ namespace INF4000
 			Utilities.AdjustUIPanelsLocation();
 		}
 		
-		public void UpdateCameraUltimate()
+		public void UpdateCameraCycle()
 		{
 			if(ActivePlayer.ActiveUnit == null)
 				return;

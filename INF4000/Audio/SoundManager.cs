@@ -47,8 +47,8 @@ namespace INF4000
 				{
 					Songs = new Bgm[6];
 					Songs[1] = new Bgm("/Application/Audio/kenji_1.mp3");
-					Songs[0] = new Bgm("/Application/Audio/kenji_2.mp3");
-					Songs[2] = new Bgm("/Application/Audio/enemy_1.mp3");
+					Songs[0] = new Bgm("/Application/Audio/kenji_1.mp3");
+					Songs[2] = new Bgm("/Application/Audio/enemy_2.mp3");
 					Songs[3] = new Bgm("/Application/Audio/enemy_2.mp3");
 					Songs[4] = new Bgm("/Application/Audio/intro_map1.mp3");
 					Songs[5] = new Bgm("/Application/Audio/overworld_1.mp3");
@@ -61,7 +61,7 @@ namespace INF4000
 					Combat = new Sound("/Application/Audio/Sound/combat.wav");
 					Capture = new Sound("/Application/Audio/Sound/capture.wav");
 					
-					SoundEnabled = false;
+					SoundEnabled = true;
 					
 					Loaded = true;
 				} 

@@ -107,10 +107,12 @@ namespace INF4000
 					}
 					
 					candidate = candidates.First();	
-					if ( candidate.Position.X == destination.X && candidate.Position.Y == destination.Y && !candidate.IsOccupied  ) {
-						legalCandidatePicked = true; // Found a match for destination		
-					} else if(candidate.IsOccupied && candidate.Position.X == destination.X && candidate.Position.Y == destination.Y) {
+					if(candidate.IsOccupied && candidate.Position.X == destination.X && candidate.Position.Y == destination.Y) {
 						candidates.Remove(candidate);
+					} else if(candidate.IsOccupied && movePoints == 1) { // Only one move left and would end on an occupied tile = discard
+						candidates.Remove(candidate);
+					} else if ( candidate.Position.X == destination.X && candidate.Position.Y == destination.Y && !candidate.IsOccupied  ) {
+						legalCandidatePicked = true; // Found a match for destination		
 					} else {
 						legalCandidatePicked = true;
 					}

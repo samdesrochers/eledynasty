@@ -548,6 +548,7 @@ namespace INF4000
 			// state.Heuristic += GetBuildingOnTileValue_Attack(t);
 			state.Heuristic += GetAttackStatisticsValue(t, enemy);
 			state.Heuristic += GetCanAttackWithoutMovingValue(t, enemy);
+			state.Heuristic += GetReachableThisTurnValue(state.Position, ActiveUnit.WorldPosition, ActiveUnit.Move_RadiusLeft);
 		}
 		
 		private int AssignAttackAndCaptureHeuristic(Vector2i pos)
@@ -570,7 +571,7 @@ namespace INF4000
 		private int GetReachableThisTurnValue(Vector2i destination, Vector2i origin, int radius)
 		{
 			if(System.Math.Abs(destination.X - origin.X) + System.Math.Abs(destination.Y - origin.Y) <= radius)
-				return -3;
+				return -4;
 			return 1;
 		}
 		
@@ -695,7 +696,7 @@ namespace INF4000
 				Vector2i v = s.Position;
 				Tile t = Utilities.GetTile(v);
 				if(v.X < 0 || v.X > GameScene.Instance.CurrentMap.Width - 1
-				   || v.Y < 0 || v.X > GameScene.Instance.CurrentMap.Height - 1
+				   || v.Y < 0 || v.Y > GameScene.Instance.CurrentMap.Height - 1
 				   || (t.CurrentUnit != null && t.WorldPosition != ActiveUnit.WorldPosition)
 				   || !t.IsMoveValid )
 					candidates.Remove(s);
@@ -725,7 +726,7 @@ namespace INF4000
 					Tile t = Utilities.GetTile(v);
 					if(v.X < 0 
 					   || v.X > GameScene.Instance.CurrentMap.Width - 1
-					   || v.Y < 0 || v.X > GameScene.Instance.CurrentMap.Height - 1 
+					   || v.Y < 0 || v.Y > GameScene.Instance.CurrentMap.Height - 1 
 					   || (t.CurrentUnit != null && t.WorldPosition != ActiveUnit.WorldPosition)
 					   || !t.IsMoveValid )
 						candidates.Remove(s);
@@ -754,7 +755,7 @@ namespace INF4000
 					Tile t = Utilities.GetTile(v);
 					if(v.X < 0 
 					   || v.X > GameScene.Instance.CurrentMap.Width - 1
-					   || v.Y < 0 || v.X > GameScene.Instance.CurrentMap.Height - 1 
+					   || v.Y < 0 || v.Y > GameScene.Instance.CurrentMap.Height - 1 
 					   || (t.CurrentUnit != null)
 					   || !t.IsMoveValid )
 						candidates.Remove(s);
