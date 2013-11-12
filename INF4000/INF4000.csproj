@@ -184,5 +184,25 @@
     <Content Include="Assets\UI\flag_ico.png" />
     <Content Include="Audio\Sound\capture.wav" />
     <Content Include="Audio\overworld_1.mp3" />
+    <Content Include="Assets\UI\Icons\farm_ico_en.png" />
+    <Content Include="Assets\UI\Icons\farm_ico_kenji.png" />
+    <Content Include="Assets\UI\Icons\farmer_ico_en.png" />
+    <Content Include="Assets\UI\Icons\farmer_ico_kenji.png" />
+    <Content Include="Assets\UI\Icons\forge_ico_en.png" />
+    <Content Include="Assets\UI\Icons\forge_ico_kenji.png" />
+    <Content Include="Assets\UI\Icons\forge_ico_neutral.png" />
+    <Content Include="Assets\UI\Icons\fort_ico_en.png" />
+    <Content Include="Assets\UI\Icons\fort_ico_kenji.png" />
+    <Content Include="Assets\UI\Icons\hills_ico.png" />
+    <Content Include="Assets\UI\Icons\monk_ico_en.png" />
+    <Content Include="Assets\UI\Icons\monk_ico_kenji.png" />
+    <Content Include="Assets\UI\Icons\samurai_ico_en.png" />
+    <Content Include="Assets\UI\Icons\samurai_ico_kenji.png" />
+    <Content Include="Assets\UI\Icons\temple_ico_en.png" />
+    <Content Include="Assets\UI\Icons\temple_ico_kenji.png" />
+    <Content Include="Assets\UI\Icons\temple_ico_neutral.png" />
+    <Content Include="Assets\UI\Icons\trees_ico.png" />
+    <Content Include="Assets\UI\Icons\water_ico.png" />
+    <Content Include="Assets\UI\endturn_but.png" />
   </ItemGroup>
 </Project>

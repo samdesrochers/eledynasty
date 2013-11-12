@@ -45,7 +45,7 @@ namespace INF4000
 		public const int TILE_TYPE_ROAD_HV_LEFT 	= 42;
 		public const int TILE_TYPE_ROAD_HV_RIGHT 	= 43;
 		public const int TILE_TYPE_BUILD_FORT 		= 50;
-		public const int TILE_TYPE_BUILD_BARRACKS 	= 51;
+		public const int TILE_TYPE_BUILD_TEMPLE 	= 51;
 		public const int TILE_TYPE_BUILD_FARM	 	= 52;
 		public const int TILE_TYPE_BUILD_ARCHERY 	= 53;
 		public const int TILE_TYPE_BUILD_FORGE		= 54;

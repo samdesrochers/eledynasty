@@ -284,7 +284,7 @@ namespace INF4000
 					terrainIndex = new Vector2i(1,1); 
 					break;
 				case Constants.TILE_TYPE_BUILD_FORT:
-				case Constants.TILE_TYPE_BUILD_BARRACKS: 
+				case Constants.TILE_TYPE_BUILD_TEMPLE: 
 				case Constants.TILE_TYPE_BUILD_FARM: 
 				case Constants.TILE_TYPE_BUILD_ARCHERY: 
 				case Constants.TILE_TYPE_BUILD_FORGE:

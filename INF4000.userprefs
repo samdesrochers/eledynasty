@@ -3,7 +3,7 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\GameObjects\Players\AIPlayer.cs">
     <Files>
       <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="458" Column="44" />
-      <File FileName="INF4000\Classes\GameObjects\Players\AIPlayer.cs" Line="551" Column="117" />
+      <File FileName="INF4000\Classes\GameObjects\Players\AIPlayer.cs" Line="544" Column="57" />
       <File FileName="INF4000\Classes\Util\Utilities.cs" Line="358" Column="105" />
       <File FileName="INF4000\Classes\GameObjects\GameUtilities\Path.cs" Line="79" Column="1" />
       <File FileName="INF4000\Classes\Util\Constants.cs" Line="245" Column="39" />

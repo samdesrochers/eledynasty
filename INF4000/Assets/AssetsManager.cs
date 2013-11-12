@@ -63,6 +63,7 @@ namespace INF4000
 		public ImageAsset Image_Panel_Wait_Icon;
 		public ImageAsset Image_Panel_Cancel_Icon;
 		public ImageAsset Image_Panel_OddsBubble;
+		public ImageAsset Image_Button_EndTurn;
 		
 		public ImageAsset Image_Stats_Panel_BG;
 		public ImageAsset Image_Panel_Def_Icon;
@@ -73,12 +74,34 @@ namespace INF4000
 		
 		public ImageAsset Image_Kenji_UI_Turn;
 		public ImageAsset Image_Gohzu_UI_Turn;
-		
-		public ImageAsset Image_Icon_Fort;
-		public ImageAsset Image_Icon_Farm;
+
+		// Icons
 		public ImageAsset Image_Icon_Grass;
 		public ImageAsset Image_Icon_Road;
+		public ImageAsset Image_Icon_Hills;
+		public ImageAsset Image_Icon_Trees;
+		public ImageAsset Image_Icon_Water;
 		
+		public ImageAsset Image_Icon_Farm_Kenji;
+		public ImageAsset Image_Icon_Farm_En;
+		public ImageAsset Image_Icon_Temple_Kenji;
+		public ImageAsset Image_Icon_Temple_En;
+		public ImageAsset Image_Icon_Forge_Kenji;
+		public ImageAsset Image_Icon_Forge_En;
+		public ImageAsset Image_Icon_Fort_Kenji;
+		public ImageAsset Image_Icon_Fort_En;
+		public ImageAsset Image_Icon_Forge_Neutral;
+		public ImageAsset Image_Icon_Temple_Neutral;
+		
+		public ImageAsset Image_Icon_Farmer_Kenji;
+		public ImageAsset Image_Icon_Farmer_En;
+		public ImageAsset Image_Icon_Monk_Kenji;
+		public ImageAsset Image_Icon_Monk_En;
+		public ImageAsset Image_Icon_Samurai_Kenji;
+		public ImageAsset Image_Icon_Samurai_En;
+
+		
+		// Dialog
 		public ImageAsset Image_Dialog_Overlay_Red;
 		public ImageAsset Image_Dialog_Overlay_Blue;
 		public ImageAsset Image_Dialog_Kenji_1;
@@ -142,6 +165,7 @@ namespace INF4000
 					Image_Panel_Attack_Icon = new ImageAsset("/Application/Assets/UI/attack_icon.png",false);
 					Image_Panel_Cancel_Icon = new ImageAsset("/Application/Assets/UI/back_icon.png",false);
 					Image_Panel_OddsBubble = new ImageAsset("/Application/Assets/UI/odds_bubble.png",false);
+					Image_Button_EndTurn = new ImageAsset("/Application/Assets/UI/endturn_but.png",false);
 					
 					Image_Stats_Panel_BG = new ImageAsset("/Application/Assets/UI/stats_panel.png",false);
 					Image_Panel_Def_Icon = new ImageAsset("/Application/Assets/UI/def_ico.png",false);
@@ -150,11 +174,32 @@ namespace INF4000
 					Image_Panel_Gld_Icon = new ImageAsset("/Application/Assets/UI/gold_ico.png",false);
 					Image_Panel_Flag_Icon = new ImageAsset("/Application/Assets/UI/flag_ico.png",false);
 					
-					Image_Icon_Fort = new ImageAsset("/Application/Assets/UI/Icons/fort_ico.png",false);
-					Image_Icon_Farm = new ImageAsset("/Application/Assets/UI/Icons/farm_ico.png",false);
+					// Stat Icons
 					Image_Icon_Grass = new ImageAsset("/Application/Assets/UI/Icons/grass_ico.png",false);
 					Image_Icon_Road = new ImageAsset("/Application/Assets/UI/Icons/road_ico.png",false);
+					Image_Icon_Hills = new ImageAsset("/Application/Assets/UI/Icons/hills_ico.png",false);
+					Image_Icon_Trees = new ImageAsset("/Application/Assets/UI/Icons/trees_ico.png",false);
+					Image_Icon_Water = new ImageAsset("/Application/Assets/UI/Icons/water_ico.png",false);
 					
+					Image_Icon_Farm_Kenji = new ImageAsset("/Application/Assets/UI/Icons/farm_ico_kenji.png",false);
+					Image_Icon_Farm_En = new ImageAsset("/Application/Assets/UI/Icons/farm_ico_en.png",false);
+					Image_Icon_Temple_Kenji = new ImageAsset("/Application/Assets/UI/Icons/temple_ico_kenji.png",false);
+					Image_Icon_Temple_En = new ImageAsset("/Application/Assets/UI/Icons/temple_ico_en.png",false);
+					Image_Icon_Forge_Kenji = new ImageAsset("/Application/Assets/UI/Icons/forge_ico_kenji.png",false);
+					Image_Icon_Forge_En = new ImageAsset("/Application/Assets/UI/Icons/forge_ico_en.png",false);
+					Image_Icon_Fort_Kenji = new ImageAsset("/Application/Assets/UI/Icons/fort_ico_kenji.png",false);
+					Image_Icon_Fort_En = new ImageAsset("/Application/Assets/UI/Icons/fort_ico_en.png",false);
+					Image_Icon_Forge_Neutral = new ImageAsset("/Application/Assets/UI/Icons/forge_ico_neutral.png",false);
+					Image_Icon_Temple_Neutral = new ImageAsset("/Application/Assets/UI/Icons/temple_ico_neutral.png",false);
+					
+					Image_Icon_Farmer_Kenji = new ImageAsset("/Application/Assets/UI/Icons/farmer_ico_kenji.png",false);
+					Image_Icon_Farmer_En = new ImageAsset("/Application/Assets/UI/Icons/farmer_ico_en.png",false);
+					Image_Icon_Monk_Kenji = new ImageAsset("/Application/Assets/UI/Icons/monk_ico_kenji.png",false);
+					Image_Icon_Monk_En = new ImageAsset("/Application/Assets/UI/Icons/monk_ico_en.png",false);
+					Image_Icon_Samurai_Kenji = new ImageAsset("/Application/Assets/UI/Icons/samurai_ico_kenji.png",false);
+					Image_Icon_Samurai_En = new ImageAsset("/Application/Assets/UI/Icons/samurai_ico_en.png",false);
+								
+					// Player 
 					Image_Kenji_UI_Turn = new ImageAsset("/Application/Assets/UI/kenji_turn.png",false);
 					Image_Gohzu_UI_Turn = new ImageAsset("/Application/Assets/UI/gohzu_turn.png",false);
 					

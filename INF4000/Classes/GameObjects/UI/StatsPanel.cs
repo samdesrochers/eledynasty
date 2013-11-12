@@ -97,24 +97,71 @@ namespace INF4000
 				case Constants.TILE_TYPE_ROAD_VH_RIGHT:
 					img = AssetsManager.Instance.Image_Icon_Road;	
 					break;
+				
+				// Hills
+				case Constants.TILE_TYPE_HILL:
+				case Constants.TILE_TYPE_HILL_2:
+					img = AssetsManager.Instance.Image_Icon_Hills;	
+					break;
+				
+				// Trees
+				case Constants.TILE_TYPE_TREES_1:
+				case Constants.TILE_TYPE_TREES_2:
+					img = AssetsManager.Instance.Image_Icon_Trees;	
+					break;
+				
+				// Buildings
 				case Constants.TILE_TYPE_BUILD_FARM:
-					img = AssetsManager.Instance.Image_Icon_Farm;	
-					break;
-				case Constants.TILE_TYPE_BUILD_FORT:
-					img = AssetsManager.Instance.Image_Icon_Fort;	
-					break;
-				case Constants.UNIT_TYPE_FARMER:
-					if(owner != Constants.CHAR_KENJI)
-						img = AssetsManager.Instance.Image_Icon_Fort;
+					if(owner == Constants.CHAR_KENJI)
+						img = AssetsManager.Instance.Image_Icon_Farm_Kenji;
 					else
-						img = AssetsManager.Instance.Image_Icon_Farm;
+						img = AssetsManager.Instance.Image_Icon_Farm_En;
+					break;	
+				case Constants.TILE_TYPE_BUILD_FORT:
+					if(owner == Constants.CHAR_KENJI)
+						img = AssetsManager.Instance.Image_Icon_Fort_Kenji;
+					else
+						img = AssetsManager.Instance.Image_Icon_Fort_En;
+					break;	
+				case Constants.TILE_TYPE_BUILD_TEMPLE:
+					if(owner == Constants.CHAR_KENJI)
+						img = AssetsManager.Instance.Image_Icon_Temple_Kenji;
+					else if(owner != null)
+						img = AssetsManager.Instance.Image_Icon_Temple_En;
+					else
+						img = AssetsManager.Instance.Image_Icon_Temple_Neutral;
+					break;	
+				case Constants.TILE_TYPE_BUILD_FORGE:
+					if(owner == Constants.CHAR_KENJI)
+						img = AssetsManager.Instance.Image_Icon_Forge_Kenji;
+					else if(owner != null)
+						img = AssetsManager.Instance.Image_Icon_Forge_En;
+					else
+						img = AssetsManager.Instance.Image_Icon_Forge_Neutral;
+					break;	
+				
+				// Units
+				case Constants.UNIT_TYPE_FARMER:
+					if(owner == Constants.CHAR_KENJI)
+						img = AssetsManager.Instance.Image_Icon_Farmer_Kenji;
+					else
+						img = AssetsManager.Instance.Image_Icon_Farmer_En;
 					break;
 				case Constants.UNIT_TYPE_SAMURAI:
-					img = AssetsManager.Instance.Image_Icon_Fort;	
+					if(owner == Constants.CHAR_KENJI)
+						img = AssetsManager.Instance.Image_Icon_Samurai_Kenji;
+					else
+						img = AssetsManager.Instance.Image_Icon_Samurai_En;
+					break;
+				case Constants.UNIT_TYPE_MONK:
+					if(owner == Constants.CHAR_KENJI)
+						img = AssetsManager.Instance.Image_Icon_Monk_Kenji;
+					else
+						img = AssetsManager.Instance.Image_Icon_Monk_En;
 					break;
 				
 				default:
-					img = AssetsManager.Instance.Image_Icon_Grass;	
+					img = AssetsManager.Instance.Image_Icon_Water;	
 					break;
 			}
 			
