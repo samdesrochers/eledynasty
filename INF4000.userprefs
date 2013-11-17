@@ -1,31 +1,34 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\GameObjects\Players\AIPlayer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\GameObjects\UI\GameUI.cs">
     <Files>
-      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="458" Column="44" />
-      <File FileName="INF4000\Classes\GameObjects\Players\AIPlayer.cs" Line="544" Column="57" />
+      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="528" Column="34" />
+      <File FileName="INF4000\Classes\GameObjects\Players\AIPlayer.cs" Line="31" Column="32" />
       <File FileName="INF4000\Classes\Util\Utilities.cs" Line="358" Column="105" />
       <File FileName="INF4000\Classes\GameObjects\GameUtilities\Path.cs" Line="79" Column="1" />
-      <File FileName="INF4000\Classes\Util\Constants.cs" Line="245" Column="39" />
+      <File FileName="INF4000\Classes\Util\Constants.cs" Line="46" Column="50" />
       <File FileName="INF4000\Classes\GameObjects\Units\Unit.cs" Line="293" Column="61" />
       <File FileName="INF4000\Classes\GameObjects\UI\ActionPanel.cs" Line="76" Column="39" />
       <File FileName="INF4000\Classes\GameObjects\Players\Player.cs" Line="81" Column="8" />
       <File FileName="INF4000\Classes\GameObjects\GameUtilities\BuildingUtil.cs" Line="143" Column="41" />
       <File FileName="INF4000\Audio\SoundManager.cs" Line="67" Column="7" />
+      <File FileName="INF4000\Classes\GameObjects\UI\StatsPanel.cs" Line="129" Column="27" />
+      <File FileName="INF4000\Assets\AssetsManager.cs" Line="168" Column="26" />
+      <File FileName="INF4000\Classes\GameObjects\UI\GameUI.cs" Line="63" Column="4" />
+      <File FileName="INF4000\Classes\Scenes\MenuScene.cs" Line="49" Column="20" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="INF4000" expanded="True">
-            <Node name="Audio" expanded="True" />
             <Node name="Classes" expanded="True">
               <Node name="GameObjects" expanded="True">
-                <Node name="GameUtilities" expanded="True" />
-                <Node name="Map" expanded="True" />
-                <Node name="Players" expanded="True">
-                  <Node name="AIPlayer.cs" selected="True" />
+                <Node name="Players" expanded="True" />
+                <Node name="UI" expanded="True">
+                  <Node name="GameUI.cs" selected="True" />
                 </Node>
               </Node>
+              <Node name="Scenes" expanded="True" />
             </Node>
           </Node>
         </State>

@@ -55,8 +55,8 @@ namespace INF4000
 			
 			Button_EndTurn = new Button();
             Button_EndTurn.IconImage = AssetsManager.Instance.Image_Button_EndTurn;
-			Button_EndTurn.Width = 114;
-            Button_EndTurn.Height = 56;
+			Button_EndTurn.Width = 107;
+            Button_EndTurn.Height = 53;
             Button_EndTurn.Alpha = 0.9f;
             Button_EndTurn.TouchEventReceived += GameScene.Instance.EndActivePlayerTurn;
 			Button_EndTurn.Visible = false;
@@ -218,7 +218,7 @@ namespace INF4000
 		
 		public void SetEndTurn_Right()
 		{
-			Button_EndTurn.SetPosition(800, 490);
+			Button_EndTurn.SetPosition(830, 490);
 		}
 	}
 }
