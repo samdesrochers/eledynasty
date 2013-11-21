@@ -581,7 +581,7 @@ namespace INF4000
 			state.Heuristic += GetUnitOnTileValue(t);
 			// state.Heuristic += GetBuildingOnTileValue_Attack(t);
 			state.Heuristic += GetAttackStatisticsValue(t, enemy);
-			state.Heuristic += GetCanAttackWithoutMovingValue(t, enemy);
+			state.Heuristic += GetCanAttackWithoutMovingValue(Utilities.GetTile(ActiveUnit.WorldPosition), enemy, state);
 			state.Heuristic += GetReachableThisTurnValue(state.Position, ActiveUnit.WorldPosition, ActiveUnit.Move_RadiusLeft);
 			state.Heuristic += (enemy.LifePoints < ActiveUnit.LifePoints) ? -5 : 0;
 		}
@@ -767,16 +767,16 @@ namespace INF4000
 		private int GetAttackStatisticsValue(Tile t, Unit enemy)
 		{
 			int statValue = 0;
-			statValue += (enemy.Armor >= ActiveUnit.Armor) ? 1 : -5;
-			statValue += (enemy.LifePoints > ActiveUnit.LifePoints) ? 1 : -20;
-			statValue += (enemy.AttackDamage >= ActiveUnit.AttackDamage) ? 8 : -10;
+			statValue += (enemy.Armor >= ActiveUnit.Armor) ? 1 : -2;
+			statValue += (enemy.LifePoints > ActiveUnit.LifePoints) ? 1 : -18;
+			statValue += (enemy.AttackDamage >= ActiveUnit.AttackDamage) ? 5 : -7;
 			return statValue;
 		}
 		
-		private int GetCanAttackWithoutMovingValue(Tile t, Unit enemy)
+		private int GetCanAttackWithoutMovingValue(Tile t, Unit enemy, AIState s)
 		{
-			if(t.AdjacentPositions.Any(a => a == enemy.WorldPosition))
-				return -20;
+			if(t.AdjacentPositions.Any(a => a == enemy.WorldPosition) && s.Position == ActiveUnit.WorldPosition)
+				return -15;
 			return 0;
 		}
 		
