@@ -16,6 +16,7 @@ namespace INF4000
 		 ***********************************/
 		public int MOVE_DISTANCE_TICK = Constants.PATH_STEP;
 		
+		public string UniqueId;
 		public string OwnerName;
 		public string Label;
 		public int Type;
@@ -68,6 +69,7 @@ namespace INF4000
 				TryReclaimBuilding();
 				TryCaptureBuilding();
 			}
+			IsActive = false;
 			Unselect();
 			Move_RadiusLeft = Move_MaxRadius;
 			HealthDisplay.Text = _LifePoints.ToString();
@@ -315,7 +317,7 @@ namespace INF4000
 					t.CurrentBuilding.PointsToCapture += this.LifePoints;
 					BuildingUtil.LastCapturedBuildings.Push(t.CurrentBuilding);
 				}
-				t.CurrentBuilding.PointsToCapture = (t.CurrentBuilding.PointsToCapture > 20) ? 20 : t.CurrentBuilding.PointsToCapture;
+				t.CurrentBuilding.PointsToCapture = (t.CurrentBuilding.PointsToCapture >= 20) ? 20 : t.CurrentBuilding.PointsToCapture;
 			}
 		}
 		

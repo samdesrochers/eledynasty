@@ -13,7 +13,20 @@ namespace INF4000
 	{
 		public int BuildingType;
 		public int TerrainType;
-		public Unit CurrentUnit;
+		
+		private Unit _CurrentUnit;
+		public Unit CurrentUnit
+		{
+			get { return _CurrentUnit; }
+			set 
+			{ 
+				if(value != null && _CurrentUnit != null && value.UniqueId != CurrentUnit.UniqueId)
+					Console.WriteLine("WTF YO");
+				_CurrentUnit = value;
+			}
+		}
+		
+		
 		public Building CurrentBuilding;
 		public int TileOwner;
 		public int BuildingTurnsToProduce;

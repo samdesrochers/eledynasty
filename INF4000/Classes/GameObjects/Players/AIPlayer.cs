@@ -57,6 +57,7 @@ namespace INF4000
 				}
 				waitTimer += dt;
 			} else if( AI_State == Constants.AI_STATE_UNIT_SELECTED ) {
+				AssignBehavior();
 				SetActions();
 			} else if( AI_State == Constants.AI_STATE_ACTIONS_PREPARED ) {
 				LaunchActionOnSelectedUnit();
@@ -92,8 +93,8 @@ namespace INF4000
 		private void BeginTurn()
 		{
 			GameScene.Instance.GameUI.SetNoneVisible();
-			Utilities.ShowAIPlayerPanel();
-			AssignBehavior();
+			Utilities.ShowAIPlayerPanel();		
+			
 			TryProduce();
 			AI_State = Constants.AI_STATE_WAITING;
 		}
@@ -111,6 +112,85 @@ namespace INF4000
 				this.ActiveUnit.AI_Actions = new Queue();
 				AI_State = Constants.AI_STATE_UNIT_SELECTED;
 			}
+		}
+		
+		private void FlushHeuristics()
+		{
+			foreach(Building b in Utilities.AI_GetEnemyBuildings())
+				b.Heuristic = 0;
+			
+			foreach(Unit u in Units)
+				u.Heuristic = 0;
+			
+			foreach(Unit u in Utilities.GetHumanPlayer().Units)
+				u.Heuristic = 0;
+		}
+		
+		private void AssignBehavior()
+		{
+			FlushHeuristics();
+							
+				ActiveUnit.Behavior = Constants.UNIT_AI_BEHAV_DECIDING;
+			
+				// Get decision Heuristics
+				List<Tuple<int,int>> heuristics = new List<Tuple<int, int>>();
+				Tuple<int,int> attack = new Tuple<int,int>(GetAttackDecisionHeuristic(), Constants.UNIT_AI_BEHAV_ATTACK);
+				Tuple<int,int> defend = new Tuple<int,int>(GetDefendDecisionHeuristic(), Constants.UNIT_AI_BEHAV_DEFEND);
+				Tuple<int,int> capture = new Tuple<int,int>(GetCaptureDecisionHeuristic(), Constants.UNIT_AI_BEHAV_CAPTURE);
+				
+				heuristics.Add(attack);
+				heuristics.Add(defend);
+				heuristics.Add(capture);
+				
+				
+				// Cap = 2, Def = 1, Att = 0
+				heuristics.Sort((x, y) => y.Item1.CompareTo(x.Item1));
+				Tuple<int,int> choice = heuristics.Last();
+				ActiveUnit.Behavior = choice.Item2;
+				
+				Console.WriteLine("Unit of type {0} chose to {1}", ActiveUnit.Type, choice.Item2);
+				
+//				if(AI_Behavior == Constants.AI_BEHAVIOR_DEFENSE) {
+//					if(u.Type == Constants.UNIT_TYPE_FARMER)
+//						u.Behavior = Constants.UNIT_AI_BEHAV_ATTACK;
+//					else if(u.Type == Constants.UNIT_TYPE_MONK)
+//						u.Behavior = Constants.UNIT_AI_BEHAV_CAPTURE;
+//					else if(u.Type == Constants.UNIT_TYPE_SAMURAI)
+//						u.Behavior = Constants.UNIT_AI_BEHAV_DEFEND;
+//				} else if(AI_Behavior == Constants.AI_BEHAVIOR_OFFENSE) {
+//					if(u.Type == Constants.UNIT_TYPE_FARMER)
+//						u.Behavior = Constants.UNIT_AI_BEHAV_DEFEND;
+//					else if(u.Type == Constants.UNIT_TYPE_MONK)
+//						u.Behavior = Constants.UNIT_AI_BEHAV_CAPTURE;
+//					else if(u.Type == Constants.UNIT_TYPE_SAMURAI)
+//						u.Behavior = Constants.UNIT_AI_BEHAV_ATTACK;
+//					
+//					
+//				} else if(AI_Behavior == Constants.AI_BEHAVIOR_ALL_OFFENSE_DEBUG) {
+//					if(u.Type == Constants.UNIT_TYPE_FARMER)
+//						u.Behavior = Constants.UNIT_AI_BEHAV_ATTACK;
+//					else if(u.Type == Constants.UNIT_TYPE_MONK)
+//						u.Behavior = Constants.UNIT_AI_BEHAV_ATTACK;
+//					else if(u.Type == Constants.UNIT_TYPE_SAMURAI)
+//						u.Behavior = Constants.UNIT_AI_BEHAV_ATTACK;
+//				} else if(AI_Behavior == Constants.AI_BEHAVIOR_ALL_DEFENSE_DEBUG) {
+//					if(u.Type == Constants.UNIT_TYPE_FARMER)
+//						u.Behavior = Constants.UNIT_AI_BEHAV_CAPTURE;
+//					else if(u.Type == Constants.UNIT_TYPE_MONK)
+//						u.Behavior = Constants.UNIT_AI_BEHAV_DEFEND;
+//					else if(u.Type == Constants.UNIT_TYPE_SAMURAI)
+//						u.Behavior = Constants.UNIT_AI_BEHAV_CAPTURE;
+//				} else if(AI_Behavior == Constants.AI_BEHAVIOR_ALL_CAPTURE_DEBUG) {
+//					if(u.Type == Constants.UNIT_TYPE_FARMER)
+//						u.Behavior = Constants.UNIT_AI_BEHAV_CAPTURE;
+//					else if(u.Type == Constants.UNIT_TYPE_MONK)
+//						u.Behavior = Constants.UNIT_AI_BEHAV_CAPTURE;
+//					else if(u.Type == Constants.UNIT_TYPE_SAMURAI)
+//						u.Behavior = Constants.UNIT_AI_BEHAV_CAPTURE;
+//				}
+			
+			
+			FlushHeuristics();
 		}
 		
 		private void SetActions()
@@ -301,7 +381,7 @@ namespace INF4000
 		
 		#endregion	
 		
-		#region AI Inner Methodd
+		#region AI Inner Method
 		
 		private void FinalizeMovePreparation()
 		{
@@ -493,52 +573,6 @@ namespace INF4000
 			}
 		}
 		
-		private void AssignBehavior()
-		{
-			// Should decide dynamically which individual AI behavior to use
-			foreach(Unit u in Units)
-			{
-				if(AI_Behavior == Constants.AI_BEHAVIOR_DEFENSE) {
-					if(u.Type == Constants.UNIT_TYPE_FARMER)
-						u.Behavior = Constants.UNIT_AI_BEHAV_ATTACK;
-					else if(u.Type == Constants.UNIT_TYPE_MONK)
-						u.Behavior = Constants.UNIT_AI_BEHAV_CAPTURE;
-					else if(u.Type == Constants.UNIT_TYPE_SAMURAI)
-						u.Behavior = Constants.UNIT_AI_BEHAV_DEFEND;
-				} else if(AI_Behavior == Constants.AI_BEHAVIOR_OFFENSE) {
-					if(u.Type == Constants.UNIT_TYPE_FARMER)
-						u.Behavior = Constants.UNIT_AI_BEHAV_DEFEND;
-					else if(u.Type == Constants.UNIT_TYPE_MONK)
-						u.Behavior = Constants.UNIT_AI_BEHAV_CAPTURE;
-					else if(u.Type == Constants.UNIT_TYPE_SAMURAI)
-						u.Behavior = Constants.UNIT_AI_BEHAV_ATTACK;
-					
-					
-				} else if(AI_Behavior == Constants.AI_BEHAVIOR_ALL_OFFENSE_DEBUG) {
-					if(u.Type == Constants.UNIT_TYPE_FARMER)
-						u.Behavior = Constants.UNIT_AI_BEHAV_ATTACK;
-					else if(u.Type == Constants.UNIT_TYPE_MONK)
-						u.Behavior = Constants.UNIT_AI_BEHAV_ATTACK;
-					else if(u.Type == Constants.UNIT_TYPE_SAMURAI)
-						u.Behavior = Constants.UNIT_AI_BEHAV_ATTACK;
-				} else if(AI_Behavior == Constants.AI_BEHAVIOR_ALL_DEFENSE_DEBUG) {
-					if(u.Type == Constants.UNIT_TYPE_FARMER)
-						u.Behavior = Constants.UNIT_AI_BEHAV_CAPTURE;
-					else if(u.Type == Constants.UNIT_TYPE_MONK)
-						u.Behavior = Constants.UNIT_AI_BEHAV_DEFEND;
-					else if(u.Type == Constants.UNIT_TYPE_SAMURAI)
-						u.Behavior = Constants.UNIT_AI_BEHAV_CAPTURE;
-				} else if(AI_Behavior == Constants.AI_BEHAVIOR_ALL_CAPTURE_DEBUG) {
-					if(u.Type == Constants.UNIT_TYPE_FARMER)
-						u.Behavior = Constants.UNIT_AI_BEHAV_CAPTURE;
-					else if(u.Type == Constants.UNIT_TYPE_MONK)
-						u.Behavior = Constants.UNIT_AI_BEHAV_CAPTURE;
-					else if(u.Type == Constants.UNIT_TYPE_SAMURAI)
-						u.Behavior = Constants.UNIT_AI_BEHAV_CAPTURE;
-				}
-			}
-		}
-		
 		private void AssignAttackHeuristic(AIState state, Unit enemy)
 		{	
 			// Remember : we want to minimize the heuristic value
@@ -549,6 +583,7 @@ namespace INF4000
 			state.Heuristic += GetAttackStatisticsValue(t, enemy);
 			state.Heuristic += GetCanAttackWithoutMovingValue(t, enemy);
 			state.Heuristic += GetReachableThisTurnValue(state.Position, ActiveUnit.WorldPosition, ActiveUnit.Move_RadiusLeft);
+			state.Heuristic += (enemy.LifePoints < ActiveUnit.LifePoints) ? -5 : 0;
 		}
 		
 		private int AssignAttackAndCaptureHeuristic(Vector2i pos)
@@ -556,6 +591,130 @@ namespace INF4000
 			// Remember : we want to minimize the heuristic value
 			Tile t = Utilities.GetTile(pos);
 			return GetBuildingOnTileValue_Attack(t);
+		}
+		
+		private int GetCaptureDecisionHeuristic()
+		{
+			int heuristic = 0;
+			
+			// Check if other units are set to capture
+			int counter = 0;
+			foreach(Unit u in Units)
+				if(u.Behavior == Constants.UNIT_AI_BEHAV_CAPTURE)
+					counter ++;
+			
+			int toCapture = (counter > 2) ? 10 : -5;
+			
+			// Check for active unit type
+			int activeType = 0;
+			if(ActiveUnit.Type == Constants.UNIT_TYPE_FARMER)
+					activeType = -1;
+			if(ActiveUnit.Type == Constants.UNIT_TYPE_MONK)
+					activeType = -8;
+			if(ActiveUnit.Type == Constants.UNIT_TYPE_SAMURAI)
+					activeType = -3;
+			
+			// Check for shortest distance to any building
+			int bHeuristic = 0;
+			List<int> distances = new List<int>();
+			foreach(Building b in Utilities.AI_GetEnemyBuildings())
+			{
+				b.Heuristic = GetDistanceValue(b.WorldPosition, ActiveUnit.WorldPosition);
+				if(b.Type == Constants.BUILD_FORT)
+					if(Utilities.GetTile(b.WorldPosition).CurrentUnit == null)
+						b.Heuristic += -5;
+				distances.Add(b.Heuristic);
+			}
+			distances.Sort();
+			bHeuristic = distances.First();
+			
+			heuristic = toCapture + activeType + bHeuristic;
+			return heuristic;
+		}
+		
+		private int GetAttackDecisionHeuristic()
+		{
+			int heuristic = 0;
+			
+			// Check if other units are set to attack
+			int counter = 0;
+			foreach(Unit u in Units)
+				if(u.Behavior == Constants.UNIT_AI_BEHAV_ATTACK)
+					counter ++;
+			
+			int toCapture = (counter > 4) ? 5 : -5;
+			
+			// Check for active unit type
+			int activeType = 0;
+			if(ActiveUnit.Type == Constants.UNIT_TYPE_FARMER)
+					activeType = -14;
+			if(ActiveUnit.Type == Constants.UNIT_TYPE_MONK)
+					activeType = -9;
+			if(ActiveUnit.Type == Constants.UNIT_TYPE_SAMURAI)
+					activeType = -10;
+			
+			// Check for shortest distance to any building
+			int unitH = 0;
+			List<int> unitHs = new List<int>();
+			foreach(Unit u in Utilities.GetHumanPlayer().Units)
+			{
+				u.Heuristic = GetDistanceValue(u.WorldPosition, ActiveUnit.WorldPosition);
+				u.Heuristic += (u.LifePoints < ActiveUnit.LifePoints) ? -8 : 0;
+				unitHs.Add(u.Heuristic);
+			}
+			unitHs.Sort();
+			unitH = unitHs.First();
+			
+			heuristic = toCapture + activeType + unitH;
+			return heuristic;
+		}
+		
+		private int GetDefendDecisionHeuristic()
+		{
+			int heuristic = 0;
+			
+			// Check if other units are set to defend
+			int counter = 0;
+			foreach(Unit u in Units)
+				if(u.Behavior == Constants.UNIT_AI_BEHAV_DEFEND)
+					counter ++;
+			
+			int toCapture = (counter > 2) ? 10 : -5;
+			
+			// Check if fort is defended
+			foreach(Building b in Buildings) {
+				if(b.Type == Constants.BUILD_FORT) {
+					if(Utilities.GetTile(b.WorldPosition).CurrentUnit == null) {
+						heuristic += -8;
+					} else if (Utilities.GetTile(b.WorldPosition).CurrentUnit != null && ActiveUnit.WorldPosition == b.WorldPosition) {
+						heuristic += -20;
+					}
+					break;
+				}
+			}
+			
+			// Check for active unit type
+			int activeType = 0;
+			if(ActiveUnit.Type == Constants.UNIT_TYPE_FARMER)
+					activeType = -1;
+			if(ActiveUnit.Type == Constants.UNIT_TYPE_MONK)
+					activeType = -3;
+			if(ActiveUnit.Type == Constants.UNIT_TYPE_SAMURAI)
+					activeType = -4;
+			
+			// Check for shortest distance to any building
+			int shortestDistance = 0;
+			List<int> distances = new List<int>();
+			foreach(Building b in Buildings)
+			{
+				b.Heuristic = GetDistanceValue(b.WorldPosition, ActiveUnit.WorldPosition);
+				distances.Add(b.Heuristic);
+			}
+			distances.Sort();
+			shortestDistance = distances.First();
+			
+			heuristic = toCapture + activeType + shortestDistance;
+			return heuristic;
 		}
 		
 		#endregion
@@ -607,8 +766,11 @@ namespace INF4000
 		
 		private int GetAttackStatisticsValue(Tile t, Unit enemy)
 		{
-			return - ( ActiveUnit.AttackDamage + ActiveUnit.LifePoints + ActiveUnit.Armor 
-			              - ( enemy.LifePoints + enemy.AttackDamage + t.Defense + enemy.Armor) );
+			int statValue = 0;
+			statValue += (enemy.Armor >= ActiveUnit.Armor) ? 1 : -5;
+			statValue += (enemy.LifePoints > ActiveUnit.LifePoints) ? 1 : -20;
+			statValue += (enemy.AttackDamage >= ActiveUnit.AttackDamage) ? 8 : -10;
+			return statValue;
 		}
 		
 		private int GetCanAttackWithoutMovingValue(Tile t, Unit enemy)
@@ -642,7 +804,7 @@ namespace INF4000
 		{
 			switch(building.Type) {
 				case Constants.BUILD_FARM 	: return -3;
-				case Constants.BUILD_FORT 	: return -8;
+				case Constants.BUILD_FORT 	: return -15;
 				case Constants.BUILD_FORGE 	: return -5;
 				case Constants.BUILD_TEMPLE : return -4;
 			}

@@ -12,6 +12,7 @@ namespace INF4000
 	{
 		public Samurai (int moves, int lifePoints, int posX, int posY)
 		{
+			UniqueId = Guid.NewGuid().ToString();
 			IsSelected = false;
 			this.Label = "Samurai";
 			this.Path = new Path();

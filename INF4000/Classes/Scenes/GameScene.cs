@@ -283,9 +283,11 @@ namespace INF4000
 				if(diffTopY <= 0) {
 					camera.Center = new Vector2(camera.Center.X, topLimitY + diffTopY - 64);
 				}
-				if(uPos.X <= leftCameraX && leftCameraX < 960/2) {
+				if(uPos.X <= leftCameraX && leftCameraX <= 960/2) {
 					camera.Center = new Vector2(960/2, camera.Center.Y);
 				}
+				if(topCameraY >= topLimitY)
+					camera.Center = new Vector2(camera.Center.X, topLimitY - 544/2);
 			}			
 		}
 		
@@ -307,7 +309,7 @@ namespace INF4000
 			float mapHeigth = CurrentMap.Height * 64;
 			
 			float delimiterRight = newCamCenter.X + 960/2;
-			float delimiterLeft= newCamCenter.X - 960/2;
+			float delimiterLeft = newCamCenter.X - 960/2;
 			float delimiterUp = newCamCenter.Y + 544/2;
 			float delimiterDown = newCamCenter.Y - 544/2;
 			
@@ -320,9 +322,9 @@ namespace INF4000
 				camera.Center = new Vector2(480, camera.Center.Y);
 			}
 			
-			if(delimiterUp > mapHeigth) {
-				float diff = mapHeigth - delimiterUp;
-				camera.Center = new Vector2(camera.Center.X, newCamCenter.Y + diff);
+			if(delimiterUp >= mapHeigth) {
+
+				camera.Center = new Vector2(camera.Center.X, delimiterUp - 544/2);
 			}
 			
 			if(newCamCenter.Y < 544/2) {
@@ -684,8 +686,9 @@ namespace INF4000
 			
 			// Right Bumper Pressed
 			if (Input2.GamePad.GetData (0).R.Release) 
-			{ 
-				Utilities.CycleThroughUnits();
+			{   
+				if(this.CurrentGameState == Constants.GAME_STATE_SELECTION_INACTIVE)
+					Utilities.CycleThroughUnits();
 			}
 			
 			// Sqaure Pressed

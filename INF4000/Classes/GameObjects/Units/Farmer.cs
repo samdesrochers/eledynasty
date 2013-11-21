@@ -12,6 +12,7 @@ namespace INF4000
 	{
 		public Farmer (int moves, int lifePoints, int posX, int posY)
 		{
+			UniqueId = Guid.NewGuid().ToString();
 			IsSelected = false;
 			this.Label = "Farmer";
 			this.Path = new Path();

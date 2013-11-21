@@ -26,7 +26,7 @@ namespace INF4000
 			ContestedTile = targetTile;
 			AttackerOriginTile = originTile;
 			
-			Utilities.RemoveUnitFromTileByPosition(GameScene.Instance.ActivePlayer.ActiveUnit.Path.Origin);
+			
 		}
 		
 		public void ComputeDamagePercantages()
@@ -98,6 +98,8 @@ namespace INF4000
 		
 		public void ExecuteCombatOutcome()
 		{
+			Utilities.RemoveUnitFromTileByPosition(GameScene.Instance.ActivePlayer.ActiveUnit.Path.Origin);
+			
 			switch(CombatEndState)
 			{
 			case Constants.BATTLE_END_ATTACKER_TOTALWIN:

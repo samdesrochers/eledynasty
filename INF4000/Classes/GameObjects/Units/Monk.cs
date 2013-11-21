@@ -12,6 +12,7 @@ namespace INF4000
 	{
 		public Monk (int moves, int lifePoints, int posX, int posY)
 		{
+			UniqueId = Guid.NewGuid().ToString();
 			IsSelected = false;
 			this.Label = "Monk";
 			this.Path = new Path();

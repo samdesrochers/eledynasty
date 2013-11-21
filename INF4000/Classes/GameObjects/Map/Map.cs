@@ -46,8 +46,14 @@ namespace INF4000
 		
 		public void Update ()
 		{
-			foreach (Tile t in Tiles)
-				t.Update ();
+			foreach(Player p in GameScene.Instance.Players) {
+				foreach(Unit u in p.Units)
+				{
+					Tile t = Utilities.GetTile(u.WorldPosition);
+					if(t.CurrentUnit == null && !u.IsActive)
+						Console.WriteLine("MAP INTEGRITY ERROR");
+				}
+			}		
 		}
 		
 		private void LoadTerrainGraphics ()

@@ -151,6 +151,7 @@ namespace INF4000
 		public const int UNIT_AI_BEHAV_ATTACK 	= 0;
 		public const int UNIT_AI_BEHAV_DEFEND 	= 1;
 		public const int UNIT_AI_BEHAV_CAPTURE 	= 2;
+		public const int UNIT_AI_BEHAV_DECIDING = 9;
 
 		/*******************************
 		 * 	PATH CONSTANTS

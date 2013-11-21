@@ -24,14 +24,17 @@ namespace INF4000
 		public static void AssignUnitToTileByPosition(Vector2i unitPos, Unit unit)
 		{					
 			Tile t = GameScene.Instance.CurrentMap.Tiles[unitPos.Y, unitPos.X];
-			t.CurrentUnit = unit;		
+			t.CurrentUnit = unit;	
+			Console.WriteLine("Assigned unit from tile at : {0}, {1}", unitPos.X, unitPos.Y);
 		}
 		
 		public static void RemoveUnitFromTileByPosition(Vector2i unitPos)
 		{					
 			Tile t = GameScene.Instance.CurrentMap.Tiles[unitPos.Y, unitPos.X];
-			if(t.CurrentUnit != null)
-				t.CurrentUnit = null;		
+			if(t.CurrentUnit != null) {
+				t.CurrentUnit = null;
+				Console.WriteLine("Removed unit from tile at : {0}, {1}", unitPos.X, unitPos.Y);
+			}
 		}
 		
 		public static void AssignMovePathToActiveUnit(Path path)
