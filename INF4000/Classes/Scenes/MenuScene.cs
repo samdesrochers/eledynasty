@@ -87,8 +87,10 @@ namespace INF4000
 				Tween.Alpha += dt;
 				if(Tween.Alpha >= 1) {
 					State = Constants.OV_STATE_IDLE;
-					if(OverworldScene.Instance != null)
-                		Director.Instance.ReplaceScene( OverworldScene.Instance );
+					if(CinematicScene.Instance != null)
+                		Director.Instance.ReplaceScene( CinematicScene.Instance );
+//					if(OverworldScene.Instance != null)
+//                		Director.Instance.ReplaceScene( OverworldScene.Instance );
 				}			
 			}
         }

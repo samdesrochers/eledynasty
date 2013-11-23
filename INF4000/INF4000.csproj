@@ -82,6 +82,9 @@
     <Compile Include="Classes\GameObjects\GameUtilities\BattleViewer.cs" />
     <Compile Include="Classes\GameObjects\Map\Building.cs" />
     <Compile Include="Classes\GameObjects\GameUtilities\Cursor.cs" />
+    <Compile Include="Classes\Scenes\CinematicScene.cs" />
+    <Compile Include="Classes\CinematicObjects\CinematicNode.cs" />
+    <Compile Include="Classes\CinematicObjects\CinematicUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -117,6 +120,7 @@
     <Folder Include="Classes\OverworldObjects\UI\" />
     <Folder Include="Classes\Util\" />
     <Folder Include="Assets\UI\Tutorial\" />
+    <Folder Include="Classes\CinematicObjects\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="MapFiles\defaultMap.txt" />
