@@ -256,12 +256,12 @@ namespace INF4000
 		public const float CURSOR_TICK_TIME	= 0.15f;
 		
 		/*******************************
-		 * 	OVERWORLD CONSTANTS
+		 * 	GENERAL SCENES CONSTANTS
 		 * *****************************/
-		public const int OV_STATE_IDLE	= 0;
-		public const int OV_STATE_STARTING_GAME		= 1;
-		public const int OV_STATE_ENTERING_SCENE	= 2;
-		public const int OV_STATE_SWITCHING_LEVEL	= 3;
+		public const int GN_STATE_IDLE	= 0;
+		public const int GN_STATE_STARTING_GAME		= 1;
+		public const int GN_STATE_ENTERING_SCENE	= 2;
+		public const int GN_STATE_SWITCHING_LEVEL	= 3;
 		
 		/*******************************
 		 * 	AVATAR CONSTANTS
@@ -269,8 +269,15 @@ namespace INF4000
 		public const int AVATAR_DIRECTION_UP		= 0;
 		public const int AVATAR_DIRECTION_LEFT		= 1;
 		public const int AVATAR_DIRECTION_RIGHT		= 2;
-
-
+				
+		/*******************************
+		 * 	CINEMATICS CONSTANTS
+		 * *****************************/
+		public const int CINE_TRAN_TO_CINE 	= 0;
+		public const int CINE_TRAN_TO_GAME 	= 1;
+		
+		public const int CINE_EFFECT_PAN 	= 0;
+		public const int CINE_EFFECT_ZOOM 	= 1;
 	}
 }
 

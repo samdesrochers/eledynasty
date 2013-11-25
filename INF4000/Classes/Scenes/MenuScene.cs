@@ -26,7 +26,7 @@ namespace INF4000
             dialog.Width = Director.Instance.GL.Context.GetViewport().Width;
             dialog.Height = Director.Instance.GL.Context.GetViewport().Height;
 			
-			State = Constants.OV_STATE_IDLE;
+			State = Constants.GN_STATE_IDLE;
             
             ImageBox ImageBox = new ImageBox();
             ImageBox.Width = dialog.Width;
@@ -53,7 +53,7 @@ namespace INF4000
 			{
 				Button_Play.Alpha = 0.2f;
 				dialog.AddChildLast(Tween);
-				State = Constants.OV_STATE_STARTING_GAME;
+				State = Constants.GN_STATE_STARTING_GAME;
             };
             
             Button Button_Title = new Button();
@@ -82,11 +82,11 @@ namespace INF4000
             base.Update (dt);
             UISystem.Update(Touch.GetData(0));
 			
-			if(State == Constants.OV_STATE_STARTING_GAME)
+			if(State == Constants.GN_STATE_STARTING_GAME)
 			{
 				Tween.Alpha += dt;
 				if(Tween.Alpha >= 1) {
-					State = Constants.OV_STATE_IDLE;
+					State = Constants.GN_STATE_IDLE;
 					if(CinematicScene.Instance != null)
                 		Director.Instance.ReplaceScene( CinematicScene.Instance );
 //					if(OverworldScene.Instance != null)

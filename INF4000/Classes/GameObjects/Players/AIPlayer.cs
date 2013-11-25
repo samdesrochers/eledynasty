@@ -768,8 +768,8 @@ namespace INF4000
 		{
 			int statValue = 0;
 			statValue += (enemy.Armor >= ActiveUnit.Armor) ? 1 : -2;
-			statValue += (enemy.LifePoints > ActiveUnit.LifePoints) ? 1 : -18;
-			statValue += (enemy.AttackDamage >= ActiveUnit.AttackDamage) ? 5 : -7;
+			statValue += (enemy.LifePoints > ActiveUnit.LifePoints) ? 5 : -15;
+			statValue += (enemy.AttackDamage >= ActiveUnit.AttackDamage) ? 4 : -5;
 			return statValue;
 		}
 		

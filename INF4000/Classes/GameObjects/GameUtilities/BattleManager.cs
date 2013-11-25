@@ -98,7 +98,7 @@ namespace INF4000
 		
 		public void ExecuteCombatOutcome()
 		{
-			Utilities.RemoveUnitFromTileByPosition(GameScene.Instance.ActivePlayer.ActiveUnit.WorldPosition);
+			Utilities.RemoveUnitFromTileById(GameScene.Instance.ActivePlayer.ActiveUnit.UniqueId);
 			
 			switch(CombatEndState)
 			{

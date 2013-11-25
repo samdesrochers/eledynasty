@@ -41,7 +41,7 @@ namespace INF4000
 			Console.WriteLine("CREATING OVERWORLD SCENE");
 			_Instance = this;
 						
-			State = Constants.OV_STATE_ENTERING_SCENE;
+			State = Constants.GN_STATE_ENTERING_SCENE;
 			this.Camera.SetViewFromViewport ();
 
 			// Load the Assets
@@ -71,7 +71,7 @@ namespace INF4000
 		{
 			SoundManager.Instance.PlayOverworldSong();
 			OVUI.BlackTween.Alpha = 0;
-			State = Constants.OV_STATE_IDLE;
+			State = Constants.GN_STATE_IDLE;
 			OVUI.Show();
 			Scheduler.Instance.ScheduleUpdateForTarget (this, 0, false);
 		}
@@ -87,16 +87,16 @@ namespace INF4000
 			base.Update (dt);		
 			
 			switch(State) {
-				case Constants.OV_STATE_IDLE:
+				case Constants.GN_STATE_IDLE:
 					UpdateIdle(dt);
 					break;
-				case Constants.OV_STATE_STARTING_GAME:
+				case Constants.GN_STATE_STARTING_GAME:
 					UpdateStartingGame(dt);
 					break;
-				case Constants.OV_STATE_ENTERING_SCENE:
+				case Constants.GN_STATE_ENTERING_SCENE:
 					UpdateEnteringGame(dt);
 					break;
-				case Constants.OV_STATE_SWITCHING_LEVEL:
+				case Constants.GN_STATE_SWITCHING_LEVEL:
 					UpdateSwitchingLevel(dt);
 					break;
 			}		
@@ -107,7 +107,7 @@ namespace INF4000
 			Avatar.Update(dt);
 			
 			if (Input2.GamePad.GetData (0).Cross.Release || Input2.GamePad.GetData (0).Start.Release ) {
-				State = Constants.OV_STATE_STARTING_GAME;
+				State = Constants.GN_STATE_STARTING_GAME;
 			}
 			
 			if( Input2.GamePad.GetData (0).Left.Release ) {
@@ -154,14 +154,14 @@ namespace INF4000
 		{
 			OVUI.UpdateSceneEntering(dt);
 			if(OVUI.WhiteTween.Alpha <= 0)
-				State = Constants.OV_STATE_IDLE;
+				State = Constants.GN_STATE_IDLE;
 		}
 		
 		public void UpdateSwitchingLevel(float dt) 
 		{
 			Avatar.Update(dt);
 			if(Avatar.Position.X == SelectedLevel.Position.X && Avatar.Position.Y == SelectedLevel.Position.Y)
-				State = Constants.OV_STATE_IDLE;
+				State = Constants.GN_STATE_IDLE;
 		}
 		
 		#region Utility Methods	     

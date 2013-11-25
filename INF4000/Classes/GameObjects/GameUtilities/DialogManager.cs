@@ -44,7 +44,7 @@ namespace INF4000
 				CurrentSequenceText += CurrentDialogSequence.Item2[CurrentCharIndex];
 				GameScene.Instance.DialogUI.Label_Text.Text = CurrentSequenceText;
 				
-				if(AnimationTime > 0.08f){
+				if(AnimationTime > 0.15f){
 					AnimationTime = 0;
 					SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_MOVE);
 				}

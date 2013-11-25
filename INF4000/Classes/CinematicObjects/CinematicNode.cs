@@ -11,15 +11,20 @@ namespace INF4000
 {
 	public class CinematicNode : SpriteUV
 	{
+		public int Transition;
+		public int Effect;
 		
 		public Texture2D Texture;
 		public TextureInfo TexInfo;
 		public SpriteTile SpriteTile;
 		
-		const float ratio = 1.5f;
+		const float ratio = 1.3f;
 		
-		public CinematicNode (string path)
+		public CinematicNode (string path, int trans, int effect)
 		{
+			Transition = trans;
+			Effect = effect;
+			
 			Quad.S = new Vector2(ratio * 960 , ratio * 544);
 			Position = new Vector2(0,0);		
 			

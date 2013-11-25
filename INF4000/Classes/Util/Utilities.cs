@@ -37,6 +37,17 @@ namespace INF4000
 			}
 		}
 		
+		public static void RemoveUnitFromTileById(string id)
+		{					
+			foreach(Tile t in GameScene.Instance.CurrentMap.ActiveTiles)
+			{
+				if(t.CurrentUnit != null && t.CurrentUnit.UniqueId == id) {
+					t.CurrentUnit = null;
+					Console.WriteLine("Removed unit from tile at : {0}, {1}", t.WorldPosition.X, t.WorldPosition.Y);
+				}
+			}
+		}
+		
 		public static void AssignMovePathToActiveUnit(Path path)
 		{
 			// Build Unit Path for move action

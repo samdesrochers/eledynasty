@@ -85,6 +85,7 @@
     <Compile Include="Classes\Scenes\CinematicScene.cs" />
     <Compile Include="Classes\CinematicObjects\CinematicNode.cs" />
     <Compile Include="Classes\CinematicObjects\CinematicUI.cs" />
+    <Compile Include="Classes\CinematicObjects\CinematicDialogManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -121,6 +122,7 @@
     <Folder Include="Classes\Util\" />
     <Folder Include="Assets\UI\Tutorial\" />
     <Folder Include="Classes\CinematicObjects\" />
+    <Folder Include="Assets\Cinematics\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="MapFiles\defaultMap.txt" />
@@ -208,5 +210,10 @@
     <Content Include="Assets\UI\Icons\trees_ico.png" />
     <Content Include="Assets\UI\Icons\water_ico.png" />
     <Content Include="Assets\UI\endturn_but.png" />
+    <Content Include="Assets\Cinematics\cine_elisia.png" />
+    <Content Include="Assets\Cinematics\cine_fire.png" />
+    <Content Include="Assets\Cinematics\cine_king.png" />
+    <Content Include="Assets\Cinematics\cine_throne.png" />
+    <Content Include="Audio\cine_intro.mp3" />
   </ItemGroup>
 </Project>

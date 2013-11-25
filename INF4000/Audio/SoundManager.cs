@@ -24,7 +24,7 @@ namespace INF4000
 		
 		public SoundPlayer SoundPlayer;
 		
-		private static  BgmPlayer SongPlayer;
+		private static BgmPlayer SongPlayer;
   		private static Bgm[] Songs;
 		
 		private Sound CursorMoved;

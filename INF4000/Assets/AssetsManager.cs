@@ -2,7 +2,6 @@ using System;
 using Sce.PlayStation.Core;
 using Sce.PlayStation.HighLevel.GameEngine2D;
 using Sce.PlayStation.HighLevel.GameEngine2D.Base;
-using Sce.PlayStation.Core.Audio;
 using Sce.PlayStation.Core.Input;
 using Sce.PlayStation.Core.Graphics;
 using Sce.PlayStation.Core.Imaging;
@@ -31,7 +30,10 @@ namespace INF4000
 		public UIFont XenoFont;
 		public UIFont XenoFont_24;
 		public UIFont XenoFont_36;
-
+		
+		
+		public Texture2D CinematicTexture;
+		public TextureInfo CinematicTextureInfo;
 		
 		public Texture2D CursorTexture;
 		public TextureInfo CursorTextureInfo;
@@ -125,6 +127,7 @@ namespace INF4000
 					XenoFont_24 = new UIFont("/Application/Assets/fonts/Xenogears_font.ttf", 24, FontStyle.Regular);
 					XenoFont_36 = new UIFont("/Application/Assets/fonts/Xenogears_font.ttf", 36, FontStyle.Regular);
 
+					CinematicTexture = new Texture2D ("/Application/Assets/Items/gameItems.png", false);
 					
 					// Cursor Textures
 					CursorTexture = new Texture2D ("/Application/Assets/Items/gameItems.png", false);

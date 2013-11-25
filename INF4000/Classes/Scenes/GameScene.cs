@@ -272,6 +272,7 @@ namespace INF4000
 		#region Camera Update methods
 		private void ResetCamera()
 		{
+			Console.WriteLine("Reseting Camera 1");
 			Camera2D camera = this.Camera as Camera2D;
 			if(this.ActivePlayer.Units[0] != null && ActivePlayer.IsHuman) {
 				float topLimitY = CurrentMap.Height * 64;
@@ -298,6 +299,7 @@ namespace INF4000
 		
 		public void UpdateCameraCycle()
 		{
+			Console.WriteLine("Cycling Camera 2");
 			if(ActivePlayer.ActiveUnit == null)
 				return;
 			
@@ -323,8 +325,7 @@ namespace INF4000
 			}
 			
 			if(delimiterUp >= mapHeigth) {
-
-				camera.Center = new Vector2(camera.Center.X, delimiterUp - 544/2);
+				camera.Center = new Vector2(camera.Center.X, mapHeigth - 544/2);
 			}
 			
 			if(newCamCenter.Y < 544/2) {
@@ -334,6 +335,7 @@ namespace INF4000
 		
 		public void UpdateCameraPositionByCursor ()
 		{
+			//Console.WriteLine("Updating By Cursor Camera 3");
 			Camera2D camera = this.Camera as Camera2D;
 			Vector2 pos = new Vector2(Cursor.WorldPosition.X * 64, Cursor.WorldPosition.Y * 64);
 
@@ -350,6 +352,7 @@ namespace INF4000
 		
 		public void UpdateCameraPositionBySelectedUnit ()
 		{
+			Console.WriteLine("Updating Camera By Selected Unit 1");
 			if(ActivePlayer.ActiveUnit == null)
 				return;
 			
