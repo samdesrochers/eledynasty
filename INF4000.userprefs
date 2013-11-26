@@ -1,22 +1,26 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\Scenes\CinematicScene.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Players\AIPlayer.cs">
     <Files>
-      <File FileName="INF4000\Classes\Scenes\CinematicScene.cs" Line="253" Column="51" />
-      <File FileName="INF4000\Classes\CinematicObjects\CinematicDialogManager.cs" Line="46" Column="22" />
-      <File FileName="INF4000\Assets\AssetsManager.cs" Line="123" Column="16" />
-      <File FileName="INF4000\Classes\CinematicObjects\CinematicUI.cs" Line="71" Column="33" />
-      <File FileName="INF4000\Audio\SoundManager.cs" Line="175" Column="4" />
+      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="363" Column="6" />
+      <File FileName="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Players\AIPlayer.cs" Line="508" Column="21" />
+      <File FileName="INF4000\Classes\Util\Constants.cs" Line="162" Column="45" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="INF4000" expanded="True">
             <Node name="Assets" expanded="True" />
-            <Node name="Audio" expanded="True" selected="True" />
+            <Node name="Audio" expanded="True" />
             <Node name="Classes" expanded="True">
-              <Node name="CinematicObjects" expanded="True" />
+              <Node name="GameObjects" expanded="True">
+                <Node name="GameUtilities" expanded="True" />
+                <Node name="Players" expanded="True">
+                  <Node name="AIPlayer.cs" selected="True" />
+                </Node>
+              </Node>
               <Node name="Scenes" expanded="True" />
+              <Node name="Util" expanded="True" />
             </Node>
           </Node>
         </State>
@@ -28,10 +32,8 @@
       <Breakpoint hitAction="PrintExpression" traceExpression="{candidate}" file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\GameUtilities\Path.cs" line="121" />
       <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Map\Tile.cs" line="24" />
       <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Map\Map.cs" line="54" />
-      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Util\Utilities.cs" line="36" />
-      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Players\AIPlayer.cs" line="421" />
-      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\CinematicScene.cs" line="16707662" />
-      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\CinematicScene.cs" line="78" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\CinematicScene.cs" line="16707659" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\CinematicScene.cs" line="220" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
@@ -57,7 +59,6 @@
     <Watch file="INF4000\Classes\Scenes\GameScene.cs" line="34" offsetX="309" offsetY="561" expression="CurrentMap" liveUpdate="False" />
     <Watch file="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Cursor.cs" line="46" offsetX="517" offsetY="765" expression="SelectedTile" liveUpdate="False" />
     <Watch file="INF4000\Classes\Scenes\GameScene.cs" line="292" offsetX="397" offsetY="4947" expression="t" liveUpdate="False" />
-    <Watch file="INF4000\Classes\Scenes\GameScene.cs" line="337" offsetX="717" offsetY="5712" expression="ActiveUnit" liveUpdate="False" />
     <Watch file="INF4000\Classes\GameObjects\BattleViewer.cs" line="81" offsetX="509" offsetY="1360" expression="TerrainSprite" liveUpdate="False" />
     <Watch file="INF4000\Classes\GameObjects\BattleViewer.cs" line="94" offsetX="517" offsetY="1581" expression="AttackerDamage" liveUpdate="False" />
     <Watch file="INF4000\Audio\SoundManager.cs" line="128" offsetX="517" offsetY="2159" expression="Songs" liveUpdate="False" />

@@ -105,7 +105,6 @@ namespace INF4000
 			GameScene.Instance.Cursor.MoveToTileByWorldPosition(GameScene.Instance.ActivePlayer.TargetUnit.WorldPosition);
 			GameScene.Instance.Cursor.TintToRed();
 			
-			// CALCULE LES ODDS AND SHNIZZLES (UTIL) Prepare Attack Panel
 			Utilities.ShowAttackOddsPanel();
 		}
 		

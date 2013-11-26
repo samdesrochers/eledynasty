@@ -104,7 +104,7 @@ namespace INF4000
 			bool produced = false;
 			Unit unit = null;
 			
-			if(t.CurrentUnit == null)
+			if(t.CurrentUnit == null && t.IsMoveValid)
 			{				
 				unit = Unit.CreateByType(unitTypeToProduce, 9000, 9000, t.WorldPosition.X, t.WorldPosition.Y); // Will ignore gigantic value
 				Utilities.AssignUnitToPlayerByName(unit, owner);
@@ -118,7 +118,7 @@ namespace INF4000
 				foreach(Vector2i v in t.AdjacentPositions)
 				{
 					Tile adj = Utilities.GetTile(v);
-					if(adj.CurrentUnit == null)
+					if(adj.CurrentUnit == null && t.IsMoveValid)
 					{
 						unit = Unit.CreateByType(unitTypeToProduce, 9000, 9000, adj.WorldPosition.X, adj.WorldPosition.Y); // Will ignore gigantic value
 						Utilities.AssignUnitToPlayerByName(unit, owner);
@@ -141,6 +141,8 @@ namespace INF4000
 				unit.Sleep();
 				Console.WriteLine("Unit produced : " + unit.Type + " at : Px=" + unit.WorldPosition.X + " Py=" + unit.WorldPosition.Y);
 				player.Gold -= this.GoldToProduce;
+			} else {
+				SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_CANCEL);
 			}
 			
 			CanProduceThisTurn = false;

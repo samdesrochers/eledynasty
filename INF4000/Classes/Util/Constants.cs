@@ -143,7 +143,7 @@ namespace INF4000
 		// Unit - Base number of Move Points  
 		public const int UNIT_MOVE_FARMER 	= 2;
 		public const int UNIT_MOVE_SAMURAI	= 2;
-		public const int UNIT_MOVE_MONK 	= 3;
+		public const int UNIT_MOVE_MONK 	= 113;
 		public const int UNIT_MOVE_KNIGHT 	= 9;
 		public const int UNIT_MOVE_WIZARD 	= 5;
 		

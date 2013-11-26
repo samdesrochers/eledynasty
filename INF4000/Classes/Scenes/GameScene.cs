@@ -272,7 +272,6 @@ namespace INF4000
 		#region Camera Update methods
 		private void ResetCamera()
 		{
-			Console.WriteLine("Reseting Camera 1");
 			Camera2D camera = this.Camera as Camera2D;
 			if(this.ActivePlayer.Units[0] != null && ActivePlayer.IsHuman) {
 				float topLimitY = CurrentMap.Height * 64;
@@ -299,7 +298,6 @@ namespace INF4000
 		
 		public void UpdateCameraCycle()
 		{
-			Console.WriteLine("Cycling Camera 2");
 			if(ActivePlayer.ActiveUnit == null)
 				return;
 			
@@ -335,24 +333,38 @@ namespace INF4000
 		
 		public void UpdateCameraPositionByCursor ()
 		{
-			//Console.WriteLine("Updating By Cursor Camera 3");
 			Camera2D camera = this.Camera as Camera2D;
-			Vector2 pos = new Vector2(Cursor.WorldPosition.X * 64, Cursor.WorldPosition.Y * 64);
-
-			if(pos.X >= 960/2 && pos.X <= CurrentMap.Width * 64 - (960/2) + 64) {
-				camera.Center = new Vector2 (Cursor.Position.X - 32, camera.Center.Y);
-			} 
+			Vector2 camCenter = camera.Center;
+			Vector2 newCamCenter = new Vector2(Cursor.WorldPosition.X * 64, Cursor.WorldPosition.Y * 64);
 			
-			if(pos.Y >= 544/2 && pos.Y <= CurrentMap.Height * 64 - (544/2) + 64) {
-				camera.Center = new Vector2 (camera.Center.X, Cursor.Position.Y  - 16);
-			} else if(pos.Y < 544/2) {
-				camera.Center = new Vector2 (camera.Center.X, 544/2);
+			float delimiterRight = newCamCenter.X + 960/2;
+			float delimiterLeft = newCamCenter.X - 960/2;
+			float delimiterUp = newCamCenter.Y + 544/2;
+			float delimiterDown = newCamCenter.Y - 544/2;
+			
+			float mapWidth = CurrentMap.Width * 64;
+			float mapHeigth = CurrentMap.Height * 64;
+			
+			if(delimiterRight > mapWidth) {
+				float diff = mapWidth - delimiterRight;
+				camera.Center = new Vector2(newCamCenter.X + diff, camera.Center.Y);
 			}
+			
+			if(newCamCenter.X < 480) {
+				camera.Center = new Vector2(480, camera.Center.Y);
+			}
+			
+			if(delimiterUp >= mapHeigth) {
+				camera.Center = new Vector2(camera.Center.X, mapHeigth - 544/2);
+			}
+			
+			if(newCamCenter.Y < 544/2) {
+				camera.Center = new Vector2(camera.Center.X, 544/2);
+			} 
 		}
 		
 		public void UpdateCameraPositionBySelectedUnit ()
 		{
-			Console.WriteLine("Updating Camera By Selected Unit 1");
 			if(ActivePlayer.ActiveUnit == null)
 				return;
 			

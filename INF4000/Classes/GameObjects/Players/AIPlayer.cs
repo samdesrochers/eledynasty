@@ -130,66 +130,23 @@ namespace INF4000
 		{
 			FlushHeuristics();
 							
-				ActiveUnit.Behavior = Constants.UNIT_AI_BEHAV_DECIDING;
+			ActiveUnit.Behavior = Constants.UNIT_AI_BEHAV_DECIDING;
+		
+			// Get decision Heuristics
+			List<Tuple<int,int>> heuristics = new List<Tuple<int, int>>();
+			Tuple<int,int> attack = new Tuple<int,int>(GetAttackDecisionHeuristic(), Constants.UNIT_AI_BEHAV_ATTACK);
+			Tuple<int,int> defend = new Tuple<int,int>(GetDefendDecisionHeuristic(), Constants.UNIT_AI_BEHAV_DEFEND);
+			Tuple<int,int> capture = new Tuple<int,int>(GetCaptureDecisionHeuristic(), Constants.UNIT_AI_BEHAV_CAPTURE);
 			
-				// Get decision Heuristics
-				List<Tuple<int,int>> heuristics = new List<Tuple<int, int>>();
-				Tuple<int,int> attack = new Tuple<int,int>(GetAttackDecisionHeuristic(), Constants.UNIT_AI_BEHAV_ATTACK);
-				Tuple<int,int> defend = new Tuple<int,int>(GetDefendDecisionHeuristic(), Constants.UNIT_AI_BEHAV_DEFEND);
-				Tuple<int,int> capture = new Tuple<int,int>(GetCaptureDecisionHeuristic(), Constants.UNIT_AI_BEHAV_CAPTURE);
+			heuristics.Add(attack);
+			heuristics.Add(defend);
+			heuristics.Add(capture);
+
+			// Cap = 2, Def = 1, Att = 0
+			heuristics.Sort((x, y) => y.Item1.CompareTo(x.Item1));
+			Tuple<int,int> choice = heuristics.Last();
+			ActiveUnit.Behavior = choice.Item2;
 				
-				heuristics.Add(attack);
-				heuristics.Add(defend);
-				heuristics.Add(capture);
-				
-				
-				// Cap = 2, Def = 1, Att = 0
-				heuristics.Sort((x, y) => y.Item1.CompareTo(x.Item1));
-				Tuple<int,int> choice = heuristics.Last();
-				ActiveUnit.Behavior = choice.Item2;
-				
-				Console.WriteLine("Unit of type {0} chose to {1}", ActiveUnit.Type, choice.Item2);
-				
-//				if(AI_Behavior == Constants.AI_BEHAVIOR_DEFENSE) {
-//					if(u.Type == Constants.UNIT_TYPE_FARMER)
-//						u.Behavior = Constants.UNIT_AI_BEHAV_ATTACK;
-//					else if(u.Type == Constants.UNIT_TYPE_MONK)
-//						u.Behavior = Constants.UNIT_AI_BEHAV_CAPTURE;
-//					else if(u.Type == Constants.UNIT_TYPE_SAMURAI)
-//						u.Behavior = Constants.UNIT_AI_BEHAV_DEFEND;
-//				} else if(AI_Behavior == Constants.AI_BEHAVIOR_OFFENSE) {
-//					if(u.Type == Constants.UNIT_TYPE_FARMER)
-//						u.Behavior = Constants.UNIT_AI_BEHAV_DEFEND;
-//					else if(u.Type == Constants.UNIT_TYPE_MONK)
-//						u.Behavior = Constants.UNIT_AI_BEHAV_CAPTURE;
-//					else if(u.Type == Constants.UNIT_TYPE_SAMURAI)
-//						u.Behavior = Constants.UNIT_AI_BEHAV_ATTACK;
-//					
-//					
-//				} else if(AI_Behavior == Constants.AI_BEHAVIOR_ALL_OFFENSE_DEBUG) {
-//					if(u.Type == Constants.UNIT_TYPE_FARMER)
-//						u.Behavior = Constants.UNIT_AI_BEHAV_ATTACK;
-//					else if(u.Type == Constants.UNIT_TYPE_MONK)
-//						u.Behavior = Constants.UNIT_AI_BEHAV_ATTACK;
-//					else if(u.Type == Constants.UNIT_TYPE_SAMURAI)
-//						u.Behavior = Constants.UNIT_AI_BEHAV_ATTACK;
-//				} else if(AI_Behavior == Constants.AI_BEHAVIOR_ALL_DEFENSE_DEBUG) {
-//					if(u.Type == Constants.UNIT_TYPE_FARMER)
-//						u.Behavior = Constants.UNIT_AI_BEHAV_CAPTURE;
-//					else if(u.Type == Constants.UNIT_TYPE_MONK)
-//						u.Behavior = Constants.UNIT_AI_BEHAV_DEFEND;
-//					else if(u.Type == Constants.UNIT_TYPE_SAMURAI)
-//						u.Behavior = Constants.UNIT_AI_BEHAV_CAPTURE;
-//				} else if(AI_Behavior == Constants.AI_BEHAVIOR_ALL_CAPTURE_DEBUG) {
-//					if(u.Type == Constants.UNIT_TYPE_FARMER)
-//						u.Behavior = Constants.UNIT_AI_BEHAV_CAPTURE;
-//					else if(u.Type == Constants.UNIT_TYPE_MONK)
-//						u.Behavior = Constants.UNIT_AI_BEHAV_CAPTURE;
-//					else if(u.Type == Constants.UNIT_TYPE_SAMURAI)
-//						u.Behavior = Constants.UNIT_AI_BEHAV_CAPTURE;
-//				}
-			
-			
 			FlushHeuristics();
 		}
 		
@@ -536,7 +493,33 @@ namespace INF4000
 		
 		private void TryProduce()
 		{
-			if(this.Gold >= 40) {
+			Random decider = new Random();
+			
+			int gamble = decider.Next(1,100);
+			bool shouldSpend = false;
+			
+			if(gamble > 80 && this.Gold > 10)
+				shouldSpend = true;
+			if(gamble > 50 && this.Gold > 20)
+				shouldSpend = true;
+			if(gamble > 20 && this.Gold > 40)
+				shouldSpend = true;		
+			
+			// Last Stand - Make it rain
+			foreach(Building b in Buildings) {
+				if(b.Type == Constants.BUILD_FORT) {
+					Tile t = Utilities.GetTile(b.WorldPosition);
+					foreach(Vector2i v in t.AdjacentPositions) {
+						Tile enemy = Utilities.GetTile(v);
+						if(enemy.CurrentUnit != null && enemy.CurrentUnit.OwnerName == Constants.CHAR_KENJI) {
+							shouldSpend = true;
+							break;
+						}						
+					}
+				}
+			}
+			
+			if(shouldSpend) {				
 				Building fort = Buildings[0]; // always first building
 				List<Building> farms = new List<Building>();
 				List<Building> temples = new List<Building>();
@@ -583,7 +566,6 @@ namespace INF4000
 			state.Heuristic += GetAttackStatisticsValue(t, enemy);
 			state.Heuristic += GetCanAttackWithoutMovingValue(Utilities.GetTile(ActiveUnit.WorldPosition), enemy, state);
 			state.Heuristic += GetReachableThisTurnValue(state.Position, ActiveUnit.WorldPosition, ActiveUnit.Move_RadiusLeft);
-			state.Heuristic += (enemy.LifePoints < ActiveUnit.LifePoints) ? -5 : 0;
 		}
 		
 		private int AssignAttackAndCaptureHeuristic(Vector2i pos)
@@ -610,7 +592,7 @@ namespace INF4000
 			if(ActiveUnit.Type == Constants.UNIT_TYPE_FARMER)
 					activeType = -1;
 			if(ActiveUnit.Type == Constants.UNIT_TYPE_MONK)
-					activeType = -8;
+					activeType = -10;
 			if(ActiveUnit.Type == Constants.UNIT_TYPE_SAMURAI)
 					activeType = -3;
 			
@@ -621,8 +603,8 @@ namespace INF4000
 			{
 				b.Heuristic = GetDistanceValue(b.WorldPosition, ActiveUnit.WorldPosition);
 				if(b.Type == Constants.BUILD_FORT)
-					if(Utilities.GetTile(b.WorldPosition).CurrentUnit == null)
-						b.Heuristic += -5;
+					if(Utilities.GetTile(b.WorldPosition).CurrentUnit == null )
+						b.Heuristic += 3*GetReachableThisTurnValue(b.WorldPosition, ActiveUnit.WorldPosition,ActiveUnit.Move_RadiusLeft);
 				distances.Add(b.Heuristic);
 			}
 			distances.Sort();
@@ -647,11 +629,12 @@ namespace INF4000
 			// Check for active unit type
 			int activeType = 0;
 			if(ActiveUnit.Type == Constants.UNIT_TYPE_FARMER)
-					activeType = -14;
-			if(ActiveUnit.Type == Constants.UNIT_TYPE_MONK)
-					activeType = -9;
-			if(ActiveUnit.Type == Constants.UNIT_TYPE_SAMURAI)
 					activeType = -10;
+			if(ActiveUnit.Type == Constants.UNIT_TYPE_MONK)
+					activeType = -6;
+			if(ActiveUnit.Type == Constants.UNIT_TYPE_SAMURAI)
+					activeType = -5;
+			
 			
 			// Check for shortest distance to any building
 			int unitH = 0;
@@ -660,6 +643,8 @@ namespace INF4000
 			{
 				u.Heuristic = GetDistanceValue(u.WorldPosition, ActiveUnit.WorldPosition);
 				u.Heuristic += (u.LifePoints < ActiveUnit.LifePoints) ? -8 : 0;
+				//Tile c = GetPlayerFort(this);
+				
 				unitHs.Add(u.Heuristic);
 			}
 			unitHs.Sort();
@@ -685,9 +670,9 @@ namespace INF4000
 			foreach(Building b in Buildings) {
 				if(b.Type == Constants.BUILD_FORT) {
 					if(Utilities.GetTile(b.WorldPosition).CurrentUnit == null) {
-						heuristic += -8;
+						heuristic += -10;
 					} else if (Utilities.GetTile(b.WorldPosition).CurrentUnit != null && ActiveUnit.WorldPosition == b.WorldPosition) {
-						heuristic += -20;
+						heuristic += -25;
 					}
 					break;
 				}
@@ -696,11 +681,11 @@ namespace INF4000
 			// Check for active unit type
 			int activeType = 0;
 			if(ActiveUnit.Type == Constants.UNIT_TYPE_FARMER)
-					activeType = -1;
+					activeType = -5;
 			if(ActiveUnit.Type == Constants.UNIT_TYPE_MONK)
-					activeType = -3;
+					activeType = -2;
 			if(ActiveUnit.Type == Constants.UNIT_TYPE_SAMURAI)
-					activeType = -4;
+					activeType = -7;
 			
 			// Check for shortest distance to any building
 			int shortestDistance = 0;
@@ -768,7 +753,7 @@ namespace INF4000
 		{
 			int statValue = 0;
 			statValue += (enemy.Armor >= ActiveUnit.Armor) ? 1 : -2;
-			statValue += (enemy.LifePoints > ActiveUnit.LifePoints) ? 5 : -15;
+			statValue += (enemy.LifePoints > ActiveUnit.LifePoints) ? 5 : -5;
 			statValue += (enemy.AttackDamage >= ActiveUnit.AttackDamage) ? 4 : -5;
 			return statValue;
 		}

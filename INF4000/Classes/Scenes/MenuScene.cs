@@ -1,5 +1,6 @@
 using System;
 using Sce.PlayStation.Core;
+using Sce.PlayStation.Core.Audio;
 using Sce.PlayStation.Core.Graphics;
 using Sce.PlayStation.Core.Input;
 using Sce.PlayStation.Core.Imaging;
@@ -22,6 +23,15 @@ namespace INF4000
         public MenuScene ()
         {
             this.Camera.SetViewFromViewport();
+			
+			try {
+				
+				// Load the Sounds
+				SoundManager.Instance.LoadSounds();
+				SoundManager.Instance.PlayMenuSong();
+				
+			} catch (Exception e) { Console.WriteLine("Error creating Audio in Menu Scene. {0}", e.Message); }
+			
             dialog = new Panel();
             dialog.Width = Director.Instance.GL.Context.GetViewport().Width;
             dialog.Height = Director.Instance.GL.Context.GetViewport().Height;
@@ -61,6 +71,7 @@ namespace INF4000
             Button_Title.Width = 316;
             Button_Title.Height = 110;
             Button_Title.Alpha = 0.8f;
+			Button_Title.IconImage = new ImageAsset("/Application/Assets/Title/tuto_but.png", false);
             Button_Title.SetPosition(dialog.Width/2 - Button_Play.Width/2, 380.0f);
             Button_Title.TouchEventReceived += (sender, e) => 
 			{
@@ -85,12 +96,14 @@ namespace INF4000
 			if(State == Constants.GN_STATE_STARTING_GAME)
 			{
 				Tween.Alpha += dt;
+				if(SoundManager.Instance.SongPlayer != null) SoundManager.Instance.SongPlayer.Volume -= 2*dt;
+				
 				if(Tween.Alpha >= 1) {
 					State = Constants.GN_STATE_IDLE;
-					if(CinematicScene.Instance != null)
+					if(CinematicScene.Instance != null) {
+						Dispose();
                 		Director.Instance.ReplaceScene( CinematicScene.Instance );
-//					if(OverworldScene.Instance != null)
-//                		Director.Instance.ReplaceScene( OverworldScene.Instance );
+					}
 				}			
 			}
         }
@@ -99,17 +112,12 @@ namespace INF4000
         {
             base.Draw();
             UISystem.Render ();
-        }
+        }	
 		
-		public override void OnExit ()
+		public void Dispose()
 		{
-			
+			this.Cleanup();
 		}
-        
-        ~MenuScene()
-        {
-
-        }
 	}
 }
 

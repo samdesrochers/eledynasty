@@ -423,3 +423,7 @@ C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-signed\Application\Assets\Cinematics\cine_throne.png
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-unsigned\Application\Audio\cine_intro.mp3
 C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-signed\Application\Audio\cine_intro.mp3
+C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-unsigned\Application\Assets\Title\tuto_but.png
+C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-signed\Application\Assets\Title\tuto_but.png
+C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-unsigned\Application\Audio\menu.mp3
+C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\bin\Debug\INF4000-signed\Application\Audio\menu.mp3

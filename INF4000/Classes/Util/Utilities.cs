@@ -255,6 +255,7 @@ namespace INF4000
 			u = GameScene.Instance.ActivePlayer.TargetUnits[nextIdx];
 			GameScene.Instance.ActivePlayer.TargetUnit = u;
 			GameScene.Instance.Cursor.MoveToTileByWorldPosition(u.WorldPosition);
+			GameScene.Instance.GameUI.OddsPanel.SetOdds(GetDefenderTakenDamage());
 		}
 		
 		public static void CycleEnemyUnitsLeft()
@@ -266,6 +267,7 @@ namespace INF4000
 			u = GameScene.Instance.ActivePlayer.TargetUnits[nextIdx];
 			GameScene.Instance.ActivePlayer.TargetUnit = u;
 			GameScene.Instance.Cursor.MoveToTileByWorldPosition(u.WorldPosition);
+			GameScene.Instance.GameUI.OddsPanel.SetOdds(GetDefenderTakenDamage());
 		}
 			
 		private static float GetDefenderTakenDamage()
@@ -403,6 +405,17 @@ namespace INF4000
 			tiles = GameScene.Instance.CurrentMap.ActiveTiles;
 			
 			return tiles;
+		}
+		
+		public static Tile GetPlayerFort(Player p)
+		{
+			foreach(Building b in p.Buildings)
+			{
+				Tile t = Utilities.GetTile(b.WorldPosition);
+				if(t != null && t.BuildingType == Constants.BUILD_FORT)
+					return t;
+			}
+			return null;
 		}
 		#endregion
 	}

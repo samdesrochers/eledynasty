@@ -215,5 +215,7 @@
     <Content Include="Assets\Cinematics\cine_king.png" />
     <Content Include="Assets\Cinematics\cine_throne.png" />
     <Content Include="Audio\cine_intro.mp3" />
+    <Content Include="Assets\Title\tuto_but.png" />
+    <Content Include="Audio\menu.mp3" />
   </ItemGroup>
 </Project>

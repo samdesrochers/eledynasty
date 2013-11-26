@@ -24,8 +24,8 @@ namespace INF4000
 		
 		public SoundPlayer SoundPlayer;
 		
-		private static BgmPlayer SongPlayer;
-  		private static Bgm[] Songs;
+		public BgmPlayer SongPlayer;
+  		private Bgm[] Songs;
 		
 		private Sound CursorMoved;
 		private Sound CursorSelect;
@@ -45,13 +45,15 @@ namespace INF4000
 			if(!Loaded){
 				try
 				{
-					Songs = new Bgm[6];
+					Songs = new Bgm[8];
 					Songs[1] = new Bgm("/Application/Audio/kenji_1.mp3");
 					Songs[0] = new Bgm("/Application/Audio/kenji_1.mp3");
 					Songs[2] = new Bgm("/Application/Audio/enemy_2.mp3");
 					Songs[3] = new Bgm("/Application/Audio/enemy_2.mp3");
 					Songs[4] = new Bgm("/Application/Audio/intro_map1.mp3");
 					Songs[5] = new Bgm("/Application/Audio/overworld_1.mp3");
+					Songs[6] = new Bgm("/Application/Audio/cine_intro.mp3");
+					Songs[7] = new Bgm("/Application/Audio/menu.mp3");
 					
 					CursorMoved = new Sound("/Application/Audio/Sound/cursor_move.wav");
 					CursorSelect = new Sound("/Application/Audio/Sound/selection_action.wav");
@@ -125,6 +127,27 @@ namespace INF4000
 			if(SongPlayer != null) SongPlayer.Dispose();
 			if(SoundEnabled){
 				SongPlayer = Songs[5].CreatePlayer();
+	   			SongPlayer.Play();
+				SongPlayer.Loop = true;
+			}
+		}
+		
+		public void PlayCinematicSong()
+		{
+			if(SongPlayer != null) SongPlayer.Dispose();
+			if(SoundEnabled){
+				SongPlayer = Songs[6].CreatePlayer();
+	   			SongPlayer.Play();
+				SongPlayer.Loop = true;
+				SongPlayer.Volume = 0;
+			}
+		}
+		
+		public void PlayMenuSong()
+		{
+			if(SongPlayer != null) SongPlayer.Dispose();
+			if(SoundEnabled){
+				SongPlayer = Songs[7].CreatePlayer();
 	   			SongPlayer.Play();
 				SongPlayer.Loop = true;
 			}

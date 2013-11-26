@@ -75,9 +75,7 @@ namespace INF4000
 			IsFadingOut = true;		
 			
 			try {
-				Song = new Bgm("/Application/Audio/cine_intro.mp3");
-				
-				PlaySong();
+				SoundManager.Instance.PlayCinematicSong();
 			} catch (Exception e) { Console.WriteLine("Error creating Audio in Cinematic Scene. {0}", e.Message); }
 			
 			CUI.Show();
@@ -220,35 +218,20 @@ namespace INF4000
 			this.Cleanup();
 			this.RemoveAllChildren(true);
 			
-			if(SongPlayer != null) {
-				SongPlayer.Stop();
-				SongPlayer.Dispose();
-			}
-			if(Song != null) Song.Dispose();
-			
 			_Instance = null;
 			Console.WriteLine("DELETING CINEMATIC SCENE");
 		}
 		
-		public void PlaySong()
-		{
-			if(SongPlayer != null) SongPlayer.Dispose();
-			SongPlayer = Song.CreatePlayer();
-   			SongPlayer.Play();
-			SongPlayer.Loop = true;	
-			SongPlayer.Volume = 0;
-		}
-		
 		public void SongFadeOut(float dt)
 		{
-			if(SongPlayer != null) SongPlayer.Volume -= 1.2f*dt;
-			if(SongPlayer != null && SongPlayer.Volume < 0) SongPlayer.Volume = 0;
+			if(SoundManager.Instance.SongPlayer != null) SoundManager.Instance.SongPlayer.Volume -= 1.2f*dt;
+			if(SoundManager.Instance.SongPlayer != null && SoundManager.Instance.SongPlayer.Volume < 0) SoundManager.Instance.SongPlayer.Volume = 0;
 		}
 		
 		public void SongFadeIn(float dt)
 		{
-			if(SongPlayer != null) SongPlayer.Volume += 1.5f*dt;
-			if(SongPlayer != null && SongPlayer.Volume > 1) SongPlayer.Volume = 1;
+			if(SoundManager.Instance.SongPlayer != null) SoundManager.Instance.SongPlayer.Volume += 1.3f*dt;
+			if(SoundManager.Instance.SongPlayer != null && SoundManager.Instance.SongPlayer.Volume > 1) SoundManager.Instance.SongPlayer.Volume = 1;
 		}
 		
 				
