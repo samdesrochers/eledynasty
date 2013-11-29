@@ -213,12 +213,12 @@ namespace INF4000
 		
 		public void SetEndTurn_Left()
 		{
-			Button_EndTurn.SetPosition(20, 490);
+			Button_EndTurn.SetPosition(20, 492);
 		}
 		
 		public void SetEndTurn_Right()
 		{
-			Button_EndTurn.SetPosition(830, 490);
+			Button_EndTurn.SetPosition(830, 492);
 		}
 	}
 }

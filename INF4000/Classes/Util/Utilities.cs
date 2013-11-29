@@ -39,7 +39,7 @@ namespace INF4000
 		
 		public static void RemoveUnitFromTileById(string id)
 		{					
-			foreach(Tile t in GameScene.Instance.CurrentMap.ActiveTiles)
+			foreach(Tile t in GameScene.Instance.CurrentMap.Tiles)
 			{
 				if(t.CurrentUnit != null && t.CurrentUnit.UniqueId == id) {
 					t.CurrentUnit = null;
@@ -123,6 +123,11 @@ namespace INF4000
 		public static void ShowDialogUI()
 		{
 			GameScene.Instance.DialogUI.SetActive();
+		}
+		
+		public static void ShowSpellsUI()
+		{
+			GameScene.Instance.SpellUI.SetActive();
 		}
 		
 		public static void ShowActionPanel()

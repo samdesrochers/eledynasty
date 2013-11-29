@@ -9,7 +9,6 @@ namespace INF4000
 {
 	public class DialogUI
 	{
-		
 		public Scene _UIScene;
 		public Panel MainPanel;
 	
@@ -81,7 +80,7 @@ namespace INF4000
 				Label_SpeakerName.Text = "-"+name+"-";
 			} else if (name == Constants.CHAR_HIMIKO) {
 				Image_Background_Speaker.Image = AssetsManager.Instance.Image_Dialog_Overlay_Blue;	
-				Image_Speaker.Image = AssetsManager.Instance.Image_Dialog_Kenji_1;
+				Image_Speaker.Image = AssetsManager.Instance.Image_Dialog_Himiko_1;
 				Label_SpeakerName.Text = "-"+name+"-";
 			}
 		}
@@ -92,7 +91,7 @@ namespace INF4000
 			SetSpeakerInfo(sequence.Item1);
 		}
 		
-		// Will set the dialog as active UI (overwrite the GameUI for ex.)
+		// Will set the dialog as active UI (overrides the GameUI for ex.)
 		public void SetActive()
 		{		
 			UISystem.SetScene(_UIScene);

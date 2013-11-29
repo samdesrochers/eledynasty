@@ -25,8 +25,6 @@ namespace INF4000
 			DefendingUnit = defender;
 			ContestedTile = targetTile;
 			AttackerOriginTile = originTile;
-			
-			
 		}
 		
 		public void ComputeDamagePercantages()
@@ -121,6 +119,9 @@ namespace INF4000
 					
 			AttackingUnit.MoveToAfterWin(ContestedTile.WorldPosition);
 			AttackerOriginTile.CurrentUnit = null;
+			
+			GameScene.Instance.ActivePlayer.SpellPoints = (GameScene.Instance.ActivePlayer.IsHuman) ? 
+				GameScene.Instance.ActivePlayer.SpellPoints += 1 : GameScene.Instance.ActivePlayer.SpellPoints;
 		}
 		
 		private void ExecuteDefenderTotalWin()
@@ -128,6 +129,9 @@ namespace INF4000
 			Player attackerPlayer = Utilities.GetPlayerByName(AttackingUnit.OwnerName);
 			attackerPlayer.KillUnit(AttackingUnit);
 			AttackerOriginTile.CurrentUnit = null;
+			
+			GameScene.Instance.ActivePlayer.SpellPoints = (GameScene.Instance.ActivePlayer.IsHuman) ? 
+				GameScene.Instance.ActivePlayer.SpellPoints += 1 : GameScene.Instance.ActivePlayer.SpellPoints;
 		}
 		
 		private void ExecuteTie()

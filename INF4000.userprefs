@@ -1,27 +1,33 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Players\AIPlayer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\AppMain.cs">
     <Files>
       <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="363" Column="6" />
       <File FileName="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Players\AIPlayer.cs" Line="508" Column="21" />
       <File FileName="INF4000\Classes\Util\Constants.cs" Line="162" Column="45" />
+      <File FileName="INF4000\Classes\GameObjects\GameUtilities\DialogManager.cs" Line="27" Column="32" />
+      <File FileName="INF4000\Classes\GameObjects\UI\DialogUI.cs" Line="76" Column="50" />
+      <File FileName="INF4000\Assets\AssetsManager.cs" Line="213" Column="26" />
+      <File FileName="INF4000\AppMain.cs" Line="15" Column="62" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="INF4000" expanded="True">
-            <Node name="Assets" expanded="True" />
+            <Node name="Assets" expanded="True">
+              <Node name="Dialog" expanded="True" />
+            </Node>
             <Node name="Audio" expanded="True" />
             <Node name="Classes" expanded="True">
               <Node name="GameObjects" expanded="True">
                 <Node name="GameUtilities" expanded="True" />
-                <Node name="Players" expanded="True">
-                  <Node name="AIPlayer.cs" selected="True" />
-                </Node>
+                <Node name="Players" expanded="True" />
+                <Node name="UI" expanded="True" />
               </Node>
               <Node name="Scenes" expanded="True" />
               <Node name="Util" expanded="True" />
             </Node>
+            <Node name="AppMain.cs" selected="True" />
           </Node>
         </State>
       </Pad>

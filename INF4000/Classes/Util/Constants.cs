@@ -30,6 +30,7 @@ namespace INF4000
 		public const int GLOBAL_STATE_DIALOG			= 16;
 		public const int GLOBAL_STATE_STARTING_GAME		= 17;
 		public const int GLOBAL_STATE_CAPTURE_ANIMATION	= 18;
+		public const int GLOBAL_STATE_SPELLS			= 19;
 
 		
 		/*******************************
@@ -244,6 +245,8 @@ namespace INF4000
 		public const int SOUND_UNIT_MARCH		= 7;
 		public const int SOUND_COMBAT			= 8;
 		public const int SOUND_CAPTURE			= 9;
+		public const int SOUND_HEAL				= 10;
+
 		
 		/*******************************
 		 * 	DIALOG CONSTANTS
@@ -278,6 +281,13 @@ namespace INF4000
 		
 		public const int CINE_EFFECT_PAN 	= 0;
 		public const int CINE_EFFECT_ZOOM 	= 1;
+		
+		/*******************************
+		 * 	SPELLS CONSTANTS
+		 * *****************************/
+		public const int SPELL_MASS_HEAL_COST 		= 1;
+		public const int SPELL_MASS_HEAL_EFFECT 	= 3;
+
 	}
 }
 

@@ -16,7 +16,7 @@ namespace INF4000
 			this.Buildings = new List<Building>();
 			this.IsActive = false;
 			this.IsHuman = true;
-			this.FocusPoints = 5;
+			this.SpellPoints = 5;
 			this.Gold = 5;
 			
 			this.TargetUnits = new List<Unit>();

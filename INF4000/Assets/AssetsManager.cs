@@ -108,6 +108,7 @@ namespace INF4000
 		public ImageAsset Image_Dialog_Overlay_Blue;
 		public ImageAsset Image_Dialog_Kenji_1;
 		public ImageAsset Image_Dialog_Gohzu_1;
+		public ImageAsset Image_Dialog_Himiko_1;
 		
 		public AssetsManager ()
 		{
@@ -211,6 +212,7 @@ namespace INF4000
 					Image_Dialog_Overlay_Blue = new ImageAsset("/Application/Assets/Dialog/char_overlay_blue.png",false);
 					Image_Dialog_Kenji_1 = new ImageAsset("/Application/Assets/Dialog/char_kenji_1.png",false);
 					Image_Dialog_Gohzu_1 = new ImageAsset("/Application/Assets/Dialog/char_gohzu_1.png",false);
+					Image_Dialog_Himiko_1 = new ImageAsset("/Application/Assets/Dialog/char_himiko_1.png",false);
 					
 					
 					Loaded = true;

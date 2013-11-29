@@ -34,6 +34,7 @@ namespace INF4000
 		private Sound UnitMarch;
 		private Sound Combat;
 		private Sound Capture;
+		private Sound Heal;
 		
 		public SoundManager ()
 		{
@@ -62,6 +63,7 @@ namespace INF4000
 					UnitMarch = new Sound("/Application/Audio/Sound/unit_march.wav");
 					Combat = new Sound("/Application/Audio/Sound/combat.wav");
 					Capture = new Sound("/Application/Audio/Sound/capture.wav");
+					Heal = new Sound("/Application/Audio/Sound/heal.wav");
 					
 					SoundEnabled = true;
 					
@@ -101,6 +103,9 @@ namespace INF4000
 					break;
 				case Constants.SOUND_CAPTURE:
 					soundToPlay = Capture;
+					break;
+				case Constants.SOUND_HEAL:
+					soundToPlay = Heal;
 					break;
 				}
 				

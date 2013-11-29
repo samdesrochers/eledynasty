@@ -14,16 +14,25 @@ namespace INF4000
 		public bool IsHuman;
 		public bool IsStartingTurn;
 		public ImageAsset Icon;
-		
-		public int FocusPoints;
 		public int LastAction;
 		
+		private int _SpellPoints;
+		public int SpellPoints {
+			get { return _SpellPoints; }
+			set { 
+				_SpellPoints = value; 
+				_SpellPoints = (_SpellPoints > 20) ? 20 : _SpellPoints;
+				if(GameScene.Instance.GameUI != null && GameScene.Instance.GameUI.PlayerPanel != null)
+					GameScene.Instance.GameUI.PlayerPanel.SetFocus(_SpellPoints.ToString());
+			}
+		}
+
 		private int _Gold;
-		public int Gold 
-		{
+		public int Gold {
 			get { return _Gold; }
 			set { 
-				_Gold = value; 
+				_Gold = value;
+				_Gold = (_SpellPoints > 60) ? 60 : _Gold;
 				if(GameScene.Instance.GameUI != null && GameScene.Instance.GameUI.PlayerPanel != null)
 					GameScene.Instance.GameUI.PlayerPanel.SetGold(_Gold.ToString());
 			}

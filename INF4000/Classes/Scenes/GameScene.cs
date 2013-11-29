@@ -31,6 +31,9 @@ namespace INF4000
 		public DialogUI DialogUI;
 		public DialogManager DialogManager;
 		
+		public SpellUI SpellUI;
+		public SpellManager SpellManager;
+		
 		public int CurrentGlobalState;
 		public int CurrentGameState;
 		
@@ -52,6 +55,7 @@ namespace INF4000
 		public GameScene ()
 		{
 			Console.WriteLine("CREATING GAME SCENE");
+			
 			_Instance = this;
 			this.CurrentGlobalState = Constants.GLOBAL_STATE_STARTING_GAME;
 			this.CurrentGameState = Constants.GAME_STATE_SELECTION_INACTIVE;
@@ -97,7 +101,9 @@ namespace INF4000
 			BuildingUtil.LastCapturedBuildings = new Stack<Building>();
 			
 			GameUI = new GameUI();
-			GameUI.PlayerPanel.SetCurrentPlayerData(ActivePlayer.Icon, ActivePlayer.Gold.ToString(), "");
+			
+			SpellUI = new SpellUI();
+			SpellManager = new SpellManager();
 			
 			DialogUI = new DialogUI();
 			DialogManager.SetNextSequence(); // Created in the Map, when the dialog are extracted;
@@ -138,8 +144,11 @@ namespace INF4000
 				case Constants.GLOBAL_STATE_DIALOG:
 					UpdateDialog(dt);
 					break;
+				case Constants.GLOBAL_STATE_SPELLS:
+					UpdateSpells(dt);
+					break;
 				case Constants.GLOBAL_STATE_PAUSE:
-					//UpdateGameRunning();
+					//UpdateSpells();
 					break;
 				case Constants.GLOBAL_STATE_GAMEOVER:
 					UpdateGameOver(dt);
@@ -154,6 +163,7 @@ namespace INF4000
 			{
 				InitPlayerTurn();
 				if(ActivePlayer.IsHuman) {
+					ActivePlayer.SpellPoints += 1;	// Spells only applies to Human Player 
 					Cursor.SpriteTile.Visible = true;
 					Utilities.ShowStatsPanels();
 				} else {
@@ -242,6 +252,11 @@ namespace INF4000
 		private void UpdateDialog(float dt)
 		{
 			DialogManager.Update(dt);
+		}
+		
+		private void UpdateSpells(float dt)
+		{
+			SpellManager.Update();
 		}
 		
 		private void UpdateGameOver(float dt)
@@ -557,6 +572,9 @@ namespace INF4000
 		{
 			TurnSwitchInit = true;
 			
+			// Set UI
+			GameUI.PlayerPanel.SetCurrentPlayerData(ActivePlayer.Icon, ActivePlayer.Gold.ToString(), ActivePlayer.SpellPoints.ToString());
+			
 			// Move Cursor to new player's first unit
 			Cursor.MoveToFirstUnit();						
 			UpdateCameraPositionByCursor();
@@ -709,8 +727,8 @@ namespace INF4000
 			// Sqaure Pressed
 			if (Input2.GamePad.GetData (0).Square.Release) 
 			{ 
-				Utilities.ShowGameUI();
-				//UI.ActionSelectionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_MOVE_CANCEL_ATTACK);
+				Utilities.ShowSpellsUI();
+				CurrentGlobalState = Constants.GLOBAL_STATE_SPELLS;
 			}
 			
 			// Triangle Pressed
@@ -719,7 +737,6 @@ namespace INF4000
 				Utilities.ShowDialogUI();
 				SoundManager.Instance.PlayIntroMapSong();
 				CurrentGlobalState = Constants.GLOBAL_STATE_DIALOG;
-				//UI.ActionSelectionPanel.SetActiveConfiguration(Constants.UI_ELEMENT_CONFIG_MOVE_CANCEL);
 			}
 		}
 		

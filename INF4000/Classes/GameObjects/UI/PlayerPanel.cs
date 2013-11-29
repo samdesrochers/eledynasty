@@ -40,22 +40,32 @@ namespace INF4000
 			Label_Gold.TextColor = new UIColor(1,0.4f,0.1f,1);
 			Label_Gold.SetPosition(140, 53);
 			Label_Gold.Font = AssetsManager.Instance.PixelFont_18;
-			Label_Gold.Alpha = 1.0f;
-			Label_Gold.Visible = true;
+			
+			Label_Focus = new Label();
+			Label_Focus.TextColor = new UIColor(1,0.4f,0.1f,1);
+			Label_Focus.SetPosition(214, 53);
+			Label_Focus.Font = AssetsManager.Instance.PixelFont_18;
 			
 			Panel.AddChildLast(Image_Player);
 			Panel.AddChildLast(Label_Gold);
+			Panel.AddChildLast(Label_Focus);
 		}
 		
 		public void SetCurrentPlayerData(ImageAsset img, string gold, string focus)
 		{
 			Image_Player.Image = img;
 			Label_Gold.Text = gold;
+			Label_Focus.Text = focus;
 		}
 		
 		public void SetGold(string gold)
 		{
 			Label_Gold.Text = gold;
+		}
+		
+		public void SetFocus(string focus)
+		{
+			Label_Focus.Text = focus;
 		}
 
 		public void SetVisible(bool visible)

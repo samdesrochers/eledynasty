@@ -48,7 +48,6 @@
     <Compile Include="Classes\GameObjects\Units\Monk.cs" />
     <Compile Include="Classes\GameObjects\Units\Samurai.cs" />
     <Compile Include="Classes\GameObjects\Units\Unit.cs" />
-    <Compile Include="Classes\GameObjects\Players\AIPlayer.cs" />
     <Compile Include="Classes\GameObjects\Players\HumanPlayer.cs" />
     <Compile Include="Classes\GameObjects\Players\Player.cs" />
     <Compile Include="Audio\SoundManager.cs" />
@@ -86,6 +85,9 @@
     <Compile Include="Classes\CinematicObjects\CinematicNode.cs" />
     <Compile Include="Classes\CinematicObjects\CinematicUI.cs" />
     <Compile Include="Classes\CinematicObjects\CinematicDialogManager.cs" />
+    <Compile Include="Classes\GameObjects\Players\AIPlayer.cs" />
+    <Compile Include="Classes\GameObjects\UI\SpellUI.cs" />
+    <Compile Include="Classes\GameObjects\GameUtilities\SpellManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -217,5 +219,7 @@
     <Content Include="Audio\cine_intro.mp3" />
     <Content Include="Assets\Title\tuto_but.png" />
     <Content Include="Audio\menu.mp3" />
+    <Content Include="Assets\Dialog\char_himiko_1.png" />
+    <Content Include="Audio\Sound\heal.wav" />
   </ItemGroup>
 </Project>
