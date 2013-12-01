@@ -12,14 +12,12 @@ namespace INF4000
         {
             Director.Initialize();
             UISystem.Initialize(Director.Instance.GL.Context);
-            Director.Instance.RunWithScene(new MenuScene(), true); 
+            Director.Instance.RunWithScene(new OverworldScene(), true); 
 			
 			while( true )
 			{
 				Sce.PlayStation.Core.Environment.SystemEvents.CheckEvents();
-			
-				//Tick();
-						
+				
 				Director.Instance.Update();
 				Director.Instance.Render();
 			
@@ -27,7 +25,7 @@ namespace INF4000
 				UISystem.Render();
 						
 				Director.Instance.GL.Context.SwapBuffers();
-				Director.Instance.PostSwap(); // you must call this after SwapBuffers
+				Director.Instance.PostSwap();
 			}
         }
 	}

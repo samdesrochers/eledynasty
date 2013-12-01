@@ -2,26 +2,29 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\Scenes\GameScene.cs">
     <Files>
-      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="53" Column="18" />
-      <File FileName="INF4000\Classes\GameObjects\Players\AIPlayer.cs" Line="374" Column="5" />
-      <File FileName="INF4000\Classes\GameObjects\GameUtilities\BattleManager.cs" Line="82" Column="5" />
-      <File FileName="INF4000\Classes\GameObjects\GameUtilities\DialogManager.cs" Line="72" Column="53" />
-      <File FileName="INF4000\Classes\GameObjects\Units\Unit.cs" Line="298" Column="36" />
+      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="64" Column="20" />
+      <File FileName="INF4000\Assets\AssetsManager.cs" Line="264" Column="32" />
+      <File FileName="INF4000\Classes\Scenes\OverworldScene.cs" Line="138" Column="5" />
+      <File FileName="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\AppMain.cs" Line="15" Column="62" />
+      <File FileName="INF4000\Classes\Scenes\LoadingScene.cs" Line="71" Column="4" />
+      <File FileName="INF4000\Classes\Scenes\CreditsScene.cs" Line="26" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="INF4000" expanded="True">
-            <Node name="Audio" expanded="True" />
+            <Node name="Assets" expanded="True">
+              <Node name="Title" expanded="True" />
+            </Node>
             <Node name="Classes" expanded="True">
               <Node name="GameObjects" expanded="True">
-                <Node name="GameUtilities" expanded="True" />
-                <Node name="Players" expanded="True" />
-                <Node name="Units" expanded="True" />
+                <Node name="Map" expanded="True" />
+                <Node name="UI" expanded="True" />
               </Node>
               <Node name="Scenes" expanded="True">
                 <Node name="GameScene.cs" selected="True" />
               </Node>
+              <Node name="Util" expanded="True" />
             </Node>
             <Node name="MapFiles" expanded="True" />
           </Node>
@@ -33,8 +36,12 @@
     <BreakpointStore>
       <Breakpoint hitAction="PrintExpression" traceExpression="{candidate}" file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\GameUtilities\Path.cs" line="121" />
       <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Map\Tile.cs" line="24" />
-      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Map\Map.cs" line="54" />
-      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\CinematicScene.cs" line="16707659" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\CinematicScene.cs" line="16707656" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\OverworldScene.cs" line="107" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="954" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="947" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="949" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\GameScene.cs" line="59" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
@@ -57,7 +64,6 @@
     <Watch file="INF4000\Classes\Scenes\GameScene.cs" line="571" offsetX="1429" offsetY="9690" expression="ActiveTile" liveUpdate="False" />
     <Watch file="INF4000\Classes\GameObjects\Unit.cs" line="128" offsetX="381" offsetY="2159" expression="Path" liveUpdate="False" />
     <Watch file="INF4000\Classes\Misc\Utilities.cs" line="20" offsetX="701" offsetY="323" expression="Tiles" liveUpdate="False" />
-    <Watch file="INF4000\Classes\Scenes\GameScene.cs" line="34" offsetX="309" offsetY="561" expression="CurrentMap" liveUpdate="False" />
     <Watch file="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Cursor.cs" line="46" offsetX="517" offsetY="765" expression="SelectedTile" liveUpdate="False" />
     <Watch file="INF4000\Classes\Scenes\GameScene.cs" line="292" offsetX="397" offsetY="4947" expression="t" liveUpdate="False" />
     <Watch file="INF4000\Classes\GameObjects\BattleViewer.cs" line="81" offsetX="509" offsetY="1360" expression="TerrainSprite" liveUpdate="False" />
@@ -89,5 +95,17 @@
     <Watch file="INF4000\Classes\GameObjects\Players\AIPlayer.cs" line="419" offsetX="709" offsetY="7106" expression="Candidates" liveUpdate="False" />
     <Watch file="INF4000\Classes\GameObjects\Players\AIPlayer.cs" line="147" offsetX="501" offsetY="2482" expression="heuristics" liveUpdate="False" />
     <Watch file="INF4000\Classes\GameObjects\Players\AIPlayer.cs" line="366" offsetX="757" offsetY="6205" expression="sortedEnemyUnits" liveUpdate="False" />
+    <Watch file="INF4000\Classes\GameObjects\GameUtilities\BattleManager.cs" line="176" offsetX="493" offsetY="2975" expression="Tile" liveUpdate="False" />
+    <Watch file="INF4000\Classes\GameObjects\GameUtilities\BattleManager.cs" line="176" offsetX="492" offsetY="2476" expression="adj" liveUpdate="False" />
+    <Watch file="INF4000\Classes\Util\Utilities.cs" line="45" offsetX="546" offsetY="437" expression="t" liveUpdate="False" />
+    <Watch file="INF4000\Classes\GameObjects\GameUtilities\BattleManager.cs" line="179" offsetX="1269" offsetY="3026" expression="CurrentUnit" liveUpdate="False" />
+    <Watch file="INF4000\Classes\Scenes\GameScene.cs" line="69" offsetX="453" offsetY="1156" expression="Instance" liveUpdate="False" />
+    <Watch file="INF4000\Classes\Scenes\GameScene.cs" line="69" offsetX="453" offsetY="1156" expression="AssetsManager" liveUpdate="False" />
+    <Watch file="INF4000\Classes\GameObjects\UI\SpellUI.cs" line="58" offsetX="381" offsetY="969" expression="_UIScene" liveUpdate="False" />
+    <Watch file="INF4000\Classes\GameObjects\UI\GameUI.cs" line="211" offsetX="389" offsetY="3570" expression="_UIScene" liveUpdate="False" />
+    <Watch file="INF4000\Classes\Scenes\GameScene.cs" line="72" offsetX="445" offsetY="1207" expression="Instance" liveUpdate="False" />
+    <Watch file="INF4000\Classes\Scenes\LoadingScene.cs" line="62" offsetX="453" offsetY="1037" expression="Instance" liveUpdate="False" />
+    <Watch file="INF4000\Classes\Scenes\LoadingScene.cs" line="62" offsetX="453" offsetY="1037" expression="Instance" liveUpdate="False" />
+    <Watch file="INF4000\Classes\Scenes\GameScene.cs" line="16" offsetX="413" offsetY="255" expression="_Instance" liveUpdate="False" />
   </MonoDevelop.Ide.DebuggingService.PinnedWatches>
 </Properties>

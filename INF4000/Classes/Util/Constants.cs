@@ -129,15 +129,15 @@ namespace INF4000
 		public const int UNIT_HP_WIZARD = 10;
 		
 		// Unit - Attack Damage 
-		public const int UNIT_AD_FARMER 	= 4;
-		public const int UNIT_AD_SAMURAI 	= 11;
-		public const int UNIT_AD_MONK 		= 8;
+		public const int UNIT_AD_FARMER 	= 3;
+		public const int UNIT_AD_SAMURAI 	= 10;
+		public const int UNIT_AD_MONK 		= 7;
 		public const int UNIT_AD_KNIGHT 	= 10;
 		public const int UNIT_AD_WIZARD 	= 7;
 		
 		// Unit - Defense 
 		public const int UNIT_DEF_FARMER 	= 1;
-		public const int UNIT_DEF_SAMURAI	= 6;
+		public const int UNIT_DEF_SAMURAI	= 4;
 		public const int UNIT_DEF_MONK 		= 1;
 		public const int UNIT_DEF_KNIGHT 	= 8;
 		public const int UNIT_DEF_WIZARD 	= 2;

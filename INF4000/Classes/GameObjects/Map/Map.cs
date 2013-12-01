@@ -50,8 +50,9 @@ namespace INF4000
 				foreach(Unit u in p.Units)
 				{
 					Tile t = Utilities.GetTile(u.WorldPosition);
-					if(t.CurrentUnit == null && !u.IsActive)
-						Console.WriteLine("MAP INTEGRITY ERROR");
+					if(t.CurrentUnit == null && !u.IsActive) {
+						throw new System.ArgumentException("Map integrity Error", "original");
+					}
 				}
 			}		
 		}

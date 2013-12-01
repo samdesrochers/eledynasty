@@ -46,6 +46,7 @@ namespace INF4000
 
 			// Load the Assets
 			AssetsManager.Instance.LoadAssets();
+			AssetsManager.Instance.DisposeCinematics();
 			
 			// Load the Sounds
 			SoundManager.Instance.LoadSounds();
@@ -69,6 +70,7 @@ namespace INF4000
 		
 		public void Reset()
 		{
+
 			SoundManager.Instance.PlayOverworldSong();
 			OVUI.BlackTween.Alpha = 0;
 			State = Constants.GN_STATE_IDLE;
@@ -100,6 +102,9 @@ namespace INF4000
 					UpdateSwitchingLevel(dt);
 					break;
 			}		
+			
+			if(AssetsManager.Instance.IsBroken())
+				Console.Write("BROKEN");
 		}
 		
 		public void UpdateIdle(float dt)

@@ -49,7 +49,7 @@ namespace INF4000
 			IsHuman = GameScene.Instance.ActivePlayer.IsHuman;
 			
 			BattleManager = new BattleManager(attacker, defender, targetTile, originTile);
-			BattleManager.ComputeDamagePercantages();
+			BattleManager.ComputeDamagePercantages(true);
 			
 			DefenderSprite = BattleManager.AttackingUnit.UnitSprite;
 			
@@ -304,7 +304,7 @@ namespace INF4000
 			foreach(Vector2i adjPos in t.AdjacentPositions)
 			{
 				Tile adj = Utilities.GetTile(adjPos);
-				if(adj != null && adj.CurrentUnit != null && ally.OwnerName == adj.CurrentUnit.OwnerName)
+				if(adj != null && adj.CurrentUnit != null && ally.OwnerName == adj.CurrentUnit.OwnerName && ally.UniqueId != adj.CurrentUnit.UniqueId)
 					return adj.CurrentUnit;
 			}
 			return null;

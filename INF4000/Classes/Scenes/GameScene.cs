@@ -16,7 +16,7 @@ namespace INF4000
 		private static GameScene _Instance;
 		public static GameScene Instance {
 			get {
-				if (_Instance == null) {
+				if (_Instance == null ) {
 					_Instance = new GameScene ();
 				}
 				return _Instance;
@@ -126,6 +126,9 @@ namespace INF4000
 
 		public override void Update (float dt)
 		{
+			if(AssetsManager.Instance.IsBroken())
+				Console.Write("BROKEN");
+			
 			base.Update (dt);
 			switch(this.CurrentGlobalState)
 			{
@@ -157,6 +160,9 @@ namespace INF4000
 					UpdateGameOver(dt);
 					break;
 			}
+			
+			if(AssetsManager.Instance.IsBroken())
+				Console.Write("BROKEN");
 		}
 		
 		#region Update Methods
@@ -278,9 +284,7 @@ namespace INF4000
 			if(SwitchTurnTime >= 5.0f || Input2.GamePad0.Cross.Release) // wait 2 seconds before switching turn
 			{
 				Dispose();			
-				
-				OverworldScene.Instance.Reset();
-				Director.Instance.ReplaceScene( OverworldScene.Instance );		
+				Director.Instance.ReplaceScene( new LoadingScene() );		
 			}
 		}
 		
@@ -934,11 +938,20 @@ namespace INF4000
 			CurrentMap.SpriteList.RemoveAllChildren(true);
 			this.RemoveAllChildren(true);
 			
-			//AssetsManager.Instance.Dispose();
-			//SoundManager.Instance.Dispose();
+			BattleViewer = null;
+			DialogManager = null;
+			DialogUI = null;
+			SpellUI = null;
+			GameUI = null;
+			Players = null;
+			Cursor = null;
 			
-			_Instance = null;
+			GC.Collect();
 			Console.WriteLine("DELETING GAME SCENE");
+		}
+		
+		~GameScene(){
+			Dispose();
 		}
 		
 		#endregion

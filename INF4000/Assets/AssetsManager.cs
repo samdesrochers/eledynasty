@@ -224,6 +224,35 @@ namespace INF4000
 			}
 		}
 		
+		public bool IsBroken()
+		{
+			if(CursorTexture == null)
+				return true;
+			
+			if(UnitsTexture == null)
+				return true;
+			
+			if(TerrainTexture == null)
+				return true;
+			
+			if(BattleTexture == null)
+				return true;
+			
+			if(OverworldMapTexture == null)
+				return true;
+		
+			if(AvatarTexture == null)
+				return true;
+			
+			return false;
+		}
+		
+		public void DisposeCinematics()
+		{
+			if(CinematicTexture != null)
+				CinematicTexture.Dispose();
+		}
+		
 		public void Dispose()
 		{
 			try

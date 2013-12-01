@@ -37,9 +37,6 @@ namespace INF4000
 		private List<CinematicNode> Cinematics;
 		private const float ImageRatio = 1.3f;
 		
-		private static BgmPlayer SongPlayer;
-		private static Bgm Song;
-		
 		public CinematicScene ()
 		{
 			Console.WriteLine("CREATING CINEMATIC SCENE");

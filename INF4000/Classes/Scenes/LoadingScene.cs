@@ -1,55 +1,78 @@
 using System;
 using Sce.PlayStation.Core;
 using Sce.PlayStation.Core.Graphics;
-using Sce.PlayStation.Core.Audio;
+using Sce.PlayStation.Core.Input;
+using Sce.PlayStation.Core.Imaging;
+
 using Sce.PlayStation.HighLevel.GameEngine2D;
 using Sce.PlayStation.HighLevel.GameEngine2D.Base;
-using Sce.PlayStation.Core.Input;
+
 using Sce.PlayStation.HighLevel.UI;
 
 namespace INF4000
 {
 	public class LoadingScene : Sce.PlayStation.HighLevel.GameEngine2D.Scene
 	{
-		Texture2D texture;
-		TextureInfo ti;
+		private Sce.PlayStation.HighLevel.UI.Scene _UIScene;
+		private Sce.PlayStation.HighLevel.UI.Panel MainPanel;
+		private ImageBox Background;
+		
+		bool cleanUp;
+		bool loaded;
 		
 		public LoadingScene ()
 		{
-			// Load title screen image and prepare camera
 			this.Camera.SetViewFromViewport ();
+			MainPanel = new Panel();
+            MainPanel.Width = Director.Instance.GL.Context.GetViewport().Width;
+            MainPanel.Height = Director.Instance.GL.Context.GetViewport().Height;
 			
-            texture = new Texture2D("/Application/Assets/Title/loading.png", false);
-			ti = new TextureInfo(texture);
-			SpriteUV sprite = new SpriteUV(ti);
-			sprite.Quad.S = new Vector2(960, 544);
-			sprite.Position = new Sce.PlayStation.Core.Vector2(0,0);
-			this.AddChild(sprite);
+			Background = new ImageBox();
+            Background.Width = MainPanel.Width;
+            Background.Image = new ImageAsset("/Application/Assets/Title/loading.png", false);
+            Background.Height = MainPanel.Height;
+            Background.SetPosition(0.0f,0.0f);
+			
+			MainPanel.AddChildLast(Background);
+			
+			_UIScene = new Sce.PlayStation.HighLevel.UI.Scene();
+            _UIScene.RootWidget.AddChildLast(MainPanel);
+            UISystem.SetScene(_UIScene);
+			
+			cleanUp = false;
+			loaded = false;
+			
 			Scheduler.Instance.ScheduleUpdateForTarget (this, 0, false);
 		}
 		
 		public override void Draw ()
         {
             base.Draw();
+			UISystem.Render ();
         }
 		
         float loadTime = 0.0f;
 		
 		public override void Update (float dt)
 		{
-			// Wait for any input to load Main Menu
-			base.Update (dt);
-			loadTime += dt;
-			
-			if (loadTime >= 8.0f) {
-				Director.Instance.ReplaceScene( new GameScene() );
+			if(!cleanUp) {
+				// CLEAN UP			
+				AssetsManager.Instance.Dispose();
+				SoundManager.Instance.Dispose();
+				cleanUp = true;
 			}
-		}
-		
-		~LoadingScene ()
-		{
-			ti.Dispose();
-			texture.Dispose();
+			
+			if(cleanUp && !loaded) {
+				AssetsManager.Instance.LoadAssets();
+				SoundManager.Instance.LoadSounds();
+				loaded = true;
+			}
+			
+			if (loaded && cleanUp && loadTime > 3.0f) {
+				Director.Instance.ReplaceScene( new OverworldScene() );
+			}
+			
+			loadTime += dt;
 		}
 	}
 }

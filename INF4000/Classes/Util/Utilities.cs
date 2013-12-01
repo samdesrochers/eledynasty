@@ -282,7 +282,7 @@ namespace INF4000
 			Tile origin = Utilities.GetTile(GameScene.Instance.ActivePlayer.ActiveUnit.WorldPosition);
 			Tile target = Utilities.GetTile(GameScene.Instance.ActivePlayer.TargetUnit.WorldPosition);
 			BattleManager bm = new BattleManager(attacker, defender, target, origin);
-			bm.ComputeDamagePercantages();	
+			bm.ComputeDamagePercantages(false);	
 			return bm.DmgPercentages[0];
 		}
 		#endregion

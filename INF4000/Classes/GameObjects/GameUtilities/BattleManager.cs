@@ -27,7 +27,7 @@ namespace INF4000
 			AttackerOriginTile = originTile;
 		}
 		
-		public void ComputeDamagePercantages()
+		public void ComputeDamagePercantages(bool countAlly)
 		{			
 			Damages = new List<float>();
 			DmgPercentages = new List<float>();
@@ -44,17 +44,19 @@ namespace INF4000
 //			else if(DefendingUnit.OwnerName == Constants.CHAR_KENJI)
 //				coeff_defender = 103;
 			
-			int attackerSupportCoeffBonus = GetSupportCoefficient(AttackerOriginTile, AttackingUnit);
-			int defenderSupportCoeffBonus = GetSupportCoefficient(ContestedTile, DefendingUnit);
-			
-			coeff_attacker += attackerSupportCoeffBonus;
-			coeff_defender += defenderSupportCoeffBonus;
+			if(countAlly){
+				int attackerSupportCoeffBonus = GetSupportCoefficient(AttackerOriginTile, AttackingUnit);
+				int defenderSupportCoeffBonus = GetSupportCoefficient(ContestedTile, DefendingUnit);
+				
+				coeff_attacker += attackerSupportCoeffBonus;
+				coeff_defender += defenderSupportCoeffBonus;
+			}
 			
 			float AttackerHP = (float)AttackingUnit.LifePoints;
 			float DefenderHP = (float)DefendingUnit.LifePoints;
 			
-			float HP_Lost_Defender = ((9*AttackingUnit.AttackDamage * (coeff_attacker/100)) + 2*ran_attacker ) * (AttackerHP/10) * (( 200 - (coeff_defender + 6*DefendingUnit.Armor + (3*ContestedTile.Defense*DefenderHP) ))/100);				
-			float HP_Lost_Attacker = ((9*DefendingUnit.AttackDamage * (coeff_defender/100)) + 2*ran_defender ) * (DefenderHP/10) * (( 200 - (coeff_attacker + 6*AttackingUnit.Armor + (2*AttackerHP))) /100); 
+			float HP_Lost_Defender = ((10*AttackingUnit.AttackDamage * (coeff_attacker/100)) + ran_attacker ) * (AttackerHP/10) * (( 200 - (coeff_defender + 5*DefendingUnit.Armor + (2*ContestedTile.Defense*DefenderHP) ))/100);				
+			float HP_Lost_Attacker = ((10*DefendingUnit.AttackDamage * (coeff_defender/100)) + ran_defender ) * (DefenderHP/10) * (( 200 - (coeff_attacker + 5*AttackingUnit.Armor + (2*AttackerHP))) /100); 
 			
 			Damages.Add((int)(HP_Lost_Defender/10));
 			Damages.Add((int)(HP_Lost_Attacker/10));
@@ -66,11 +68,15 @@ namespace INF4000
 		
 		public void ExecuteAttack()
 		{
+			Utilities.RemoveUnitFromTileById(AttackingUnit.UniqueId);
+			Utilities.AssignUnitToTileByPosition(AttackingUnit.WorldPosition, AttackingUnit);
+			
 			if(!IsDamageCalculated) {
-				ComputeDamagePercantages();
+				
+				ComputeDamagePercantages(true);
 				IsDamageCalculated = false;
 			}
-			
+
 			int dmg1 = (int)Damages[1];
 			int dmg2 = (int)Damages[0];
 			
@@ -96,8 +102,6 @@ namespace INF4000
 		
 		public void ExecuteCombatOutcome()
 		{
-			Utilities.RemoveUnitFromTileById(GameScene.Instance.ActivePlayer.ActiveUnit.UniqueId);
-			
 			switch(CombatEndState)
 			{
 			case Constants.BATTLE_END_ATTACKER_TOTALWIN:
@@ -174,7 +178,7 @@ namespace INF4000
 			foreach(Vector2i adjPos in t.AdjacentPositions)
 			{
 				Tile adj = Utilities.GetTile(adjPos);
-				if(adj != null && adj.CurrentUnit != null && ally.OwnerName == adj.CurrentUnit.OwnerName)
+				if(adj != null && adj.CurrentUnit != null && ally.OwnerName == adj.CurrentUnit.OwnerName && adj.CurrentUnit.UniqueId != ally.UniqueId)
 					return adj.CurrentUnit;
 			}
 			return null;
