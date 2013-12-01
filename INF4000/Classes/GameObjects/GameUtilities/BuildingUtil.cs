@@ -45,6 +45,13 @@ namespace INF4000
 					indexN = new Vector2i (0, 2);
 					break;
 				
+				// FORT - 2nd Map
+				case Constants.TILE_TYPE_BUILD_FORT_2:
+					indexP1 = new Vector2i (3, 1);
+					indexP2 = new Vector2i (3, 1);
+					indexN = new Vector2i (3, 1);
+					break;
+				
 			}
 			indexes.Add(indexP1);
 			indexes.Add(indexP2);
@@ -64,6 +71,7 @@ namespace INF4000
 			switch (type) {
 				// FORT
 				case Constants.BUILD_FORT:
+				case Constants.TILE_TYPE_BUILD_FORT_2:
 					defense = Constants.BUILD_FORT_GOLD_DEF;
 					goldPerTurn = Constants.BUILD_FORT_GOLD_YEILD;
 					goldToProduce = 0;
@@ -108,6 +116,7 @@ namespace INF4000
 			string name = "";			
 			switch (type) {
 				case Constants.BUILD_FORT:
+				case Constants.TILE_TYPE_BUILD_FORT_2:
 					name = "Fortress";
 					break;
 				case Constants.BUILD_FARM:

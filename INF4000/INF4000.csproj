@@ -221,5 +221,6 @@
     <Content Include="Audio\menu.mp3" />
     <Content Include="Assets\Dialog\char_himiko_1.png" />
     <Content Include="Audio\Sound\heal.wav" />
+    <Content Include="Audio\kenji_victory.mp3" />
   </ItemGroup>
 </Project>

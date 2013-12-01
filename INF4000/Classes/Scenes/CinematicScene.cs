@@ -55,10 +55,10 @@ namespace INF4000
 			
 			DialogManager = new CinematicDialogManager();
 			
-			DialogManager.DialogSequences.Enqueue("This is a text yo, the village is all chill and nice, living with prosperity and shnizell");
-			DialogManager.DialogSequences.Enqueue("But then the king dies he was so shit and ruled the kingdom with an iron fist while being just to its people");
-			DialogManager.DialogSequences.Enqueue("Its now up to his daughter the whore to take his place and its no easy task mind you nigga");
-			DialogManager.DialogSequences.Enqueue("The korama guys take this chance of finally getting back at Elisia and strom the shit out of the litte country that's where our hero Kenji enter the scene");
+			DialogManager.DialogSequences.Enqueue("Once upon a time, the People of Elisia lived in harmony with a relative peace under the guidance of King Jakal Elisiu, the people's Defender.");
+			DialogManager.DialogSequences.Enqueue("But one day, the King succombed to a strange illness, leaving his young daughter Himiko as Queen of Elisia.");
+			DialogManager.DialogSequences.Enqueue("The Koramaian Empire, found to the south of Elisia, seeing their greatest opponent pass away, rallied their banners and marched straight into Elisia, still mouring their deceased King.");
+			DialogManager.DialogSequences.Enqueue("With the Elisian army dispatched to defend the Kingdom, many small Elisian villages fell to opportunist rebels. You are thus called to help by your old friend, the Queen of Elisia, to help restore ordre in the Kingdom of Elisia.");
 			
 			Cinematics = new List<CinematicNode>();
 			CinematicNode c1 = new CinematicNode("/Application/Assets/Cinematics/cine_elisia.png", Constants.CINE_TRAN_TO_CINE, Constants.CINE_EFFECT_PAN);
@@ -135,7 +135,7 @@ namespace INF4000
 			
 			DialogManager.Update(dt);
 			
-			if(EllapsedTime > 1.0f) {
+			if(EllapsedTime > 9.0f) {
 				if(CurrentCinematic.Transition == Constants.CINE_TRAN_TO_CINE) {
 					EllapsedTime = 0;
 					AnimationTime = 0;

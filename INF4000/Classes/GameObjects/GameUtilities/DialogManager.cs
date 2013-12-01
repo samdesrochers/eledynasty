@@ -44,7 +44,7 @@ namespace INF4000
 				CurrentSequenceText += CurrentDialogSequence.Item2[CurrentCharIndex];
 				GameScene.Instance.DialogUI.Label_Text.Text = CurrentSequenceText;
 				
-				if(AnimationTime > 0.15f){
+				if(AnimationTime > 0.11f){
 					AnimationTime = 0;
 					SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_MOVE);
 				}
@@ -68,6 +68,12 @@ namespace INF4000
 					GameScene.Instance.DialogUI.Label_Text.Text = "";
 					int nextState = Convert.ToInt32(CurrentDialogSequence.Item2);
 					GameScene.Instance.CurrentGlobalState = nextState;
+					
+					if(nextState == Constants.GLOBAL_STATE_GAMEOVER){
+						Utilities.ShowGameUI();
+						return;
+					}
+					
 					Utilities.ShowGameUI();
 					SetNextSequence();
 				}

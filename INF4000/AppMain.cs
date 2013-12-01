@@ -12,7 +12,7 @@ namespace INF4000
         {
             Director.Initialize();
             UISystem.Initialize(Director.Instance.GL.Context);
-            Director.Instance.RunWithScene(new OverworldScene(), true); // Use that TitleScene whenever   
+            Director.Instance.RunWithScene(new OverworldScene(), true); 
 			
 			while( true )
 			{

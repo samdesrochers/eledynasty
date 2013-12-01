@@ -293,9 +293,9 @@ namespace INF4000
 				
 				if(t.CurrentBuilding.PointsToCapture == 0) {
 					SoundManager.Instance.PlaySound(Constants.SOUND_CAPTURE);
-					if(t.CurrentBuilding.Type == Constants.TILE_TYPE_BUILD_FORT)
+					if(t.CurrentBuilding.Type == Constants.TILE_TYPE_BUILD_FORT || t.CurrentBuilding.Type == Constants.TILE_TYPE_BUILD_FORT_2)
 					{
-						GameScene.Instance.CurrentGlobalState = Constants.GLOBAL_STATE_GAMEOVER; // SOMEONE JUST WON THE FREAKING GAME!
+						GameScene.Instance.IsGameOver = true; // SOMEONE JUST WON THE FREAKING GAME!
 						GameScene.Instance.WinnerName = this.OwnerName;
 					}
 					if(t.CurrentBuilding.OwnerName != null && t.CurrentBuilding.OwnerName != "")

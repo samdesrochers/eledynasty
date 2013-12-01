@@ -148,12 +148,14 @@ namespace INF4000
 				
 				// TREES
 				case Constants.TILE_TYPE_TREES_1:
+				case Constants.TILE_TYPE_TREES_2:
 					name = "Forest";
 					defense = 2;
 					break;
 				
 				// MOUTAINS
 				case Constants.TILE_TYPE_HILL:
+				case Constants.TILE_TYPE_HILL_2:
 					name = "Hills";
 					defense = 4;
 					break;

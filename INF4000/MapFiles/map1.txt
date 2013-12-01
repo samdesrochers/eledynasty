@@ -11,10 +11,14 @@ Gohzu
 #Gohzu$Come, rush at us if you want, your troops and you don't stand a chance!
 #Kenji$We will see about that Gozhu. Bring it on!
 #end_file$11
-#Kenji$Once upon a time, I wrote a very long text for no real purpose other than testing this motherfucka. You know how it goes fella, that's all.
-#Gohzu$I never really read that text, but I wanted to make sure it worked, so I rolled with it.
-#Kenji$There's no way in hell I'm going to go buy a tuba and run around to fiesta gallore.
-#end_file$10
+#Gohzu$This can't be..! Defeated by a kid and a bunch of peasants, I... deserve... death...
+#Kenji$I take no pride in what I did today but I am glad that these inocent villagers are safe for now
+#Himiko$You've always been so humble Kenji. I knew you would succeed and that you had it in you to lead an army with such determination.
+#Himiko$By the powers confered to me and my title, I make you, Kenji Namate, General of the Elisian Army.
+#Himiko$You will now have more troops at your disposal for the battles to come and I know you will guide them well, just as your father once did.
+#Kenji$It is an honor to serve you my Queen... my Friend.  I'll do everything in my power to help the Elisian Kingdom.
+#Himiko$Then you must depart at once for the Koramian border where the enemy is gathering. There is also wind that your father has been seen there alive...
+#end_file$12
 6320000000
 6320000000
 6320000000

@@ -47,7 +47,7 @@ namespace INF4000
 			Label_Text = new Label();
 			Label_Text.Text = "abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()abcdab\nabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()abcdab\nabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()abcdab\nbcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()abcdab\n";
 			Label_Text.Font = new UIFont("/Application/Assets/fonts/half_bold_pixel-7.ttf", 24, FontStyle.Bold);
-			Label_Text.SetPosition(35, 290);
+			Label_Text.SetPosition(35, 300);
 			Label_Text.SetSize(890, 220);
 			
 			MainPanel.AddChildLast(Image_Background);
@@ -75,7 +75,7 @@ namespace INF4000
 		public void UpdateSceneEntering(float dt)
 		{
 			WhiteTween.Alpha -= dt/2;
-			Image_Background.Alpha += dt/5;
+			Image_Background.Alpha += dt/3;
 			Label_Text.Alpha += dt;
 		}
 		

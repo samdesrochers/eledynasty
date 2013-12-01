@@ -163,7 +163,7 @@ namespace INF4000
 			}
 			
 			// Create Building according to extracted information
-			if (tileType >= 50 && tileType < 60) {
+			if (tileType >= 50 && tileType < 60 || tileType > 90) {
 				
 				List<int> stats = BuildingUtil.GetStatsByType(tileType);
 				List<Vector2i> indexes = BuildingUtil.GetTileIndexesByType(tileType, tileOwner);

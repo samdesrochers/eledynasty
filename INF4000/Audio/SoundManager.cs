@@ -46,7 +46,7 @@ namespace INF4000
 			if(!Loaded){
 				try
 				{
-					Songs = new Bgm[8];
+					Songs = new Bgm[9];
 					Songs[1] = new Bgm("/Application/Audio/kenji_1.mp3");
 					Songs[0] = new Bgm("/Application/Audio/kenji_1.mp3");
 					Songs[2] = new Bgm("/Application/Audio/enemy_2.mp3");
@@ -55,6 +55,7 @@ namespace INF4000
 					Songs[5] = new Bgm("/Application/Audio/overworld_1.mp3");
 					Songs[6] = new Bgm("/Application/Audio/cine_intro.mp3");
 					Songs[7] = new Bgm("/Application/Audio/menu.mp3");
+					Songs[8] = new Bgm("/Application/Audio/kenji_victory.mp3");
 					
 					CursorMoved = new Sound("/Application/Audio/Sound/cursor_move.wav");
 					CursorSelect = new Sound("/Application/Audio/Sound/selection_action.wav");
@@ -153,6 +154,16 @@ namespace INF4000
 			if(SongPlayer != null) SongPlayer.Dispose();
 			if(SoundEnabled){
 				SongPlayer = Songs[7].CreatePlayer();
+	   			SongPlayer.Play();
+				SongPlayer.Loop = true;
+			}
+		}
+		
+		public void PlayVictorySong()
+		{
+			if(SongPlayer != null) SongPlayer.Dispose();
+			if(SoundEnabled){
+				SongPlayer = Songs[8].CreatePlayer();
 	   			SongPlayer.Play();
 				SongPlayer.Loop = true;
 			}

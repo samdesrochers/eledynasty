@@ -45,11 +45,13 @@ namespace INF4000
 		
 		public List<Player> Players;
 		public string WinnerName;
+		public bool IsGameOver;
 		
 		public BattleViewer BattleViewer;
 		
 		private float SwitchTurnTime;
 		private bool TurnSwitchInit = true;
+		private bool GameOverInit = true;
 		public int CurrentTurnCount = 1;
 		
 		public GameScene ()
@@ -57,6 +59,7 @@ namespace INF4000
 			Console.WriteLine("CREATING GAME SCENE");
 			
 			_Instance = this;
+			IsGameOver = false;
 			this.CurrentGlobalState = Constants.GLOBAL_STATE_STARTING_GAME;
 			this.CurrentGameState = Constants.GAME_STATE_SELECTION_INACTIVE;
 			
@@ -185,7 +188,9 @@ namespace INF4000
 			UpdateUnits ();			
 			UpdateMap ();	
 			
-			CheckIsGameOver ();				
+			if(CheckIsGameOver ())
+				return;
+			
 			if(CheckIfTurnIsOver())
 			{
 				// Turn is done, switch to next player
@@ -251,6 +256,7 @@ namespace INF4000
 		
 		private void UpdateDialog(float dt)
 		{
+			Utilities.ShowDialogUI();
 			DialogManager.Update(dt);
 		}
 		
@@ -261,14 +267,17 @@ namespace INF4000
 		
 		private void UpdateGameOver(float dt)
 		{
+			if(GameOverInit){
+				GameOverInit = false;
+				SoundManager.Instance.PlayVictorySong();
+			}
+			
 			SwitchTurnTime += dt;			
 			GameUI.AnimateGameOver(dt);
-			SoundManager.Instance.FadeOut(dt);
 
 			if(SwitchTurnTime >= 5.0f || Input2.GamePad0.Cross.Release) // wait 2 seconds before switching turn
 			{
 				Dispose();			
-				
 				
 				OverworldScene.Instance.Reset();
 				Director.Instance.ReplaceScene( OverworldScene.Instance );		
@@ -279,8 +288,7 @@ namespace INF4000
 		{
 			GameUI.AnimateStartingGame(dt);		
 			if(GameUI.Image_StartTurnBG.Alpha <= 0) {
-				//Utilities.ShowDialogUI();
-				CurrentGlobalState = Constants.GLOBAL_STATE_SWITCHING_TURN;
+				CurrentGlobalState = Constants.GLOBAL_STATE_DIALOG;
 			}
 		}
 		
@@ -618,10 +626,16 @@ namespace INF4000
 		
 		private bool CheckIsGameOver ()
 		{
+			if(IsGameOver) {
+				CurrentGlobalState = Constants.GLOBAL_STATE_DIALOG;
+				WinnerName = Utilities.GetWinner();
+				return true;
+			}
+			
 			foreach (Player p in this.Players) {
 				if (p.Units.Count == 0)
 				{
-					CurrentGlobalState = Constants.GLOBAL_STATE_GAMEOVER;
+					CurrentGlobalState = Constants.GLOBAL_STATE_DIALOG;
 					WinnerName = Utilities.GetWinner();
 				}
 			}

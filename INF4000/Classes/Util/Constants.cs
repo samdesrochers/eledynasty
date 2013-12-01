@@ -53,6 +53,7 @@ namespace INF4000
 		public const int TILE_TYPE_BUILD_WIZARD		= 55;
 		public const int TILE_TYPE_HILL				= 80;
 		public const int TILE_TYPE_TREES_1			= 81;
+		public const int TILE_TYPE_BUILD_FORT_2		= 91;
 		
 		public const int TILE_TYPE_GRASS_MIDDLE_2 	= 30;
 		public const int TILE_TYPE_HILL_2 			= 82;

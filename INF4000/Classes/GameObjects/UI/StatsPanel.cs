@@ -87,6 +87,7 @@ namespace INF4000
 			switch(type)
 			{
 				case Constants.TILE_TYPE_GRASS_MIDDLE:
+				case Constants.TILE_TYPE_GRASS_MIDDLE_2:
 					img = AssetsManager.Instance.Image_Icon_Grass;	
 					break;
 				case Constants.TILE_TYPE_ROAD_HORIZONTAL:
@@ -118,6 +119,7 @@ namespace INF4000
 						img = AssetsManager.Instance.Image_Icon_Farm_En;
 					break;	
 				case Constants.TILE_TYPE_BUILD_FORT:
+				case Constants.TILE_TYPE_BUILD_FORT_2:
 					if(owner == Constants.CHAR_KENJI)
 						img = AssetsManager.Instance.Image_Icon_Fort_Kenji;
 					else
