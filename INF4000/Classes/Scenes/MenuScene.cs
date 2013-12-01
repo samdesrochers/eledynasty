@@ -28,7 +28,9 @@ namespace INF4000
 				
 				// Load the Sounds
 				SoundManager.Instance.LoadSounds();
-				SoundManager.Instance.PlayMenuSong();
+				
+				if(SoundManager.Instance.SongPlayer == null)
+					SoundManager.Instance.PlayMenuSong();	
 				
 			} catch (Exception e) { Console.WriteLine("Error creating Audio in Menu Scene. {0}", e.Message); }
 			
@@ -66,21 +68,32 @@ namespace INF4000
 				State = Constants.GN_STATE_STARTING_GAME;
             };
             
-            Button Button_Title = new Button();
-            Button_Title.Text = "Tutorial";
-            Button_Title.Width = 316;
-            Button_Title.Height = 110;
-            Button_Title.Alpha = 0.8f;
-			Button_Title.IconImage = new ImageAsset("/Application/Assets/Title/tuto_but.png", false);
-            Button_Title.SetPosition(dialog.Width/2 - Button_Play.Width/2, 380.0f);
-            Button_Title.TouchEventReceived += (sender, e) => 
+            Button Button_Tutorial = new Button();
+            Button_Tutorial.Width = 316;
+            Button_Tutorial.Height = 110;
+            Button_Tutorial.Alpha = 0.8f;
+			Button_Tutorial.IconImage = new ImageAsset("/Application/Assets/Title/tuto_but.png", false);
+            Button_Tutorial.SetPosition(dialog.Width/2 - Button_Play.Width/2 - 180, 380.0f);
+            Button_Tutorial.TouchEventReceived += (sender, e) => 
 			{
             	Director.Instance.ReplaceScene(new TutorialScene());
-            };        
+            };
+			
+			Button Button_Credits = new Button();
+            Button_Credits.Width = 316;
+            Button_Credits.Height = 110;
+            Button_Credits.Alpha = 0.8f;
+			Button_Credits.IconImage = new ImageAsset("/Application/Assets/Title/tuto_but.png", false);
+            Button_Credits.SetPosition(dialog.Width/2 - Button_Play.Width/2 + 180, 380.0f);
+            Button_Credits.TouchEventReceived += (sender, e) => 
+			{
+            	Director.Instance.ReplaceScene(new CreditsScene());
+            };  
                 
             dialog.AddChildLast(ImageBox);
             dialog.AddChildLast(Button_Play);
-            dialog.AddChildLast(Button_Title);
+            dialog.AddChildLast(Button_Tutorial);
+			dialog.AddChildLast(Button_Credits);
 			
             _UIScene = new Sce.PlayStation.HighLevel.UI.Scene();
             _UIScene.RootWidget.AddChildLast(dialog);

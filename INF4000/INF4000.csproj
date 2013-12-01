@@ -88,6 +88,7 @@
     <Compile Include="Classes\GameObjects\Players\AIPlayer.cs" />
     <Compile Include="Classes\GameObjects\UI\SpellUI.cs" />
     <Compile Include="Classes\GameObjects\GameUtilities\SpellManager.cs" />
+    <Compile Include="Classes\Scenes\CreditsScene.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
