@@ -39,10 +39,10 @@ namespace INF4000
 			float ran_attacker = random.Next(1, 9);
 			float ran_defender = random.Next(1, 9);
 			
-			if(AttackingUnit.OwnerName == Constants.CHAR_KENJI)
-				coeff_attacker = 105; 
-			else if(DefendingUnit.OwnerName == Constants.CHAR_KENJI)
-				coeff_defender = 103;
+//			if(AttackingUnit.OwnerName == Constants.CHAR_KENJI)
+//				coeff_attacker = 105; 
+//			else if(DefendingUnit.OwnerName == Constants.CHAR_KENJI)
+//				coeff_defender = 103;
 			
 			int attackerSupportCoeffBonus = GetSupportCoefficient(AttackerOriginTile, AttackingUnit);
 			int defenderSupportCoeffBonus = GetSupportCoefficient(ContestedTile, DefendingUnit);
@@ -53,7 +53,7 @@ namespace INF4000
 			float AttackerHP = (float)AttackingUnit.LifePoints;
 			float DefenderHP = (float)DefendingUnit.LifePoints;
 			
-			float HP_Lost_Defender = ((9*AttackingUnit.AttackDamage * (coeff_attacker/100)) + 2*ran_attacker ) * (AttackerHP/10) * (( 200 - (coeff_defender + 6*DefendingUnit.Armor + (2*ContestedTile.Defense*DefenderHP) ))/100);				
+			float HP_Lost_Defender = ((9*AttackingUnit.AttackDamage * (coeff_attacker/100)) + 2*ran_attacker ) * (AttackerHP/10) * (( 200 - (coeff_defender + 6*DefendingUnit.Armor + (3*ContestedTile.Defense*DefenderHP) ))/100);				
 			float HP_Lost_Attacker = ((9*DefendingUnit.AttackDamage * (coeff_defender/100)) + 2*ran_defender ) * (DefenderHP/10) * (( 200 - (coeff_attacker + 6*AttackingUnit.Armor + (2*AttackerHP))) /100); 
 			
 			Damages.Add((int)(HP_Lost_Defender/10));
@@ -161,7 +161,7 @@ namespace INF4000
 			Unit supporter = GetAllyUnit(t, ally);
 			if(supporter != null)
 			{
-				coeff += (2 * supporter.AttackDamage);
+				coeff += (supporter.AttackDamage);
 			}
 			return coeff;
 		}

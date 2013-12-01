@@ -627,8 +627,12 @@ namespace INF4000
 		private bool CheckIsGameOver ()
 		{
 			if(IsGameOver) {
-				CurrentGlobalState = Constants.GLOBAL_STATE_DIALOG;
 				WinnerName = Utilities.GetWinner();
+				if(WinnerName == Constants.CHAR_KENJI)
+					CurrentGlobalState = Constants.GLOBAL_STATE_DIALOG;
+				else
+					CurrentGlobalState = Constants.GLOBAL_STATE_GAMEOVER;
+				
 				return true;
 			}
 			
@@ -743,14 +747,6 @@ namespace INF4000
 			{ 
 				Utilities.ShowSpellsUI();
 				CurrentGlobalState = Constants.GLOBAL_STATE_SPELLS;
-			}
-			
-			// Triangle Pressed
-			if (Input2.GamePad.GetData (0).Triangle.Release) 
-			{ 
-				Utilities.ShowDialogUI();
-				SoundManager.Instance.PlayIntroMapSong();
-				CurrentGlobalState = Constants.GLOBAL_STATE_DIALOG;
 			}
 		}
 		

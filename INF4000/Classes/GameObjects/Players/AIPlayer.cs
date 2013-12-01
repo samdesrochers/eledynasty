@@ -360,6 +360,7 @@ namespace INF4000
 				if(t.CurrentBuilding != null)
 					u.Heuristic += GetBuidlingTypeValue_Capture(t.CurrentBuilding);
 				u.Heuristic += GetDistanceValue(u.WorldPosition, ActiveUnit.WorldPosition);
+				u.Heuristic += GetAttackStatisticsValue(t, u);
 			}
 			
 			List<Unit> sortedEnemyUnits = enemyUnits.OrderBy(o=>o.Heuristic).ToList();
@@ -585,7 +586,7 @@ namespace INF4000
 				if(u.Behavior == Constants.UNIT_AI_BEHAV_CAPTURE)
 					counter ++;
 			
-			int toCapture = (counter > 2) ? 10 : -5;
+			int toCapture = (counter > 2) ? 5 : -4;
 			
 			// Check for active unit type
 			int activeType = 0;
@@ -629,12 +630,23 @@ namespace INF4000
 			// Check for active unit type
 			int activeType = 0;
 			if(ActiveUnit.Type == Constants.UNIT_TYPE_FARMER)
-					activeType = -10;
+					activeType = -9;
 			if(ActiveUnit.Type == Constants.UNIT_TYPE_MONK)
-					activeType = -6;
+					activeType = -4;
 			if(ActiveUnit.Type == Constants.UNIT_TYPE_SAMURAI)
-					activeType = -5;
+					activeType = -6;
 			
+			// Check for an enemy unit on the AI fort
+			foreach(Building b in Buildings)
+			{
+				if(b.Type == Constants.TILE_TYPE_BUILD_FORT || b.Type == Constants.TILE_TYPE_BUILD_FORT_2) {
+					Tile t = Utilities.GetTile(b.WorldPosition);
+					if(t.CurrentUnit != null && t.CurrentUnit.OwnerName != this.Name) // Enemy on fort, attack at once!
+					{
+						heuristic -= 10;
+					}
+				}
+			}	
 			
 			// Check for shortest distance to any building
 			int unitH = 0;
@@ -664,15 +676,16 @@ namespace INF4000
 				if(u.Behavior == Constants.UNIT_AI_BEHAV_DEFEND)
 					counter ++;
 			
-			int toCapture = (counter > 2) ? 10 : -5;
+			int toCapture = (counter > 2) ? 5 : -2;
 			
 			// Check if fort is defended
 			foreach(Building b in Buildings) {
+				Tile t = Utilities.GetTile(b.WorldPosition);
 				if(b.Type == Constants.BUILD_FORT) {
-					if(Utilities.GetTile(b.WorldPosition).CurrentUnit == null) {
+					if(t.CurrentUnit == null) {
 						heuristic += -10;
-					} else if (Utilities.GetTile(b.WorldPosition).CurrentUnit != null && ActiveUnit.WorldPosition == b.WorldPosition) {
-						heuristic += -25;
+					} else if (t.CurrentUnit != null && t.CurrentUnit.UniqueId == ActiveUnit.UniqueId) { // Already defending the tile
+						heuristic += -10;
 					}
 					break;
 				}
@@ -681,11 +694,11 @@ namespace INF4000
 			// Check for active unit type
 			int activeType = 0;
 			if(ActiveUnit.Type == Constants.UNIT_TYPE_FARMER)
-					activeType = -5;
+					activeType = -3;
 			if(ActiveUnit.Type == Constants.UNIT_TYPE_MONK)
 					activeType = -2;
 			if(ActiveUnit.Type == Constants.UNIT_TYPE_SAMURAI)
-					activeType = -7;
+					activeType = -6;
 			
 			// Check for shortest distance to any building
 			int shortestDistance = 0;
@@ -753,8 +766,9 @@ namespace INF4000
 		{
 			int statValue = 0;
 			statValue += (enemy.Armor >= ActiveUnit.Armor) ? 1 : -2;
-			statValue += (enemy.LifePoints > ActiveUnit.LifePoints) ? 5 : -5;
+			statValue += (enemy.LifePoints > ActiveUnit.LifePoints) ? 10 : -5;
 			statValue += (enemy.AttackDamage >= ActiveUnit.AttackDamage) ? 4 : -5;
+			statValue += (enemy.AttackDamage >= ActiveUnit.AttackDamage && enemy.LifePoints > ActiveUnit.LifePoints) ? 20 : -1;
 			return statValue;
 		}
 		
