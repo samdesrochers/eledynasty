@@ -645,7 +645,7 @@ namespace INF4000
 					}
 					foreach(Vector2i v in t.AdjacentPositions) { // Enemy near the fort
 						Tile a = Utilities.GetTile(v);
-						if(a.CurrentUnit != null && t.CurrentUnit.OwnerName != this.Name) {
+						if(a.CurrentUnit != null && a.CurrentUnit.OwnerName != this.Name) {
 							heuristic -= 7;
 						}
 					}

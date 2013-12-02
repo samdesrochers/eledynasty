@@ -156,7 +156,7 @@ namespace INF4000
 			if(origin.X == destination.X && origin.Y == destination.Y) {
 				
 				Tile target = Utilities.GetTile(destination);
-				if( target.CurrentUnit != null ) 
+				if( target.CurrentUnit != null && target.CurrentUnit.UniqueId != GameScene.Instance.ActivePlayer.ActiveUnit.UniqueId ) 
 					return false;
 				
 				IsActive = true;		
