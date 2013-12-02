@@ -19,7 +19,7 @@ namespace INF4000
 		
 		public Label Label_TurnSwitchMessage;
 		public Label Label_TurnSwitchMessage_Gold;
-		public Label Label_Loading;
+		public Label Label_Pause;
 		
 		public Button Button_EndTurn;
 		public ActionPanel ActionPanel;
@@ -69,6 +69,14 @@ namespace INF4000
 			Label_TurnSwitchMessage.Font = AssetsManager.Instance.XenoFont;
 			Label_TurnSwitchMessage.Visible = false;
 			
+			Label_Pause = new Label();
+			Label_Pause.Text = "Game Paused";
+			Label_Pause.Width = 600;
+			Label_Pause.Height = 60;
+			Label_Pause.SetPosition(230, 220);
+			Label_Pause.Font = AssetsManager.Instance.XenoFont;
+			Label_Pause.Visible = false;
+			
 			Label_TurnSwitchMessage_Gold = new Label();
 			Label_TurnSwitchMessage_Gold.Text = "Turn " + GameScene.Instance.CurrentTurnCount;
 			Label_TurnSwitchMessage_Gold.Width = 300;
@@ -103,6 +111,7 @@ namespace INF4000
 			MainPanel.AddChildLast(TileStatsPanel.Panel);
 			MainPanel.AddChildLast(UnitStatsPanel.Panel);
 			MainPanel.AddChildLast(Image_StartTurnBG);
+			MainPanel.AddChildLast(Label_Pause);
 			
 			_UIScene = new Sce.PlayStation.HighLevel.UI.Scene();
             _UIScene.RootWidget.AddChildLast(MainPanel);
@@ -120,6 +129,7 @@ namespace INF4000
 			OddsPanel.Panel.Visible = false;
 			TileStatsPanel.Panel.Visible = false;
 			UnitStatsPanel.Panel.Visible = false;
+			Label_Pause.Visible = false;
 		}
 		
 		public void AnimateSwitchitngTurn(float dt)
@@ -138,7 +148,7 @@ namespace INF4000
 				Starting_SwitchingTurn = false;
 			}
 			
-			// TEMP - ANIMATION
+			// ANIMATION
 			if(Image_TurnSwitchBG.Alpha < 1)
 				Image_TurnSwitchBG.Alpha += dt*3;
 			
@@ -180,7 +190,10 @@ namespace INF4000
 		
 		public void SetPause()
 		{
-			
+			SetNoneVisible();
+			Image_TurnSwitchBG.Visible = true;
+			Image_TurnSwitchBG.Alpha = 1.0f;
+			Label_Pause.Visible = true;
 		}
 		
 		public void SetGameOver()

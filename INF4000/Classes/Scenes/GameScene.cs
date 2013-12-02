@@ -154,7 +154,7 @@ namespace INF4000
 					UpdateSpells(dt);
 					break;
 				case Constants.GLOBAL_STATE_PAUSE:
-					//UpdateSpells();
+					UpdatePause(dt);
 					break;
 				case Constants.GLOBAL_STATE_GAMEOVER:
 					UpdateGameOver(dt);
@@ -269,6 +269,16 @@ namespace INF4000
 		private void UpdateSpells(float dt)
 		{
 			SpellManager.Update();
+		}
+		
+		private void UpdatePause(float dt)
+		{
+			GameUI.SetPause();
+			if(Input2.GamePad0.Start.Release)
+			{
+				CurrentGlobalState = Constants.GLOBAL_STATE_PLAYING_TURN;
+				GameUI.SetPlaying();
+			}
 		}
 		
 		private void UpdateGameOver(float dt)
@@ -740,14 +750,13 @@ namespace INF4000
 			}
 			
 			// Right Bumper Pressed
-			if (Input2.GamePad.GetData (0).R.Release) 
+			if ((Input2.GamePad.GetData (0).R.Release || Input2.GamePad.GetData (0).L.Release) && CurrentGameState == Constants.GAME_STATE_SELECTION_INACTIVE) 
 			{   
-				if(this.CurrentGameState == Constants.GAME_STATE_SELECTION_INACTIVE)
 					Utilities.CycleThroughUnits();
 			}
 			
 			// Sqaure Pressed
-			if (Input2.GamePad.GetData (0).Square.Release) 
+			if (Input2.GamePad.GetData (0).Square.Release && CurrentGameState == Constants.GAME_STATE_SELECTION_INACTIVE) 
 			{ 
 				Utilities.ShowSpellsUI();
 				CurrentGlobalState = Constants.GLOBAL_STATE_SPELLS;
@@ -762,6 +771,12 @@ namespace INF4000
 							u.Move_RadiusLeft = 20;
 					}
 				}
+			}
+			
+			// Start pressed
+			if(Input2.GamePad0.Start.Release && CurrentGameState == Constants.GAME_STATE_SELECTION_INACTIVE)
+			{
+				CurrentGlobalState = Constants.GLOBAL_STATE_PAUSE;
 			}
 		}
 		

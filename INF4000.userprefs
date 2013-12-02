@@ -1,20 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\AppMain.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\GameObjects\UI\GameUI.cs">
     <Files>
-      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="958" Column="1" />
-      <File FileName="INF4000\Assets\AssetsManager.cs" Line="264" Column="32" />
-      <File FileName="INF4000\Classes\Scenes\OverworldScene.cs" Line="138" Column="5" />
-      <File FileName="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\AppMain.cs" Line="15" Column="57" />
-      <File FileName="INF4000\Classes\Scenes\LoadingScene.cs" Line="35" Column="1" />
-      <File FileName="INF4000\Classes\Util\Constants.cs" Line="141" Column="39" />
-      <File FileName="INF4000\Classes\Util\Utilities.cs" Line="216" Column="41" />
-      <File FileName="INF4000\Classes\GameObjects\Players\AIPlayer.cs" Line="376" Column="21" />
-      <File FileName="INF4000\Classes\GameObjects\Map\Map.cs" Line="49" Column="4" />
-      <File FileName="INF4000\Classes\GameObjects\GameUtilities\Path.cs" Line="170" Column="5" />
-      <File FileName="INF4000\Classes\GameObjects\GameUtilities\GameActions.cs" Line="190" Column="41" />
-      <File FileName="INF4000\Classes\GameObjects\GameUtilities\BattleManager.cs" Line="58" Column="174" />
-      <File FileName="INF4000\Classes\Scenes\CinematicScene.cs" Line="156" Column="53" />
+      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="752" Column="27" />
+      <File FileName="INF4000\Classes\GameObjects\UI\SpellUI.cs" Line="65" Column="79" />
+      <File FileName="INF4000\Classes\GameObjects\UI\GameUI.cs" Line="195" Column="22" />
+      <File FileName="INF4000\Classes\Util\Constants.cs" Line="24" Column="20" />
+      <File FileName="INF4000\AppMain.cs" Line="20" Column="5" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -24,17 +16,18 @@
               <Node name="Title" expanded="True" />
             </Node>
             <Node name="Classes" expanded="True">
+              <Node name="CinematicObjects" expanded="True" />
               <Node name="GameObjects" expanded="True">
                 <Node name="GameUtilities" expanded="True" />
-                <Node name="Map" expanded="True" />
                 <Node name="Players" expanded="True" />
-                <Node name="UI" expanded="True" />
+                <Node name="UI" expanded="True">
+                  <Node name="GameUI.cs" selected="True" />
+                </Node>
               </Node>
               <Node name="Scenes" expanded="True" />
               <Node name="Util" expanded="True" />
             </Node>
             <Node name="MapFiles" expanded="True" />
-            <Node name="AppMain.cs" selected="True" />
           </Node>
         </State>
       </Pad>
