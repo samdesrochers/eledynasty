@@ -129,7 +129,7 @@ namespace INF4000
 		public const int UNIT_HP_WIZARD = 10;
 		
 		// Unit - Attack Damage 
-		public const int UNIT_AD_FARMER 	= 3;
+		public const int UNIT_AD_FARMER 	= 4;
 		public const int UNIT_AD_SAMURAI 	= 10;
 		public const int UNIT_AD_MONK 		= 7;
 		public const int UNIT_AD_KNIGHT 	= 10;
@@ -138,14 +138,14 @@ namespace INF4000
 		// Unit - Defense 
 		public const int UNIT_DEF_FARMER 	= 1;
 		public const int UNIT_DEF_SAMURAI	= 4;
-		public const int UNIT_DEF_MONK 		= 1;
+		public const int UNIT_DEF_MONK 		= 2;
 		public const int UNIT_DEF_KNIGHT 	= 8;
 		public const int UNIT_DEF_WIZARD 	= 2;
 		
 		// Unit - Base number of Move Points  
 		public const int UNIT_MOVE_FARMER 	= 2;
 		public const int UNIT_MOVE_SAMURAI	= 2;
-		public const int UNIT_MOVE_MONK 	= 113;
+		public const int UNIT_MOVE_MONK 	= 3;
 		public const int UNIT_MOVE_KNIGHT 	= 9;
 		public const int UNIT_MOVE_WIZARD 	= 5;
 		

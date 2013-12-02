@@ -180,7 +180,8 @@ namespace INF4000
 		
 		public static bool AI_MoveForCapture(Unit unit)
 		{
-			if(unit.Path.CompleteSequence.Count == 0) {
+			Tile target = Utilities.GetTile(unit.FinalDestination);
+			if(unit.Path.CompleteSequence.Count == 0 || target.CurrentUnit != null) {
 				unit.Path = new Path();
 				
 				if(!(unit.FinalDestination.X == unit.WorldPosition.X && unit.FinalDestination.Y == unit.WorldPosition.Y))

@@ -233,9 +233,9 @@ namespace INF4000
 				{
 					parent.AddChild(u.UnitSprite);
 					parent.AddChild(u.HealthDisplay);
+					u.Update();
 				}
-			}
-
+			}		
 		}
 		
 		static int ActiveUnitIndex = 0;

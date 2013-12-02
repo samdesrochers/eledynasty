@@ -154,13 +154,23 @@ namespace INF4000
 		public bool AI_BuildMoveToCaptureSequence(Vector2i origin, Vector2i destination, int movePoints)
 		{
 			if(origin.X == destination.X && origin.Y == destination.Y) {
+				
+				Tile target = Utilities.GetTile(destination);
+				if( target.CurrentUnit != null ) 
+					return false;
+				
 				IsActive = true;		
 				SoundManager.Instance.PlaySound(Constants.SOUND_UNIT_MARCH);
 				return true;
 			}
 			
 			// Total heuristic
-			if(CompleteSequence.Count > 7) {
+			if(CompleteSequence.Count > 6) {
+				
+				Tile target = Utilities.GetTile(destination);
+				if( target.CurrentUnit != null ) 
+					return false;
+				
 				IsActive = true;		
 				SoundManager.Instance.PlaySound(Constants.SOUND_UNIT_MARCH);
 				return true;

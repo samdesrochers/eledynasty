@@ -280,7 +280,7 @@ namespace INF4000
 				
 				_Instance = null;
 				
-			} catch (Exception e){ Console.WriteLine(e.Message + " - Error disposing textures");}
+			} catch (Exception e){ }
 		}
 	}
 }

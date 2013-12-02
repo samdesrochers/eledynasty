@@ -752,6 +752,17 @@ namespace INF4000
 				Utilities.ShowSpellsUI();
 				CurrentGlobalState = Constants.GLOBAL_STATE_SPELLS;
 			}
+			
+			// Triangle Pressed
+			if (Input2.GamePad.GetData (0).Triangle.Release) 
+			{ 
+				if(ActivePlayer.IsHuman){
+					foreach(Unit u in ActivePlayer.Units) {
+						if(u.Type == Constants.UNIT_TYPE_MONK)
+							u.Move_RadiusLeft = 20;
+					}
+				}
+			}
 		}
 		
 		#region Cross Pressed Actions

@@ -153,7 +153,7 @@ namespace INF4000
 			if(CUI.WhiteTween.Alpha >= 1)
 			{
 				Dispose();
-				Director.Instance.ReplaceScene( new OverworldScene() );
+				Director.Instance.ReplaceScene( new LoadingScene() );
 			}
 		}
 		

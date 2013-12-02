@@ -11,7 +11,6 @@ namespace INF4000
 	{	
 		private int AI_State;
 		private int AI_Action;
-		private int AI_Behavior;
 		
 		/* AI Destination Variables */
 		private List<AIState> Candidates;
@@ -31,7 +30,6 @@ namespace INF4000
 			this.TargetUnits = new List<Unit>();
 			AI_State = Constants.AI_STATE_BEGIN_TURN;
 			AI_Action = Constants.AI_ACTION_NONE;
-			AI_Behavior = Constants.AI_BEHAVIOR_DEFENSE;
 			
 			IsTurnOver = false;
 		}
@@ -101,6 +99,7 @@ namespace INF4000
 		
 		private void EndTurn()
 		{
+			TryProduce();
 			IsTurnOver = true;
 		}
 		
@@ -641,9 +640,14 @@ namespace INF4000
 			{
 				if(b.Type == Constants.TILE_TYPE_BUILD_FORT || b.Type == Constants.TILE_TYPE_BUILD_FORT_2) {
 					Tile t = Utilities.GetTile(b.WorldPosition);
-					if(t.CurrentUnit != null && t.CurrentUnit.OwnerName != this.Name) // Enemy on fort, attack at once!
-					{
+					if(t.CurrentUnit != null && t.CurrentUnit.OwnerName != this.Name) { // Enemy on fort, rush him
 						heuristic -= 10;
+					}
+					foreach(Vector2i v in t.AdjacentPositions) { // Enemy near the fort
+						Tile a = Utilities.GetTile(v);
+						if(a.CurrentUnit != null && t.CurrentUnit.OwnerName != this.Name) {
+							heuristic -= 7;
+						}
 					}
 				}
 			}	
@@ -756,19 +760,19 @@ namespace INF4000
 		private int GetBuildingOnTileValue_Attack(Tile t)
 		{	// Offensive stance
 			if(t.CurrentBuilding != null && t.CurrentBuilding.OwnerName == this.Name)
-				return GetBuidlingTypeValue_Capture(t.CurrentBuilding) - 5;
+				return GetBuidlingTypeValue_Capture(t.CurrentBuilding) - 3;
 			else if(t.CurrentBuilding != null && t.CurrentBuilding.OwnerName != this.Name)
-				return GetBuidlingTypeValue_Capture(t.CurrentBuilding) - 10;
+				return GetBuidlingTypeValue_Capture(t.CurrentBuilding) - 5;
 			return 0;
 		}
 		
 		private int GetAttackStatisticsValue(Tile t, Unit enemy)
 		{
 			int statValue = 0;
-			statValue += (enemy.Armor >= ActiveUnit.Armor) ? 1 : -2;
+			statValue += (enemy.Armor >= ActiveUnit.Armor) ? 2 : -4;
 			statValue += (enemy.LifePoints > ActiveUnit.LifePoints) ? 10 : -5;
-			statValue += (enemy.AttackDamage >= ActiveUnit.AttackDamage) ? 4 : -5;
-			statValue += (enemy.AttackDamage >= ActiveUnit.AttackDamage && enemy.LifePoints > ActiveUnit.LifePoints) ? 20 : -1;
+			statValue += (enemy.AttackDamage >= ActiveUnit.AttackDamage) ? 6 : -8;
+			statValue += (enemy.AttackDamage >= ActiveUnit.AttackDamage && enemy.LifePoints > ActiveUnit.LifePoints) ? 10 : -5;
 			return statValue;
 		}
 		

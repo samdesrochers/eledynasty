@@ -39,7 +39,7 @@ namespace INF4000
 		public void Update(float dt)
 		{
 			if(CurrentSequence != null && CurrentTextIndex < CurrentSequence.Length) {
-				if(DisplayTime > 0.04) {
+				if(DisplayTime > 0.02) {
 					CurrentText += CurrentSequence[CurrentTextIndex];
 					CinematicScene.Instance.CUI.Label_Text.Text = CurrentText;
 					CurrentTextIndex ++;
