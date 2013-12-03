@@ -55,8 +55,14 @@ namespace INF4000
 			float AttackerHP = (float)AttackingUnit.LifePoints;
 			float DefenderHP = (float)DefendingUnit.LifePoints;
 			
-			float HP_Lost_Defender = ((10*AttackingUnit.AttackDamage * (coeff_attacker/100)) + 2*ran_attacker ) * (AttackerHP/10) * (( 200 - (coeff_defender + 2*DefendingUnit.Armor + (ContestedTile.Defense*DefenderHP) ))/100);				
-			float HP_Lost_Attacker = ((10*DefendingUnit.AttackDamage * (coeff_defender/100)) + 2*ran_defender ) * (DefenderHP/10) * (( 200 - (coeff_attacker + 2*AttackingUnit.Armor + (2*AttackerHP))) /100); 
+			float HP_Lost_Defender = ((8*AttackingUnit.AttackDamage * (coeff_attacker/100)) + ran_attacker ) * (AttackerHP/10) * (( 200 - (coeff_defender + 3*DefendingUnit.Armor + (ContestedTile.Defense*DefenderHP) ))/100);				
+			float HP_Lost_Attacker = ((8*DefendingUnit.AttackDamage * (coeff_defender/100)) + ran_defender ) * (DefenderHP/10) * (( 200 - (coeff_attacker + 3*AttackingUnit.Armor + (2*AttackerHP))) /100); 
+			
+			if((int)(HP_Lost_Defender/10) == 0 && (int)(HP_Lost_Attacker/10) == 0)
+			{
+				HP_Lost_Defender = 10;
+				HP_Lost_Attacker = 10;
+			}
 			
 			Damages.Add((int)(HP_Lost_Defender/10));
 			Damages.Add((int)(HP_Lost_Attacker/10));

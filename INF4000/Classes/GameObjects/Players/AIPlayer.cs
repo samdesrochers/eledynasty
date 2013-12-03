@@ -233,20 +233,6 @@ namespace INF4000
 					}
 				}
 			}
-			/* TEMP - (Hopefully) - Selects a static move option */
-//			else { // Random - ish
-//				int radiusLeft = ActiveUnit.Move_RadiusLeft;
-//				Vector2i destination = GetValidDestination(radiusLeft);
-//				
-//				if(destination.X >= 0 && destination.Y >= 0) {
-//					GameActions.AI_MoveUnitTo(destination, ActiveUnit);
-//					GameScene.Instance.UpdateCameraPositionBySelectedUnit();		
-//					AI_State = Constants.AI_STATE_EXECUTING_ACTION;
-//					
-//				} else {
-//					AI_Action = Constants.AI_ACTION_NONE; // fatal error, remove action. Will be handeled exiting the switch case in launch action
-//				}
-//			}
 		}
 		
 		private void MoveCaptureAction()
@@ -503,7 +489,9 @@ namespace INF4000
 			if(gamble > 50 && this.Gold > 20)
 				shouldSpend = true;
 			if(gamble > 20 && this.Gold > 40)
-				shouldSpend = true;		
+				shouldSpend = true;
+			if(gamble < 90 && this.Units.Count < 3)
+				shouldSpend = true;	
 			
 			// Last Stand - Make it rain
 			foreach(Building b in Buildings) {
@@ -585,7 +573,7 @@ namespace INF4000
 				if(u.Behavior == Constants.UNIT_AI_BEHAV_CAPTURE)
 					counter ++;
 			
-			int toCapture = (counter > 2) ? 2 : -8;
+			int toCapture = (counter > 2) ? 8 : -8;
 			
 			// Check for active unit type
 			int activeType = 0;
@@ -944,28 +932,6 @@ namespace INF4000
 				}
 			}
 			return candidates;	
-		}
-		
-		private Vector2i GetValidDestination(int radius)
-		{
-			int retries = 4;
-			while(retries > 0)
-			{
-				if(retries == 4)
-					if(Utilities.IsDestinationValid(new Vector2i(ActiveUnit.WorldPosition.X, ActiveUnit.WorldPosition.Y + radius)))
-						return ( new Vector2i(ActiveUnit.WorldPosition.X, ActiveUnit.WorldPosition.Y + radius) );	
-				
-				if(retries == 3)
-					if(Utilities.IsDestinationValid(new Vector2i(ActiveUnit.WorldPosition.X + radius, ActiveUnit.WorldPosition.Y)))
-						return ( new Vector2i(ActiveUnit.WorldPosition.X + radius, ActiveUnit.WorldPosition.Y) );	
-				
-				if(retries == 2)
-					if(Utilities.IsDestinationValid(new Vector2i(ActiveUnit.WorldPosition.X - radius, ActiveUnit.WorldPosition.Y)))
-						return ( new Vector2i(ActiveUnit.WorldPosition.X - radius, ActiveUnit.WorldPosition.Y) );	
-					
-				retries --;
-			}
-			return new Vector2i(-1, -1);
 		}
 		
 		private Unit TrySelectUnit()

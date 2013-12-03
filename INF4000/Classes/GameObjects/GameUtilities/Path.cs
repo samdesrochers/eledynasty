@@ -151,7 +151,7 @@ namespace INF4000
 			return false;
 		}
 		
-		public bool AI_BuildMoveToCaptureSequence(Vector2i origin, Vector2i destination, int movePoints)
+		public bool AI_BuildMoveToCaptureSequence(Vector2i origin, Vector2i destination, int movePoints, int movePointsLeft)
 		{
 			if(origin.X == destination.X && origin.Y == destination.Y) {
 				
@@ -165,7 +165,7 @@ namespace INF4000
 			}
 			
 			// Total heuristic
-			if(CompleteSequence.Count > 6) {
+			if(CompleteSequence.Count > 9) {
 				
 				Tile target = Utilities.GetTile(destination);
 				if( target.CurrentUnit != null ) 
@@ -219,6 +219,8 @@ namespace INF4000
 						legalCandidatePicked = true; // Found a match for destination		
 					} else if(candidate.IsOccupied && candidate.Position.X == destination.X && candidate.Position.Y == destination.Y) {
 						candidates.Remove(candidate);
+					} else if(candidate.IsOccupied && movePointsLeft == 0) {
+						candidates.Remove(candidate);
 					} else {
 						legalCandidatePicked = true;
 					}
@@ -229,23 +231,23 @@ namespace INF4000
 				if(candidate.Position.X > origin.X) {
 					CompleteSequence.Enqueue(Constants.PATH_RIGHT);
 					candidates.Remove(candidate);
-					AI_BuildMoveToCaptureSequence(candidate.Position, destination, movePoints);
+					AI_BuildMoveToCaptureSequence(candidate.Position, destination, movePoints, movePointsLeft - 1);
 					return true;
 				} else if(candidate.Position.X < origin.X) {
 					CompleteSequence.Enqueue(Constants.PATH_LEFT);
 					candidates.Remove(candidate);
-					AI_BuildMoveToCaptureSequence(candidate.Position, destination, movePoints);
+					AI_BuildMoveToCaptureSequence(candidate.Position, destination, movePoints, movePointsLeft - 1);
 					return true;
 				}
 				if(candidate.Position.Y > origin.Y) {
 					CompleteSequence.Enqueue(Constants.PATH_UP);
 					candidates.Remove(candidate);
-					AI_BuildMoveToCaptureSequence(candidate.Position, destination, movePoints);
+					AI_BuildMoveToCaptureSequence(candidate.Position, destination, movePoints, movePointsLeft - 1);
 					return true;
 				} else if(candidate.Position.Y < origin.Y) {
 					CompleteSequence.Enqueue(Constants.PATH_DOWN);
 					candidates.Remove(candidate);
-					AI_BuildMoveToCaptureSequence(candidate.Position, destination, movePoints);
+					AI_BuildMoveToCaptureSequence(candidate.Position, destination, movePoints, movePointsLeft - 1);
 					return true;
 				}
 			}

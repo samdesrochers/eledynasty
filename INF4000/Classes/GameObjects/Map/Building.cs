@@ -139,7 +139,6 @@ namespace INF4000
 				GameScene.Instance.AddChild(GameScene.Instance.Cursor.SpriteTile);
 				
 				unit.Sleep();
-				Console.WriteLine("Unit produced : " + unit.Type + " at : Px=" + unit.WorldPosition.X + " Py=" + unit.WorldPosition.Y);
 				player.Gold -= this.GoldToProduce;
 			} else {
 				SoundManager.Instance.PlaySound(Constants.SOUND_CURSOR_CANCEL);

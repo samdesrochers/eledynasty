@@ -48,7 +48,7 @@ namespace INF4000
 				{
 					Songs = new Bgm[9];
 					Songs[1] = new Bgm("/Application/Audio/kenji_1.mp3");
-					Songs[0] = new Bgm("/Application/Audio/kenji_1.mp3");
+					Songs[0] = new Bgm("/Application/Audio/kenji_2.mp3");
 					Songs[2] = new Bgm("/Application/Audio/enemy_2.mp3");
 					Songs[3] = new Bgm("/Application/Audio/enemy_2.mp3");
 					Songs[4] = new Bgm("/Application/Audio/intro_map1.mp3");
@@ -173,7 +173,7 @@ namespace INF4000
 		{
 			Random ran = new Random();
 			int pick = ran.Next(0,10);
-			pick = (pick > 3) ? 0 : 1;
+			pick = (pick > 5) ? 0 : 1;
 			
 			if(SongPlayer != null) SongPlayer.Dispose();
 			if(SoundEnabled){

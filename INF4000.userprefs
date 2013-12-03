@@ -1,31 +1,28 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Players\AIPlayer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\GameObjects\GameUtilities\GameActions.cs">
     <Files>
-      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="752" Column="27" />
-      <File FileName="INF4000\Classes\GameObjects\UI\SpellUI.cs" Line="65" Column="79" />
-      <File FileName="INF4000\Classes\GameObjects\UI\GameUI.cs" Line="76" Column="35" />
-      <File FileName="INF4000\Classes\Util\Constants.cs" Line="24" Column="20" />
-      <File FileName="INF4000\AppMain.cs" Line="15" Column="62" />
-      <File FileName="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\GameUtilities\Path.cs" Line="160" Column="7" />
-      <File FileName="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\GameUtilities\GameActions.cs" Line="18" Column="49" />
-      <File FileName="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Players\AIPlayer.cs" Line="822" Column="44" />
-      <File FileName="INF4000\Classes\GameObjects\GameUtilities\BattleManager.cs" Line="59" Column="152" />
-      <File FileName="INF4000\Classes\GameObjects\Map\Map.cs" Line="45" Column="4" />
-      <File FileName="INF4000\MapFiles\map2.txt" Line="159" Column="11" />
+      <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="26" Column="35" />
+      <File FileName="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Players\AIPlayer.cs" Line="473" Column="1" />
+      <File FileName="INF4000\Classes\GameObjects\GameUtilities\Path.cs" Line="250" Column="99" />
+      <File FileName="INF4000\Classes\GameObjects\GameUtilities\GameActions.cs" Line="190" Column="137" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="INF4000" expanded="True">
+            <Node name="Audio" expanded="True" />
             <Node name="Classes" expanded="True">
               <Node name="GameObjects" expanded="True">
-                <Node name="GameUtilities" expanded="True" />
-                <Node name="Map" expanded="True" />
-                <Node name="Players" expanded="True">
-                  <Node name="AIPlayer.cs" selected="True" />
+                <Node name="GameUtilities" expanded="True">
+                  <Node name="GameActions.cs" selected="True" />
                 </Node>
+                <Node name="Map" expanded="True" />
+                <Node name="Players" expanded="True" />
+                <Node name="Units" expanded="True" />
               </Node>
+              <Node name="Scenes" expanded="True" />
+              <Node name="Util" expanded="True" />
             </Node>
             <Node name="MapFiles" expanded="True" />
           </Node>
@@ -41,6 +38,10 @@
       <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\Scenes\OverworldScene.cs" line="107" />
       <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\GameUtilities\Path.cs" line="172" />
       <Breakpoint file="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Players\AIPlayer.cs" line="408" />
+      <Breakpoint file="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Players\AIPlayer.cs" line="466" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\GameUtilities\Path.cs" line="178" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\GameUtilities\Path.cs" line="185" />
+      <Breakpoint file="C:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\GameUtilities\Path.cs" line="199" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
@@ -108,5 +109,7 @@
     <Watch file="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Players\AIPlayer.cs" line="416" offsetX="573" offsetY="6859" expression="ActiveUnit" liveUpdate="False" />
     <Watch file="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Players\AIPlayer.cs" line="421" offsetX="685" offsetY="7140" expression="AIDestinations" liveUpdate="False" />
     <Watch file="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Players\AIPlayer.cs" line="404" offsetX="405" offsetY="6851" expression="AIDestinations" liveUpdate="False" />
+    <Watch file="INF4000\Classes\GameObjects\GameUtilities\Path.cs" line="198" offsetX="645" offsetY="3349" expression="candidates" liveUpdate="False" />
+    <Watch file="INF4000\Classes\GameObjects\GameUtilities\Path.cs" line="198" offsetX="645" offsetY="3349" expression="candidates" liveUpdate="False" />
   </MonoDevelop.Ide.DebuggingService.PinnedWatches>
 </Properties>

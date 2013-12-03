@@ -53,7 +53,7 @@ namespace INF4000
 			Credit_3.Font = font;
 			Credit_3.SetPosition(MainPanel.Width/2 - offset, MainPanel.Height/2 + 130 - 50);
 			Credit_3.SetSize(600, 100);
-			Credit_3.Text = "Music by : \n- Phlogiston \n- BoxCat";
+			Credit_3.Text = "Music by : \n- Phlogiston \n- BoxCat \n- Alex Mauer";
 			
 			
             MainPanel.AddChildLast(Background);
