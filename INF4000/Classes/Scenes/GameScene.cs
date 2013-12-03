@@ -641,7 +641,6 @@ namespace INF4000
 		private bool CheckIsGameOver ()
 		{
 			if(IsGameOver) {
-				WinnerName = Utilities.GetWinner();
 				if(WinnerName == Constants.CHAR_KENJI)
 					CurrentGlobalState = Constants.GLOBAL_STATE_DIALOG;
 				else

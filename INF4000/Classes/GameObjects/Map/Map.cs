@@ -46,16 +46,16 @@ namespace INF4000
 		
 		public void Update ()
 		{
-			
-			foreach(Player p in GameScene.Instance.Players) {
-				foreach(Unit u in p.Units)
-				{
-					Tile t = Utilities.GetTile(u.WorldPosition);
-					if(t.CurrentUnit == null && !u.IsActive) {
-						throw new System.ArgumentException("Map integrity Error", "original");
-					}
-				}
-			}		
+//			// DEBUG
+//			foreach(Player p in GameScene.Instance.Players) {
+//				foreach(Unit u in p.Units)
+//				{
+//					Tile t = Utilities.GetTile(u.WorldPosition);
+//					if(t.CurrentUnit == null && !u.IsActive) {
+//						throw new System.ArgumentException("Map integrity Error", "original");
+//					}
+//				}
+//			}		
 		}
 		
 		private void LoadTerrainGraphics ()

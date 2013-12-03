@@ -234,19 +234,19 @@ namespace INF4000
 				}
 			}
 			/* TEMP - (Hopefully) - Selects a static move option */
-			else { // Random - ish
-				int radiusLeft = ActiveUnit.Move_RadiusLeft;
-				Vector2i destination = GetValidDestination(radiusLeft);
-				
-				if(destination.X >= 0 && destination.Y >= 0) {
-					GameActions.AI_MoveUnitTo(destination, ActiveUnit);
-					GameScene.Instance.UpdateCameraPositionBySelectedUnit();		
-					AI_State = Constants.AI_STATE_EXECUTING_ACTION;
-					
-				} else {
-					AI_Action = Constants.AI_ACTION_NONE; // fatal error, remove action. Will be handeled exiting the switch case in launch action
-				}
-			}
+//			else { // Random - ish
+//				int radiusLeft = ActiveUnit.Move_RadiusLeft;
+//				Vector2i destination = GetValidDestination(radiusLeft);
+//				
+//				if(destination.X >= 0 && destination.Y >= 0) {
+//					GameActions.AI_MoveUnitTo(destination, ActiveUnit);
+//					GameScene.Instance.UpdateCameraPositionBySelectedUnit();		
+//					AI_State = Constants.AI_STATE_EXECUTING_ACTION;
+//					
+//				} else {
+//					AI_Action = Constants.AI_ACTION_NONE; // fatal error, remove action. Will be handeled exiting the switch case in launch action
+//				}
+//			}
 		}
 		
 		private void MoveCaptureAction()
@@ -273,7 +273,7 @@ namespace INF4000
 		
 		private void AttackAction()
 		{
-			Console.WriteLine("Attacking ");
+			//Console.WriteLine("Attacking ");
 			Tile origin = Utilities.GetTile(ActiveUnit.WorldPosition);
 			Candidates.Clear();
 			
@@ -294,8 +294,7 @@ namespace INF4000
 		
 		private void CaptureAction()
 		{
-			Console.WriteLine("Capturing ");
-				
+			//Console.WriteLine("Capturing ");				
 			if(Candidates.Count == 1) { // Only the "building" State was inherited from
 				NextAction(); // Skip
 			} else {
@@ -327,11 +326,12 @@ namespace INF4000
 		
 		private void SleepAction()
 		{
-			Console.WriteLine("Sleeping ");
-			if(ActiveUnit != null)
+			//Console.WriteLine("Sleeping ");
+			if(ActiveUnit != null) {
 				ActiveUnit.AI_Sleep();
-			else
+			} else {
 				Console.WriteLine("Error with inactive unit - at SleepAction ");
+			}
 			AI_State = Constants.AI_STATE_WAITING;
 		}
 		
@@ -347,7 +347,7 @@ namespace INF4000
 		
 		private void SelectDestination_Attack()
 		{
-			Console.WriteLine("Selecting target location");
+			//Console.WriteLine("Selecting target location");
 			
 			// Get all of the human units
 			List<Unit> enemyUnits = Utilities.GetHumanPlayer().Units;
@@ -386,7 +386,7 @@ namespace INF4000
 		
 		private void SelectDestination_Defend()
 		{
-			Console.WriteLine("Selecting defend location");
+			//Console.WriteLine("Selecting defend location");
 			
 			// Get all of our buildings
 			List<Building> AIBuildings = this.Buildings;
@@ -446,7 +446,7 @@ namespace INF4000
 		
 		private void SelectDestination_Capture()
 		{
-			Console.WriteLine("Selecting capture location");
+			//Console.WriteLine("Selecting capture location");
 			
 			// Get all of the human buildings
 			List<Building> enemyBuildings = Utilities.AI_GetEnemyBuildings();
@@ -585,7 +585,7 @@ namespace INF4000
 				if(u.Behavior == Constants.UNIT_AI_BEHAV_CAPTURE)
 					counter ++;
 			
-			int toCapture = (counter > 2) ? 5 : -4;
+			int toCapture = (counter > 2) ? 2 : -8;
 			
 			// Check for active unit type
 			int activeType = 0;
@@ -624,7 +624,7 @@ namespace INF4000
 				if(u.Behavior == Constants.UNIT_AI_BEHAV_ATTACK)
 					counter ++;
 			
-			int toCapture = (counter > 4) ? 5 : -5;
+			int toCapture = (counter > 4) ? 3 : -7;
 			
 			// Check for active unit type
 			int activeType = 0;
@@ -680,7 +680,7 @@ namespace INF4000
 				if(u.Behavior == Constants.UNIT_AI_BEHAV_DEFEND)
 					counter ++;
 			
-			int toCapture = (counter > 2) ? 5 : -2;
+			int toDefend = (counter > 2) ? 5 : -1;
 			
 			// Check if fort is defended
 			foreach(Building b in Buildings) {
@@ -715,7 +715,7 @@ namespace INF4000
 			distances.Sort();
 			shortestDistance = distances.First();
 			
-			heuristic = toCapture + activeType + shortestDistance;
+			heuristic = toDefend + activeType + shortestDistance;
 			return heuristic;
 		}
 		
@@ -805,9 +805,23 @@ namespace INF4000
 		/* ---------------- DEFENSE HEURISTICS --------------- */
 		private int GetBuidlingTypeValue_Defense(Building building)
 		{
+			// Check if fort is defended
+			int fortBonus = 0;
+			foreach(Building b in Buildings) {
+				Tile t = Utilities.GetTile(b.WorldPosition);
+				if(b.Type == Constants.BUILD_FORT || b.Type == Constants.TILE_TYPE_BUILD_FORT_2) {
+					if(t.CurrentUnit == null) {
+						fortBonus = -5;
+						break;
+					} 
+				}
+			}
+			
 			switch(building.Type) {
 				case Constants.BUILD_FARM 	: return -3;
-				case Constants.BUILD_FORT 	: return -15;
+				case Constants.BUILD_FORT 	:
+				case Constants.TILE_TYPE_BUILD_FORT_2 	:
+					return -10 + fortBonus;
 				case Constants.BUILD_FORGE 	: return -5;
 				case Constants.BUILD_TEMPLE : return -4;
 			}
@@ -816,6 +830,9 @@ namespace INF4000
 		
 		private int GetTileTypeValue_Defense(Tile tile)
 		{
+			if(tile.CurrentBuilding != null)
+				return GetBuidlingTypeValue_Defense(tile.CurrentBuilding);
+			
 			switch(tile.TerrainType) {
 				case Constants.TILE_TYPE_HILL :
 				case Constants.TILE_TYPE_HILL_2 : 			
