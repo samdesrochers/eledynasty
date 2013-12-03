@@ -340,12 +340,32 @@ namespace INF4000
 		
 			// Calculate initial heuristic
 			foreach(Unit u in enemyUnits) {
+				
 				u.Heuristic = 0;
 				Tile t = Utilities.GetTile(u.WorldPosition);
+				
 				if(t.CurrentBuilding != null)
 					u.Heuristic += GetBuidlingTypeValue_Capture(t.CurrentBuilding);
+				
 				u.Heuristic += GetDistanceValue(u.WorldPosition, ActiveUnit.WorldPosition);
 				u.Heuristic += GetAttackStatisticsValue(t, u);
+				
+				foreach(Building b in Buildings) {
+					Tile tb = Utilities.GetTile(b.WorldPosition);
+					if(b.Type == Constants.BUILD_FORT) {
+						if(tb.CurrentUnit != null && tb.CurrentUnit.UniqueId == u.UniqueId) {
+							u.Heuristic += -10;
+							break;
+						}
+						foreach(Vector2i v in tb.AdjacentPositions) { // Enemy near the fort
+							Tile a = Utilities.GetTile(v);
+							if(a.CurrentUnit != null && a.CurrentUnit.UniqueId == u.UniqueId) {
+								u.Heuristic += -10;
+								break;
+							}
+						}		
+					}
+				}
 			}
 			
 			List<Unit> sortedEnemyUnits = enemyUnits.OrderBy(o=>o.Heuristic).ToList();
@@ -584,6 +604,9 @@ namespace INF4000
 			if(ActiveUnit.Type == Constants.UNIT_TYPE_SAMURAI)
 					activeType = -3;
 			
+			if(ActiveUnit.LifePoints < 4)
+				heuristic += 15;
+			
 			// Check for shortest distance to any building
 			int bHeuristic = 0;
 			List<int> distances = new List<int>();
@@ -634,7 +657,7 @@ namespace INF4000
 					foreach(Vector2i v in t.AdjacentPositions) { // Enemy near the fort
 						Tile a = Utilities.GetTile(v);
 						if(a.CurrentUnit != null && a.CurrentUnit.OwnerName != this.Name) {
-							heuristic -= 7;
+							heuristic -= 10;
 						}
 					}
 				}

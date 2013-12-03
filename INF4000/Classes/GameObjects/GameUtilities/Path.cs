@@ -165,7 +165,7 @@ namespace INF4000
 			}
 			
 			// Total heuristic
-			if(CompleteSequence.Count > 9) {
+			if(CompleteSequence.Count > 5) {
 				
 				Tile target = Utilities.GetTile(destination);
 				if( target.CurrentUnit != null ) 
