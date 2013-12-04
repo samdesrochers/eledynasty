@@ -17,7 +17,7 @@ namespace INF4000
 			this.IsActive = false;
 			this.IsHuman = true;
 			this.SpellPoints = 5;
-			this.Gold = 5;
+			this.Gold = 1;
 			
 			this.TargetUnits = new List<Unit>();
 			this.Icon = AssetsManager.Instance.Image_Kenji_UI_Turn;

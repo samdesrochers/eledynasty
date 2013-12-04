@@ -607,6 +607,10 @@ namespace INF4000
 			if(ActiveUnit.LifePoints < 4)
 				heuristic += 15;
 			
+			// Path computed already in motion
+			if(ActiveUnit.Path != null && ActiveUnit.Path.CompleteSequence != null)
+				heuristic -= 10;
+			
 			// Check for shortest distance to any building
 			int bHeuristic = 0;
 			List<int> distances = new List<int>();
@@ -692,13 +696,14 @@ namespace INF4000
 					counter ++;
 			
 			int toDefend = (counter > 2) ? 5 : -1;
+		 	toDefend += (counter < 1) ? -5 : 0;
 			
 			// Check if fort is defended
 			foreach(Building b in Buildings) {
 				Tile t = Utilities.GetTile(b.WorldPosition);
 				if(b.Type == Constants.BUILD_FORT) {
 					if(t.CurrentUnit == null) {
-						heuristic += -10;
+						heuristic += -12;
 					} else if (t.CurrentUnit != null && t.CurrentUnit.UniqueId == ActiveUnit.UniqueId) { // Already defending the tile
 						heuristic += -10;
 					}
@@ -744,7 +749,7 @@ namespace INF4000
 		{
 			if(System.Math.Abs(destination.X - origin.X) + System.Math.Abs(destination.Y - origin.Y) <= radius)
 				return -4;
-			return 1;
+			return 0;
 		}
 		
 		private int GetUnitTypeValue(Unit u)
@@ -799,7 +804,7 @@ namespace INF4000
 		{
 			switch(building.Type) {
 				case Constants.BUILD_FARM 	: return -2;
-				case Constants.BUILD_FORT 	: return -7;
+				case Constants.BUILD_FORT 	: return -15;
 				case Constants.BUILD_FORGE 	: return -3;
 				case Constants.BUILD_TEMPLE : return -2;
 			}
@@ -822,9 +827,12 @@ namespace INF4000
 				Tile t = Utilities.GetTile(b.WorldPosition);
 				if(b.Type == Constants.BUILD_FORT || b.Type == Constants.TILE_TYPE_BUILD_FORT_2) {
 					if(t.CurrentUnit == null) {
-						fortBonus = -5;
-						break;
+						fortBonus = -15;				
 					} 
+					if(t.CurrentBuilding.PointsToCapture < 20) {
+						fortBonus += -15;
+					}
+					break;
 				}
 			}
 			
@@ -832,7 +840,7 @@ namespace INF4000
 				case Constants.BUILD_FARM 	: return -3;
 				case Constants.BUILD_FORT 	:
 				case Constants.TILE_TYPE_BUILD_FORT_2 	:
-					return -10 + fortBonus;
+					return (-10 + fortBonus);
 				case Constants.BUILD_FORGE 	: return -5;
 				case Constants.BUILD_TEMPLE : return -4;
 			}

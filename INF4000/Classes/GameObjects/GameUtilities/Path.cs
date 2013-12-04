@@ -69,6 +69,11 @@ namespace INF4000
 		
 		public bool AI_BuildMoveToSequence(Vector2i origin, Vector2i destination, int movePoints)
 		{
+			// Check if unit on final destination
+			Tile dest = Utilities.GetTile(destination);
+			if(dest != null && dest.CurrentUnit != null && movePoints == 0)
+				return false;
+			
 			if(movePoints == 0 || (origin.X == destination.X && origin.Y == destination.Y)) {
 				IsActive = true;		
 				SoundManager.Instance.PlaySound(Constants.SOUND_UNIT_MARCH);
@@ -153,6 +158,11 @@ namespace INF4000
 		
 		public bool AI_BuildMoveToCaptureSequence(Vector2i origin, Vector2i destination, int movePoints, int movePointsLeft)
 		{
+			// Check if unit on final destination
+			Tile dest = Utilities.GetTile(destination);
+			if(dest != null && dest.CurrentUnit != null && movePointsLeft == 0)
+				return false;
+			
 			if(origin.X == destination.X && origin.Y == destination.Y) {
 				
 				Tile target = Utilities.GetTile(destination);
@@ -165,7 +175,7 @@ namespace INF4000
 			}
 			
 			// Total heuristic
-			if(CompleteSequence.Count > 5) {
+			if(CompleteSequence.Count > 7) {
 				
 				Tile target = Utilities.GetTile(destination);
 				if( target.CurrentUnit != null ) 
