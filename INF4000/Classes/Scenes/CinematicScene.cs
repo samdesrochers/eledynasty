@@ -132,7 +132,7 @@ namespace INF4000
 			
 			DialogManager.Update(dt);
 			
-			if(EllapsedTime > 9.0f) {
+			if(EllapsedTime > 9.0f || Input2.GamePad0.Square.Press) {
 				if(CurrentCinematic.Transition == Constants.CINE_TRAN_TO_CINE) {
 					EllapsedTime = 0;
 					AnimationTime = 0;

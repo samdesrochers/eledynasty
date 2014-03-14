@@ -1,14 +1,19 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Players\AIPlayer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="INF4000\Classes\Scenes\CinematicScene.cs">
     <Files>
       <File FileName="INF4000\Classes\Scenes\GameScene.cs" Line="26" Column="35" />
-      <File FileName="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Players\AIPlayer.cs" Line="603" Column="13" />
-      <File FileName="INF4000\Classes\GameObjects\GameUtilities\Path.cs" Line="168" Column="33" />
+      <File FileName="c:\Users\Sam\Documents\Polytechnique\Automne_2013\INF4000\inf4000-01\INF4000\Classes\GameObjects\Players\AIPlayer.cs" Line="812" Column="4" />
+      <File FileName="INF4000\Classes\GameObjects\GameUtilities\Path.cs" Line="315" Column="17" />
       <File FileName="INF4000\Classes\GameObjects\GameUtilities\GameActions.cs" Line="192" Column="5" />
       <File FileName="INF4000\Classes\GameObjects\GameUtilities\BattleManager.cs" Line="62" Column="5" />
       <File FileName="INF4000\Audio\SoundManager.cs" Line="80" Column="21" />
       <File FileName="INF4000\Classes\GameObjects\Map\Building.cs" Line="142" Column="1" />
+      <File FileName="INF4000\Classes\GameObjects\Players\HumanPlayer.cs" Line="15" Column="34" />
+      <File FileName="INF4000\Classes\CinematicObjects\CinematicDialogManager.cs" Line="1" Column="1" />
+      <File FileName="INF4000\Classes\Scenes\CinematicScene.cs" Line="135" Column="52" />
+      <File FileName="INF4000\AppMain.cs" Line="15" Column="57" />
+      <File FileName="INF4000\Classes\Scenes\OverworldScene.cs" Line="63" Column="39" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -16,15 +21,13 @@
           <Node name="INF4000" expanded="True">
             <Node name="Audio" expanded="True" />
             <Node name="Classes" expanded="True">
+              <Node name="CinematicObjects" expanded="True" />
               <Node name="GameObjects" expanded="True">
-                <Node name="GameUtilities" expanded="True" />
-                <Node name="Map" expanded="True" />
-                <Node name="Players" expanded="True">
-                  <Node name="AIPlayer.cs" selected="True" />
-                </Node>
-                <Node name="Units" expanded="True" />
+                <Node name="Players" expanded="True" />
               </Node>
-              <Node name="Scenes" expanded="True" />
+              <Node name="Scenes" expanded="True">
+                <Node name="CinematicScene.cs" selected="True" />
+              </Node>
               <Node name="Util" expanded="True" />
             </Node>
             <Node name="MapFiles" expanded="True" />
